@@ -1,0 +1,32 @@
+<div class="pw-body-bg-img">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="back()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div class="pw-top-heading-container__heading">
+                  {{ 'pw.grn.grnLabel' | translate }}
+                </div>
+              </div>
+            </div>
+
+            <poss-web-customer-search-container
+              class="col-auto ml-auto"
+            ></poss-web-customer-search-container>
+          </div>
+        </div>
+        <poss-web-create-grn *ngIf="params === 'new'"></poss-web-create-grn>
+        <poss-web-view-grn *ngIf="params !== 'new'"></poss-web-view-grn>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mg-t-100"></div>

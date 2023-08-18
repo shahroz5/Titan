@@ -1,0 +1,267 @@
+<mat-accordion multi>
+  <mat-expansion-panel class="pw-expansion-panel" expanded>
+    <mat-expansion-panel-header
+      class="pw-expansion-panel__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel__heading">
+        <span
+          [matBadgeHidden]="!(transactionType === transactionTypeEnumRef.CM)"
+          [ngClass]="
+            transactionType === transactionTypeEnumRef.CM
+              ? 'pw-gold-info-icon'
+              : ''
+          "
+          [matBadge]="getBadgeNumber(subTransactionType)"
+          matBadgeOverlap="false"
+          [matBadgeColor]="'primary'"
+          matBadgePosition="before"
+        >
+          {{ 'pw.regularCashMemo.productDetailsLabel' | translate }}
+        </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="pw-card pw-panel">
+      <!-- <ng-container *possWebPermission="loadPermission(products)"> -->
+      <div class="row align-items-end">
+        <poss-web-product-search-autocomplete
+          class="col-lg-3 col-6"
+          (search)="searchByItemcode($event)"
+          (selectedData)="selectedItemcode($event)"
+          (exactSearch)="exactSearchByItemcode($event)"
+          [searchData]="searchProductList$ | async"
+          [searchEnableEvent]="searchEnableFlag$"
+          [autofocus]="setFocusInProductSearch"
+        ></poss-web-product-search-autocomplete>
+
+        <div
+          [formGroup]="igstFormGroup"
+          class="pt-2 pr-2 col-auto pw-card__item ml-auto"
+        >
+          <mat-checkbox
+            *ngIf="
+              transactionType === transactionTypeEnumRef.CM && isIGSTApplied
+            "
+            formControlName="isIGST"
+            (change)="onGSTCheckboxClicked($event)"
+          >
+            {{ 'pw.productGrid.IGSTLabel' | translate }}
+          </mat-checkbox>
+        </div>
+        <ng-container
+          *ngIf="
+            transactionType === transactionTypeEnumRef.CM ||
+            transactionType === transactionTypeEnumRef.AB
+          "
+        >
+          <!-- *ngIf="customerId" -->
+          <div class="col-auto pw-card__item">
+            <poss-web-product-rso-popup
+              (selectedRSOName)="setSelectedRSOName($event)"
+              [rsoDetailsEvent]="rsoDetails$.asObservable()"
+              [employeeCodeRso]="employeeCodeRso"
+            ></poss-web-product-rso-popup>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="transactionType === transactionTypeEnumRef.CM">
+          <div
+            *ngIf="!isFocAdded && !isFocKeptPending"
+            class="col-auto pw-card__item"
+          >
+            <button
+              class="pw-btn pw-primary-btn"
+              [disabled]="
+                activeFocSchemes.length < 1 ||
+                selectedItemsDetails.length < 1 ||
+                tcsToBeCollectedAtCM ||
+                isManualFocAdded
+              "
+              (click)="loadFocSchemes(true)"
+            >
+              {{ 'pw.productGrid.addFocButtonLabel' | translate }}
+            </button>
+          </div>
+
+          <div *ngIf="isFocAdded" class="col-auto pw-card__item ml-auto">
+            <!-- [disabled]="activeFocSchemes.length < 1" -->
+            <button
+              class="pw-btn pw-warn-btn"
+              (click)="deleteFocItems()"
+              [disabled]="tcsToBeCollectedAtCM"
+            >
+              {{ 'pw.productGrid.removeFocButtonLabel' | translate }}
+            </button>
+          </div>
+          <div *ngIf="isFocKeptPending" class="col-auto pw-card__item ml-auto">
+            <!-- [disabled]="activeFocSchemes.length < 1" -->
+            <button
+              class="pw-btn pw-warn-btn"
+              (click)="deleteFocItems()"
+              [disabled]="tcsToBeCollectedAtCM"
+            >
+              {{ 'pw.productGrid.removePendingFocButtonLabel' | translate }}
+            </button>
+          </div>
+          <div class="col-auto pw-card__item" *ngIf="!isManualFocAdded">
+            <button
+              class="pw-btn pw-primary-btn"
+              [disabled]="
+                !customerId ||
+                isFocAdded ||
+                manualFocSchemesAndItems.length === 0
+              "
+              (click)="loadManualFocItemDetails()"
+            >
+              {{ 'pw.productGrid.addManualFocLabel' | translate }}
+            </button>
+          </div>
+          <div *ngIf="isManualFocAdded" class="col-auto pw-card__item">
+            <button class="pw-btn pw-warn-btn" (click)="deleteManualFocItems()">
+              {{ 'pw.productGrid.removemnaulFocLabel' | translate }}
+            </button>
+          </div>
+        </ng-container>
+        <!-- AB FOC -->
+        <ng-container *ngIf="transactionType === transactionTypeEnumRef.AB">
+          <div class="col-auto pw-card__item ml-0">
+            <button
+              [ngClass]="
+                (selectedABFOCSchemesCount$ | async) > 0
+                  ? 'pw-btn pw-warn-btn'
+                  : 'pw-btn pw-primary-btn'
+              "
+              (click)="addABFocScheme(true)"
+              [disabled]="
+                activeFocSchemes.length < 1 || selectedItemsDetails.length < 1
+              "
+            >
+              {{
+                ((selectedABFOCSchemesCount$ | async) > 0
+                  ? 'pw.productGrid.removeFOCSchemeHeaderLabel'
+                  : 'pw.productGrid.addFOCSchemeHeaderLabel'
+                ) | translate
+              }}
+            </button>
+          </div>
+        </ng-container>
+        <!-- add cn -->
+        <div
+          class="col-auto pw-card__item"
+          *ngIf="
+            !isCnRedeemed &&
+            (((isGRFAllowedCM || isGRNAllowedCM) &&
+              subTransactionType === subTransactionTypeRef.NEW_CM &&
+              !(isABInvoked$ | async)) ||
+              ((isGRFAllowedAB || isGrnAllowedInAdvanceBooking) &&
+                subTransactionType === subTransactionTypeRef.NEW_AB)) &&
+            getPaymetGroup(paymentModeEnumRef.CREDIT_NOTE)
+          "
+        >
+          <button
+            class="pw-btn pw-primary-btn"
+            (click)="openAddCNPopup()"
+            [disabled]="
+              (subTransactionType !== subTransactionTypeRef.NEW_CM &&
+                subTransactionType !== subTransactionTypeRef.NEW_AB) ||
+              !customerId
+            "
+          >
+            {{ 'pw.productGrid.addCNLabel' | translate }}
+          </button>
+        </div>
+        <div class="col-auto pw-card__item" *ngIf="isCnRedeemed">
+          <button
+            [disabled]="isABInvoked$ | async"
+            class="pw-btn pw-warn-btn"
+            (click)="removeCN()"
+          >
+            {{ 'pw.productGrid.removeCNLabel' | translate }}
+          </button>
+        </div>
+        <div class="pw-flat-btn-container" *ngIf="isCnRedeemed">
+          <button class="pw-flat-btn-container__button">
+            <div
+              class="pw-flat-btn-container__vertical-label"
+              matTooltip="{{ 'pw.productGrid.CNDetailsLabel' | translate }}"
+              matTooltipPosition="before"
+              (click)="viewCNDetails()"
+            >
+              {{ 'pw.productGrid.CNDetailsLabel' | translate }}
+            </div>
+          </button>
+        </div>
+        <!-- add coin  -->
+        <div class="col-auto pw-card__right-item">
+          <button
+            class="pw-btn pw-icon-btn"
+            [disabled]="
+              (searchEnableFlag$ | async) === false || tcsToBeCollectedAtCM
+            "
+            [ngClass]="
+              (searchEnableFlag$ | async) === false || tcsToBeCollectedAtCM
+                ? 'pw-disabled'
+                : ''
+            "
+            (click)="openAddCoinPopup()"
+          >
+            <span class="pw-i-16 pw-coin-icon-24"></span>
+          </button>
+        </div>
+      </div>
+      <!-- </ng-container> -->
+    </div>
+
+    <poss-web-product-grid
+      [productData]="product"
+      [isWeightEditConfig]="isWeightEditConfig"
+      [validEvent]="isValid$"
+      [clearAllEvent]="clearAllData$.asObservable()"
+      [errorDataEvent]="errorData$.asObservable()"
+      [enableProductGridUpdate]="enableProductGridUpdate"
+      [removeAllFOCItemsEvent]="removeAllFocItems$.asObservable()"
+      [imageUrlData$]="imageUrlData$"
+      [deleteSuccessResponse$]="deleteSuccessResponse$.asObservable()"
+      [rsoDetailsEvent]="rsoDetails$.asObservable()"
+      [reasonsEvent]="reasons$"
+      [pgDescEvent]="pgDesc$"
+      [isErrorinPriceUpdate]="isErrorinPriceUpdate"
+      [resetLotNumber$]="resetLotNumber$.asObservable()"
+      [updateDiscountDetails]="updateDiscountDetails"
+      [selectedAutoDiscounts]="selectedAutoDiscounts"
+      [paymentDetails]="paymentDetails"
+      [tcsToBeCollectedAtCM]="tcsToBeCollectedAtCM"
+      [transactionType]="transactionType"
+      (selectedLotNumber)="updateSelectedLotNumber($event)"
+      (actualWeightEmit)="updateActualWeight($event)"
+      (selectedRso)="updateSelectedRso($event)"
+      (deleteEmit)="deleteItemFromCashMemo($event)"
+      (validate)="validateItem($event)"
+      (validateClear)="validateClear()"
+      (updateError)="showUpdateError()"
+      (loadImageUrl)="loadImageUrl($event)"
+      (discountPopupClosed)="discountPopupClosed($event)"
+      (discountPopupOpened)="discountPopupOpened()"
+      (totalItemsInProductGrid)="totalItemsInProductGrid($event)"
+      (resetTcs)="resetTcs()"
+    ></poss-web-product-grid>
+  </mat-expansion-panel>
+</mat-accordion>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isLoadingFocItemDetails$ | async) ||
+    (isFocLoading$ | async) ||
+    (isPriceLoading$ | async) ||
+    (isTaxLoading$ | async) ||
+    (isItemLoading$ | async) ||
+    (isCoinLoading$ | async) ||
+    (isTransactionLevelDiscountsLoading$ | async) ||
+    (isAutoDiscLoading$ | async) ||
+    (isLoadingManualFocItemDetails$ | async) ||
+    (isCommonLoading$ | async) ||
+    (isUserProfileLoading$ | async)
+  "
+></poss-web-loader>

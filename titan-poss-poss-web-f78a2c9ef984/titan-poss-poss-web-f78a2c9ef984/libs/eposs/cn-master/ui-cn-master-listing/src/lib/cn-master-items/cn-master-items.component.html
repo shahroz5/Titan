@@ -1,0 +1,20 @@
+<poss-web-cn-master-item
+  *ngFor="let creditNoteMasterListItem of creditNoteMasterList"
+  [creditNoteMasterListItem]="creditNoteMasterListItem"
+  (toggleEvent)="updateIsActive($event)"
+  (cnType)="edit($event)"
+  (view)="viewMode($event)"
+>
+</poss-web-cn-master-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && creditNoteMasterList.length > 0 && count != 1"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

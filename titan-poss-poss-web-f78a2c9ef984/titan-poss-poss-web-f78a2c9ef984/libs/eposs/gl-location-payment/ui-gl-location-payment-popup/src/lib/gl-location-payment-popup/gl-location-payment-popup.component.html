@@ -1,0 +1,60 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-mb-200"></div>
+  <div class="pw-confirmation-box pw-confirmation-box__width-450">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">Edit Values</div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="close()">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body" [formGroup]="editformGroup">
+      <div class="row">
+        <poss-web-select-dropdown
+          class="col-12"
+          [placeholder]="
+            'pw.glLocationPayment.paymentCodeHeaderLabel' | translate
+          "
+          [control]="editformGroup.get('paymentCode')"
+          [required]="false"
+          [options]="paymentCodes"
+        >
+        </poss-web-select-dropdown>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <mat-form-field class="col-12">
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            type="text"
+            placeholder="GL Code"
+            formControlName="glCode"
+          />
+          <mat-error
+            *ngIf="
+              editformGroup.get('glCode').errors &&
+              editformGroup.get('glCode').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="editformGroup.get('glCode').errors.errorArray"
+            >
+            </poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-auto ml-auto">
+          <button
+            (click)="apply()"
+            [disabled]="!editformGroup.valid"
+            class="pw-btn pw-accent-btn"
+          >
+            APPLY
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

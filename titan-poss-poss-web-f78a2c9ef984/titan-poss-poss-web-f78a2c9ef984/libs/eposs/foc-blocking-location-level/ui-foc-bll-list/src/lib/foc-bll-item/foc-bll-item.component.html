@@ -1,0 +1,97 @@
+<div class="row pw-sub-header__padding-bottom">
+  <div class="col-auto mt-4">
+    <div class="pw-sub-header__heading">
+      {{ 'pw.focBlockingLocationLevel.focBlockingAtLocationLevel' | translate }}
+    </div>
+  </div>
+  <div
+    class="col-lg-3 col-4 ml-auto pw-search-bar pw-form-field-padding-bottom-0"
+  >
+    <mat-form-field class="pw-single-bordered-input" [formGroup]="searchForm">
+      <input
+        #searchBox
+        matInput
+        type="text"
+        placeholder=" {{
+          'pw.focBlockingLocationLevel.searchLocationLabel' | translate
+        }}"
+        class="single-bordered-input"
+        formControlName="searchValue"
+      />
+      <mat-icon matSuffix>
+        <span
+          class="pw-i-16 pw-search-icon-16"
+          *ngIf="!searchForm.value.searchValue"
+        ></span>
+      </mat-icon>
+      <mat-icon matSuffix (click)="clearSearch()">
+        <span
+          *ngIf="searchForm.value.searchValue"
+          class="pw-i-10 pw-close-icon-16"
+        ></span
+      ></mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-primary-btn pw-add-btn"
+      (click)="openLocationMapping()"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.focBlockingLocationLevel.addLocationLabel' | translate }}
+    </button>
+  </div>
+</div>
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+<form>
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table"
+    [columnDefs]="columnDefs"
+    [rowData]="focBlockingDetails"
+    [context]="getContext()"
+    [rowSelection]="rowSelection"
+    [domLayout]="domLayout"
+    [rowHeight]="rowHeight"
+    [domLayout]="domLayout"
+    [animateRows]="animateRows"
+    (gridReady)="gridReady($event)"
+    [frameworkComponents]="getComponents()"
+    [defaultColDef]="defaultColDef"
+    (rowSelected)="onRowSelected($event)"
+    (cellFocused)="onCellFocused($event)"
+	  (focusout)="focusOut($event)"
+  >
+  </ag-grid-angular>
+</form>
+<div class="row mb-3">
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-accent-btn"
+      [disabled]="!enableButton || !disableButton"
+      (click)="openPopUp()"
+    >
+      {{ 'pw.focBlockingLocationLevel.addOrEditValue' | translate }}
+    </button>
+  </div>
+  <div class="col m1-auto">
+    <mat-paginator
+      class="pw-paginator"
+      *ngIf="count > minPageSize && focBlockingDetails.length > 0"
+      [length]="count"
+      [pageSize]="pageEvent.pageSize"
+      [pageIndex]="pageEvent.pageIndex"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="paginator.emit($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

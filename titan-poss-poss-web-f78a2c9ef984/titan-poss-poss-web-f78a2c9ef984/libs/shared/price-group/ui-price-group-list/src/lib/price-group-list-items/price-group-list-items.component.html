@@ -1,0 +1,20 @@
+<poss-web-price-group-list-item
+  *ngFor="let priceGroupItem of priceGroupMasterList; trackBy: trackBy"
+  [priceGroupItem]="priceGroupItem"
+  (priceGroupView)="view($event)"
+  (priceGroup)="edit($event)"
+  (emitToggle)="emitToggleValue($event)"
+>
+</poss-web-price-group-list-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && priceGroupMasterList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

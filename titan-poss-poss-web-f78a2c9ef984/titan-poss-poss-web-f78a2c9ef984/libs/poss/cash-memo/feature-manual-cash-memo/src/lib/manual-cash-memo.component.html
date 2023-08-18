@@ -1,0 +1,129 @@
+<mat-accordion multi>
+  <mat-expansion-panel #manualForm expanded class="pw-expansion-panel">
+    <mat-expansion-panel-header
+      class="pw-expansion-panel__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel__heading">
+        <span
+          class="pw-gold-info-icon"
+          [matBadge]="manualFormBadgeNumber"
+          matBadgeOverlap="false"
+          [matBadgeColor]="'primary'"
+          matBadgePosition="before"
+        >
+          {{ 'pw.manualCashMemo.manualCMDetailsLabel' | translate }}
+        </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-manual-form-details
+      [txnType]="TransactionTypeEnumRef.CM"
+      [detailsFlag$]="detailsFlag$.asObservable()"
+      [customerId]="customerId"
+      [manualBillDetails]="manualBillDetails"
+      [imageUrl]="imageUrl"
+      [bussinessDay]="bussinessDay"
+      [setFocus]="setManualFormFocus"
+      [resetValidationType$]="resetValidationType$.asObservable()"
+      (validate)="validateBill($event)"
+      (validationType)="validationTypeChange($event)"
+      (uploadFileEvent)="uploadFile($event)"
+    ></poss-web-manual-form-details>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-accordion multi>
+  <mat-expansion-panel #occasionPanel expanded class="pw-expansion-panel">
+    <mat-expansion-panel-header
+      class="pw-expansion-panel__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel__heading">
+        <span
+          class="pw-gold-info-icon"
+          [matBadge]="occasionBadgeNumber"
+          matBadgeOverlap="false"
+          [matBadgeColor]="'primary'"
+          matBadgePosition="before"
+        >
+          {{ 'pw.manualCashMemo.encircleDetailsLabel' | translate }}
+        </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-occasion-selection
+      class="col-xl-7 col-lg-8"
+      [occasionList]="occasionList$ | async"
+      [discountList]="discountList"
+      [selectedOccasionEvent]="selectedOccasion$.asObservable()"
+      [selectedEncircleEvent]="selectedEncircle$.asObservable()"
+      [clearOccasionEvent]="clearOccasion$.asObservable()"
+      [clearEncircleEvent]="clearEncircle$.asObservable()"
+      [resetEncircleEvent]="resetEncircle$.asObservable()"
+      [clearOccasionIconEvent]="clearOccasionIcon$.asObservable()"
+      [customerLoyaltyDetails]="customerLoyaltyDetails"
+      [enableDiscountUpdate]="enableDiscountUpdate"
+      [occasionEnable]="customerId !== null && cashMemoId !== null"
+      [setFocus]="setOccasionFocus"
+      (selectedEncircle)="selectedEncircle($event)"
+      (occasionValueEmit)="selectedOccasionEmit($event)"
+      (availableEncircle)="availableEncircle($event)"
+    ></poss-web-occasion-selection>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="pw-flat-btn-container" *ngIf="customerId && cashMemoId">
+  <button class="pw-flat-btn-container__button">
+    <div
+      class="pw-flat-btn-container__vertical-label"
+      matTooltip="VIEW TCS"
+      matTooltipPosition="before"
+      (click)="viewTcs()"
+    >
+      View TCS
+    </div>
+  </button>
+</div>
+<!-- loader -->
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isLoadingOrder$ | async) ||
+    (printingService.getPrinterIsLoading() | async)
+  "
+>
+</poss-web-loader>
+
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.manualCashMemo.regulariseBillMsg' | translate }}
+    </h3>
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.manualCashMemo.cmNumber' | translate }} {{ docNo }}
+    </h5>
+    <h4 *ngIf="newlyGeneratedCn.length > 0">
+      Generated Partial CN Amount of :
+      {{ newlyGeneratedCn[0].otherDetails.data.remainingAmount | currencyFormatter: currencyCode }} ,&nbsp;
+      {{ 'pw.regularCashMemo.newCnLabel' | translate }}:
+      {{ newlyGeneratedCn[0].otherDetails.data.newCNNumber }}
+    </h4>
+    <h4 *ngIf="refundAmountAsCash !== 0">
+      {{ 'pw.manualCashMemo.refundAmountMsg' | translate }} :
+      {{ refundAmountAsCash | currencyFormatter: currencyCode }}
+    </h4>
+    <h4 class="pw-success-color pw-pointer" (click)="print()">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+    </h4>
+  </div>
+</ng-template>
+<ng-template #confirmApprovalNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.manualCashMemo.approvalSuccessMsg' | translate }}
+    </h3>
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.manualCashMemo.reqNumber' | translate }} {{ reqNo }}
+    </h5>
+  </div>
+</ng-template>

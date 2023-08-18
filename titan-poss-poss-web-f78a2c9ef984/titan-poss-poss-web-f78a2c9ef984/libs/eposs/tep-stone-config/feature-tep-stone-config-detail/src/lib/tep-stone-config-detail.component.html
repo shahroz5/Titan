@@ -1,0 +1,83 @@
+<poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+<div class="row m-0">
+  <div class="col-12 col-lg-10 m-auto">
+    <div class="pw-top-heading-container">
+      <div class="row pw-top-heading-container__item">
+        <div class="col-auto">
+          <div class="pw-top-heading-container__main-head">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+            <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+            <div>
+              <h2>
+                {{
+                  'pw.paymentConfiguration.exchangeConfigurationLabel'
+                    | translate
+                }}
+              </h2>
+              <h5 class="pw-top-heading-container__sub-heading">
+                {{ 'pw.configurations.configuration' | translate }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 mb-3">
+      <div class="col-auto">
+        <div class="pw-mont-semibold-14">
+          {{ 'pw.tepStoneConfig.TEPStoneConfiguration' | translate }}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!showViewOnly; else viewOnly">
+      <poss-web-tep-stone-config-form
+        *ngIf="
+          (tepStoneConfigDetails$ | async) &&
+          (tepStoneConfigStoneType$ | async) &&
+          (tepStoneConfigQualities$ | async) &&
+          (tepStoneConfigRange$ | async)
+        "
+        [tepStoneConfig]="tepStoneConfigDetails$ | async"
+        [tepStoneConfigDetailsList$]="tepStoneConfigDetailsList$"
+        [tepStoneConfigStoneType]="tepStoneConfigStoneType$ | async"
+        [tepStoneConfigQualities]="tepStoneConfigQualities$ | async"
+        [tepStoneConfigRange]="tepStoneConfigRange$ | async"
+        (tepStoneConfigFormOutput)="tepStoneConfigFormOutput($event)"
+        (tepStoneConfigDetailsFormOutput)="
+          tepStoneConfigDetailsFormOutput($event)
+        "
+        (editGridValue)="editGridValue($event)"
+        (openLocationMappingEvent)="openLocationMapping()"
+        (stoneTypeCodeGridSearch)="stoneTypeCodeGridSearch($event)"
+        (clearGridSearch)="clearGridSearch($event)"
+      >
+      </poss-web-tep-stone-config-form>
+    </div>
+    <ng-template #viewOnly
+      ><poss-web-tep-stone-config-view
+        *ngIf="tepStoneConfigDetails$ | async"
+        [tepStoneConfig]="tepStoneConfigDetails$ | async"
+        [tepStoneConfigDetailsList]="tepStoneConfigDetailsList$ | async"
+        [tepStoneConfigRange]="tepStoneConfigRange$ | async"
+        [tepStoneConfigStoneType]="tepStoneConfigStoneType$ | async"
+        (openLocationMapping)="openViewLocationMapping()"
+        (stoneTypeCodeGridSearch)="stoneTypeCodeGridSearch($event)"
+        (clearGridSearch)="clearGridSearch($event)"
+      ></poss-web-tep-stone-config-view>
+      <div class="row mb-3">
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-primary-btn"
+            type="button"
+            [disabled]="isNew"
+            (click)="openViewLocationMapping()"
+          >
+            {{ 'pw.weightValueConfig.locationMapping' | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

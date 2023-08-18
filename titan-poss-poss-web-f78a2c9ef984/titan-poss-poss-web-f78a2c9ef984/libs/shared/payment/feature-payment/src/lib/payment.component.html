@@ -1,0 +1,325 @@
+<ng-container *ngIf="isPaymentEditable">
+  <mat-accordion>
+    <mat-expansion-panel expanded class="pw-expansion-panel">
+      <mat-expansion-panel-header
+        class="pw-expansion-panel__header"
+        [collapsedHeight]="'40px'"
+        [expandedHeight]="'40px'"
+      >
+        <mat-panel-title class="pw-expansion-panel__heading">
+          <span
+            [matBadgeHidden]="
+              !(transactionType === transactionTypeRef.CM) ||
+              (!(
+                subTransactionType === subTransactionTypeEnumRef.NEW_CM ||
+                subTransactionType === subTransactionTypeEnumRef.MANUAL_CM
+              ) &&
+                !showPanelNumber)
+            "
+            [ngClass]="
+              transactionType === transactionTypeRef.CM &&
+              (subTransactionType === subTransactionTypeEnumRef.NEW_CM ||
+                subTransactionType === subTransactionTypeEnumRef.MANUAL_CM) &&
+              showPanelNumber
+                ? 'pw-gold-info-icon'
+                : ''
+            "
+            [matBadge]="badgeNumber"
+            matBadgeOverlap="false"
+            [matBadgeColor]="'primary'"
+            matBadgePosition="before"
+            >{{ 'pw.payment.paymentDetailsLabel' | translate }}</span
+          >
+
+          &nbsp;
+          <!-- {{ disableFullPaymentCheck }} -->
+          <span
+            class="pw-error-color"
+            *ngIf="
+              !disableFullPaymentCheck ||
+              transactionTotalAmount - totalPaidAmount >= 0
+            "
+          >
+            ({{ 'pw.payment.remainingAmountLabel' | translate }} :
+            {{
+              transactionTotalAmount - totalPaidAmount
+                | currencyFormatter: currencyCode
+            }})
+          </span>
+
+          <span
+            class="pw-error-color"
+            *ngIf="
+              disableFullPaymentCheck &&
+              transactionTotalAmount - totalPaidAmount < 0
+            "
+          >
+            ({{ 'pw.payment.remainingAmountLabel' | translate }} : 0, &nbsp;
+            {{ 'Extra Amount' | translate }}
+            :
+            {{
+              -(transactionTotalAmount - totalPaidAmount)
+                | currencyFormatter: currencyCode
+            }})
+          </span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row m-0">
+        <div class="col-xl-6 col-12">
+          <poss-web-payment-cash
+            [paymentGroup]="getPaymetGroup(paymentModeEnumRef.CASH)"
+            [enable]="enableCashPayment()"
+            [hasCashPayment]="hasCashPayment"
+            [maxCashLimit]="maxCashLimit"
+            [maxCashLimitDetails]="maxCashLimitDeatils"
+            [currencyCode]="currencyCode"
+            [totalAmountDue]="totalAmountDue"
+            [isLoading]="isLoading$ | async"
+            [cashAmountMaxCap]="cashAmountMaxCap"
+            [setFocus]="setCashFocus"
+            (add)="addPayment($event)"
+          >
+          </poss-web-payment-cash>
+          <poss-web-payment-card
+            *ngIf="displayCardPayment"
+            [enable]="enableCardPayment()"
+            [paymentGroup]="getPaymetGroup(paymentModeEnumRef.CARD)"
+            [businessDate]="businessDate"
+            [config]="cardConfig"
+            [payeeBanks]="payeeBanks"
+            [currencyCode]="currencyCode"
+            [totalAmountDue]="totalAmountDue"
+            [setFocus]="setCardFocus"
+            (add)="addPayment($event)"
+          >
+          </poss-web-payment-card>
+          <poss-web-payment-unipay-card
+            *ngIf="!displayCardPayment"
+            [enable]="enableUnipayCardPayment()"
+            [currencyCode]="currencyCode"
+            [paymentGroup]="getPaymetGroup(paymentModeEnumRef.UNIPAY)"
+            [totalAmountDue]="totalAmountDue"
+            [resetValuesEvent]="resetUnipayCardValues$.asObservable()"
+            (testPaymentUnipay)="testUnipayPayment()"
+            (add)="addPayment($event)"
+          ></poss-web-payment-unipay-card>
+        </div>
+        <div
+          class="col-xl-6 col-12 pw-panel-card__padding-5 pw-panel-card__tablet-padding"
+        >
+          <poss-web-payment-others
+            [timeFormat]="timeFormat"
+            [businessDate]="businessDate"
+            [transactionType]="transactionType"
+            [subTransactionType]="subTransactionType"
+            [isCustomerMandatoryForDigiGold]="isCustomerMandatoryForDigiGold"
+            [totalPaidAmount]="totalPaidAmount"
+            [enable]="enableOtherPayment()"
+            [isChequeAdded]="isChequeAdded"
+            [mutipleGVsearch]="mutipleGVsearch"
+            [isDDAdded]="isDDAdded"
+            [pgDesc]="[pgDesc$ | async]"
+            [isCreditNoteAdded]="isCreditNoteAdded"
+            [wallets]="wallets"
+            [subBankLoans]="subBankLoans"
+            [paymentFieldNames]="paymentFieldNames"
+            [isCustomerSelected]="isCustomerSelected"
+            [customerSpecificPayments]="customerSpecificPayments"
+            [customerSpecificWalletPayments]="customerSpecificWalletPayments"
+            [customerSpecificBankLoanPayments]="
+              customerSpecificBankLoanPayments
+            "
+            [isCNPartialRedeemAllowed]="isCNPartialRedeemAllowed"
+            [isRsoSelected]="isRsoSelected"
+            [paymentDetails]="paymentDetails"
+            [allowedPayments]="allowedPayments"
+            [ddPayerBanks]="ddPayerBanks"
+            [chequePayerBanks]="chequePayerBanks"
+            [ddValidityDays]="ddValidityDays"
+            [chequeValidityDays]="chequeValidityDays"
+            [noOfDaysForChequeOrDDAcceptance]="noOfDaysForChequeOrDDAcceptance"
+            [QCGCDetails]="QCGCDetails"
+            [digiBalance]="digiBalanceDetails"
+            [digiPrice]="digiSellingPrice"
+            [isOtpGeneratedForDigi$]="isOtpGeneratedForDigi$"
+            [isDigiPaymentComplete$]="isDigiPaymentComplete$"
+            [GVDetails]="GVDetails"
+            [currencyCode]="currencyCode"
+            [totalAmountDue]="totalAmountDue"
+            [ulpID]="ulpID"
+            [customerID]="customerID"
+            [rsoList]="rsoList"
+            [isROApprovedByWorkflow]="isROApprovedByWorkflow"
+            [roPaymentRequest$]="roPaymentRequest$"
+            [paymentRequest$]="paymentRequest$"
+            [creditNoteList$]="creditNoteList$"
+            [invokedCreditNote$]="invokedCreditNote$"
+            [thirdPartyCNList$]="thirdPartyCNList$"
+            [paymentDetails$]="paymentDetails$"
+            [isOtpAllowedForCm$]="isOtpAllowedForCm$"
+            [isOtpForMinimunCn$]="isOtpForMinimunCn$"
+            [isOtpAllowedForAb$]="isOtpAllowedForAb$"
+            [isOtpAllowedForAdvance$]="isOtpAllowedForAdvance$"
+            [isOtpGeneratedForCn$]="isOtpGeneratedForCn$"
+            [isOtpGeneratedForEmpLoan$]="isOtpGeneratedForEmpLoan$"
+            [empLoanDetails$]="empLoanDetails$"
+            [transactionTotalAmount]="transactionTotalAmount"
+            [cnpriorityError]="cnpriorityError"
+            [isAirpayIntegrationEnabled]="isAirpayIntegrationEnabled"
+            [isRazorpayIntegrationEnabled]="isRazorpayIntegrationEnabled"
+            [selectedCustomer]="selectedCustomer"
+            [airpayResponseData$]="airpayResponseData$"
+            [currentFiscalYear]="currentFiscalYear"
+            [cashBackOfferBankDetails$]="cashBackOfferBankDetails$"
+            [cashBackOfferConfigDetails$]="cashBackOfferConfigDetails$"
+            [isCashBackCardValidated$]="isCashBackCardValidated$"
+            [photoIDProofUrl$]="photoIDProofUrl$"
+            [isUploadMandatoryforThirdPartyCNWithoutOTP]="
+              isUploadMandatoryforThirdPartyCNWithoutOTP
+            "
+            (loadEmpLoanDetails)="loadEmpLoanDetails($event)"
+            (startAirpayIntPayment)="startAirpayIntPayment($event)"
+            (getDigiSellingPrice)="loadDigiGoldSellingPrice()"
+            (updatePaymentRequest)="updatePaymentRequest($event)"
+            (validateIntegratedPaymentRequest)="
+              validateIntegratedPaymentRequest($event)
+            "
+            (updateAirpayPaymentStatus)="updateAirpayPaymentStatus($event)"
+            [razorpayResponseData$]="razorpayResponseData$"
+            [setFocus]="setOtherPaymentFocus"
+            (startRazorpayPayment)="startRazorpayPayment($event)"
+            (updateRazorpayPayment)="updateRazorpayPayment($event)"
+            (validateRazorpayPayment)="validateRazorpayPayment($event)"
+            (updateRazorpayPaymentStatus)="updateRazorpayPaymentStatus($event)"
+            (getQCGCBalance)="getQCGCBalance($event)"
+            (getDigiBalance)="getDigiBalance($event)"
+            (getGVBalance)="getGVBalance($event)"
+            (resetQCGC)="resetQCGC()"
+            (resetGV)="resetGV()"
+            (rsoError)="checkRso()"
+            (removeGV)="removeGV($event)"
+            (sendDigiOTP)="sendDigiOTP($event)"
+            (removePaymentDetail)="removePaymentDetail($event)"
+            (getInvokedCN)="getInvokedCN($event)"
+            (getThirdPartyCN)="getThirdPartyCN($event)"
+            (tabChanged)="tabChanged($event)"
+            (duplicatePayment)="duplicatePayment()"
+            (add)="addPayment($event)"
+            (sendPaymentRequest)="sendPaymentRequest($event)"
+            (loadPaymentRequestStatus)="loadPaymentRequestStatus($event)"
+            (generateOTPForCn)="generateOTPForCn($event)"
+            (generateOTPForEmpLoan)="generateOTPForEmpLoan($event)"
+            (delete)="deletePayment($event)"
+            (loadCreditNoteList)="loadCreditNoteList(customerID)"
+            (loadCashBackOfferBankDetails)="
+              loadCashBackOfferBankDetails($event)
+            "
+            (getCashBackConfigDetails)="getCashBackOfferConfigDetails($event)"
+            (validateCashBackCard)="validateCashBackCard($event)"
+            (resetCashBackPayment)="resetCashBackPayment()"
+            (uploadPhotoIDProof)="uploadPhotoIDProofForThirdPartyCN($event)"
+            (resetUploadedFileData)="resetUploadedFileData()"
+          ></poss-web-payment-others>
+          <div class="row pr-3">
+            <div class="col-4 p-0">
+              <div
+                class="pw-panel-card__plain-box"
+                (click)="openEGHSPayment()"
+                [class.pw-payment-disabled]="!enableEGHSPayment()"
+              >
+                <div>
+                  <span class="pw-i-24 pw-airpay-icon-24"> </span>
+                </div>
+
+                {{ 'pw.payment.ghsOption' | translate }}
+              </div>
+            </div>
+            <div class="col-4 p-0">
+              <div
+                class="pw-panel-card__plain-box"
+                (click)="openGHSEVoucherPayment()"
+                [class.pw-payment-disabled]="!enableGHSeVoucherPayment()"
+              >
+                <div>
+                  <span class="pw-i-24 pw-airpay-icon-24"></span>
+                </div>
+                {{ 'pw.payment.ghseVoucherOption' | translate }}
+              </div>
+            </div>
+            <div class="col-4 p-0">
+              <div
+                class="pw-panel-card__plain-box"
+                (click)="openEncirclePointsPayment()"
+                [class.pw-payment-disabled]="!enableEncirclePayment()"
+              >
+                <div>
+                  <span class="pw-i-24 pw-encircle-icon-24"></span>
+                </div>
+                {{ 'pw.payment.redeemLabel' | translate }}
+                <div>({{ encirclePoints }})</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <poss-web-payment-details
+        [paymentDetails]="paymentDetails"
+        [tcsToBeCollected]="tcsAmountToBeCollected$ | async"
+        [currencyCode]="currencyCode"
+        [minValue]="minValue"
+        [totalPaidAmount]="totalPaidAmount"
+        [maxCashLimit]="maxCashLimit"
+        [totalAmountDue]="totalAmountDue"
+        [enableEditCashPayment]="hasCashPayment"
+        [cashPaymentGroup]="getPaymetGroup(paymentModeEnumRef.CASH)"
+        (delete)="deletePayment($event)"
+        (editCash)="editPayment($event)"
+        (editCashError)="editCashError($event)"
+      ></poss-web-payment-details>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+
+<mat-expansion-panel
+  expanded
+  class="pw-expansion-panel"
+  *ngIf="isPaymentEditable == false && showPayment !== false"
+>
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.cmRequestApproval.paymentDetailsLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <poss-web-payment-view
+    [paymentDetails]="paymentDetails"
+    [totalAmountDue]="totalAmountDue"
+    [totalPaidAmount]="totalPaidAmount"
+    [showRemainingAmount]="showRemainingAmount"
+    [tcsCollectedAmount]="tcsCollectedAmount"
+  ></poss-web-payment-view>
+</mat-expansion-panel>
+<mat-expansion-panel
+  expanded
+  class="pw-expansion-panel"
+  *ngIf="
+    (cnDetails$ | async).length !== 0 && (isCnViewAllowed || isCnViewAlowedBC)
+  "
+>
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      CN Details
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <poss-web-cn-view [cnDetails]="cnDetails$ | async"></poss-web-cn-view>
+</mat-expansion-panel>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

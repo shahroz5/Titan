@@ -1,0 +1,14 @@
+{
+	"type": "PRODUCT_GROUP_CONFIG",
+	"data": {
+		"isEligibleForLoyaltyPoints": true,
+		"printGuranteeCard": true,
+		"isGRNEnabled": true,
+		"isConversionEnabled": true,
+		"isBestGoldRateEnabled": true,
+		"isHallmarked": false,
+		"hallmarkingExcludeGrams": 0.0,
+		"hallmarkingExcludeKarat": [],
+		"isAllowedForTCS": true
+	}
+}

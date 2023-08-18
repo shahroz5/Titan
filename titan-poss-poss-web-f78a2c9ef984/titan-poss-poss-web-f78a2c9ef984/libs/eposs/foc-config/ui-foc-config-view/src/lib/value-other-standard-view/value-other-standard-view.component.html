@@ -1,0 +1,66 @@
+<table class="pw-grid-table"  aria-describedby="table" description="Table">
+  <thead>
+    <tr class="pw-grid-table__background-header">
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.stdValue' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.focItemCode' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.isMultiple' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.qty' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.isSingle' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.productGroupMap' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.isActive' | translate }}
+      </th>
+    </tr>
+  </thead>
+  <tbody class="pw-grid-table__body">
+    <tr
+      *ngFor="let item of valueBasedVariantDetailsOthersStandard"
+      class="pw-grid-table__row"
+    >
+      <td class="pw-grid-table__item">{{ item.stdValue }}</td>
+      <td class="pw-grid-table__item">{{ item.itemCode }}</td>
+      <td class="pw-grid-table__item">
+        <mat-checkbox
+          class="pw-form-card__checkbox-pl-t-pos-0"
+          [checked]="item.isMultiple"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+      <td class="pw-grid-table__item">{{ item.quantity }}</td>
+      <td class="pw-grid-table__item">
+        <mat-checkbox
+          class="pw-form-card__checkbox-pl-t-pos-0"
+          [checked]="item.isSingle"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+      <td class="pw-grid-table__item">
+        {{ item.productGroupCount }}
+        <a
+          (click)="productGroupMapping(item.id)"
+          *ngIf="item.productGroupCount"
+          >{{ 'pw.focConfiguration.viewMapping' | translate }}</a
+        >
+      </td>
+      <td class="pw-grid-table__item">
+        <mat-checkbox
+          class="pw-form-card__checkbox-pl-t-pos-0"
+          [checked]="item.isActive"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+    </tr>
+  </tbody>
+</table>

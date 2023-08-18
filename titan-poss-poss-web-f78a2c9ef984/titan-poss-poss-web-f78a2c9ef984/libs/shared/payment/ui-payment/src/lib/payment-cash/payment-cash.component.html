@@ -1,0 +1,72 @@
+<form class="row pw-panel-card" autocomplete="off">
+  <div class="col-xl-2 col-auto pw-panel-card__box pw-panel-card__padding-5">
+    <div>
+      <span class="pw-i-24 pw-cash-icon-24"></span>
+    </div>
+    {{ 'pw.paymentCash.cashLabel' | translate }}
+  </div>
+  <ng-container *ngIf="!showCashlimitError">
+    <mat-form-field
+      class="col-xl-7 col pw-panel-card__item pw-panel-card__padding-5"
+    >
+      <mat-label>
+        {{ 'pw.paymentCash.amountPlaceholder' | translate }}
+      </mat-label>
+      <span class="pw-font-weight-bold mx-2" matPrefix>
+        {{ currencyCode | currencySymbol }}
+      </span>
+
+      <input
+        #cashInput
+        matInput
+        [formControl]="amountFormControl"
+        possWebAmountInput
+        [allowDecimal]="false"
+        required
+      />
+      <mat-error
+        *ngIf="amountFormControl.errors && amountFormControl.errors.errorArray"
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="amountFormControl.errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <div class="col-auto ml-auto pw-panel-card__item pw-panel-card__padding-5">
+      <button
+        mat-flat-button
+        class="pw-btn pw-accent-btn"
+        (click)="addPayment()"
+        [disabled]="amountFormControl.disabled"
+        type="button"
+      >
+        {{ 'pw.paymentCash.addButtonLabel' | translate }}
+      </button>
+    </div>
+  </ng-container>
+
+  <div
+    *ngIf="showCashlimitError"
+    class="pw-error-color pw-font-weight-bold col col pw-panel-card__item pw-panel-card__padding-5 pw-text-center"
+  >
+    <span *ngIf="maxCashLimitDetails?.pmlaEligibleAmount <= 0">
+      {{ 'pw.paymentCash.pmlaLimitExceedMsg' | translate }}
+      <ng-container *ngIf="cashAmountMaxCap">
+        {{
+          cashAmountMaxCap?.pmlaCashAmountMaxCap
+            | currencyFormatter: currencyCode
+        }}
+      </ng-container>
+      reached
+    </span>
+    <span *ngIf="maxCashLimitDetails?.pmlaEligibleAmount > 0">
+      {{ 'pw.paymentCash.cashLimitExceedMsg' | translate }}
+      <ng-container *ngIf="cashAmountMaxCap">
+        {{
+          cashAmountMaxCap?.cashAmountMaxCap | currencyFormatter: currencyCode
+        }}
+      </ng-container>
+      reached
+    </span>
+  </div>
+</form>

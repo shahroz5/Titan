@@ -1,0 +1,77 @@
+<div *ngIf="availableDiscounts?.length">
+  <form class="height" [formGroup]="coBillLevelDiscount">
+    <div class="row" formArrayName="discountsFormArray">
+      <div
+        class="col-lg-6 col-12"
+        *ngFor="
+          let discount of coBillLevelDiscount?.get('discountsFormArray')[
+            'controls'
+          ];
+          let rowIndex = index
+        "
+        [formGroupName]="rowIndex"
+      >
+        <mat-checkbox
+          class="pw-label-position"
+          formControlName="isSelected"
+          (change)="OnCheckBoxSelection(rowIndex, $event)"
+        >
+          <span class="pw-text-overflow">
+            {{ discountsFormArray?.value[rowIndex]?.discountCode }}</span
+          >
+        </mat-checkbox>
+        <span class="padding-5">:</span>
+        <mat-form-field
+          class="ml-2"
+          [ngClass]="discount.get('isEditable').value ? 'pw-fourth-color' : ''"
+        >
+          <input
+            matInput
+            formControlName="selectedDiscountValue"
+            [readonly]="!discount.get('isEditable').value"
+          />
+
+          <mat-error
+            *ngIf="
+              discount.get('selectedDiscountValue').errors &&
+              discount.get('selectedDiscountValue').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                discount.get('selectedDiscountValue').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <span *ngIf="discount.get('isBillValue').value"
+          >({{ defaultCurrencyCode | currencySymbol }})</span
+        >
+        <span *ngIf="!discount.get('isBillValue').value">(%)</span>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-auto ml-auto">
+      <span class="pw-error-color pw-error-label" *ngIf="hasClubbingError"
+        >{{ errorMsg }}
+      </span>
+      <button
+        mat-flat-button
+        class="pw-btn pw-accent-btn"
+        [disabled]="
+          coBillLevelDiscount.invalid || !cashMemoId || cashMemoId == 'new'
+        "
+        (click)="onApply()"
+      >
+        {{ 'pw.discount.apply' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!availableDiscounts?.length">
+  <p class="pw-text-center m-5 pw-fourth-color">
+    {{ 'pw.discount.noCoBillLevelDiscountsAvaialableMsg' | translate }}
+  </p>
+</div>

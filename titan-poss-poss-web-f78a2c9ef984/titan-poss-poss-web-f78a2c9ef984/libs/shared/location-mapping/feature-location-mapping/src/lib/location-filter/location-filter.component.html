@@ -1,0 +1,132 @@
+<div class="d-flex flex-column" [formGroup]="locationFilterForm">
+  <mat-form-field class="pw-form-field-border-top-0">
+    <mat-select
+      formControlName="brands"
+      disableOptionCentering
+      multiple
+      [placeholder]="
+        getLableWithSelectedOptionsCount(
+          'brands',
+          'pw.locationMapping.brandCodePlaceholder' | translate
+        )
+      "
+    >
+      <mat-option
+        *ngFor="let option of config.filterOptions.brands"
+        [value]="option.id"
+        [disabled]="
+          locationFilterForm.get('brands').value?.length >=
+           maxFilterOptionsSelection &&
+          !locationFilterForm.get('brands').value?.includes(option.id)
+        "
+        >{{ option.description }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="pw-form-field-border-top-0">
+    <mat-select
+      formControlName="regions"
+      disableOptionCentering
+      multiple
+      [placeholder]="
+        getLableWithSelectedOptionsCount(
+          'regions',
+          'pw.locationMapping.regionCodePlaceholder' | translate
+        )
+      "
+    >
+      <mat-option
+        *ngFor="let option of config.filterOptions.regions"
+        [value]="option.id"
+        [disabled]="
+          locationFilterForm.get('regions').value?.length >=
+           maxFilterOptionsSelection &&
+          !locationFilterForm.get('regions').value?.includes(option.id)
+        "
+        >{{ option.description }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="pw-form-field-border-top-0">
+    <mat-select
+      formControlName="levels"
+      disableOptionCentering
+      multiple
+      [placeholder]="
+        getLableWithSelectedOptionsCount(
+          'levels',
+          'pw.locationMapping.levelCodePlaceholder' | translate
+        )
+      "
+    >
+      <mat-option
+        *ngFor="let option of config.filterOptions.levels"
+        [value]="option.id"
+        [disabled]="
+          locationFilterForm.get('levels').value?.length >=
+           maxFilterOptionsSelection &&
+          !locationFilterForm.get('levels').value?.includes(option.id)
+        "
+        >{{ option.description }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <poss-web-select-dropdown
+    class="pw-form-field-border-top-0"
+    placeholder="{{ 'pw.locationMapping.countryCodePlaceholder' | translate }}"
+    [control]="locationFilterForm.get('countries')"
+    [options]="config.filterOptions.countries"
+  >
+  </poss-web-select-dropdown>
+
+  <poss-web-select-dropdown
+    class="pw-form-field-border-top-0"
+    placeholder="{{ 'pw.locationMapping.stateCodePlaceholder' | translate }}"
+    [control]="locationFilterForm.get('states')"
+    [options]="config.filterOptions.states"
+  >
+  </poss-web-select-dropdown>
+
+  <mat-form-field class="pw-form-field-border-top-0">
+    <mat-select
+      formControlName="towns"
+      disableOptionCentering
+      multiple
+      [placeholder]="
+        getLableWithSelectedOptionsCount(
+          'towns',
+
+          'pw.locationMapping.townCodePlaceholder' | translate
+        )
+      "
+    >
+      <mat-option
+        *ngFor="let option of config.filterOptions.towns"
+        [value]="option.id"
+        [disabled]="
+          locationFilterForm.get('towns').value?.length >=
+           maxFilterOptionsSelection &&
+          !locationFilterForm.get('towns').value?.includes(option.id)
+        "
+        >{{ option.description }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    class="pw-btn pw-accent-btn"
+    (click)="searchLocations()"
+    [disabled]="locationFilterForm.invalid || readonly"
+  >
+    {{ buttonText }}
+  </button>
+  <div class="pw-text-center mt-3" *ngIf="!readonly">
+    <a (click)="clearFilter()" class="pw-fourth-color">
+      <p class="pw-fourth-color">
+        {{ 'pw.locationMapping.clearButtonText' | translate }}
+      </p>
+    </a>
+  </div>
+</div>

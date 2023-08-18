@@ -1,0 +1,92 @@
+<div class="row no-gutters">
+  <poss-web-item-details 
+    [item]="itemData" 
+    [type]="type"
+    [toLoadImageUrlFromAPI]="true"
+    (loadImageEvent)="loadImage()"
+  > </poss-web-item-details>
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div
+          class="pw-input-group__item-label"
+          *ngIf="tabType == 'otherissues'"
+        >
+          Issued Qty. {{ item.availableQuantity }}
+        </div>
+        <div
+          class="pw-input-group__item-label"
+          *ngIf="tabType == 'otherreceipts'"
+        >
+          Received Qty. {{ item.availableQuantity }}
+        </div>
+        <div
+          class="pw-input-group__item-label"
+          *ngIf="tabType == 'otherissues-requests'"
+        >
+          Requested Qty.
+        </div>
+        <input
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          placeholder="Qty."
+          value="{{ item.measuredQuantity }}"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div
+          class="pw-input-group__item-label"
+          *ngIf="tabType == 'otherissues'"
+        >
+          Issued Wt.({{ item?.weightUnit }})
+        </div>
+        <div
+          class="pw-input-group__item-label"
+          *ngIf="tabType == 'otherreceipts'"
+        >
+          Received Wt. ({{ item?.weightUnit }})
+        </div>
+        <div
+          class="pw-input-group__item-label"
+          *ngIf="tabType == 'otherissues-requests'"
+        >
+          Requested Wt. ({{ item?.weightUnit }})
+        </div>
+        <input
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="Total Wt."
+          value="{{ item.measuredWeight | weightFormatter }}"
+          readonly
+        />
+      </div>
+      <div
+        class="col-auto pw-input-group__item"
+        *ngIf="tabType == 'otherreceipts' "
+      >
+        <div class="pw-input-group__item-label">
+          Bin Group
+        </div>
+        <input
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="Bin Group"
+          value="{{ item.binGroupCode }}"
+          readonly
+        />
+      </div>
+      <div
+        class="col-auto pw-input-group__item"
+        *ngIf="tabType == 'otherreceipts' || 'otherissues' "
+      >
+        <div class="pw-input-group__item-label">
+          Assigned Bin
+        </div>
+        <input
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="Bin"
+          value="{{ item.binCode }}"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+</div>

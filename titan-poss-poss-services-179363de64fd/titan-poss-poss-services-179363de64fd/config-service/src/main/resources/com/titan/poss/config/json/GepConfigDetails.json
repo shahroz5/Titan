@@ -1,0 +1,13 @@
+{
+	"type": "GEP_CONFIG",
+	"data": {
+		"gepDaysAfterCOOffer": 10,
+		"gepDaysAfterABOffer": 10,
+		"minKaratAccepted": 56,
+		"gepDiscountDeductionAmt": true,
+		"gepAsPayment": true,
+		"baseKaratForPurity": 60,
+		"holdTime": 2,
+		"isPreMeltingDetailsMandatory": true
+	}
+}

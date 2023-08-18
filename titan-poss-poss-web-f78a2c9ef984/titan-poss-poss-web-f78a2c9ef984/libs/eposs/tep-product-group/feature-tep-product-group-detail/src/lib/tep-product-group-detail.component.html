@@ -1,0 +1,89 @@
+<poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+<div class="row m-0">
+  <div class="col-12 col-lg-10 m-auto">
+    <div class="pw-top-heading-container">
+      <div class="row pw-top-heading-container__item">
+        <div class="col-auto">
+          <div class="pw-top-heading-container__main-head">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+            <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+            <div>
+              <h2>
+                {{
+                  'pw.paymentConfiguration.exchangeConfigurationLabel'
+                    | translate
+                }}
+              </h2>
+              <h5 class="pw-top-heading-container__sub-heading">
+                {{ 'pw.configurations.configuration' | translate }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 mb-3">
+      <div class="col-auto">
+        <div class="pw-mont-semibold-14">
+          {{
+            'pw.tepProductGroupConfig.tepProductGroupConfiguration' | translate
+          }}
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!showViewOnly; else viewOnly">
+      <poss-web-tep-product-group-form
+        *ngIf="tepProductGroupConfigDetails$ | async"
+        [tepProductGroupConfigDetails]="tepProductGroupConfigDetails$ | async"
+        [tepProductGroupMappingList$]="tepProductGroupMappingList$"
+        [totalElements]="totalMappingElements$ | async"
+        [pageEvent]="mappingListingPageEvent"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [minPageSize]="minPageSize"
+        [updated$]="updated$"
+        (tepProductGroupConfigDetailsFormOutput)="
+          tepProductGroupConfigDetailsFormOutput($event)
+        "
+        (openProductGroupMapping)="openProductGroupMapping()"
+        (removeProductGroupMapping)="removeProductGroupMapping($event)"
+        (productGroupCodeGridSearch)="productGroupCodeGridSearch($event)"
+        (clearGridSearch)="clearGridSearch($event)"
+        (openLocationMappingEvent)="openLocationMapping()"
+        (paginator)="paginate($event)"
+        (editGridValue)="editGridValue($event)"
+        (sortEmitter)="sort($event)"
+      ></poss-web-tep-product-group-form>
+    </ng-container>
+    <ng-template #viewOnly>
+      <poss-web-tep-product-group-view
+        *ngIf="tepProductGroupConfigDetails$ | async"
+        [tepProductGroupConfigDetails]="tepProductGroupConfigDetails$ | async"
+        [tepProductGroupMappingList$]="tepProductGroupMappingList$"
+        [totalElements]="totalMappingElements$ | async"
+        (productGroupCodeGridSearch)="productGroupCodeGridSearch($event)"
+        (clearGridSearch)="clearGridSearch($event)"
+        [pageEvent]="mappingListingPageEvent"
+        [pageSize]="pageSize"
+        (paginator)="paginate($event)"
+        (sortEmitter)="sort($event)"
+      >
+      </poss-web-tep-product-group-view>
+      <div class="row mb-3">
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-primary-btn"
+            type="button"
+            [disabled]="isNew"
+            (click)="openViewLocationMapping()"
+          >
+            {{ 'pw.weightValueConfig.locationMapping' | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

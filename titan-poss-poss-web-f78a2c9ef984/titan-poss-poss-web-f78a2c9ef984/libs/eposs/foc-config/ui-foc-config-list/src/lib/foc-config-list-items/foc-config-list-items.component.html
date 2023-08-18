@@ -1,0 +1,19 @@
+<poss-web-foc-config-list-item
+  *ngFor="let focConfigListItem of focConfigurationList; trackBy: trackBy"
+  [focConfigListItem]="focConfigListItem"
+  (configIdView)="view($event)"
+  (configId)="edit($event)"
+  (toggleValue)="change($event)"
+  (publishId)="publish($event)"
+></poss-web-foc-config-list-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && focConfigurationList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

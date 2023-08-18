@@ -1,0 +1,37 @@
+.pw-dialog-container {
+  overflow-x: hidden;
+
+  &__header {
+    text-align: right;
+  }
+
+  &__title {
+    padding-bottom: 10px;
+  }
+
+  &__icon-button {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+
+    .pw-close-icon-16 {
+      left: -2px;
+    }
+  }
+
+  &__body {
+    height: 355px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  &__body-content {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  &__footer {
+    justify-content: flex-end;
+  }
+}

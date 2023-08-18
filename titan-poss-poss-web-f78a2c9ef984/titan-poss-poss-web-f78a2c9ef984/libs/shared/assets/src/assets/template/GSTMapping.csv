@@ -1,0 +1,2 @@
+TransactionType,SourceBtqType,DestinationBtqType,CustomerType,SourceLocationApplicableTax,DestinationLocationApplicableTax,CustomerApplicableTax,IsSameState,IsSourceBtqTaxApplicable,ApplicableTax
+Customer Transaction_Advance Booking_New Advance B,FACTORY,FACTORY,NONREGISTERED,"SGST,UGST",CGST,NULL,1,1,IGST

@@ -1,0 +1,7 @@
+{
+	"type": "WORKFLOW_FILE_UPLOAD_DETAILS",
+	"data": {
+		"fileId": "",
+		"fileName": ""
+	}
+}

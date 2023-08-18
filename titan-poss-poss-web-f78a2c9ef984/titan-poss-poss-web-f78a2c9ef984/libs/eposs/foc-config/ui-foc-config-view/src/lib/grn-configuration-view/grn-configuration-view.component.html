@@ -1,0 +1,48 @@
+<div class="pw-form-card__flex-row pw-form-card__margin-bottom">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.focConfiguration.GRNConfiguration' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ schemeDetails?.grnConfigData?.data?.noOfDaysBeforeOfferPeriod }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.focConfiguration.noOfDaysBeforeOfferPeriodForGrnLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ schemeDetails?.grnConfigData?.data?.noOfDaysAfterOfferPeriod }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.focConfiguration.GRNUtilizationPercentage' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ schemeDetails?.grnConfigData?.data?.utilizationPercent }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

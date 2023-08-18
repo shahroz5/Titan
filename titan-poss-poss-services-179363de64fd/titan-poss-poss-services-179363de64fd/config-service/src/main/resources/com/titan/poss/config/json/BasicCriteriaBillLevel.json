@@ -1,0 +1,12 @@
+{
+	"type": "BILL_LEVEL_DISCOUNT",
+	"data": {
+		"isNarationMandatory": true,
+		"maxDiscount": 3.7,
+		"isTepRecovery": true,
+		"isFullValueTepDiscountRecovery": true,
+		"isEditable": true,
+		"isValue": true,
+		"ucpValue": 4.7
+	}
+}

@@ -1,0 +1,29 @@
+.pw-header-left-list {
+  border: 1px solid $fourth-color;
+  border-radius: 5px;
+
+  &__row {
+    border-bottom: 1px solid $fourth-color;
+    margin: 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__header {
+    background: rgba($fourth-color, 0.4);
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  &__item {
+    padding: 10px;
+  }
+}
+
+.pw-empower-dialog {
+  .mat-checkbox-layout {
+    margin-bottom: 0;
+  }
+}

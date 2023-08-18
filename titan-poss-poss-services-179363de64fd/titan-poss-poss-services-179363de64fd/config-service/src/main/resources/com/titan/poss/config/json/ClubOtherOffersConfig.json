@@ -1,0 +1,15 @@
+{
+	"type": "CLUB_OTHER_OFFERS_CONFIG",
+	"data": {
+		"isExchangeOffer": true,
+		"isFOCOffer": true,
+		"isGHS": true,
+		"isRiva": true,
+		"isEmpowerment": true,
+		"isDV": true,
+		"isCoin": true,
+		"isBillLevelDiscount": true,
+		"isOtherBillLevelDiscount": true,
+		"isCBOOffer": true
+	}
+}

@@ -1,0 +1,59 @@
+<div class="pw-grid-card">
+  <ng-container *ngIf="conversionsRequestListLength === 0; else listView">
+    <h3 class="pw-text-center m-5">
+      {{ noDataFoundMessage }}
+    </h3>
+  </ng-container>
+  <ng-template #listView>
+    <poss-web-card-list
+      [count]="conversionsRequestListLength"
+      [dataList]="conversionsRequestList"
+      [pageSize]="pageSize"
+      (loadMore)="loadRequests($event)"
+      (selected)="onRequestSelected($event)"
+    >
+      <ng-template let-item="data">
+        <poss-web-card-title>
+          {{ 'pw.conversionApprovals.requestNoLabeltext' | translate }}:
+          {{ item?.reqDocNo }}</poss-web-card-title
+        >
+        <poss-web-card-subtitle> </poss-web-card-subtitle>
+        <poss-web-card-content>
+          <div>
+            <p>
+              {{ 'pw.conversionApprovals.requestDateLabel' | translate }}:
+              {{ item?.requestDate | dateFormatter }}
+            </p>
+          </div>
+          <div>
+            <p class="pw-success-color">
+              {{ 'pw.conversionApprovals.locationCodeLabel' | translate }}:
+              {{ item?.locationCode }}
+            </p>
+          </div>
+          <div>
+            <p>
+              {{ item?.totalQuantity }}
+              {{ 'pw.conversionApprovals.products' | translate }} |
+              {{ item?.totalValue | currencyFormatter: item?.currencyCode }}
+            </p>
+          </div>
+          <div>
+            <p>
+              {{ 'pw.conversionApprovals.weightLabel' | translate }} :
+              {{ item?.totalWeight }} {{ item?.weightUnit }}
+            </p>
+          </div>
+          <div class="mt-1"></div>
+          <div>
+            <p [ngClass]="getStatus(item?.status)">
+              {{ 'pw.conversionApprovals.statusLabel' | translate }}:
+              {{ status }}
+            </p>
+            <p></p>
+          </div>
+        </poss-web-card-content>
+      </ng-template>
+    </poss-web-card-list>
+  </ng-template>
+</div>

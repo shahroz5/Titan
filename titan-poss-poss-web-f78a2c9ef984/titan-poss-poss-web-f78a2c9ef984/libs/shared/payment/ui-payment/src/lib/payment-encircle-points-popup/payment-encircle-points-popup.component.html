@@ -1,0 +1,77 @@
+<form class="pw-confirmation-box" autocomplete="off">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentEncircle.header' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div>
+      <span class="pw-confirmation-box__label">
+        {{ 'pw.paymentEncircle.availablePointsLabel' | translate }} :</span
+      >
+      <span class="pw-confirmation-box__sub-heading">
+        {{ data.encirclePoints }}
+      </span>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>
+          {{ 'pw.paymentEncircle.amountPlaceholder' | translate }} ({{
+            data.currencyCode | currencySymbol
+          }})</mat-label
+        >
+        <input
+          matInput
+          [formControl]="amountFormControl"
+          autocomplete="off"
+          required
+          possWebAmountInput
+          [allowDecimal]="false"
+        />
+        <mat-error
+          *ngIf="
+            amountFormControl.errors && amountFormControl.errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="amountFormControl.errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer-box row">
+    <div class="col-auto">
+      <p class="pw-confirmation-box__label">
+        {{ 'pw.paymentEncircle.message' | translate }}
+      </p>
+    </div>
+    <div class="col-auto ml-auto">
+      <button
+        mat-flat-button
+        class="pw-btn pw-accent-btn"
+        (click)="addPayment()"
+      >
+        {{ 'pw.paymentEncircle.addButtonLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

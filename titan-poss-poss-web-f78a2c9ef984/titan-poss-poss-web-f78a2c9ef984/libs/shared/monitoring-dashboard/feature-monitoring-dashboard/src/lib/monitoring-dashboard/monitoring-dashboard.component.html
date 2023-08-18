@@ -1,0 +1,258 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span
+                  class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                ></span>
+              </a>
+              <span class="pw-i-36 pw-location-icon-36"></span>
+
+              <div class="pw-top-heading-container__heading">
+                {{ 'pw.monitoringDashboard.monitoringDashboard' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-tab">
+        <ul class="pw-tab__list">
+          <li
+            class="pw-tab__list-item"
+            *possWebPermission="loadPermission(SCHEDULER_TAB_PERMISSIONS)"
+          >
+            <a
+              [class.pw-is-active-bar]="
+                tab === monitoringDashboardEnum.SCHEDULER
+              "
+              (click)="changeTab(monitoringDashboardEnum.SCHEDULER)"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.monitoringDashboard.scheduler' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li
+            class="pw-tab__list-item"
+            *possWebPermission="loadPermission(DATASYNC_TAB_PERMISSIONS)"
+          >
+            <a
+              [class.pw-is-active-bar]="
+                tab === monitoringDashboardEnum.DATASYNC
+              "
+              (click)="changeTab(monitoringDashboardEnum.DATASYNC)"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.monitoringDashboard.datasync' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <ng-container *ngIf="tab === monitoringDashboardEnum.SCHEDULER">
+        <poss-web-scheduled-jobs-listing
+          [scheduledJobsData]="scheduledJobsListForView | async"
+          [count]="scheduledJobsListForViewCount | async"
+          [minPageSize]="minPageSize"
+          [pageEvent]="scheduledJobsPageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          (paginator)="paginateSchedulerJobs($event)"
+          (manualRunSchedulerJob)="manualRunSchedulerJob($event)"
+        ></poss-web-scheduled-jobs-listing>
+        <poss-web-update-scheduler-time
+          *ngIf="isEpossApplication"
+          [scheduledJobsData]="scheduledJobsListForUpdate | async"
+          [count]="scheduledJobsListForUpdateCount | async"
+          [minPageSize]="minPageSize"
+          [pageEvent]="updateScheduledTimePageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          (paginator)="paginateUpdateScheduleTime($event)"
+          (updateScheduleTime)="updateScheduleTime($event)"
+        ></poss-web-update-scheduler-time>
+      </ng-container>
+
+      <ng-container *ngIf="tab === monitoringDashboardEnum.DATASYNC">
+        <!-- Below is for filter card -->
+        <div class="pw-detail-card">
+          <form
+            [formGroup]="dataSyncSearchForm"
+            (ngSubmit)="searchDataSyncMessages()"
+          >
+            <div class="row">
+              <mat-radio-group
+                class="mr-auto mb-2"
+                formControlName="selectRadioButton"
+              >
+                <mat-radio-button
+                  [value]="monitoringDashboardEnum.MESSAGE_COUNT_BY_TYPE"
+                  (change)="
+                    selectRadiochanged(
+                      monitoringDashboardEnum.MESSAGE_COUNT_BY_TYPE
+                    )
+                  "
+                  class="col-auto ml-auto"
+                >
+                  <p class="pw-radio-btn__label">
+                    {{
+                      'pw.monitoringDashboard.messageCountByType' | translate
+                    }}
+                  </p></mat-radio-button
+                >
+                <mat-radio-button
+                  [value]="monitoringDashboardEnum.MANUAL_TRIGGER_OF_JOBS"
+                  (change)="
+                    selectRadiochanged(
+                      monitoringDashboardEnum.MANUAL_TRIGGER_OF_JOBS
+                    )
+                  "
+                  class="col-auto"
+                >
+                  <p class="pw-radio-btn__label">
+                    {{
+                      'pw.monitoringDashboard.manualTriggerOfJob' | translate
+                    }}
+                  </p>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="row">
+              <mat-form-field class="pw-single-bordered-input col-4">
+                <mat-label>{{
+                  'pw.monitoringDashboard.selectDate' | translate
+                }}</mat-label>
+
+                <input
+                  matInput
+                  [matDatepicker]="datePicker"
+                  autocomplete="off"
+                  [max]="currentDate"
+                  formControlName="selectDate"
+                  (click)="datePicker.open()"
+                  readonly
+                  required
+                />
+                <mat-datepicker-toggle matSuffix [for]="datePicker">
+                  <mat-icon matDatepickerToggleIcon>
+                    <span class="pw-i-12 pw-calender-icon-12"></span>
+                  </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+                <mat-error
+                  *ngIf="
+                    dataSyncSearchForm.get('selectDate').errors &&
+                    dataSyncSearchForm.get('selectDate').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      dataSyncSearchForm.get('selectDate').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  dataSyncSearchForm.get('selectRadioButton').value ===
+                  monitoringDashboardEnum.MANUAL_TRIGGER_OF_JOBS
+                "
+              >
+                <poss-web-select-dropdown
+                  class="col-4"
+                  [placeholder]="
+                    'pw.monitoringDashboard.statusCode' | translate
+                  "
+                  [control]="dataSyncSearchForm.get('statusCode')"
+                  [options]="dataSyncMessageList$ | async"
+                  [required]="true"
+                >
+                </poss-web-select-dropdown>
+              </ng-container>
+              <div
+                class="col-auto ml-auto align-items-center"
+                *ngIf="isEpossApplication"
+              >
+                <button
+                  *ngIf="!selectedLocation"
+                  mat-flat-button
+                  class="pw-btn pw-cta-btn"
+                  (click)="openLocationPopup()"
+                >
+                  <div class="row">
+                    <div class="col-auto">
+                      <p>
+                        {{
+                          'pw.monitoringDashboard.selectLocationCode'
+                            | translate
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-auto ml-auto">
+                      <span class="pw-i-16 pw-location-icon-16"></span>
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  *ngIf="selectedLocation"
+                  mat-flat-button
+                  class="pw-btn pw-cta-btn"
+                >
+                  <div class="row">
+                    <div class="col-auto">
+                      <p>
+                        {{ selectedLocation.description }}
+                      </p>
+                    </div>
+                    <div class="col-auto ml-auto">
+                      <a>
+                        <span
+                          class="pw-i-10 pw-close-icon-16"
+                          (click)="clearPopup()"
+                        ></span>
+                      </a>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-auto ml-auto align-self-center">
+                <button type="submit" class="pw-btn pw-accent-btn">
+                  {{ 'pw.monitoringDashboard.searchLabel' | translate }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <poss-web-data-sync-statistics
+          *ngIf="
+            dataSyncSearchForm.get('selectRadioButton').value ===
+            monitoringDashboardEnum.MESSAGE_COUNT_BY_TYPE
+          "
+          [dataSyncStatisticsData]="dataSyncStatisticsCount$ | async"
+        ></poss-web-data-sync-statistics>
+        <poss-web-manual-trigger-data-sync
+          *ngIf="
+            dataSyncSearchForm.get('selectRadioButton').value ===
+            monitoringDashboardEnum.MANUAL_TRIGGER_OF_JOBS
+          "
+          [dataSyncJobsData]="dataSyncJobs$ | async"
+          [count]="dataSyncJobsCount$ | async"
+          [minPageSize]="minPageSize"
+          [pageEvent]="dataSyncJobsPageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          (manuallyRunSelectedJob)="manuallyRunSelectedJob($event)"
+          (paginator)="paginateDataSyncJobs($event)"
+        ></poss-web-manual-trigger-data-sync>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

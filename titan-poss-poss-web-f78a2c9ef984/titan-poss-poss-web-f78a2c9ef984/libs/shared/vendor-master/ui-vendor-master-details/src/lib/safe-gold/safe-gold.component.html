@@ -1,0 +1,236 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.vendorMaster.safeGold' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-form-card">
+      <div class="row pw-form-card__margin-bottom">
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.authorizationToken' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.authorizationToken }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.encryptionKey' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.encryptionKey }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.functionality' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.functionality }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.fetchBalanceUrl' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.fetchBalanceUrl }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.sellingPriceUrl' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.sellingPriceUrl }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.sendOtpUrl' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.sendOtpUrl }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.verifyOtpUrl' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.verifyOtpUrl }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.tanishqRedeemUrl' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.tanishqRedeemUrl }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.otherRedeemUrl' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.otherRedeemUrl }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.verifyTxnUrl1' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.verifyTxnUrl1 }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.verifyTxnUrl2' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.verifyTxnUrl2 }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.cancelTxnUrl1' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.cancelTxnUrl1 }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.cancelTxnUrl2' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.cancelTxnUrl2 }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

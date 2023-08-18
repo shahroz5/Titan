@@ -1,0 +1,429 @@
+<div class="pw-form-card">
+  <div class="pw-form-card__margin-bottom pw-font-weight-bold">
+    {{ 'pw.discountConfig.basicDiscountCriteriaHeaderTxt' | translate }}
+  </div>
+  <div
+    class="pw-form-card__flex-row pw-form-card__flex-2-column pw-form-card__margin-bottom"
+  >
+    <ng-container *ngIf="enableUCPValue">
+      <div
+        class="pw-form-card__margin-bottom"
+        *ngIf="
+          config && config.ucp && config.ucp.isValue
+            ? config.ucp.isValue
+            : false
+        "
+      >
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{ 'pw.discountApplicable.ucpValueLabel' | translate }}
+            </span>
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            {{
+              config && config.ucp && config.ucp?.isValue === true
+                ? config.ucp?.value
+                : null
+            }}
+          </div>
+          <div class="col-auto">
+            %
+            <mat-slide-toggle
+              [disabled]="true"
+              [checked]="
+                config && config.ucp && config.ucp.isValue
+                  ? config.ucp.isValue
+                  : false
+              "
+            >
+            </mat-slide-toggle>
+            {{ currencyCode | currencySymbol }}
+          </div>
+        </div>
+      </div>
+      <div
+        class="pw-form-card__margin-bottom"
+        *ngIf="
+          !(config && config.ucp && config.ucp.isValue
+            ? config.ucp.isValue
+            : false)
+        "
+      >
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{ 'pw.discountApplicable.ucpPercentageLabel' | translate }}
+            </span>
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            {{
+              config && config.ucp && config.ucp?.isValue === false
+                ? config.ucp?.value
+                : null
+            }}
+          </div>
+          <div class="col-auto">
+            %
+            <mat-slide-toggle
+              [disabled]="true"
+              [checked]="
+                config && config.ucp && config.ucp.isValue
+                  ? config.ucp.isValue
+                  : false
+              "
+            >
+            </mat-slide-toggle>
+            {{ currencyCode | currencySymbol }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="pw-form-card__margin-bottom" *ngIf="enableNarrationOption">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.narratioNMandatoryLabel' | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            [disabled]="true"
+            [checked]="
+              config && config.isNarationMandatory
+                ? config.isNarationMandatory
+                : false
+            "
+          >
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-form-card__margin-bottom" *ngIf="enableStoreEditOption">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.isEditableAtStoreLabel' | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            [disabled]="true"
+            [checked]="config && config.isEditable ? config.isEditable : false"
+          >
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-form-card__margin-bottom" *ngIf="enableConiConfig">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.coinPurchasePeriodLabel' | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            formatter(
+              config &&
+                config.coinConfig &&
+                config.coinConfig.coinPurchasePeriod &&
+                config.coinConfig.coinPurchasePeriod.from
+                ? config.coinConfig.coinPurchasePeriod.from
+                : null
+            ) | dateFormatter
+          }}
+          to
+          {{
+            formatter(
+              config &&
+                config.coinConfig &&
+                config.coinConfig.coinPurchasePeriod &&
+                config.coinConfig.coinPurchasePeriod.to
+                ? config.coinConfig.coinPurchasePeriod.to
+                : null
+            ) | dateFormatter
+          }}
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.tepDiscountRecoveryLabel' | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            [checked]="
+              config && config.isTepRecovery ? config.isTepRecovery : false
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="pw-form-card__margin-bottom"
+      *ngIf="enableFullValueTEPDiscountRecoveryOption"
+    >
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.isFullValueTepDiscountRecoveryLabel'
+                | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            [disabled]="true"
+            [checked]="
+              config && config.isFullValueTepDiscountRecovery
+                ? config.isFullValueTepDiscountRecovery
+                : false
+            "
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="pw-form-card__margin-bottom"
+      *ngIf="enableApplicableForAutomatedDiscountOption"
+    >
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.isApplicableForAutomatedDiscountLabel'
+                | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            [disabled]="true"
+            [checked]="
+              config && config.isApplicableForAutomatedDiscount
+                ? config.isApplicableForAutomatedDiscount
+                : false
+            "
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="enableTataEmployeeConfig">
+      <div class="pw-form-card__margin-bottom">
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{ 'pw.discountApplicable.maxCountLabel' | translate }}</span
+            >
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-6 pw-form-card__padding-5">
+            {{
+              config &&
+              config.tataEmployeeConfig &&
+              config.tataEmployeeConfig.maxCount
+                ? config.tataEmployeeConfig.maxCount
+                : null
+            }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="enableConiConfig">
+      <div class="pw-form-card__margin-bottom">
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{ 'pw.discountApplicable.tepPeriodLabel' | translate }}</span
+            >
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-6 pw-form-card__padding-5">
+            {{
+              formatter(
+                config &&
+                  config.coinConfig &&
+                  config.coinConfig.tepPeriod &&
+                  config.coinConfig.tepPeriod.from
+                  ? config.coinConfig.tepPeriod.from
+                  : null
+              ) | dateFormatter
+            }}
+            to
+            {{
+              formatter(
+                config &&
+                  config.coinConfig &&
+                  config.coinConfig.tepPeriod &&
+                  config.coinConfig.tepPeriod.to
+                  ? config.coinConfig.tepPeriod.to
+                  : null
+              ) | dateFormatter
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="pw-form-card__margin-bottom">
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{
+                'pw.discountApplicable.tepCNPercentageLabel' | translate
+              }}</span
+            >
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-6 pw-form-card__padding-5">
+            {{
+              config && config.coinConfig && config.coinConfig.tepCNPercentage
+                ? config.coinConfig.tepCNPercentage
+                : null
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="pw-form-card__margin-bottom">
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{ 'pw.discountApplicable.mcPercentageLabel' | translate }}</span
+            >
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-6 pw-form-card__padding-5">
+            {{
+              config &&
+              config.coinConfig &&
+              config.coinConfig.makingChargePercentage
+                ? config.coinConfig.makingChargePercentage
+                : null
+            }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="pw-form-card__margin-bottom" *ngIf="enableSerialNoOption">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{
+              'pw.discountApplicable.serialNoStartsFromPlaceholder' | translate
+            }}</span
+          >
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            config && config.startingSerialNo ? config.startingSerialNo : null
+          }}
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="enableMultipleTransactionPerDayOption">
+      <div class="pw-form-card__margin-bottom">
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{
+                'pw.discountApplicable.multipleTransactionPerDayLabel'
+                  | translate
+              }}</span
+            >
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-6 pw-form-card__padding-5">
+            <mat-checkbox
+              [disabled]="true"
+              [checked]="
+                config && config.isMultipleTransactionPerDayAllowed
+                  ? config.isMultipleTransactionPerDayAllowed
+                  : false
+              "
+            ></mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-form-card__margin-bottom">
+        <div class="row">
+          <div class="col-5">
+            <span class="pw-fourth-color">
+              {{
+                'pw.discountApplicable.maxTransactionPerDayLabel' | translate
+              }}</span
+            >
+          </div>
+          <div class="col-auto pw-form-card__padding-5">
+            <span> : </span>
+          </div>
+          <div class="col-6 pw-form-card__padding-5">
+            <mat-checkbox
+              [disabled]="true"
+              [checked]="
+                config && this.config.maxTransactionPerDay
+                  ? config.maxTransactionPerDay
+                  : null
+              "
+            ></mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

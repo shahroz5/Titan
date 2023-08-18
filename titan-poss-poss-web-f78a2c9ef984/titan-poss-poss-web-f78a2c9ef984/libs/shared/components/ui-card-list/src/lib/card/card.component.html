@@ -1,0 +1,10 @@
+<mat-card
+  #card
+  [tabindex]="tabindex"
+  class="pw-grid-card__item mat-elevation-z2"
+  [class.pw-is-active-bar]="isSelected"
+  [class.mat-elevation-z4]="isSelected"
+  (click)="onSelected()"
+>
+  <ng-content></ng-content>
+</mat-card>

@@ -1,0 +1,76 @@
+<div class="pw-form-card">
+  <h4 class="pw-tertiary-color">
+    {{ 'pw.creditNote.searchResultsLabel' | translate }}
+  </h4>
+  <form class="mt-2">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [columnDefs]="columnDefs"
+      [rowData]="searchResult"
+      [domLayout]="domLayout"
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+      (gridReady)="gridReady($event)"
+      [context]="getContext()"
+      [rowSelection]="'multiple'"
+      (selectionChanged)="onSelectionChanged($event)"
+      (gridSizeChanged)="onGridSizeChanged()"
+      [frameworkComponents]="getComponents()"
+      [defaultColDef]="defaultColDef"
+    >
+    </ag-grid-angular>
+  </form>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > minPageSize && searchResult.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="emitPagination($event)"
+  >
+  </mat-paginator>
+  <div class="row pw-form-card__margin-top">
+    <div class="col-auto ml-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="cnDetailsType(cnDirectSearchEnum.ACTIVATE)"
+        [disabled]="disbaleActiveCN"
+      >
+        {{ 'pw.creditNote.activateCNLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="cnDetailsType(cnDirectSearchEnum.ACTIVATE_TRANSFERRED_CN)"
+        [disabled]="disbaleActiveTransferedCN"
+      >
+        {{ 'pw.creditNoteDirect.activateTransferedCNLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="cnDetailsType(cnDirectSearchEnum.SUSPEND)"
+        [disabled]="disbaleSuspendCN"
+      >
+        {{ 'pw.creditNoteDirect.suspend' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        [disabled]="disableRemoveGoldRatecN"
+        (click)="cnDetailsType(cnDirectSearchEnum.REMOVE_GOLD_RATE)"
+      >
+        {{ 'pw.creditNote.removeGoldRateLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      
+    </div>
+  </div>
+</div>

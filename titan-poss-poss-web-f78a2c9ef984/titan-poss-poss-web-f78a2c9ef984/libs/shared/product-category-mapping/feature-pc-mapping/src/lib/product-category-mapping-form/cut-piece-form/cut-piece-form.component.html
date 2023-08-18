@@ -1,0 +1,38 @@
+<div class="row no-gutters" [formGroup]="form">
+  <div class="col-3 ml-3 pw-form-card__align-center pw-font-weight-bold">
+    {{ 'pw.cutPieceConfig.cutPieceTepPercentage' | translate }}
+  </div>
+  <mat-form-field
+    class="col-3 pw-full-bordered-input-box pw-mat-form-field pw-header-left-list__item pw-form-field-padding-bottom-0"
+    appearance="outline"
+  >
+    <input matInput autocomplete="off" formControlName="cutPiece" />
+    <mat-error
+      *ngIf="
+        form.get('cutPiece').errors && form.get('cutPiece').errors.errorArray
+      "
+    >
+      <span
+        *ngFor="
+          let errorMesage of form.get('cutPiece').errors.errorArray;
+          let i = index
+        "
+      >
+        <ng-container *ngIf="i > 0">
+          <button
+            mat-mini-fab
+            class="pw-error-mini-btn"
+            type="button"
+            [matMenuTriggerFor]="configNameMenu"
+          ></button>
+          <mat-menu #configNameMenu="matMenu" class="pw-info-menu">
+            <div class="pw-custom-error-msg">
+              {{ errorMesage }}
+            </div>
+          </mat-menu>
+        </ng-container>
+        <span *ngIf="i === 0"> {{ errorMesage }}</span>
+      </span>
+    </mat-error>
+  </mat-form-field>
+</div>

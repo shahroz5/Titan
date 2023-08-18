@@ -1,0 +1,56 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto" *ngIf="dialogData.marketCode === 'NEW'">
+      {{ 'pw.marketCode.createHeading' | translate }}
+    </div>
+    <div class="col-auto" *ngIf="dialogData.marketCode !== 'NEW'">
+      {{ 'pw.marketCode.editHeading' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <h4>{{ 'pw.marketCode.popupHeading' | translate }}</h4>
+    <poss-web-dynamic-form
+      *ngIf="formFields"
+      [style]="currentStyle"
+      [formFields]="formFields"
+      [disabled]="false"
+      [enableSubmitOnInvalid]="true"
+      [buttonNames]="['CANCEL', 'ADD']"
+      (onFormCancel)="deleteButton($event)"
+      (onFormSubmit)="add($event)"
+      (formGroupCreated)="formGroupCreated($event)"
+    >
+    </poss-web-dynamic-form>
+    <br />
+    <h4>{{ 'pw.marketCode.popupSubHeading' | translate }}</h4>
+    <poss-web-dynamic-form
+      *ngIf="formFields1"
+      [style]="currentStyle"
+      [formFields]="formFields1"
+      [disabled]="false"
+      [enableSubmitOnInvalid]="true"
+      [buttonNames]="['CANCEL', 'SAVE']"
+      (onFormCancel)="deleteButton($event)"
+      (onFormSubmit)="addButton($event)"
+      (formGroupCreated)="marketMaterialFacatorsFormCreated($event)"
+    >
+    </poss-web-dynamic-form>
+  </div>
+</div>

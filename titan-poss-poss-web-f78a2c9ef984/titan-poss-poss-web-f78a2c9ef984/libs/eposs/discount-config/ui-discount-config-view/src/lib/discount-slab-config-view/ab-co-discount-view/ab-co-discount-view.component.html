@@ -1,0 +1,129 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      <span *ngIf="data.isABOfferApplicable">
+        {{ 'pw.abCoConfigPopup.abLabel' | translate }}
+      </span>
+      <span *ngIf="data.isABOfferApplicable && data.isCOOfferApplicable">
+        /
+      </span>
+      <span *ngIf="data.isCOOfferApplicable">
+        {{ 'pw.abCoConfigPopup.coLabel' | translate }}
+      </span>
+      {{ 'pw.abCoConfigPopup.discountLabel' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="close()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body" [formGroup]="configForm">
+    <div class="row">
+      <div
+        [ngClass]="
+          data.isABOfferApplicable && data.isCOOfferApplicable
+            ? 'col-6'
+            : 'col-12'
+        "
+        *ngIf="data.isABOfferApplicable"
+      >
+        <div class="pw-form-card">
+          <h4
+            class="mb-3"
+            *ngIf="data.isABOfferApplicable && data.isCOOfferApplicable"
+          >
+            {{ 'pw.abCoConfigPopup.abDiscountLabel' | translate }}
+          </h4>
+          <ng-container *ngIf="data.isPreviewApplicable">
+            <p>{{ 'pw.abCoConfigPopup.previewPeriodLabel' | translate }}</p>
+            <div class="mt-2 mb-2">
+              <mat-radio-group formControlName="abPreview" [disabled]="true">
+                <mat-radio-button class="pw-radio-btn__label" value="Preview">{{
+                  'pw.abCoConfigPopup.previewOption' | translate
+                }}</mat-radio-button>
+                <mat-radio-button
+                  class="ml-4 pw-radio-btn__label"
+                  value="Regular"
+                  >{{
+                    'pw.abCoConfigPopup.regularOption' | translate
+                  }}</mat-radio-button
+                >
+                <mat-radio-button class="ml-4 pw-radio-btn__label" value="AB">{{
+                  'pw.abCoConfigPopup.abLabel' | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+
+          <p>{{ 'pw.abCoConfigPopup.postPreviewPeriodLabel' | translate }}</p>
+          <div class="mt-2 mb-2">
+            <mat-radio-group formControlName="abPostPreview" [disabled]="true">
+              <mat-radio-button class="pw-radio-btn__label" value="Regular">{{
+                'pw.abCoConfigPopup.regularOption' | translate
+              }}</mat-radio-button>
+              <mat-radio-button class="ml-4 pw-radio-btn__label" value="AB">{{
+                'pw.abCoConfigPopup.abLabel' | translate
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <div
+        [ngClass]="
+          data.isABOfferApplicable && data.isCOOfferApplicable
+            ? 'col-6'
+            : 'col-12'
+        "
+        *ngIf="data.isCOOfferApplicable"
+      >
+        <div class="pw-form-card">
+          <h4
+            class="mb-3"
+            *ngIf="data.isABOfferApplicable && data.isCOOfferApplicable"
+          >
+            {{ 'pw.abCoConfigPopup.coDiscountLabel' | translate }}
+          </h4>
+          <ng-container *ngIf="data.isPreviewApplicable">
+            <p>{{ 'pw.abCoConfigPopup.previewPeriodLabel' | translate }}</p>
+            <div class="mt-2 mb-2">
+              <mat-radio-group formControlName="coPreview" [disabled]="true">
+                <mat-radio-button class="pw-radio-btn__label" value="Preview">{{
+                  'pw.abCoConfigPopup.previewOption' | translate
+                }}</mat-radio-button>
+                <mat-radio-button
+                  class="ml-4 pw-radio-btn__label"
+                  value="Regular"
+                  >{{
+                    'pw.abCoConfigPopup.regularOption' | translate
+                  }}</mat-radio-button
+                >
+                <mat-radio-button class="ml-4 pw-radio-btn__label" value="CO">{{
+                  'pw.abCoConfigPopup.coLabel' | translate
+                }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </ng-container>
+
+          <p>{{ 'pw.abCoConfigPopup.postPreviewPeriodLabel' | translate }}</p>
+          <div class="mt-2 mb-2">
+            <mat-radio-group formControlName="coPostPreview" [disabled]="true">
+              <mat-radio-button class="pw-radio-btn__label" value="Regular">{{
+                'pw.abCoConfigPopup.regularOption' | translate
+              }}</mat-radio-button>
+              <mat-radio-button class="ml-4 pw-radio-btn__label" value="CO">{{
+                'pw.abCoConfigPopup.coLabel' | translate
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,183 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      <span *ngIf="data.customerType === customerTypeRef.INTERNATIONAL">
+        {{ 'pw.customerCreation.updateForm60Label' | translate }}
+      </span>
+      <span *ngIf="data.customerType !== customerTypeRef.INTERNATIONAL">
+        {{ 'pw.customerCreation.updatePanLabel' | translate }}
+      </span>
+    </div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="close()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <form
+    *ngIf="data.customerType !== customerTypeRef.INTERNATIONAL"
+    novalidate
+    (ngSubmit)="updatePan()"
+    [formGroup]="panUpdateForm"
+    autocomplete="off"
+  >
+    <div class="pw-confirmation-box__body">
+      <div>
+        {{ 'pw.regularCashMemo.alertMsgForPan' | translate }}
+      </div>
+      <mat-form-field class="pw-w-100">
+        <mat-label
+          >{{ 'pw.customerCreation.pancardNumberLabel' | translate }}
+          {{ 'pw.customerCreation.pancardFormat' | translate }}
+        </mat-label>
+        <input
+          class="pw-uppercase"
+          matInput
+          type="text"
+          possWebMaxLengthValidator
+          name="pancardField"
+          autocomplete="off"
+          formControlName="pancard"
+          (blur)="onPancardValueChange($event)"
+          required
+          [readonly]="
+            panUpdateForm.get('pancard').valid &&
+            panVerificationStatus?.verificationStatus === true
+          "
+        />
+        <mat-icon matSuffix (click)="clearPanNumber()">
+          <a
+            *ngIf="
+              panUpdateForm.get('pancard').valid &&
+              panVerificationStatus?.verificationStatus === true
+            "
+            class="pw-i-10 pw-close-icon-16"
+          ></a
+        ></mat-icon>
+
+        <span
+          *ngIf="
+            panUpdateForm.get('pancard').valid &&
+            panVerificationStatus?.verificationStatus === true
+          "
+          matSuffix
+          class="pw-success-color"
+        >
+          {{ 'pw.customerCreation.verifiedLabel' | translate }}
+        </span>
+        <mat-error
+          *ngIf="
+            panUpdateForm.get('pancard').errors &&
+            panUpdateForm.get('pancard').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="panUpdateForm.get('pancard').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <!-- <mat-error
+          *ngIf="
+            panVerificationStatus?.verificationStatus === false &&
+            panUpdateForm.get('pancard').errors?.incorrect === true
+          "
+        >
+          {{ panVerificationStatus.message }}
+        </mat-error> -->
+        <mat-hint
+          class="pw-error-color pw-font-14"
+          *ngIf="panVerificationStatus?.verificationStatus === false"
+        >
+          {{ panVerificationStatus.message }}
+        </mat-hint>
+        <mat-hint
+          class="pw-font-14"
+          *ngIf="
+            panUpdateForm.get('pancard').valid &&
+            panVerificationStatus?.verificationStatus === true &&
+            panVerificationStatus?.ownerName
+          "
+        >
+          <span class="pw-fourth-color">
+            {{ 'pw.customerCreation.panHolderNameLabel' | translate }}
+          </span>
+          : {{ panVerificationStatus.ownerName }}</mat-hint
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="pw-confirmation-box__footer">
+      <div class="pw-confirmation-box__footer-item pw-text-right">
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="
+            panUpdateForm.get('pancard').invalid &&
+            !panUpdateForm.get('pancard').value
+          "
+        >
+          {{ 'pw.customerCreation.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <form
+    *ngIf="data.customerType === customerTypeRef.INTERNATIONAL"
+    novalidate
+    (ngSubmit)="updateform60()"
+    [formGroup]="form60UpdateForm"
+    autocomplete="off"
+  >
+    <div class="pw-confirmation-box__body">
+      <div>
+        {{ 'pw.regularCashMemo.alertMsgForForm60' | translate }}
+      </div>
+      <div class="pw-confirmation-box__item">
+        <mat-checkbox formControlName="form60AndIdProofSubmitted">
+          Form 60</mat-checkbox
+        >
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Passport Number</mat-label>
+          <input
+            matInput
+            type="text"
+            autocomplete="off"
+            required
+            possWebMaxLengthValidator
+            formControlName="passportId"
+          />
+          <mat-error
+            *ngIf="
+              form60UpdateForm.get('passportId').errors &&
+              form60UpdateForm.get('passportId').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                form60UpdateForm.get('passportId').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="pw-confirmation-box__footer">
+      <div class="pw-confirmation-box__footer-item pw-text-right">
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="!form60UpdateForm.get('form60AndIdProofSubmitted').value"
+        >
+          {{ 'pw.customerCreation.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+  <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+</div>

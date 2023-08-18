@@ -1,0 +1,69 @@
+<ng-container *ngIf="empowerConfigDetailsList.length > 0; else errorMessage">
+  <table class="pw-grid-table" aria-describedby="table">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.maxDiscLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.minProductValueLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.maxProductValueLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.metalChargesLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.stoneLabel' | translate }}
+        </th>
+
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.makingChargesLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discEmpowermentConfig.ucpLabel' | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr
+        *ngFor="let item of empowerConfigDetailsList"
+        class="pw-grid-table__row"
+      >
+        <td class="pw-grid-table__item">{{ item.discountPercent }}</td>
+        <td class="pw-grid-table__item">{{ item.minValue }}</td>
+        <td class="pw-grid-table__item">{{ item.maxValue }}</td>
+        <td class="pw-grid-table__item">
+          <mat-checkbox
+            [checked]="item.is_metal_charges"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+        <td class="pw-grid-table__item">
+          <mat-checkbox
+            [checked]="item.is_stone_charges"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+        <td class="pw-grid-table__item">
+          <mat-checkbox
+            [checked]="item.is_making_charges"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+        <td class="pw-grid-table__item">
+          <mat-checkbox
+            [checked]="item.is_ucp_charges"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+<ng-template #errorMessage>
+  <div class="pw-sub-heading pw-message pw-text-center">
+    {{ 'No Records' | translate }}
+  </div></ng-template
+>

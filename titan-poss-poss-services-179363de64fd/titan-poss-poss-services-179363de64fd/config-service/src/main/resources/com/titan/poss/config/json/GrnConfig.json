@@ -1,0 +1,8 @@
+{
+	"type": "GRN_CONFIG",
+	"data": {
+		"noOfDaysBeforeOfferPeriod": 8,
+		"noOfDaysAfterOfferPeriod": 8,
+		"utilizationPercent": 8
+	}
+}

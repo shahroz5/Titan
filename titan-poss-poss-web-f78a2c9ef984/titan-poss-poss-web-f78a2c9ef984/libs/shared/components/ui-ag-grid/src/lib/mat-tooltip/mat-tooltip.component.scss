@@ -1,0 +1,19 @@
+:host {
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 1s;
+  background: #707070;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  width: 120px;
+  max-width: 200px;
+}
+
+:host.ag-tooltip-hiding {
+  opacity: 0;
+}

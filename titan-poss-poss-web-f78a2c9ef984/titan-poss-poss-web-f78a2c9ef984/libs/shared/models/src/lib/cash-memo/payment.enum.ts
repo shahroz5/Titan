@@ -1,0 +1,93 @@
+export enum PaymentModeEnum {
+  CARD = 'CARD',
+  CASH = 'CASH',
+  UNIPAY = 'UNIPAY',
+  AIRPAY = 'AIRPAY',
+  CHEQUE = 'CHEQUE',
+  DD = 'DD',
+  CHEQUE_RETURN = 'CHEQUE RETURN',
+  ENCIRCLE = 'ENCIRCLE',
+  RO_PAYMENT = 'RO PAYMENT',
+  WALLET = 'WALLET',
+  CREDIT_NOTE = 'CREDIT NOTE',
+  RTGS = 'RTGS',
+  FOREX = 'FOREX',
+  VALUE_ACCESS = 'VALUACCESS',
+  GIFT_VOUCHER = 'GIFT VOUCHER',
+  EMPLOYEE_LOAN = 'EMPLOYEE LOAN',
+  SALARY_ADVANCE_LOAN = 'SALARYADVANCELOAN',
+  BANK_LOAN = 'BANK_LOAN',
+  CASH_BACK = 'CASHBACK',
+  GHS_EVOUCHER = 'GHS EVOUCHER',
+  GHS_ACCOUNT = 'GHS ACCOUNT',
+  QCGC = 'QCGC',
+  QC = 'QC',
+  LINKED_CN = 'LINKED CN',
+  RAZOR_PAY = 'RAZOR PAY',
+  DIGI_GOLD_TANISHQ = 'DIGI GOLD TANISHQ',
+  DIGI_GOLD_NON_TANISHQ = 'DIGI GOLD NON TANISHQ',
+  RIVAAH_SCHEME = 'RIVAAH_SCHEME',
+  RIVAAH_ACCOUNT = 'RIVAAH ACCOUNT',
+  UPI = 'UPI'
+}
+export enum PaymentGroupEnum {
+  BANK_LOAN = 'BANK_LOAN',
+  REGULAR = 'REGULAR',
+  WALLET = 'WALLET'
+}
+
+export enum PaymentStatusEnum {
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+  OPEN = 'OPEN',
+  INPROGRESS = 'IN_PROGRESS'
+}
+
+export enum UnipayTransationStatusEnum {
+  STATUS_COMPLETED = 'COMPLETED',
+  STATUS_FAILED = 'FAILED',
+  RETRY = 'RETRY',
+  DELETE = 'DELETE',
+  IN_PROGRESS = 'IN_PROGRESS',
+  OPEN = 'OPEN'
+}
+
+export enum OTPTypeEnum {
+  EMPLOYEE_LOAN = 'EMPLOYEELOAN'
+}
+export enum UnipayTransationUrlEnum {
+  URL = 'http://localhost:80/innoweb/api/MSwipe'
+}
+
+export enum UnipayTransactionMode {
+  CR_DR = 0
+}
+
+export enum UnipayTransactionType {
+  SALE_PURCHASE = 0,
+  VOID = 1
+}
+
+export enum ROPaymentRequestType {
+  SEND,
+  ADD
+}
+
+export enum ROPaymentRequestStatus {
+  APPROVED = 'APPROVED',
+  CLOSED = 'CLOSED',
+  COMPLETED = 'COMPLETED',
+  EXPIRED = 'EXPIRED',
+  FAILED = 'FAILED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  OPEN = 'OPEN',
+  PENDING = 'PENDING',
+  REJECTED = 'REJECTED'
+}
+
+export enum CreditNoteStatusEnum {
+  OPEN = 'OPEN',
+  REDEEMED = 'REDEEMED',
+  SUSPENDED = 'SUSPENDED',
+  CANCELLED = 'CANCELLED'
+}

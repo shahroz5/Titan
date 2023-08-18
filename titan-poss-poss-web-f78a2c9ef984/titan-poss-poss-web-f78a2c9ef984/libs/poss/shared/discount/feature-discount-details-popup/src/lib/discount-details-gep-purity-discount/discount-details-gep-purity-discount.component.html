@@ -1,0 +1,23 @@
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table mt-3 pw-discount-table"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="gepPurityDiscounts"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  [animateRows]="animateRows"
+  (gridReady)="gridReady($event)"
+>
+</ag-grid-angular>
+
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table pw-ag-grid-footer-table pw-discount-table"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="totalData"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  [animateRows]="animateRows"
+  [rowStyle]="{ fontWeight: 'bold' }"
+>
+</ag-grid-angular>

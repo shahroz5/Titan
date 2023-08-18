@@ -1,0 +1,38 @@
+.pw-mat-toolbar {
+  background: inherit;
+  // position: sticky;
+  top: 0;
+  z-index: 1;
+  position: relative;
+
+  &__row {
+    height: 64px;
+  }
+}
+
+.top-navbar {
+  &__logo {
+    margin: 0px 12px;
+  }
+}
+
+@media (max-width: 991px) {
+  .top-navbar {
+    &__logo {
+      position: absolute;
+      margin: 0;
+      left: 45%;
+    }
+  }
+}
+
+.hamberger {
+  margin-right: 40px;
+}
+
+a {
+  cursor: pointer;
+}
+.pw-poss-web-top-menu {
+  margin-left: 40px;
+}

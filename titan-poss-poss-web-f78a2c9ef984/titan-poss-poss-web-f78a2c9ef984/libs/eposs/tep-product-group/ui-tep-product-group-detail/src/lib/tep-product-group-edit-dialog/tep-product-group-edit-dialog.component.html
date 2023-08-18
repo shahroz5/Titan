@@ -1,0 +1,457 @@
+<div class="pw-location-mapping pw-location-mapping__fixed-width">
+  <div
+    class="row pw-location-mapping__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <h3 class="pw-message col-auto">
+      {{ 'pw.tepStoneConfig.edit' | translate }}
+    </h3>
+    <div class="col pw-text-right">
+      <button
+        class="pw-location-mapping__icon-btn"
+        mat-icon-button
+        (click)="onClose()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-location-mapping__body">
+    <mat-divider></mat-divider>
+    <form [formGroup]="tepProductGroupConfigMapping" (ngSubmit)="onSubmit()">
+      <mat-dialog-content>
+        <div class="pw-form-card__flex-row">
+          <mat-checkbox
+            formControlName="isTepAllowed"
+            class="pw-form-card__checkbox-container"
+            >{{
+              'pw.tepProductGroupConfig.tepAllowed' | translate
+            }}</mat-checkbox
+          >
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.goldDedPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="goldDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('goldDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('goldDeductionPercent').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('goldDeductionPercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.silverDedPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="silverDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('silverDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('silverDeductionPercent')
+                  .errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('silverDeductionPercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.platinumDedPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="platinumDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('platinumDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('platinumDeductionPercent')
+                  .errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('platinumDeductionPercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.ucpDedPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="ucpDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('ucpDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('ucpDeductionPercent').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('ucpDeductionPercent').errors
+                    .errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.ucpDedFlat' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="ucpDeductionFlatValue"
+              possWebAmountInput
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('ucpDeductionFlatValue')
+                  .errors &&
+                tepProductGroupConfigMapping.get('ucpDeductionFlatValue').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('ucpDeductionFlatValue')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isStoneChargesApplicable"
+            >{{
+              'pw.tepProductGroupConfig.stoneChargesApplicable' | translate
+            }}</mat-checkbox
+          >
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.stoneValueDeductionPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="stoneDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('stoneDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('stoneDeductionPercent').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('stoneDeductionPercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            formControlName="isCMMandatory"
+            class="pw-form-card__checkbox-container"
+            >{{
+              'pw.tepProductGroupConfig.cmMandatory' | translate
+            }}</mat-checkbox
+          >
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.dedPercentCMUnavail' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="cmUnavailableDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get(
+                  'cmUnavailableDeductionPercent'
+                ).errors &&
+                tepProductGroupConfigMapping.get(
+                  'cmUnavailableDeductionPercent'
+                ).errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get(
+                    'cmUnavailableDeductionPercent'
+                  ).errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.wtTolerancePercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="weightTolerancePercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('weightTolerancePercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('weightTolerancePercent')
+                  .errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('weightTolerancePercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isTEPSaleBin"
+            >{{
+              'pw.tepProductGroupConfig.transTEPsalebin' | translate
+            }}</mat-checkbox
+          >
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.refundDedPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="refundDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('refundDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('refundDeductionPercent')
+                  .errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('refundDeductionPercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isFVTAllowed"
+            >{{
+              'pw.tepProductGroupConfig.fullValueTEP' | translate
+            }}</mat-checkbox
+          >
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.fullValueTEPDedPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="fvtDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('fvtDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('fvtDeductionPercent').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('fvtDeductionPercent').errors
+                    .errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isCmDeductionAllowed"
+            >{{
+              'pw.tepProductGroupConfig.isCmDeductionApplicable' | translate
+            }}</mat-checkbox
+          >
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.cmDeductionApplicable' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="cmDeductionPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('cmDeductionPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('cmDeductionPercent').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('cmDeductionPercent').errors
+                    .errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isCutPieceTepAllowed"
+            >{{
+              'pw.tepProductGroupConfig.isCutPieceAllowed' | translate
+            }}</mat-checkbox
+          >
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isInterBrandTepAllowed"
+            >{{
+              'pw.tepProductGroupConfig.isInterBrandAllowed' | translate
+            }}</mat-checkbox
+          >
+
+          <mat-radio-group formControlName="typeOfExchange">
+            <div class="pw-mb10">
+              <mat-label class="w-100">{{
+                'pw.tepProductGroupConfig.typeOfExchange' | translate
+              }}</mat-label>
+            </div>
+            <div class="pw-ml10">
+              <mat-radio-button
+                value="Current Exchange"
+                class="pw-margin-right"
+                >{{
+                  'pw.tepProductGroupConfig.currentExch' | translate
+                }}</mat-radio-button
+              >
+            </div>
+            <div class="pw-ml10 pw-mb10">
+              <mat-radio-button value="Invoice Value">{{
+                'pw.tepProductGroupConfig.innvoiceValue' | translate
+              }}</mat-radio-button>
+            </div>
+          </mat-radio-group>
+          <mat-form-field class="pw-mat-form-field">
+            <mat-label>{{
+              'pw.tepProductGroupConfig.discountRecoveryPercent' | translate
+            }}</mat-label>
+            <input
+              required
+              matInput
+              formControlName="recoverDiscountPercent"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                tepProductGroupConfigMapping.get('recoverDiscountPercent')
+                  .errors &&
+                tepProductGroupConfigMapping.get('recoverDiscountPercent')
+                  .errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  tepProductGroupConfigMapping.get('recoverDiscountPercent')
+                    .errors.errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            class="pw-form-card__checkbox-container"
+            formControlName="isProportionedValue"
+            >{{
+              'pw.tepProductGroupConfig.isProportionedValue' | translate
+            }}</mat-checkbox
+          >
+        </div>
+      </mat-dialog-content>
+      <div class="row justify-content-end">
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-accent-btn"
+            [disabled]="!tepProductGroupConfigMapping.dirty"
+          >
+            {{ 'pw.tepStoneConfig.save' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

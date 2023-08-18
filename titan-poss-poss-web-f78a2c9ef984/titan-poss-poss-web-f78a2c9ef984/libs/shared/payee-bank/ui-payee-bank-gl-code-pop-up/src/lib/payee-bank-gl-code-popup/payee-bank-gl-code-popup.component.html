@@ -1,0 +1,66 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-mb-200"></div>
+  <div class="pw-confirmation-box pw-confirmation-box__width-450">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">Add Values</div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="close()">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body" [formGroup]="glCodePopupForm">
+      <table class="pw-grid-table"  aria-describedby="table">
+        <tbody class="pw-grid-table__body">
+          <tr class="pw-grid-table__row">
+            <td class="pw-grid-table__item">
+              <span class="pw-font-weight-bold"> FIT GL CODE </span>
+            </td>
+            <td class="pw-grid-table__item">
+              <mat-form-field
+                appearance="outline"
+                class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+              >
+                <input
+                  matInput
+                  class="pw-single-bordered-input"
+                  type="text"
+                  placeholder="GL Code"
+                  formControlName="glCode"
+                />
+                <mat-error
+                  *ngIf="
+                    glCodePopupForm.get('glCode').errors &&
+                    glCodePopupForm.get('glCode').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      glCodePopupForm.get('glCode').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr class="pw-grid-table__row">
+            <td class="pw-grid-table__item">
+              <span class="pw-font-weight-bold"> Is Default </span>
+            </td>
+
+            <td class="pw-grid-table__item">
+              <mat-checkbox class="col-12" formControlName="isDefault">
+              </mat-checkbox>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-auto ml-auto">
+          <button (click)="apply()" class="pw-btn pw-accent-btn">APPLY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

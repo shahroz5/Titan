@@ -1,0 +1,6 @@
+{
+	"type": "TEP_DISCOUNT_DETAILS",
+	"data": {
+		"isCoinOfferDiscountEnabled": true
+	}
+}

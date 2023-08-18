@@ -1,0 +1,396 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-issue-stock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.stockIssue.title' | translate }}</h2>
+
+                <h5
+                  class="pw-top-heading-container__sub-heading pw-fith-heading"
+                >
+                  History<span class="pw-seventh-color"></span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- grid-card-list  -->
+
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-6 pw-grid-card">
+          <div class="pw-grid-card__item pw-is-active-bar" *ngIf="isL1L2Store">
+            <h4>
+              Doc No:
+              {{ selected?.srcDocNo }}
+            </h4>
+            <div>
+              <h4>To:</h4>
+              {{ selected?.destLocationCode }} |
+              {{ selected?.destLocationDescription }}
+            </div>
+            <div class="mt-1">
+              <p
+                *ngIf="
+                  requestType !== 'tep-plain' &&
+                  requestType !== 'tep-studded' &&
+                  requestType !== 'gep' &&
+                  requestType !== 'direct-issue' &&
+                  requestType !== 'tep-gold-coin' &&
+                  requestType !== 'btq-cfa' &&
+                  requestType !== 'defective'
+                "
+              >
+                Req Doc No: {{ selected?.reqDocNo }}
+              </p>
+              <p>
+                {{ selected?.totalMeasuredQuantity }} Qty. |
+                {{
+                  selected?.totalMeasuredValue
+                    | currencyFormatter: selected?.currencyCode
+                }}
+              </p>
+              <p>
+                Total Weight:
+                {{ selected?.totalMeasuredWeight | weightFormatter }}
+                {{ selected?.weightUnit }}
+              </p>
+              <p>Doc Date:{{ selected?.srcDocDate | dateFormatter }}</p>
+              <p
+                *ngIf="
+                requestType !== 'tep-plain' &&
+                requestType !== 'tep-studded' &&
+                requestType !== 'gep' &&
+                requestType !== 'direct-issue' &&
+                requestType !== 'tep-gold-coin' &&
+                requestType !== 'btq-cfa' &&
+                requestType !== 'defective'
+                "
+              >
+                Req Date:{{ selected?.reqDocDate | dateFormatter }}
+              </p>
+              <p *ngIf="status === 'Cancelled'">
+                {{ 'pw.stockIssue.cancelledDateLabel' | translate }}:{{
+                  selected?.cancelledDate | dateFormatter
+                }}
+              </p>
+              <p [ngClass]="getStatus(selected?.status)">
+                Status: {{ status }}
+              </p>
+            </div>
+          </div>
+          <div class="pw-grid-card__item pw-is-active-bar" *ngIf="isL3Store">
+            <h4>Invoice No: {{ selected?.srcDocNo }}</h4>
+            <h4>From:</h4>
+            <div>
+              {{ selected?.srcLocationName }}
+            </div>
+            <div>
+              {{ selected?.srcLocationAddress }}
+            </div>
+            <h4>To:</h4>
+            <div>
+              {{ selected?.destLocationName }}
+            </div>
+            <div>
+              {{ selected?.destLocationAddress }}
+            </div>
+            <div class="mt-1">
+              <p>
+                {{ selected?.srcDocDate | dateFormatter }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-8 col-6">
+          <div class="pw-font-weight-bold">Courier Details</div>
+          <div class="row">
+            <ng-container *ngIf="carrierType == 'EMPLOYEE'; else formTwoBlock">
+              <mat-form-field class="col-lg-4 col-md-4 col-6 pb-2">
+                <textarea
+                  matInput
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="Employee ID"
+                  readonly
+                  value="{{ this.selected?.carrierDetails?.data?.employeeId }}"
+                ></textarea>
+              </mat-form-field>
+              <mat-form-field class="col-lg-4 col-md-4 col-6 pb-2">
+                <textarea
+                  matInput
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="Employee Name"
+                  readonly
+                  value="{{
+                    this.selected?.carrierDetails?.data?.employeeName
+                  }}"
+                ></textarea>
+              </mat-form-field>
+              <mat-form-field class="col-lg-4 col-md-4 col-6 pb-2">
+                <textarea
+                  matInput
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="Mobile Number"
+                  readonly
+                  value="{{ this.selected?.carrierDetails?.data?.mobileNo }}"
+                ></textarea></mat-form-field
+            ></ng-container>
+            <ng-template #formTwoBlock>
+              <mat-form-field class="col-lg-4 col-md-4 col-6 pb-2">
+                <textarea
+                  matInput
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="Company Name"
+                  readonly
+                  value="{{ this.selected?.carrierDetails?.data?.companyName }}"
+                ></textarea>
+              </mat-form-field>
+              <mat-form-field class="col-lg-4 col-md-4 col-6 pb-2">
+                <textarea
+                  matInput
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="Docket No."
+                  readonly
+                  value="{{
+                    this.selected?.carrierDetails?.data?.docketNumber
+                  }}"
+                ></textarea>
+              </mat-form-field>
+              <mat-form-field class="col-lg-4 col-md-4 col-6 pb-2">
+                <textarea
+                  matInput
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="PermitNumber"
+                  readonly
+                  value="{{
+                    this.selected?.carrierDetails?.data?.roadPermitNumber
+                  }}"
+                ></textarea>
+              </mat-form-field>
+            </ng-template>
+          </div>
+          <ng-container
+            *ngIf="
+              carrierType !== 'EMPLOYEE' &&
+              selected &&
+              selected.carrierDetails &&
+              selected.carrierDetails.data &&
+              selected.carrierDetails.data.numberOfBoxes &&
+              selected.carrierDetails.data.numberOfBoxes > 0
+            "
+          >
+            <p>Box Details</p>
+            <a (click)="boxDetailsPopUp()" class="pw-anchor-underline"
+              ><span
+                class="pw-font-weight-bold"
+                *ngIf="selected.carrierDetails.data.numberOfBoxes === 1"
+                >{{ selected.carrierDetails.data.numberOfBoxes }} Box
+                added</span
+              >
+              <span
+                class="pw-font-weight-bold"
+                *ngIf="selected.carrierDetails.data.numberOfBoxes > 1"
+                >{{ selected.carrierDetails.data.numberOfBoxes }} Boxes are
+                added</span
+              >
+            </a>
+          </ng-container>
+        </div>
+        <div class="col-lg-4 mb-2">
+          <div class="pw-remarks">
+            <h5>Remarks</h5>
+            <p class="pw-remarks__content">
+              {{ selected?.remarks }}
+            </p>
+          </div>
+        </div>
+        <div *ngIf="status === 'Cancelled'" class="col-lg-2">
+          <div class="pw-remarks">
+            <h5>{{ 'pw.stockIssue.cancelledRemarksLabel' | translate }}</h5>
+            <p class="pw-remarks__content">
+              {{ selected?.cancelledRemarks }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="container-fluid"
+    [class.pw-overlay-notification-gutter]="hasNotification"
+  >
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-filter-box">
+          <div class="row">
+            <div class="col-12">
+              <ul class="pw-filter-box__sub-head-lists">
+                <li class="pw-filter-box__list">
+                  <a
+                    [class.is-active]="
+                      tab == stockIsuueDetailsTabEnumRef.APPROVED_PRODUCTS_TAB
+                    "
+                    class="pw-filter-box__heading is-active"
+                  >
+                    {{ 'pw.stockIssue.listOfProductstabText' | translate }}
+                    <span class="pw-fourth-color"
+                      >({{ itemsTotalCount$ | async }})</span
+                    >
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-flex-end">
+          <div class="col-lg-7">
+            <div class="row"></div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="row pw-filter-box__right-content">
+              <div class="col-auto">
+                <a (click)="openFilter()">
+                  <p>
+                    <span
+                      *ngIf="
+                        tab ==
+                          stockIsuueDetailsTabEnumRef.APPROVED_PRODUCTS_TAB &&
+                        filter.length === 0
+                      "
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="
+                        tab ==
+                          stockIsuueDetailsTabEnumRef.APPROVED_PRODUCTS_TAB &&
+                        filter.length !== 0
+                      "
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockIssue.productFilterLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a (click)="openSort()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockIssue.sortLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <poss-web-item-search
+                class="ml-auto ml-lg-0 col-lg-6 col-4"
+                placeholder="{{
+                  'pw.stockReceive.searchByVariantCodePlaceholderText'
+                    | translate
+                }}"
+                (search)="searchItems($event)"
+                (clear)="clearSearchItems()"
+              >
+              </poss-web-item-search>
+            </div>
+          </div>
+        </div>
+        <poss-web-stock-issue-item-list
+          [type]="type"
+          [tab]="tab"
+          [count]="itemsCount$ | async"
+          [itemList]="items$ | async"
+          [isL1L2Store]="isL1L2Store"
+          [isL3Store]="isL3Store"
+          [pageEvent]="issueItemsPageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          (paginator)="paginateItems($event)"
+          (loadImageEvent)="loadImageUrl($event)"
+        >
+        </poss-web-stock-issue-item-list>
+
+        <div class="row align-items-flex-end m-0">
+          <button
+            *ngIf="isL3Store"
+            mat-flat-button
+            class="col-auto ml-auto mb-3 pw-btn pw-accent-btn"
+            (click)="regenrateFile()"
+          >
+            <div class="row">
+              <div class="col-auto">
+                <p>
+                  {{ 'pw.stockIssue.regenrateBtnText' | translate }}
+                </p>
+              </div>
+            </div>
+          </button>
+        </div>
+        <div
+          *ngIf="
+            (isItemsLoaded$ | async) &&
+            ((filter.length == 0 &&
+              (items$ | async)?.length == 0 &&
+              itemCode !== null) ||
+              (itemsTotalCount$ | async) === 0) &&
+            (isLoadingItemsTotalCount$ | async) === false &&
+            !(
+              (isItemsLoading$ | async) &&
+              (isLoadingSelectedHistory$ | async) &&
+              (isLoadingItemsTotalCount$ | async) &&
+              (isFileLoading$ | async) &&
+              (isLoading$ | async)
+            )
+          "
+          class="pw-success-color pw-message pw-text-center mg-t-100"
+        >
+          No items Found
+        </div>
+        <div
+          *ngIf="
+            (isItemsLoaded$ | async) &&
+            filter.length > 0 &&
+            (items$ | async)?.length == 0 &&
+            !(
+              (isItemsLoading$ | async) &&
+              (isLoadingSelectedHistory$ | async) &&
+              (isLoadingItemsTotalCount$ | async) &&
+              (isFileLoading$ | async) &&
+              (isLoading$ | async)
+            ) &&
+            (itemsTotalCount$ | async) > 0
+          "
+          class="pw-success-color pw-message pw-text-center mg-t-100"
+        >
+          <span class="pw-i-16 pw-success-icon-16"></span>
+          No Items found with selected filter combination
+        </div>
+        <poss-web-loader
+          *ngIf="
+            (isItemsLoading$ | async) ||
+            (isLoadingSelectedHistory$ | async) ||
+            (isLoadingItemsTotalCount$ | async) ||
+            (isLoading$ | async) ||
+            (isFileLoading$ | async) ||
+            (isLoadingImage$ | async) ||
+            (printingService.getPrinterIsLoading() | async)
+          "
+        >
+        </poss-web-loader>
+      </div>
+    </div>
+  </div>
+</div>

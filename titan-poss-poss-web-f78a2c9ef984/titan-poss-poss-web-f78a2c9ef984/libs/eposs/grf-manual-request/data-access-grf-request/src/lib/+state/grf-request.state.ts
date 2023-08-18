@@ -1,0 +1,25 @@
+import {
+  ApprovalRequest,
+  CashMemoDetailsResponse,
+  CmRequestDetails,
+  CustomerInfo,
+  CustomErrors,
+  FileUploadLists,
+  ManualBillDetails
+} from '@poss-web/shared/models';
+import { CmRequestListEntity, ItemDetailsEntity } from './grf-request.entity';
+
+export class CmRequestState {
+  hasError?: CustomErrors;
+  isLoading?: boolean;
+  cmRequestList: CmRequestListEntity;
+  cmRequestDetails: CmRequestDetails;
+  customerDetails: CustomerInfo;
+  headerDetails: ManualBillDetails;
+  productList: CashMemoDetailsResponse;
+  productDetails: ItemDetailsEntity;
+  cmApprovalRequest: ApprovalRequest;
+  updateCashMemoResponse: CashMemoDetailsResponse;
+  uploadFileListResponse: FileUploadLists[];
+  downloadFileUrl: string;
+}

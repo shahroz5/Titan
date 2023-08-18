@@ -1,0 +1,206 @@
+<form autocomplete="off" class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentModeWallet.digitalWalletPaymentTitle' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body" [formGroup]="walletDetailsFormGroup">
+    <div class="row">
+      <poss-web-select-dropdown
+        class="col-7"
+        [control]="walletDetailsFormGroup.get('subWallet')"
+        [placeholder]="'pw.paymentModeWallet.selectTypeofWallet' | translate"
+        [options]="walletTypesArray"
+        [required]="true"
+      >
+      </poss-web-select-dropdown>
+      <!-- <mat-form-field class="col-7">
+        <mat-label>
+          {{ 'pw.paymentModeWallet.selectTypeofWallet' | translate }}</mat-label
+        >
+        <mat-select formControlName="subWallet" required>
+          <mat-option *ngFor="let wallet of data.wallets" [value]="wallet">
+            {{ wallet }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="
+            walletDetailsFormGroup.get('subWallet').errors &&
+            walletDetailsFormGroup.get('subWallet').errors.errorArray
+          "
+        >
+          <span
+            *ngFor="
+              let errorMesage of walletDetailsFormGroup.get('subWallet').errors
+                .errorArray;
+              let i = index
+            "
+          >
+            <span *ngIf="i === 0"> {{ errorMesage }}</span>
+            <poss-web-error-info-tooltip
+              *ngIf="i > 0"
+              [errorMessage]="errorMesage"
+            ></poss-web-error-info-tooltip>
+          </span>
+        </mat-error>
+      </mat-form-field> -->
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>
+          {{ 'pw.paymentModeWallet.enterAmount' | translate }} ({{
+            data.currencyCode | currencySymbol
+          }})</mat-label
+        >
+        <input matInput formControlName="amount" required possWebAmountInput  [allowDecimal]="false" />
+        <mat-error
+          *ngIf="
+            walletDetailsFormGroup.get('amount').errors &&
+            walletDetailsFormGroup.get('amount').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              walletDetailsFormGroup.get('amount').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label> {{ dateText }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [max]="data.businessDate"
+          (click)="picker.open()"
+          readonly
+          formControlName="date"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error
+          *ngIf="
+            walletDetailsFormGroup.get('date').errors &&
+            walletDetailsFormGroup.get('date').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              walletDetailsFormGroup.get('date').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>{{ reference1Label }}</mat-label>
+        <input
+          matInput
+          formControlName="reference1"
+          required
+          name="transactionIdField"
+          possWebMaxLengthValidator
+        />
+        <mat-error
+          *ngIf="
+            walletDetailsFormGroup.get('reference1').errors &&
+            walletDetailsFormGroup.get('reference1').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              walletDetailsFormGroup.get('reference1').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <div class="col-auto"></div>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>{{ reference2Label }}</mat-label>
+        <input
+          matInput
+          formControlName="reference2"
+          name="transactionIdField"
+          possWebMaxLengthValidator
+        />
+        <!-- <mat-error
+          *ngIf="
+            walletDetailsFormGroup.get('reference2').errors &&
+            walletDetailsFormGroup.get('reference2').errors.errorArray
+          "
+        >
+          <span
+            *ngFor="
+              let errorMesage of walletDetailsFormGroup.get('reference2').errors
+                .errorArray;
+              let i = index
+            "
+          >
+            <span *ngIf="i === 0"> {{ errorMesage }}</span>
+            <poss-web-error-info-tooltip
+              *ngIf="i > 0"
+              [errorMessage]="errorMesage"
+            ></poss-web-error-info-tooltip>
+          </span>
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>{{ reference3Label }}</mat-label>
+        <input
+          matInput
+          formControlName="reference3"
+          name="transactionIdField"
+          possWebMaxLengthValidator
+        />
+        <mat-error
+          *ngIf="
+            walletDetailsFormGroup.get('reference3').errors &&
+            walletDetailsFormGroup.get('reference3').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              walletDetailsFormGroup.get('reference3').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <div class="col-auto">
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn"
+          [disabled]="!walletDetailsFormGroup.valid"
+          (click)="addPayment()"
+        >
+          {{ 'pw.paymentModeWallet.addButtonText' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

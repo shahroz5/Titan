@@ -1,0 +1,99 @@
+<div class="pw-top-heading-container">
+  <div class="row pw-top-heading-container__item">
+    <div class="col-auto pr-0">
+      <a [routerLink]="['./home']">
+        <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto pl-0">
+      <div class="pw-top-heading-container__main-head">
+        <span class="pw-i-36 pw-location-icon-36"></span>
+        <div>
+          <h2>
+            {{ 'pw.rolemanagement.addremoveTitle' | translate }}
+          </h2>
+          <h5 class="pw-top-heading-container__sub-heading">
+            {{ 'pw.rolemanagement.roleTitle' | translate }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container>
+  <div class="pw-tab">
+    <ul class="pw-tab__list">
+      <li class="pw-tab__list-item">
+        <a
+          [routerLink]="['./roles']"
+          [class.pw-is-active-bar]="router.url.includes('roles')"
+          *possWebPermission="loadPermission(UAM_ADDREMOVEROLE_TAB)"
+        >
+          <h5 class="pw-tab__item">
+            {{ 'pw.rolemanagement.addremoveroleTabText' | translate }}
+          </h5>
+        </a>
+      </li>
+      <li class="pw-tab__list-item">
+        <a
+          [routerLink]="['./role-limit']"
+          [class.pw-is-active-bar]="router.url.includes('role-limit/')"
+          *possWebPermission="loadPermission(UAM_DEFINEROLELIMIT_TAB)"
+        >
+          <h5 class="pw-tab__item">
+            {{ 'pw.rolemanagement.boutiquerolelimitTabText' | translate }}
+          </h5></a
+        >
+      </li>
+      <li class="pw-tab__list-item">
+        <a
+          [routerLink]="['./role-limit/role-limit-request']"
+          routerLinkActive="pw-is-active-bar"
+          *possWebPermission="loadPermission(UAM_SENDREQUEST_EMPLOYEELIMIT_TAB)"
+        >
+          <h5 class="pw-tab__item">
+            {{ 'pw.rolemanagement.roleCountRequestTabtext' | translate }}
+          </h5>
+        </a>
+      </li>
+      <li class="pw-tab__list-item">
+        <a
+          [routerLink]="['./role-limit-requests']"
+          routerLinkActive="pw-is-active-bar"
+          *possWebPermission="loadPermission(UAM_SEEPREVIOUS_REQUESTS_TAB)"
+        >
+          <h5 class="pw-tab__item">
+            {{ 'pw.rolemanagement.roleCountRequestListTabtext' | translate }}
+          </h5></a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="col-6 pw-sub-tab" *ngIf="router.url.includes('role-limit/')">
+    <ul class="pw-sub-tab__list">
+      <li class="pw-sub-tab__list-item">
+        <a
+          [routerLink]="['role-limit/default']"
+          routerLinkActive="pw-is-active"
+          *possWebPermission="loadPermission(UAM_ROLELIMITDEFAULT_TAB)"
+        >
+          <h5 class="pw-sub-tab__item">
+            {{ 'pw.rolemanagement.defaultrolelimitSubTabText' | translate }}
+          </h5></a
+        >
+      </li>
+      <li class="pw-sub-tab__list-item">
+        <a
+          [routerLink]="['role-limit/customize']"
+          routerLinkActive="pw-is-active"
+          *possWebPermission="loadPermission(UAM_ROLELIMITCUSTOMIZE_TAB)"
+        >
+          <h5 class="pw-sub-tab__item">
+            {{ 'pw.rolemanagement.customizerolelimitSubTabText' | translate }}
+          </h5></a
+        >
+      </li>
+    </ul>
+  </div>
+</ng-container>

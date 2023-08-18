@@ -1,0 +1,254 @@
+<div
+  *ngIf="marketCodeListing?.length !== 0 && materialPriceTypeCode === 'F'"
+  class="pw-grid-table"
+>
+  <mat-table [dataSource]="marketCodeListing">
+    <ng-container matColumnDef="select">
+      <mat-header-cell class="pw-grid-table__header-item" *matHeaderCellDef>
+        <mat-checkbox
+          *ngIf="marketCodeListing.length !== 1"
+          [disabled]="isDisabled"
+          (change)="selectAllItem($event.checked)"
+          [checked]="isAllSelected"
+        >
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="pw-grid-table__body-item">
+        <mat-checkbox
+          [disabled]="selectItemDisable"
+          (change)="selectItem($event.checked, row)"
+          [checked]="row.isChecked"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="marketCode">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.marketCode' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.marketCode
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.description' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.description
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="markupFactor">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.factor' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.markupFactor
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="addAmount">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.addamt' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.addAmount
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deductAmount">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.subtractamt' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.deductAmount
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container
+      class="pw-grid-table__header-item"
+      matColumnDef="computedPrice"
+    >
+      <mat-header-cell class="pw-fourth-color" *matHeaderCellDef>
+        {{ 'pw.materialPrice.computedPrice' | translate }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element?.computedPrice
+      }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      class="pw-grid-table__header"
+      *matHeaderRowDef="displayedColumns"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>
+
+<div *ngIf="locationDetails?.length !== 0" class="pw-grid-table">
+  <mat-table [dataSource]="locationDetails">
+    <ng-container matColumnDef="marketCode">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.marketCode' | translate }}
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.marketCode
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="marketDescription">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.marketDescription' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">
+        {{ element.marketDescription }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="locationCode">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.locationCode' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.locationCode
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="locationDescription">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{
+          'pw.materialPrice.locationDescription' | translate
+        }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">
+        {{ element.locationDescription }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="materialPrice">
+      <mat-header-cell
+        class="mat-column-padding pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.computedPrice' | translate }}</mat-header-cell
+      >
+      <mat-cell
+        possWebAmountInput
+        *matCellDef="let element"
+        class="pw-grid-table__body-item"
+        >{{ element.materialPrice }}</mat-cell
+      >
+    </ng-container>
+
+    <mat-header-row
+      class="pw-grid-table__header"
+      *matHeaderRowDef="columnsToDisplay"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+  </mat-table>
+</div>
+
+<div
+  *ngIf="marketCodeListing?.length !== 0 && materialPriceTypeCode === 'D'"
+  class="pw-grid-table"
+>
+  <mat-table [dataSource]="marketCodeListing">
+    <ng-container matColumnDef="marketCode">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.marketCode' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.marketCode
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.description' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.description
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="markupFactor">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.factor' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.markupFactor
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="addAmount">
+      <mat-header-cell
+        class="pw-grid-table__header-item pw-fourth-color"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.addamt' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.addAmount
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deductAmount">
+      <mat-header-cell
+        class="pw-fourth-color mat-column-padding"
+        *matHeaderCellDef
+      >
+        {{ 'pw.materialPrice.subtractamt' | translate }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element" class="pw-grid-table__body-item">{{
+        element.deductAmount
+      }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      class="pw-grid-table__header"
+      *matHeaderRowDef="columnsForDaily"
+    ></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: columnsForDaily"></mat-row>
+  </mat-table>
+</div>

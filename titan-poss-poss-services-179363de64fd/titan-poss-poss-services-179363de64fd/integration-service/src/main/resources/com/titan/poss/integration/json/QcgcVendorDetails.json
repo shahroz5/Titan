@@ -1,0 +1,14 @@
+{
+	"type": "QC",
+	"data": {
+		"UserName": "manager",
+		"Password": "welcome",
+		"ForwardingEntityId": "tanishq.com",
+		"ForwardingEntityPassword": "tanishq.com",
+		"Host": "qc3.qwikcilver.com",
+		"IsForwardingEntityExists": "true",
+		"POSEntrymode": "2",
+		"POSTypeId": "3",
+		"EmployeeCodePrefix": "177777"
+	}
+}

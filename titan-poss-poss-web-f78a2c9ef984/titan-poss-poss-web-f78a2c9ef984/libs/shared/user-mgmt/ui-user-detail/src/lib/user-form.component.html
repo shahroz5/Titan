@@ -1,0 +1,780 @@
+<div class="pw-list-header">
+  <div class="row align-items-baseline">
+    <div class="col-auto">
+      <h5 class="pw-list-header__left-content">
+        {{ 'pw.usermanagementform.employeedetailsTabText' | translate }}
+      </h5>
+    </div>
+    <div class="col-auto" *ngIf="user">
+      <p>
+        <span class="pw-font-weight-bold">( </span>
+        <span class="pw-fourth-color pw-font-weight-bold"
+          >&nbsp;
+          {{
+            (userForm.controls['islocked'].value
+              ? 'pw.usermanagementform.lockedLabelText'
+              : 'pw.usermanagementform.unlockedLabelText'
+            ) | translate
+          }}&nbsp;</span
+        >
+        <span
+          class="pw-i-32"
+          [ngClass]="
+            userForm.controls['islocked'].value
+              ? 'pw-lock-icon-32'
+              : 'pw-unlock-icon-32'
+          "
+        ></span>
+        <span class="pw-font-weight-bold"> ) </span>
+      </p>
+    </div>
+    <span *possWebPermission="loadPermission(USER_FORM_RESENDOTP_BTN)">
+      <div
+        class="col-auto pw-list-header__right-content"
+        *ngIf="user && user.resendOTP"
+        (click)="resendOTP.emit(user.employeeCode)"
+      >
+        <button class="pw-btn pw-primary-btn">
+          {{ 'pw.usermanagementform.resendOTPButtonText' | translate }}
+        </button>
+      </div>
+    </span>
+  </div>
+</div>
+
+<form
+  novalidate
+  (ngSubmit)="validateForm()"
+  [formGroup]="userForm"
+  #userFormDirective="ngForm"
+>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="pw-form-card pw-height-full">
+        <div class="pw-form-card__header">
+          {{ 'pw.usermanagementform.employeedetailsCardText' | translate }}
+        </div>
+        <ng-container
+          *ngIf="user?.employeeCode.length > 0; else employeeCodeLabel"
+        >
+          <div class="col-12 form-label">
+            <p class="pw-fourth-color">
+              {{
+                'pw.usermanagementform.employeeidPlaceholderText' | translate
+              }}*
+            </p>
+            <div>
+              {{ userForm.controls['empid'].value }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #employeeCodeLabel>
+          <mat-form-field class="user-form-fields">
+            <input
+              possWebInput
+              matInput
+              maxlength="15"
+              required
+              placeholder="{{
+                'pw.usermanagementform.employeeidPlaceholderText' | translate
+              }}"
+              formControlName="empid"
+            />
+
+            <mat-error
+              *ngIf="
+                userForm.get('empid').errors &&
+                userForm.get('empid').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="userForm.get('empid').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </ng-template>
+
+        <ng-container
+          *ngIf="
+            isBTQUser ||
+              (user && userForm.get('roletype').value === roleTypes.Boutique);
+            else locationCodeLabel
+          "
+        >
+          <div class="col-12 form-label">
+            <p class="pw-fourth-color">
+              {{
+                'pw.usermanagementform.locationdetailsPlaceholderText'
+                  | translate
+              }}*
+            </p>
+            <div>
+              {{ userForm.controls['locationcode'].value }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #locationCodeLabel>
+          <mat-form-field
+            *ngIf="userForm.get('roletype').value === roleTypes.Boutique"
+            class="user-form-fields"
+          >
+            <input
+              possWebInput
+              matInput
+              required
+              (blur)="locationCodeChange($event)"
+              placeholder="{{
+                'pw.usermanagementform.locationdetailsPlaceholderText'
+                  | translate
+              }}"
+              formControlName="locationcode"
+            />
+
+            <mat-error
+              *ngIf="userForm.get('locationcode').hasError('required')"
+            >
+              {{
+                'pw.usermanagementform.locationdetailsRequiredErrorMessage'
+                  | translate
+              }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                !validLocationCode &&
+                !userForm.get('locationcode').hasError('required')
+              "
+            >
+              {{
+                'pw.usermanagementform.locationdetailsInvalidErrorMessage'
+                  | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+        </ng-template>
+
+        <ng-container
+          *ngIf="
+            isRegUser ||
+              (user && userForm.get('roletype').value === roleTypes.Regional);
+            else regionCodeLabel
+          "
+        >
+          <div class="col-12 form-label">
+            <p class="pw-fourth-color">
+              {{
+                'pw.usermanagementform.locationdetailsPlaceholderText'
+                  | translate
+              }}*
+            </p>
+            <div>
+              {{ userForm.controls['regioncode'].value }}
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #regionCodeLabel>
+          <div
+            *ngIf="userForm.get('roletype').value === roleTypes.Regional"
+            class="user-form-fields"
+          >
+          <poss-web-select-dropdown
+            disableOptionCentering
+            class="user-form-fields"
+            [placeholder]="'Region Code'"
+            [control]="userForm.get('regioncode')"
+            [options]="regionsList"
+            [required]="userForm.get('regioncode').invalid"
+          >
+          </poss-web-select-dropdown>
+            <!-- <input
+              possWebInput
+              matInput
+              required="userForm.get('regioncode').invalid"
+              placeholder="Region Code"
+              formControlName="regioncode"
+            /> -->
+
+            <!-- <mat-error *ngIf="userForm.get('regioncode').invalid">
+              {{ 'pw.usermanagementform.regionCodeIsRequired' | translate }}
+            </mat-error> -->
+          </div>
+        </ng-template>
+
+        <mat-form-field class="user-form-fields">
+          <input
+            possWebInput
+            matInput
+            required
+            maxlength="80"
+            placeholder="{{
+              'pw.usermanagementform.employeenamePlaceholderText' | translate
+            }}"
+            formControlName="fullname"
+          />
+
+          <mat-error
+            *ngIf="
+              userForm.get('fullname').errors &&
+              userForm.get('fullname').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('fullname').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form-fields">
+          <mat-label>{{
+            'pw.usermanagementform.dateofbirthPlaceholderText' | translate
+          }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="dateofbirthPicker"
+            [min]="maxPastDate"
+            [max]="currentDate"
+            formControlName="dateofbirth"
+            (click)="dateofbirthPicker.open()"
+            readonly
+            (ngModelChange)="
+              userForm.get('joiningdate').updateValueAndValidity()
+            "
+          />
+          <mat-datepicker-toggle matSuffix [for]="dateofbirthPicker">
+            <mat-icon matDatepickerToggleIcon>
+              <span class="pw-i-12 pw-calender-icon-12"></span>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #dateofbirthPicker></mat-datepicker>
+          <mat-error *ngIf="userForm.get('dateofbirth').invalid">
+            {{
+              'pw.usermanagementform.dateofbirthInvalidErrorMessage' | translate
+            }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form-fields">
+          <input
+            possWebInput
+            matInput
+            type="tel"
+            required
+            maxlength="10"
+            placeholder="{{
+              'pw.usermanagementform.mobilenoPlaceholderText' | translate
+            }}"
+            formControlName="mobile"
+            (change)="checkMobileNumberValidation($event)"
+          />
+
+          <mat-error
+            *ngIf="
+              userForm.get('mobile').errors &&
+              userForm.get('mobile').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('mobile').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form-fields">
+          <input
+            possWebInput
+            matInput
+            type="email"
+            placeholder="{{
+              'pw.usermanagementform.emailPlaceholderText' | translate
+            }}"
+            formControlName="email"
+            (change)="checkEmailValidation($event)"
+          />
+          <mat-error
+            *ngIf="
+              userForm.get('email').errors &&
+              userForm.get('email').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('email').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+          <mat-error *ngIf="userForm.get('email').hasError('invalid')"
+            >{{ 'pw.usermanagementform.emailInvalidErrorMessage' | translate }}
+          </mat-error>
+          <mat-error *ngIf="userForm.get('email').hasError('invalidEmail')"
+            >{{
+              'pw.usermanagementform.emailInvalidPatternErrorMessage'
+                | translate
+            }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="pw-form-card pw-height-full">
+        <div class="pw-form-card__header">
+          {{ 'pw.usermanagementform.addressdetailsCardText' | translate }}
+        </div>
+        <mat-form-field class="user-form-fields">
+          <textarea
+            possWebTextarea
+            matInput
+            required
+            maxlength="100"
+            placeholder="Line 1"
+            formControlName="address"
+          ></textarea>
+          <mat-error
+            *ngIf="
+              userForm.get('address').errors &&
+              userForm.get('address').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('address').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form-fields">
+          <textarea
+            possWebTextarea
+            matInput
+            required
+            maxlength="100"
+            placeholder="Line 2"
+            formControlName="line2"
+          ></textarea>
+          <mat-error
+            *ngIf="
+              userForm.get('line2').errors &&
+              userForm.get('line2').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('line2').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form-fields">
+          <input
+            possWebInput
+            matInput
+            required
+            maxlength="50"
+            placeholder="{{
+              'pw.usermanagementform.cityPlaceholderText' | translate
+            }}"
+            formControlName="city"
+          />
+          <mat-error
+            *ngIf="
+              userForm.get('city').errors &&
+              userForm.get('city').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('city').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="user-form-fields">
+          <input
+            possWebInput
+            matInput
+            required
+            maxlength="10"
+            placeholder="{{
+              'pw.usermanagementform.pincodePlaceholderText' | translate
+            }}"
+            formControlName="pincode"
+          />
+          <mat-error
+            *ngIf="
+              userForm.get('pincode').errors &&
+              userForm.get('pincode').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="userForm.get('pincode').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <poss-web-select-dropdown
+          disableOptionCentering
+          class="user-form-fields"
+          [placeholder]="'pw.usermanagementform.countryLabelText' | translate"
+          [control]="userForm.get('country')"
+          [options]="countriesList"
+          [required]="true"
+          (selectionChange)="countryChanged($event)"
+        >
+        </poss-web-select-dropdown>
+
+        <poss-web-select-dropdown
+          disableOptionCentering
+          class="user-form-fields"
+          [placeholder]="'pw.usermanagementform.stateLabelText' | translate"
+          [control]="userForm.get('state')"
+          [options]="statesList"
+          [disabled]="statesList ? statesList.length === 0 : true"
+          [required]="true"
+        >
+        </poss-web-select-dropdown>
+
+        <div class="pw-form-card__header">
+          {{ 'pw.usermanagementform.loginaccessCardText' | translate }}
+        </div>
+        <mat-radio-group class="row mt-2" formControlName="isLoginActive">
+          <div class="col-auto">
+            <mat-radio-button value="true">{{
+              'pw.usermanagementform.logincredentialstrueOptionText' | translate
+            }}</mat-radio-button>
+          </div>
+          <div class="col-auto">
+            <mat-radio-button value="false">{{
+              'pw.usermanagementform.logincredentialsfalseOptionText'
+                | translate
+            }}</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="pw-form-card pw-height-half__upper">
+        <div class="pw-form-card__header">
+          {{ 'pw.usermanagementform.assignprimaryroleCardText' | translate }}
+        </div>
+
+        <ng-container
+          *ngIf="
+            userForm.get('roletype').value === roleTypes.Boutique &&
+            this.userForm.get('locationcode').invalid
+          "
+        >
+          <poss-web-select-dropdown
+            disableOptionCentering
+            class="user-form-fields"
+            [placeholder]="
+              'pw.usermanagementform.fillAssignedBoutiqueToSelectPrimaryRoles'
+                | translate
+            "
+            [control]="userForm.get('role')"
+            [options]="rolesList"
+            [required]="true"
+            (selectionChange)="
+              userForm.get('role').updateValueAndValidity();
+              userForm.get('secondaryrole').updateValueAndValidity()
+            "
+          >
+          </poss-web-select-dropdown>
+        </ng-container>
+
+        <ng-container
+          *ngIf="
+            !(
+              userForm.get('roletype').value === roleTypes.Boutique &&
+              this.userForm.get('locationcode').invalid
+            )
+          "
+        >
+          <poss-web-select-dropdown
+            disableOptionCentering
+            class="user-form-fields"
+            [placeholder]="
+              'pw.usermanagementform.assignedroleLabelText' | translate
+            "
+            [control]="userForm.get('role')"
+            [options]="rolesList"
+            [required]="true"
+            (selectionChange)="
+              userForm.get('role').updateValueAndValidity();
+              userForm.get('secondaryrole').updateValueAndValidity()
+            "
+          >
+          </poss-web-select-dropdown>
+        </ng-container>
+
+        <poss-web-select-dropdown
+          disableOptionCentering
+          class="user-form-fields"
+          [placeholder]="
+            'pw.usermanagementform.secondaryroleLabelText' | translate
+          "
+          [control]="userForm.get('secondaryrole')"
+          [options]="rolesList"
+          [required]="false"
+          (selectionChange)="secondaryRoleCodeChange($event)"
+        >
+        </poss-web-select-dropdown>
+
+        <div class="row">
+          <mat-form-field
+            class="user-form-fields col-6"
+          >
+            <mat-label>{{
+              'pw.usermanagementform.fromdatePlaceholderText' | translate
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromdatePicker"
+              [disabled]="userForm.get('secondaryrole').value?.length === 0 || (
+                user?.secondaryRole === userForm.get('secondaryrole').value &&
+                !!user?.secondarystarttime &&
+                user?.secondarystarttime < currentDate
+              )"
+              placeholder="{{
+                'pw.usermanagementform.fromdatePlaceholderText' | translate
+              }}"
+              [min]="
+                user?.secondaryRole === userForm.get('secondaryrole').value &&
+                !!user?.secondarystarttime &&
+                user.secondarystarttime < currentDate
+                  ? ''
+                  : userForm.get('joiningdate').value < currentDate
+                  ? currentDate
+                  : userForm.get('joiningdate').value
+              "
+              [max]="userForm.get('resignationdate').value"
+              formControlName="fromdate"
+              (click)="fromdatePicker.open()"
+              readonly
+              (ngModelChange)="
+                userForm.get('tilldate').updateValueAndValidity()
+              "
+            />
+            <mat-datepicker-toggle matSuffix [for]="fromdatePicker">
+              <mat-icon matDatepickerToggleIcon>
+                <span class="pw-i-12 pw-calender-icon-12"></span>
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #fromdatePicker></mat-datepicker>
+
+            <mat-error *ngIf="userForm.get('fromdate').hasError('required')">
+              {{
+                'pw.usermanagementform.fromdateRequiredErrorMessage' | translate
+              }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                userForm.get('fromdate').invalid &&
+                !userForm.get('fromdate').hasError('required')
+              "
+            >
+              {{
+                'pw.usermanagementform.fromdateInvalidErrorMessage' | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+
+          <ng-template #fromDateLabel>
+            <div class="col-6">
+              <p class="pw-fourth-color">
+                {{
+                  'pw.usermanagementform.fromdatePlaceholderText' | translate
+                }}*
+              </p>
+              <div>
+                {{
+                  user.secondarystarttime
+                    ? user.secondarystarttime.format(dateFormat)
+                    : ''
+                }}
+              </div>
+            </div>
+          </ng-template>
+
+          <mat-form-field class="user-form-fields col-6">
+            <mat-label>{{
+              'pw.usermanagementform.tilldatePlaceholderText' | translate
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="tilldatePicker"
+              [disabled]="userForm.get('secondaryrole').value?.length === 0"
+              placeholder="{{
+                'pw.usermanagementform.tilldatePlaceholderText' | translate
+              }}"
+              [min]="
+                currentDate < userForm.get('fromdate').value
+                  ? userForm.get('fromdate').value
+                  : currentDate
+              "
+              [max]="userForm.get('resignationdate').value"
+              formControlName="tilldate"
+              (click)="tilldatePicker.open()"
+              readonly
+            />
+            <mat-datepicker-toggle matSuffix [for]="tilldatePicker">
+              <mat-icon matDatepickerToggleIcon>
+                <span class="pw-i-12 pw-calender-icon-12"></span>
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #tilldatePicker></mat-datepicker>
+
+            <mat-error *ngIf="userForm.get('tilldate').hasError('required')">
+              {{
+                'pw.usermanagementform.tilldateRequiredErrorMessage' | translate
+              }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                userForm.get('tilldate').invalid &&
+                !userForm.get('tilldate').hasError('required')
+              "
+            >
+              {{
+                'pw.usermanagementform.tilldateInvalidErrorMessage' | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="pw-form-card pw-height-half__lower">
+        <ng-container *ngIf="!isBTQUser && !user; else roletypeLabel">
+          <poss-web-select-dropdown
+            disableOptionCentering
+            class="user-form-fields"
+            [placeholder]="
+              'pw.usermanagementform.typeofrolePlaceholderText' | translate
+            "
+            [control]="userForm.get('roletype')"
+            [options]="roleTypesList"
+            [required]="true"
+            (selectionChange)="roleTypeChanged($event.value)"
+          >
+          </poss-web-select-dropdown>
+        </ng-container>
+
+        <ng-template #roletypeLabel>
+          <div class="col-12 form-label">
+            <p class="pw-fourth-color">
+              {{
+                'pw.usermanagementform.typeofrolePlaceholderText' | translate
+              }}*
+            </p>
+            <div>
+              {{
+                (userForm.controls['roletype'].value === roleTypes.Boutique
+                  ? 'pw.usermanagementform.boutique'
+                  : userForm.controls['roletype'].value === roleTypes.Corporate
+                  ? 'pw.usermanagementform.corporate'
+                  : 'pw.usermanagementform.regional'
+                ) | translate
+              }}
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="row">
+          <mat-form-field class="user-form-fields col-6">
+            <mat-label>{{
+              'pw.usermanagementform.joiningdatePlaceholderText' | translate
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="joiningdatePicker"
+              placeholder="{{
+                'pw.usermanagementform.joiningdatePlaceholderText' | translate
+              }}"
+              [min]="userForm.get('dateofbirth').value"
+              formControlName="joiningdate"
+              (click)="joiningdatePicker.open()"
+              (ngModelChange)="
+                userForm.get('resignationdate').updateValueAndValidity();
+                userForm.get('fromdate').updateValueAndValidity()
+              "
+              readonly
+            />
+            <mat-datepicker-toggle matSuffix [for]="joiningdatePicker">
+              <mat-icon matDatepickerToggleIcon>
+                <span class="pw-i-12 pw-calender-icon-12"></span>
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #joiningdatePicker></mat-datepicker>
+
+            <mat-error *ngIf="userForm.get('joiningdate').invalid">
+              {{
+                'pw.usermanagementform.joiningdateInvalidErrorMessage'
+                  | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="user-form-fields col-6">
+            <mat-label>{{
+              'pw.usermanagementform.resignationdatePlaceholderText' | translate
+            }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="resignationdatePicker"
+              placeholder="{{
+                'pw.usermanagementform.resignationdatePlaceholderText'
+                  | translate
+              }}"
+              [min]="userForm.get('joiningdate').value"
+              formControlName="resignationdate"
+              (click)="resignationdatePicker.open()"
+              (ngModelChange)="
+                userForm.get('fromdate').updateValueAndValidity();
+                userForm.get('tilldate').updateValueAndValidity()
+              "
+              readonly
+            />
+            <mat-datepicker-toggle matSuffix [for]="resignationdatePicker">
+              <mat-icon matDatepickerToggleIcon>
+                <span class="pw-i-12 pw-calender-icon-12"></span>
+              </mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #resignationdatePicker></mat-datepicker>
+            <mat-error *ngIf="userForm.get('resignationdate').invalid">
+              {{
+                'pw.usermanagementform.resignationdateInvalidErrorMessage'
+                  | translate
+              }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row justify-content-end pw-footer-btn mb-3"
+    *possWebPermission="loadPermission(USER_FORM_SAVE_BTN)"
+  >
+    <div class="col-auto" *ngIf="isLocationMapping()">
+      <button type="button" class="pw-btn pw-primary-btn" (click)="openLocationMapping()">
+         {{ 'pw.usermanagementform.addLocationButton' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        type="button"
+        (click)="user ? populateUserForm(user) : clearUser(userFormDirective)"
+        class="pw-btn pw-primary-btn"
+      >
+        {{
+          (user
+            ? 'pw.usermanagementform.resetButtonText'
+            : 'pw.usermanagementform.clearButtonText'
+          ) | translate
+        }}
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <button type="submit" class="pw-btn pw-accent-btn">
+        {{
+          (user
+            ? 'pw.usermanagementform.updateButtonText'
+            : 'pw.usermanagementform.addnowButtonText'
+          ) | translate
+        }}
+      </button>
+    </div>
+  </div>
+</form>

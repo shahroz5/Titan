@@ -1,0 +1,172 @@
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    {{ 'pw.courierDetails.courierLabel' | translate }}
+  </div>
+
+  <div class="pw-form-card__flex-row pw-form-card__margin-bottom">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.courierNameLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.courierName }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.isActive' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-slide-toggle
+            [checked]="(courierDetails$ | async)?.isActive"
+            disabled
+          >
+            {{ (courierDetails$ | async)?.isActive ? 'Active' : 'In Active' }}
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.addressLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.address }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.descriptionLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.description }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.countryLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ getCountryName((courierDetails$ | async)?.countryCode) }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.stateLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.stateName }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.cityLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.townName }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.emailIdLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.mailId }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color"
+            >{{ 'pw.courierDetails.phoneNumberLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.mobileNumber }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.courierDetails.contactPersonLabel' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ (courierDetails$ | async)?.contactPerson }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button class="pw-btn pw-primary-btn" (click)="openViewLocationMapping()">
+      {{ 'pw.customerTransactionConfig.locationMappingLabel' | translate }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table pw-scrollable-ag-grid pw-ag-grid-scroll"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowSelection]="rowSelection"
+  [frameworkComponents]="getComponents()"
+  [context]="getContext()"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  (gridReady)="gridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged()"
+  [rowData]="rowData"
+></ag-grid-angular>

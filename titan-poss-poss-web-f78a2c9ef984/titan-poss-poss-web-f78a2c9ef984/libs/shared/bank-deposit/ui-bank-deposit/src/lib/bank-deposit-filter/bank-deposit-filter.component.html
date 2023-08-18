@@ -1,0 +1,77 @@
+<div class="pw-detail-card">
+  <form [formGroup]="rangeFormGroup">
+    <div class="row pw-detail-card__flex-end">
+      <mat-form-field class="col-auto">
+        <mat-label>
+          {{ 'pw.viewBankDeposit.dateRangeLabel' | translate }}</mat-label
+        >
+        <mat-date-range-input
+          [rangePicker]="picker"
+          [max]="bussinessDay"
+          required
+        >
+          <input #fromInput matStartDate formControlName="fromDate" required />
+          <input #toInput matEndDate formControlName="toDate" required />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>
+            <span class="pw-i-12 pw-calender-icon-12"></span>
+          </mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error
+          *ngIf="
+            rangeFormGroup.get('fromDate').errors &&
+            rangeFormGroup.get('fromDate').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="rangeFormGroup.get('fromDate').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            rangeFormGroup.get('toDate').errors &&
+            rangeFormGroup.get('toDate').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="rangeFormGroup.get('toDate').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            rangeFormGroup.get('fromDate').hasError('differenceValid') &&
+            rangeFormGroup.get('toDate').invalid
+          "
+        >
+          {{ 'pw.viewBankDeposit.dateRangeInvalidText' | translate }}
+        </mat-error>
+      </mat-form-field>
+      <div class="col-auto pw-detail-card__right-container">
+        <button
+          mat-button
+          type="button"
+          [disabled]="!rangeFormGroup.get('fromDate').value"
+          class="pw-btn pw-primary-btn"
+          (click)="cancel()"
+        >
+          {{ 'pw.viewBankDeposit.cancelLabel' | translate }}
+        </button>
+      </div>
+
+      <div class="col-auto align-self-center">
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="!rangeFormGroup.valid"
+          (click)="search()"
+        >
+          {{ 'pw.viewBankDeposit.searchLabel' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<h4 class="pw-tertiary-color mb-3 mt-2">
+  {{ 'pw.viewBankDeposit.searchResultsLabel' | translate }}
+</h4>

@@ -1,0 +1,162 @@
+<mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.advanceBooking.freezeRateLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="pw-detail-card">
+    <div class="row pw-detail-card__flex-end">
+      <!-- <ng-container *possWebPermission="loadPermission(AB_ADD_EDIT_SUBMENU)"> -->
+      <div class="col-auto">
+        <div class="row">
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [formControl]="freezeRate"
+          >
+            <mat-radio-button
+              *ngFor="let option of options"
+              [value]="option"
+              (change)="onSelectionChange(option)"
+              [disabled]="disabled"
+            >
+              {{ option }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <!-- </ng-container> -->
+
+      <div *ngIf="bgrAllowed" class="col-auto pw-list-card__checkbox">
+        <mat-checkbox
+          class="example-margin"
+          [(ngModel)]="bestGoldRate"
+          (change)="onCheckboxChange(bestGoldRate)"
+          [disabled]="disabled"
+          >{{ 'pw.advanceBooking.bestGoldRate' | translate }}</mat-checkbox
+        >
+      </div>
+    </div>
+
+    <div
+      *ngIf="freezeRate.value == freezeRateEnum.YES && metalRate"
+      class="pw-detail-card__secondary-section"
+    >
+      <div class="row">
+        <div
+          *ngIf="
+            advanceBookingDetailsResponse?.orderWeightDetails?.data.goldWeight >
+            0
+          "
+          class="col-auto"
+        >
+          <div class="pw-detail-card__label">
+            {{ 'pw.advanceBooking.frozenGoldRate' | translate }}
+          </div>
+          <div
+            *ngIf="metalRate.J?.metalTypeCode === metalTypeEnum.GOLD"
+            class="pw-font-weight-bold"
+          >
+            {{ metalRate.J.ratePerUnit | currencyFormatter: currencyCode }}
+          </div>
+        </div>
+        <div
+          *ngIf="
+            advanceBookingDetailsResponse?.orderWeightDetails?.data
+              .platinumWeight > 0
+          "
+          class="col-auto"
+        >
+          <div class="pw-detail-card__label">
+            {{ 'pw.advanceBooking.frozenPlatinumRate' | translate }}
+          </div>
+          <div
+            *ngIf="metalRate.L?.metalTypeCode === metalTypeEnum.PLATINUM"
+            class="pw-font-weight-bold"
+          >
+            {{ metalRate.L.ratePerUnit | currencyFormatter: currencyCode }}
+          </div>
+        </div>
+        <div
+          *ngIf="
+            advanceBookingDetailsResponse.orderWeightDetails?.data
+              .silverWeight > 0
+          "
+          class="col-auto"
+        >
+          <div class="pw-detail-card__label">
+            {{ 'pw.advanceBooking.frozenSiverRate' | translate }}
+          </div>
+          <div
+            *ngIf="metalRate.P?.metalTypeCode === metalTypeEnum.SILVER"
+            class="pw-font-weight-bold"
+          >
+            {{ metalRate.P.ratePerUnit | currencyFormatter: currencyCode }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="bestGoldRate && metalRate"
+      class="pw-detail-card__secondary-section"
+    >
+      <div class="row">
+        <div class="col-auto">
+          <div class="pw-detail-card__label">
+            {{ 'pw.advanceBooking.goldRateLabel' | translate }}
+          </div>
+          <div
+            *ngIf="metalRate.J?.metalTypeCode === metalTypeEnum.GOLD"
+            class="pw-font-weight-bold"
+          >
+            {{ metalRate.J.ratePerUnit | currencyFormatter: currencyCode }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pw-card__body">
+    <div class="row pw-card__row">
+      <div class="col-4">
+        <mat-form-field class="pw-single-bordered-input pw-width-full">
+          <input
+            matInput
+            [formControl]="prodToBeCollectedBy"
+            placeholder="{{
+              'pw.advanceBooking.productCollectedByLabel' | translate
+            }}"
+            autocomplete="off"
+          />
+          <mat-icon
+            *ngIf="
+              advanceBookingDetailsResponse?.id && prodToBeCollectedBy.valid
+            "
+            matSuffix
+            (click)="addProdToBeCollectedBy()"
+            ><span style="position: relative; bottom: -5px; left: 7px">
+              +
+            </span></mat-icon
+          >
+        </mat-form-field>
+        <mat-error
+          *ngIf="
+            prodToBeCollectedBy.errors &&
+            prodToBeCollectedBy.errors.errorArray &&
+            prodToBeCollectedBy.touched
+          "
+          class="pw-error-color pw-align-top"
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="prodToBeCollectedBy.errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>

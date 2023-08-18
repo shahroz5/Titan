@@ -1,0 +1,123 @@
+<form [formGroup]="couponConfigForm" autocomplete="off">
+  <div class="pw-form-card">
+    <div class="row">
+      <div class="col-auto pw-font-weight-bold">
+        {{ 'pw.rivaahEligibilityConfig.detailsLabel' | translate }}
+      </div>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-lg-8 col-8">
+        <input
+          placeholder="{{
+            'pw.rivaahEligibilityConfig.noOfDigitsLabel' | translate
+          }}"
+          formControlName="noOfDigits"
+          matInput
+          required
+        />
+
+        <mat-error
+          *ngIf="
+            couponConfigForm.get('noOfDigits').errors &&
+            couponConfigForm.get('noOfDigits').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              couponConfigForm.get('noOfDigits').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-lg-8 col-8">
+        <input
+          placeholder="{{
+            'pw.rivaahEligibilityConfig.startingDigitsLabel' | translate
+          }}"
+          formControlName="startingDigits"
+          matInput
+          required
+        />
+
+        <mat-error
+          *ngIf="
+            couponConfigForm.get('startingDigits').errors &&
+            couponConfigForm.get('startingDigits').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              couponConfigForm.get('startingDigits').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-lg-8 col-8">
+        <input
+          placeholder="{{
+            'pw.rivaahEligibilityConfig.validityNoOfMonthsLabel' | translate
+          }}"
+          formControlName="validityNoOfMonths"
+          matInput
+          required
+        />
+
+        <mat-error
+          *ngIf="
+            couponConfigForm.get('validityNoOfMonths').errors &&
+            couponConfigForm.get('validityNoOfMonths').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              couponConfigForm.get('validityNoOfMonths').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-lg-8 col-8">
+        <input
+          placeholder="{{
+            'pw.rivaahEligibilityConfig.noOfTimesCouponCanBeUsedLabel'
+              | translate
+          }}"
+          formControlName="noOfTimesCouponCanBeUsed"
+          matInput
+          required
+        />
+
+        <mat-error
+          *ngIf="
+            couponConfigForm.get('noOfTimesCouponCanBeUsed').errors &&
+            couponConfigForm.get('noOfTimesCouponCanBeUsed').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              couponConfigForm.get('noOfTimesCouponCanBeUsed').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <div clas="col-auto">
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="couponConfigForm.invalid"
+          (click)="saveCouponConfig()"
+        >
+          {{ 'pw.rivaahEligibilityConfig.saveButton' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

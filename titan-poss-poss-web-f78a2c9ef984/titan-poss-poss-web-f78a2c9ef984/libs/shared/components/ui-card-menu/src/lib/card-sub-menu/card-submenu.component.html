@@ -1,0 +1,29 @@
+<div class="row pt-5 pb-2">
+  <div class="col-auto">
+    <h4>
+      <a (click)="backEvent()">
+        <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+      </a>
+      {{ subMenu.titleTranslationKey | translate }}
+    </h4>
+  </div>
+</div>
+<div class="pw-bordered-list pw-no-border">
+  <div class="row mt-4 align-content-center no-gutters">
+    <ng-container *ngFor="let subMenuItem of subMenu.subMenu; let i = index">
+      <div
+        class="col-lg-2 col-3 pw-bordered-list__column"
+        *possWebPermission="loadPermission(subMenuItem.elementName)"
+      >
+        <a
+          class="pw-bordered-list__card"
+          (click)="selectSubMenu(subMenuItem.path, subMenuItem.appType)"
+        >
+          <div class="pw-bordered-list__item">
+            {{ subMenuItem.titleTranslationKey | translate }}
+          </div>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</div>

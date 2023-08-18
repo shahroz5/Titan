@@ -1,0 +1,55 @@
+.pw-search-icon-16 {
+  top: 10px;
+  right: 6px;
+}
+
+.pw-close-icon-16 {
+  cursor: pointer;
+  right: -8px;
+}
+
+.mat-card {
+  padding: 10px;
+}
+
+.pw-card-item-list{
+  padding: 0px;
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pw-card-absolute {
+  position: absolute;
+  top: 37px;
+  z-index: 100;
+  width: 100%;
+}
+
+.pw-cursor-pointer {
+  cursor: pointer;
+}
+
+.pw-customer-position {
+  position: relative;
+  bottom: 0px;
+}
+
+.pw-card-item{
+  border-bottom: 1px solid #ccc;
+  padding: 10px 10px;
+}
+
+.pw-card-item:hover{
+  background: #ededed;
+}
+
+.pw-card-item:last-child{
+  border-bottom: none;
+}
+
+.pw-search-items{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,261 @@
+<div class="row no-gutters" [formGroup]="itemForm">
+  <poss-web-item-details 
+    [item]="itemData"
+    [toLoadImageUrlFromAPI]="true"
+    (loadImageEvent)="loadImage()"
+    > </poss-web-item-details>
+
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.itemQuantityLableText' | translate }}
+          {{ item.availableQuantity }}
+        </div>
+        <input
+          type="number"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          placeholder="{{
+            'pw.otherReceiptsIssues.measuredQuantityPlaceholderText' | translate
+          }}"
+          formControlName="measuredQuantity"
+          readonly
+          name="quantityField"
+          possWebMaxLengthValidator
+        />
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.itemWeightLableText' | translate }}
+        </div>
+        <div class="pw-input-group__item-label">
+          <span
+            >{{ item.availableWeight | weightFormatter }} {{ item.weightUnit }}
+          </span>
+        </div>
+        <input
+          possWebWeightInput
+          class="pw-bg-input-box"
+          [ngClass]="{
+            'pw-error-bg':
+              (itemForm.get('measuredWeight').dirty &&
+                itemForm.get('measuredWeight').invalid) ||
+              isWeightMismatch,
+            'pw-success-bg': itemForm.get('measuredWeight').valid
+          }"
+          placeholder="{{
+            'pw.otherReceiptsIssues.measuredWeightPlaceholderText' | translate
+          }}
+            "
+          formControlName="measuredWeight"
+          (blur)="measuredWeightChange()"
+          name="weightField"
+          possWebMaxLengthValidator
+        />
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.assginedBinLableText' | translate }}
+        </div>
+
+        <mat-select
+          disableOptionCentering
+          [ngClass]="{
+            'pw-error-bg': itemForm.get('binGroupCode').value != binGroupCode,
+            'pw-success-bg': itemForm.get('binGroupCode').value == binGroupCode
+          }"
+          class="pw-bg-input-box pw-select-box-padding pw-input-group__item-border-left"
+          formControlName="binGroupCode"
+          placeholder="{{
+            'pw.otherReceiptsIssues.selectPlaceholderText' | translate
+          }}"
+        >
+          <mat-option
+            *ngFor="let bin of binGroupCodes"
+            [value]="bin"
+            [hidden]="
+              (itemForm.get('measuredWeight').value == null &&
+                bin == otherReceiptsStockItemBinGroupCodeEnumRef.DISPUTE) ||
+              (!isWeightMismatch &&
+                bin == otherReceiptsStockItemBinGroupCodeEnumRef.DISPUTE) ||
+              (itemForm.get('measuredWeight').value != null &&
+                isWeightMismatch &&
+                bin != otherReceiptsStockItemBinGroupCodeEnumRef.DISPUTE)
+            "
+          >
+            {{ bin }}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-2 pw-list-card__item"
+    *ngIf="
+      itemForm.get('binGroupCode').value ===
+      otherReceiptsStockItemBinGroupCodeEnumRef.DEFECTIVE
+    "
+  >
+    <div class="pw-sub-heading">
+      {{ 'pw.otherReceiptsIssues.remarksLableText' | translate }}
+    </div>
+    <mat-select
+      disableOptionCentering
+      class="pw-w-100 pw-select-box-padding pw-bg-input-box pw-border-radius-right pw-error-bg"
+      formControlName="remarkGroupCode"
+      placeholder="{{
+        'pw.otherReceiptsIssues.selectPlaceholderText' | translate
+      }}"
+      (selectionChange)="updateItem()"
+    >
+      <mat-option *ngFor="let remark of remarks" [value]="remark.code">
+        {{ remark.value }}</mat-option
+      >
+    </mat-select>
+  </div>
+
+  <div
+    class="col-2 pw-list-card__item"
+    *ngIf="isVerified && itemForm.get('binGroupCode').value === binGroupCode"
+  >
+    <div class="pw-sub-heading">
+      {{ 'pw.otherReceiptsIssues.assginedBinCodeLableText' | translate }}
+    </div>
+
+    <button
+      mat-flat-button
+      class="pw-btn pw-accent-btn"
+      (click)="openBinSelectionPopup()"
+    >
+      <div class="row no-gutters pw-text-left">
+        <div class="col pw-text-overflow-ellipisis">
+          <p class="pw-text-overflow-ellipisis">
+            <ng-container *ngIf="selectedBinCode; else showSelectBin">
+              {{ selectedBinCode }}
+            </ng-container>
+            <ng-template #showSelectBin>
+              {{ 'pw.otherReceiptsIssues.selectBinCodeLable' | translate }}
+            </ng-template>
+          </p>
+        </div>
+        <div class="col-auto ml-auto">
+          <span class="pw-i-16 pw-bin-icon-16"></span>
+        </div>
+      </div>
+    </button>
+  </div>
+  <div
+    class="col-auto pw-list-card__right-container"
+    *ngIf="
+      !isVerified ||
+      (isVerified &&
+        showUpdateStatus &&
+        (item.isUpdating || item.isUpdatingSuccess == false))
+    "
+  >
+    <ng-container *ngIf="!isVerified">
+      <button
+        *ngIf="!item.isUpdating"
+        mat-button
+        class="pw-btn pw-primary-btn"
+        [disabled]="itemForm.invalid"
+        (click)="verifyItem()"
+      >
+        {{ 'pw.otherReceiptsIssues.verifyButtonText' | translate }}
+      </button>
+      <button *ngIf="item.isUpdating" mat-button class="pw-primary-btn">
+        ...
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="isVerified && showUpdateStatus">
+      <span class="pw-sub-heading pw-success-color" *ngIf="item.isUpdating">
+        {{ 'pw.otherReceiptsIssues.savingInfoMessge' | translate }} ...
+      </span>
+      <span class="pw-success-color pw-sub-heading" *ngIf="item.isValidating">
+        {{ 'pw.stockReceive.validatingInfoMessge' | translate }} ...
+      </span>
+      <span
+        class="pw-sub-heading pw-error-color"
+        *ngIf="item.isUpdatingSuccess == false"
+      >
+        {{ 'pw.otherReceiptsIssues.updateFailedMessage' | translate }}
+      </span>
+    </ng-container>
+  </div>
+</div>
+<div class="row">
+  <div class="flex-fill"></div>
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="
+      isWeightMismatch && !itemForm.get('measuredWeight').hasError('minZero')
+    "
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.otherReceiptsIssues.weightMismatchErrorMessage' | translate }}
+  </div>
+
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="
+      itemForm.get('measuredQuantity').hasError('min') ||
+      itemForm.get('measuredQuantity').hasError('max')
+    "
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.otherReceiptsIssues.quantityMismatchErrorMessage' | translate }}
+  </div>
+
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="
+      itemForm.get('measuredQuantity').dirty &&
+      itemForm.get('measuredQuantity').hasError('required')
+    "
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.otherReceiptsIssues.quantiyRequiredErrorMessage' | translate }}
+  </div>
+
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="
+      itemForm.get('measuredWeight').dirty &&
+      itemForm.get('measuredWeight').hasError('required')
+    "
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.otherReceiptsIssues.weightRequiredErrorMessage' | translate }}
+  </div>
+
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="
+      itemForm.get('measuredWeight').dirty &&
+      !itemForm.get('measuredWeight').hasError('required') &&
+      itemForm.get('measuredWeight').hasError('minZero')
+    "
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ itemForm.get('measuredWeight').getError('minZero') | translate }}
+  </div>
+
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="itemForm.hasError('remarkGroupCode')"
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ itemForm.getError('remarkGroupCode') | translate }}
+  </div>
+
+  <div
+    class="col-auto pw-list-card__error-label"
+    *ngIf="!isVerified && item.isUpdatingSuccess == false"
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.otherReceiptsIssues.verifyFailedMessage' | translate }}
+  </div>
+</div>

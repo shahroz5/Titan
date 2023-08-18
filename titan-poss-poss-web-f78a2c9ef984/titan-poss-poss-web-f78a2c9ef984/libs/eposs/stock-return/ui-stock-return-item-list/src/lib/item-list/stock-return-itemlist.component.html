@@ -1,0 +1,24 @@
+<div possWebFocusableList>
+  <poss-web-stock-return-item
+    possWebFocusableListItem
+    *ngFor="let item of itemList"
+    class="pw-list-card  d-block"
+    [item]="item"
+    (remove)="remove($event)"
+    (selection)="selectionEmit($event)"
+    [selectionEvents]="selectionEvents"
+    (loadImageEvent)="loadImageUrl($event)"
+  >
+  </poss-web-stock-return-item>
+</div>
+<mat-paginator
+  *ngIf="count > getMinPageSize() && itemList.length > 0"
+  class="pw-paginator"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginate($event)"
+>
+</mat-paginator>

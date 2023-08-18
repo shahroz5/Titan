@@ -1,0 +1,19 @@
+<poss-web-cpg-qcgc-map-listing-item
+  *ngFor="let listItem of cpgproductGroupConfigListing"
+  [cpgproductGroupConfigListItem]="listItem"
+  (cpgproductGroupConfigIdView)="emitIdView($event)"
+  (cpgproductGroupConfigId)="emitId($event)"
+  (emitToggle)="emitToggle($event)"
+>
+</poss-web-cpg-qcgc-map-listing-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

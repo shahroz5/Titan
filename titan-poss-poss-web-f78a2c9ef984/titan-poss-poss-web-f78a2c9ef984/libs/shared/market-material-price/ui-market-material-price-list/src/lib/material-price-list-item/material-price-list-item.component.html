@@ -1,0 +1,103 @@
+<div class="pw-list-card px-3 pw-cursor">
+  <div class="row">
+    <div class="col-lg-4 col-5">
+      <div class="row">
+        <div class="col-3 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.materialPrice.priceType' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{ priceType }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.materialPrice.time' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              materialPriceItem.time
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.materialPrice.createdDate' | translate }}
+          </p>
+        </div>
+
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              materialPriceItem.createdDate
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-6">
+      <div class="row">
+        <div class="col-lg-2 col-3 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.materialPrice.priceLabel' | translate }}
+          </p>
+        </div>
+
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              materialPriceItem.price
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2 col-3 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.materialPrice.remarks' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              materialPriceItem.remarks
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto ml-auto align-self-center">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="view(materialPriceItem.id)"
+      >
+        {{ 'pw.materialPrice.view' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

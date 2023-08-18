@@ -1,0 +1,87 @@
+<div class="container-fluid pw-margin-bottom-50">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.focConfiguration.offerConfiguration' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.focConfiguration.configuration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.focConfiguration.newSchemeBasedConfiguration' | translate }}
+          </div>
+        </div>
+
+        <div class="col-6 ml-auto">
+          <div
+            class="pw-form-card pw-form-card__padding-10 pw-form-card__margin-bottom"
+          >
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+                <span class="pw-i-24 pw-alaram-icon-24"></span>
+              </div>
+              <div class="col pw-error-color">
+                {{
+                  'pw.focConfiguration.publishNotificationMessage' | translate
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pw-tab">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(0)"
+              [class.pw-is-active-bar]="selectedTab === 0"
+            >
+              <h5 class="pw-tab__item">
+                {{
+                  'pw.focConfiguration.schemeConfigurationTabLabel' | translate
+                }}
+              </h5>
+            </a>
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(1)"
+              [class.disable]="configId === 'new' ? true : false"
+              [class.pw-is-active-bar]="selectedTab === 1"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.schemeDetailsTabLabel' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="selectedTab === 0">
+        <poss-web-scheme-config
+          [schemeDetails]="schemeDetails"
+          [tepDetails]="tepDetails"
+          [rangeWeight]="rangeWeight"
+          (saveSchemeDetails)="saveFocSchemeDetails($event)"
+        ></poss-web-scheme-config>
+
+        <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+      </div>
+    </div>
+  </div>
+</div>

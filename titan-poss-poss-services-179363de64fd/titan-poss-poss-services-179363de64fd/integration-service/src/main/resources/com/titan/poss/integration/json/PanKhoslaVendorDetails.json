@@ -1,0 +1,17 @@
+{
+	"type": "PAN",
+	"data": {
+		"clientCode": "BIGB8288",
+		"subClientCode": "khosla-labs",
+		"channelCode": "WEB",
+		"channelVersion": "1",
+		"clientIp": "",
+		"operationMode": "SELF",
+		"runMode": "TEST",
+		"actorType": "TEST",
+		"userHandleType": "EMAIL",
+		"userHandleValue": "qwbc@gmail.com",
+		"location": "NA",
+		"functionCode": "VERIFY_PAN"
+	}
+}

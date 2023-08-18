@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-8">
+    <div *ngIf="bankPriorityLists.length" class="pw-vertical-list">
+      <div class="pw-vertical-list__background-header">
+        <div class="row">
+          <div class="col-auto">
+            {{ 'pw.bankPriority.listOfPayeeBanks' | translate }}
+          </div>
+        </div>
+      </div>
+      <div
+        cdkDropList
+        class="pw-cdkDrag-list"
+        possWebBankPriorityList
+        [index]="currentIndex"
+        (cdkDropListDropped)="drop($event, latest)"
+      >
+        <div
+          class="row pw-vertical-list__border-item"
+          possWebBankPriorityListItems
+          (up)="moveUp(i, i - 1)"
+          (down)="moveDown(i, i + 1)"
+          *ngFor="
+            let bankPriorityDetailsItem of bankPriorityLists;
+            let i = index
+          "
+          cdkDrag
+        >
+          {{ bankPriorityDetailsItem.bankName }}
+
+          <div class="col-auto pw-vertical-list__right-content">
+            <div>
+              <a
+                ><span
+                  (click)="moveUp(i, i - 1)"
+                  class="pw-i-14 pw-up-arrow-icon-14"
+                ></span
+              ></a>
+            </div>
+            <div>
+              <a
+                ><span
+                  (click)="moveDown(i, i + 1)"
+                  class="pw-i-14 pw-down-arrow-icon-14"
+                ></span
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="bankPriorityLists.length" class="row">
+      <div class="col-auto ml-auto">
+        <button (click)="save()" class="pw-btn pw-accent-btn pw-fixed-button">
+          {{ 'pw.bankPriority.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

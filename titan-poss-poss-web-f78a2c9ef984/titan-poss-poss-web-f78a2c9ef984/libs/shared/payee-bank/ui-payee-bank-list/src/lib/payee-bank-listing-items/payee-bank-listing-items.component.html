@@ -1,0 +1,121 @@
+<div class="pw-detail-card">
+  <div class="row pw-detail-card__content">
+    <div class="col-lg-3 col-4">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.payeeBank.bankName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ payeeBankDetailsList.bankName }}</span
+            >
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.payeeBank.contactPerson' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              payeeBankDetailsList.contactPerson
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-4">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-4 col-lg-4 col-4">
+          <p class="pw-fourth-color">
+            {{ 'pw.payeeBank.city' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              payeeBankDetailsList.townName
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-4 col-lg-4 col-4">
+          <p class="pw-fourth-color">
+            {{ 'pw.payeeBank.state' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              payeeBankDetailsList.stateName
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-3">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-3 col-lg-4 col-3">
+          <p class="pw-fourth-color">Level</p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              payeeBankDetailsList.ownerType
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col-auto pw-detail-card__right-container"
+      *possWebPermission="loadPermission(ADD_EDIT_PAYEE_BANK_PERMISSIONS)"
+    >
+      <a class="mr-3" (click)="openViewPage(payeeBankDetailsList.bankName)">
+        <span class="pw-detail-card__icon-text">View</span>&nbsp;
+      </a>
+      <a
+        *ngIf="payeeBankDetailsList?.isActive"
+        class="mr-3"
+        (click)="getBankName(payeeBankDetailsList.bankName)"
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.payeeBank.edit' | translate }} &nbsp;</span
+        >
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div
+      class="col-auto align-self-center"
+      *possWebPermission="loadPermission(ADD_EDIT_PAYEE_BANK_PERMISSIONS)"
+    >
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>

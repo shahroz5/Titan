@@ -1,0 +1,50 @@
+<div class="row" [formGroup]="airpayDetailsFormGroup">
+  <mat-form-field class="col-auto" [floatLabel]="'auto'">
+    <mat-label>{{
+      'pw.creditNote.tanishqTransactionId' | translate
+    }}</mat-label>
+    <input
+      #focusPin
+      matInput
+      type="text"
+      formControlName="tanishqTransactionId"
+      required
+    />
+    <mat-error
+      *ngIf="
+        airpayDetailsFormGroup.get('tanishqTransactionId').errors &&
+        airpayDetailsFormGroup.get('tanishqTransactionId').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="
+          airpayDetailsFormGroup.get('tanishqTransactionId').errors.errorArray
+        "
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="col-auto" [floatLabel]="'auto'">
+    <mat-label>{{ 'pw.creditNote.airpayTransactionId' | translate }}</mat-label>
+    <input
+      #focusPin
+      matInput
+      formControlName="airpayTransactionId"
+      type="text"
+      required
+    />
+    <mat-error
+      *ngIf="
+        airpayDetailsFormGroup.get('airpayTransactionId').errors &&
+        airpayDetailsFormGroup.get('airpayTransactionId').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="
+          airpayDetailsFormGroup.get('airpayTransactionId').errors.errorArray
+        "
+      >
+      </poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+</div>

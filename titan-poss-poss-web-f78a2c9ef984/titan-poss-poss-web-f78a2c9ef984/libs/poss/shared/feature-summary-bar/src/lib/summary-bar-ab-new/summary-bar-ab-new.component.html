@@ -1,0 +1,338 @@
+<div class="pw-overlay-notification-band">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 m-auto">
+        <div class="row">
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p>
+              {{ 'pw.summaryBar.totalQtyLabel' | translate }}
+            </p>
+            <div>{{ totalQty }}</div>
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p>Rate Frozen</p>
+            <div>{{ frozen ? 'YES' : 'NO' }}</div>
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.summaryBar.totalGrossWeightLabel' | translate }}
+              <span
+                class="pw-i-14 pw-info-icon-14"
+                [matMenuTriggerFor]="weightInfoMenu"
+              ></span>
+            </p>
+            <div>{{ totalWeight | weightFormatter }} {{ weightUnit }}</div>
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.summaryBar.totalDiscountAmtLabel' | translate }}
+              <span
+                class="pw-i-14 pw-info-icon-14"
+                [matMenuTriggerFor]="discountInfoMenu"
+              ></span>
+            </p>
+            <div>
+              {{ totalDisc | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+          <div class="col-auto pw-overlay-notification-band__tablet-border">
+            <p class="pw-tooltip-container">
+              {{ 'pw.summaryBar.totalAmtLabel' | translate }}
+              <span
+                class="pw-i-14 pw-info-icon-14"
+                [matMenuTriggerFor]="priceInfoMenu"
+              ></span>
+            </p>
+            {{ totalAmount | currencyFormatter: currencyCode }}
+          </div>
+
+          <div class="col-auto pw-overlay-notification-band__tablet-view">
+            <p class="pw-tooltip-container">
+              {{ 'pw.summaryBar.summaryLabel' | translate }}
+              <span
+                class="pw-i-14 pw-info-icon-14"
+                [matMenuTriggerFor]="summaryMenu"
+              ></span>
+            </p>
+          </div>
+          <div
+            class="col-auto ml-auto pw-overlay-notification-band__input-container"
+          >
+            <mat-form-field
+              class="pw-form-field-padding-bottom-0 pw-white-form-field"
+            >
+              <mat-label>
+                {{ 'pw.summaryBar.remarksLabel' | translate }}
+              </mat-label>
+              <input
+                matInput
+                type="text"
+                [formControl]="remarksFormControl"
+                (focusout)="trimRemarks()"
+                rewuired
+              />
+            </mat-form-field>
+            <ng-container
+              *ngIf="
+                remarksFormControl?.errors?.errorArray &&
+                remarksFormControl.touched
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="remarksFormControl?.errors?.errorArray"
+                (click)="$event.stopPropagation()"
+              ></poss-web-error-info-tooltip>
+            </ng-container>
+          </div>
+
+          <div class="col-auto pw-overlay-notification-band__padding-5">
+            <button class="pw-overlay-notification-band__btn" (click)="clear()">
+              {{ 'pw.summaryBar.clearButton' | translate }}
+            </button>
+          </div>
+          <div class="col-auto pw-overlay-notification-band__padding-5">
+            <!-- <ng-container *possWebPermission="loadPermission(AB_HOLD_SUBMENU)"> -->
+              <button
+                [disabled]="isErrorinPriceUpdate"
+                class="pw-overlay-notification-band__btn"
+                (click)="hold()"
+                [ngClass]="
+                  isErrorinPriceUpdate
+                    ? 'pw-disabled pw-overlay-notification-band__btn'
+                    : 'pw-overlay-notification-band__btn'
+                "
+              >
+                {{ 'pw.summaryBar.holdButton' | translate }}
+              </button>
+            <!-- </ng-container> -->
+          </div>
+          <div class="col-auto pw-overlay-notification-band__padding-5">
+            <!-- <ng-container
+              *possWebPermission="loadPermission(AB_CONFIRM_SUBMENU)"
+            > -->
+              <button
+                [disabled]="isErrorinPriceUpdate"
+                (click)="confirm()"
+                [ngClass]="
+                  isErrorinPriceUpdate
+                    ? 'pw-disabled pw-overlay-notification-band__btn-gold'
+                    : 'pw-overlay-notification-band__btn-gold'
+                "
+              >
+                {{ 'pw.summaryBar.confirmPrintButton' | translate }}
+              </button>
+            <!-- </ng-container> -->
+          </div>
+          <div class="col-auto pw-overlay-notification-band__padding-5">
+            <button class="pw-icon-btn" [matMenuTriggerFor]="printMenu">
+              <span class="pw-i-24 pw-3-dot-icon"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #weightInfoMenu="matMenu" class="pw-overlay-notification-band__menu">
+  <div class="d-flex pw-menu-item__margin">
+    <div class="d-flex flex-column pw-tertiary-color">
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalProductWeightLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalGoldCoinsWeightLabel' | translate }}
+      </div>
+    </div>
+    <div class="d-flex flex-column mx-2 pw-tertiary-color">
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+    </div>
+    <div class="d-flex flex-column pw-font-weight-bold pw-text-right">
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ productWeight | weightFormatter }} {{ weightUnit }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ coinWeight | weightFormatter }} {{ weightUnit }}
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu
+  #discountInfoMenu="matMenu"
+  class="pw-overlay-notification-band__menu"
+>
+  <div class="d-flex pw-menu-item__margin">
+    <div class="d-flex flex-column pw-tertiary-color">
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalProductDiscountLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalGoldCoinsDiscountLabel' | translate }}
+      </div>
+    </div>
+    <div class="d-flex flex-column mx-2 pw-tertiary-color">
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+    </div>
+    <div class="d-flex flex-column pw-font-weight-bold pw-text-right">
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ productDisc | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ coinDisc | currencyFormatter: currencyCode }}
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #priceInfoMenu="matMenu" class="pw-overlay-notification-band__menu">
+  <div class="d-flex pw-menu-item__margin">
+    <div class="d-flex flex-column pw-tertiary-color">
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalProductPriceLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalGoldCoinPriceLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.totalTaxLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.hallmarkChargesLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.hallmarkDiscountLabel' | translate }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ 'pw.summaryBar.roundOffLabel' | translate }} (+/-)
+      </div>
+    </div>
+    <div class="d-flex flex-column mx-2 pw-tertiary-color">
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+      <div class="pw-overlay-notification-band__menu-item">:</div>
+    </div>
+    <div class="d-flex flex-column pw-font-weight-bold pw-text-right">
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ productAmt | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ coinAmt | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ taxAmt | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ hallmarkCharges | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ hallmarkDiscount | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-overlay-notification-band__menu-item">
+        {{ roundOff | currencyFormatter: currencyCode:false }}
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #summaryMenu="matMenu" class="pw-overlay-notification-band__menu">
+  <div class="d-flex pw-menu-item__margin">
+    <div class="d-flex flex-column">
+      <div class="pw-font-weight-bold">
+        <div>
+          {{ 'pw.summaryBar.totalQtyLabel' | translate }}
+        </div>
+        <mat-divider class="pw-divider"></mat-divider>
+      </div>
+
+      <div class="pw-font-weight-bold">
+        {{ 'pw.summaryBar.totalDiscountAmtLabel' | translate }}
+      </div>
+
+      <div class="pw-tertiary-color">
+        {{ 'pw.summaryBar.totalProductDiscountLabel' | translate }}
+      </div>
+
+      <div class="pw-tertiary-color">
+        <div>{{ 'pw.summaryBar.totalGoldCoinsDiscountLabel' | translate }}</div>
+        <mat-divider class="pw-divider"></mat-divider>
+      </div>
+
+      <div class="pw-font-weight-bold">
+        {{ 'pw.summaryBar.totalGrossWeightLabel' | translate }}
+      </div>
+      <div class="pw-tertiary-color">
+        {{ 'pw.summaryBar.totalProductWeightLabel' | translate }}
+      </div>
+      <div class="pw-tertiary-color">
+        {{ 'pw.summaryBar.totalGoldCoinsWeightLabel' | translate }}
+      </div>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="pw-font-weight-bold">
+        <div class="pw-colon-padding">:</div>
+        <mat-divider class="pw-divider"></mat-divider>
+      </div>
+      <div class="pw-font-weight-bold pw-colon-padding">:</div>
+      <div class="pw-tertiary-color pw-colon-padding">:</div>
+      <div class="pw-tertiary-color">
+        <div class="pw-colon-padding">:</div>
+        <mat-divider class="pw-divider"></mat-divider>
+      </div>
+      <div class="pw-font-weight-bold pw-colon-padding">:</div>
+      <div class="pw-tertiary-color pw-colon-padding">:</div>
+      <div class="pw-tertiary-color pw-colon-padding">:</div>
+    </div>
+    <div class="d-flex flex-column pw-text-right">
+      <div class="pw-font-weight-bold">
+        <div>{{ totalQty }}</div>
+        <mat-divider class="pw-divider"></mat-divider>
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ totalDisc | currencyFormatter: currencyCode }}
+      </div>
+      <div class="pw-tertiary-color">
+        {{ productDisc | currencyFormatter: currencyCode }}
+      </div>
+
+      <div class="pw-tertiary-color">
+        <div>{{ coinDisc | currencyFormatter: currencyCode }}</div>
+        <mat-divider class="pw-divider"></mat-divider>
+      </div>
+
+      <div class="pw-font-weight-bold">
+        {{ totalWeight | weightFormatter }} {{ weightUnit }}
+      </div>
+      <div class="pw-tertiary-color">
+        {{ productWeight | weightFormatter }} {{ weightUnit }}
+      </div>
+      <div class="pw-tertiary-color">
+        {{ coinWeight | weightFormatter }} {{ weightUnit }}
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #printMenu="matMenu" xPosition="before">
+  <button mat-menu-item (click)="print()">
+    {{ 'pw.summaryBar.printButtonLabel' | translate }}
+  </button>
+
+  <button mat-menu-item (click)="delete()">
+    {{ 'pw.summaryBar.deleteButtonLabel' | translate }}
+  </button>
+</mat-menu>

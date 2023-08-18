@@ -1,0 +1,48 @@
+.pw-grid-card {
+  &__square-box {
+    text-align: center;
+    opacity: 0.7;
+    padding: 20;
+    border-radius: 5px;
+
+    &__heading {
+      opacity: 0.7;
+      display: inline-block;
+    }
+  }
+
+  &__margin {
+    margin-top: 10px;
+  }
+
+  &__no-bg {
+    padding: 0 10px;
+
+    .mat-form-field-infix {
+      border-top: 0;
+    }
+  }
+
+  .mat-button-wrapper {
+    position: relative;
+    top: -2px;
+  }
+
+  &__list {
+    max-height: 400px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  &__list-item {
+    display: flex;
+  }
+}
+
+@media (max-width: 991px) {
+  .pw-grid-card {
+    &__list {
+      max-height: none;
+    }
+  }
+}

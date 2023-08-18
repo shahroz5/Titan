@@ -1,0 +1,6 @@
+{
+  "pw.global": {
+    "genericErrorMessage": "ar- We are experiencing issue while connecting to service. Please try again.",
+    "genericAccessDeniedErrorMessage": "You do not have required permission to access the requested details. Please contact administrator to grant access permissions. -ar"
+  }
+}

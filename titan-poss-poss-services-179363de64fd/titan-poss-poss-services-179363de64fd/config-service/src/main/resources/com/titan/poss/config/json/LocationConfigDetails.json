@@ -1,0 +1,21 @@
+{
+	"type": "EMPOWERMENT_CONFIG",
+	"data": {
+		"Q1": {
+			"isQ1Enabled": true,
+			"value": 2.0
+		},
+		"Q2": {
+			"isQ1Enabled": true,
+			"value": 2.0
+		},
+		"Q3": {
+			"isQ3Enabled": true,
+			"value": 3.5
+		},
+		"Q4": {
+			"isQ4Enabled": true,
+			"value": 4.7
+		}
+	}
+}

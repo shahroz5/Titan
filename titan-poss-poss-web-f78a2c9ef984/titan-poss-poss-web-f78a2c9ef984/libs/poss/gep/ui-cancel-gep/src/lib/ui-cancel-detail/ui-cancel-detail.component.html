@@ -1,0 +1,192 @@
+<div class="pw-detail-card">
+  <div class="pw-detail-card__heading">
+    {{'pw.gep.gepDetailsLabel' | translate}} 
+  </div>
+
+  <div class="row pw-detail-card__row">
+    <mat-form-field class="col-lg-2 col-3">
+      <mat-label>
+        {{'pw.gep.gepNumberLbl' | translate}} 
+      </mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="'pw.gep.gepNumberLbl' | translate"
+        [value]="formDetails.refDocNo"
+        readonly
+      />
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-2 col-3">
+      <mat-label>
+        {{'pw.gep.mobileNumberLbl' | translate}} 
+      </mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="'pw.gep.mobileNumberLbl' | translate"
+        [value]="formDetails.customerMobileNo"
+        readonly
+      />
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-2 col-3">
+      <mat-label>
+        {{'pw.gep.fiscalYearLbl' | translate}} 
+      </mat-label>
+      <input
+        matInput
+        readonly
+        class="pw-single-bordered-input"
+        [value]="formDetails.fiscalYear"
+        placeholder="'pw.gep.fiscalYearLbl' | translate"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-2 col-3">
+      <mat-label>
+        {{'pw.gep.docDateLbl' | translate}} 
+      </mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        [matDatepicker]="datePicker"
+        [value]="formDetails.docDate"
+        readonly
+        placeholder="'pw.gep.docDateLbl' | translate"
+      />
+      <mat-datepicker-toggle [disabled]="true" matSuffix [for]="datePicker">
+        <mat-icon matDatepickerToggleIcon>
+          <span class="pw-i-12 pw-calender-icon-12"></span>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <button class="pw-btn pw-accent-btn" [disabled]="true">
+        {{'pw.gep.searchLbl' | translate}} 
+      </button>
+    </div>
+  </div>
+
+  <div class="">
+    <div class="row pw-detail-card__row pw-detail-card__secondary-section">
+      <div class="col-lg-3 col-4">
+        <div class="pw-detail-card__label">
+          {{'pw.gep.gepDocNo' | translate}} 
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ headerDetails?.docNo }}
+        </div>
+      </div>
+      <div class="col-lg-3 col-4">
+        <div class="pw-detail-card__label">
+          {{'pw.gep.docDateLbl' | translate}} 
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ headerDetails?.docDate }}
+        </div>
+      </div>
+      <div class="col-lg-3 col-4">
+        <div class="pw-detail-card__label">
+          {{'pw.gep.cnNo' | translate}} 
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ headerDetails?.cnDocNo }}
+        </div>
+      </div>
+      <div class="col-lg-3 col-4">
+        <div class="pw-detail-card__label">
+          {{'pw.gep.approvedByLbl' | translate}} 
+        </div>
+        <div matTooltip = "{{ headerDetails?.employeeCode}}" class="pw-font-weight-bold">
+          {{ getRsoNameFromCode(headerDetails?.employeeCode) }}
+        </div>
+      </div>
+      
+    </div>
+    <div class="row pw-detail-card__row pt-2">
+      <div class="col-lg-3 col-4">
+        <div class="pw-detail-card__label">
+          {{'pw.gep.rsoName' | translate}} 
+        </div>
+        <div matTooltip = "{{ headerDetails?.employeeCode}}"  class="pw-font-weight-bold">
+          {{ getRsoNameFromCode(headerDetails?.employeeCode) }}
+        </div>
+      </div>
+      <div class="col-lg-3 col-4">
+        <a>
+          <p class="pw-detail-card__upload-item">
+            {{'pw.gep.declarationLbl' | translate}} 
+          </p>
+        </a>
+        <p class="pw-success-color" *ngIf="exchangeDetails?.data?.isDeclarationFormSubmitted === true">
+          <span class="pw-i-16 pw-success-icon-16"></span>
+          {{'pw.gep.uploadedLbl' | translate}} 
+        </p>
+        <p class="pw-error-color" *ngIf="exchangeDetails?.data === null || exchangeDetails?.data?.isDeclarationFormSubmitted === false">
+          <span class="pw-i-16 pw-warning-icon-16"></span>
+          {{'pw.gep.notUploadedLbl' | translate}} 
+        </p>
+      </div>
+
+      <div [formGroup]="gepForm">
+        <!-- <poss-web-select-dropdown
+          class="col-lg-4 col-3"
+          [placeholder]="'pw.productGrid.RSONameLabel' | translate"
+          [control]="gepForm.get('rsoName')"
+          [options]="rso"
+          [required]="true"
+        >
+        </poss-web-select-dropdown> -->
+
+        
+
+        <mat-form-field class="col-auto">
+          <mat-label>
+            {{'pw.gep.cancelReasonLbl' | translate}} 
+          </mat-label>
+          <input
+            matInput
+            type="text"
+            class="pw-single-bordered-input"
+            placeholder="Reason for Cancellation"
+            formControlName="reason"
+          />
+          <mat-error
+            *ngIf="
+              gepForm.get('reason').errors &&
+              gepForm.get('reason').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="gepForm.get('reason').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pw-detail-card">
+  <div class="pw-detail-card__heading">          
+    {{'pw.gep.productDetailsLbl' | translate}} 
+  </div>
+  <div class="row pw-detail-card__row">
+    <div class="col-lg-2 col-3"></div>
+  </div>
+  <ag-grid-angular
+    class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+    [rowData]="productGrid"
+    [columnDefs]="colDef"
+    [defaultColDef]="defaultColDef"
+    [domLayout]="domLayout"
+    [animateRows]="'true'"
+    [rowSelection]="'true'"
+    (gridReady)="gridReady($event)"
+    (gridSizeChanged)="onGridSizeChanged()"
+    (cellClicked)="onCellClicked($event)"
+  >
+  </ag-grid-angular>
+</div>

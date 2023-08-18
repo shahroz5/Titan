@@ -1,0 +1,31 @@
+{
+	"type": "BILL_CANCELLATION_HEADER",
+	"data": {
+		"invoiceNo": "1876369",
+		"totalValue": 500000,
+		"confirmedTime":1598867735883,
+		"id":"0F1D5C5A-EA89-4BC5-BCFD-D58AA98AE7F8",
+		"refTxnId":"6D58B537-A25B-4498-8F01-2E3E278B2D43",
+		"refTxnType":"CM",
+		"refSubTxnType":"NEW_CM",
+		"employeeCode":"rso.urb",
+		"totalQuantity":  2,
+		"totalWeight": 96.26,
+		"reasonForCancellation":"test",
+		"customerId": 6,
+		"title": "Mr",
+		"customerName": "xen",
+		"customerType": "INSTITUTIONAL",
+		"ulpId": "6",
+		"mobileNumber": "9037811909",
+		"emailId": "xen@gmail.com",
+		"instiTaxNo": "3283474F7E",
+		"custTaxNo": "8C2F27D102",
+		"passportId": null,
+		"pointBalance": null,
+		"currentTier": null,
+		"enrollmentDate": null,
+		"isMemberBlocked": null,
+		"isPulseCustomer": null
+	 }
+}

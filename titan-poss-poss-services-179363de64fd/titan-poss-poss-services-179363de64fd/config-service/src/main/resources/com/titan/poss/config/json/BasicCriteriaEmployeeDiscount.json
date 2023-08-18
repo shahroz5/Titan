@@ -1,0 +1,10 @@
+{
+	"type": "EMPLOYEE_DISCOUNT",
+	"data": {
+		"isNarationMandatory": true,
+		"maxDiscount": 3.8,
+		"isTepRecovery": true,
+		"isFullValueTepDiscountRecovery": true,
+		"startingSerialNo": "4,3"
+	}
+}

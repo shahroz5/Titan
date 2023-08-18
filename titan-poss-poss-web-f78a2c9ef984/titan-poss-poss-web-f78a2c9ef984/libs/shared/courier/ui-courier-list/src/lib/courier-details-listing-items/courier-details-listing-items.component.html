@@ -1,0 +1,53 @@
+<div class="row pw-sub-header">
+  <div class="col-auto">
+    <div class="pw-sub-header__heading">
+      {{ 'pw.courierDetails.courierDetailsLabel' | translate }}
+    </div>
+  </div>
+  <mat-form-field
+    class="col-3 ml-auto pw-search-bar pw-form-field-padding-bottom-0"
+    [formGroup]="searchForm"
+  >
+    <input
+      #searchBox
+      matInput
+      type="text"
+      placeholder="{{ 'pw.courierDetails.searchLabelText' | translate }}"
+      class="single-bordered-input"
+      formControlName="searchValue"
+    />
+    <mat-icon matSuffix>
+      <span
+        class="pw-i-16 pw-search-icon-16"
+        *ngIf="!searchForm.value.searchValue"
+      ></span>
+    </mat-icon>
+    <mat-icon matSuffix (click)="clearSearch()">
+      <span
+        *ngIf="searchForm.value.searchValue"
+        class="pw-i-10 pw-close-icon-16"
+      ></span
+    ></mat-icon>
+  </mat-form-field>
+</div>
+<ng-container *ngIf="!invalidSearch">
+  <poss-web-courier-details-listing-item
+    *ngFor="let courierDetailsItem of courierDetailsList; trackBy: trackBy"
+    [courierDetailsList]="courierDetailsItem"
+    (courierName)="emitCourierName($event)"
+    [permissions$]="permissions$"
+    (isActive)="emitIsActive($event)"
+    (viewPage)="openViewPage($event)"
+  ></poss-web-courier-details-listing-item>
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > minPageSize && courierDetailsList.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="emitPaginator($event)"
+  >
+  </mat-paginator>
+</ng-container>

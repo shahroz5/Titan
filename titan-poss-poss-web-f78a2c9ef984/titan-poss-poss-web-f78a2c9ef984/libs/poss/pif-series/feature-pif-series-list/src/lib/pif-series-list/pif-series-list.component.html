@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-location-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.pifSeries.HeaderLabel' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.pifSeries.subHeadingLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3 mb-4">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.pifSeries.pifSeriesUpdateLabel' | translate }}
+          </div>
+        </div>
+      </div>
+      <poss-web-pif-series-items
+        *ngIf="pifSeries?.length > 0"
+        [pifSeries]="pifSeries"
+        [count]="totalElements$ | async"
+        (paginator)="paginator($event)"
+        [pageEvent]="pifSeriesPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        [minPageSize]="minPageSize"
+        (savePIFSeriesPayload)="savePIFSeries($event)"
+      >
+      </poss-web-pif-series-items>
+      <div
+        *ngIf="(isLoading$ | async) === false && pifSeries?.length == 0"
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">
+          {{ 'pw.pifSeries.noRecordsFoundMsg' | translate }}
+        </h3>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+    </div>
+  </div>
+</div>

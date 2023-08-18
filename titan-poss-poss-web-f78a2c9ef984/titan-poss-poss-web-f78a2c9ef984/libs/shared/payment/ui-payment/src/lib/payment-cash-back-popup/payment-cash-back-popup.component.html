@@ -1,0 +1,256 @@
+<form
+  autocomplete="off"
+  [formGroup]="cashBackOfferForm"
+  class="pw-confirmation-box"
+>
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentCashBackOffer.cashBackHeader' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-confirmation-box__detail">
+      <div class="row">
+        <poss-web-select-dropdown
+          placeholder="{{ 'pw.paymentCashBackOffer.bankName' | translate }}"
+          [control]="cashBackOfferForm.get('bankName')"
+          [options]="cashBackBankDetails"
+          [required]="true"
+          class="col-6"
+          (selectionChange)="selectBankName()"
+        >
+        </poss-web-select-dropdown>
+        <div class="col-6" *ngIf="cashBackOfferConfigDetails">
+          <div class="pw-confirmation-box__label">
+            {{ 'pw.paymentCashBackOffer.minInvoiceAmntLabel' | translate }}
+          </div>
+
+          <div class="pw-font-weight-bold mt-1">
+            {{
+              cashBackOfferConfigDetails.minInvoiceAmnt
+                | currencyFormatter: currencyCode
+            }}
+          </div>
+        </div>
+      </div>
+      <!-- <h4>HDFC Credit Card Offer</h4> -->
+      <div *ngIf="cashBackOfferConfigDetails">
+        <div
+          class="pw-confirmation-box__item pw-confirmation-box__label pw-font-weight-bold"
+        >
+          {{ 'pw.paymentCashBackOffer.cashBackOfferLabel' | translate }}
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-auto pw-confirmation-box__label">
+                {{ 'pw.paymentCashBackOffer.minimumLabel' | translate }}
+              </div>
+              <div
+                class="col-auto pw-confirmation-box__label pw-confirmation-box__padding-5"
+              >
+                :
+              </div>
+              <div class="col pw-font-weight-bold">
+                {{
+                  cashBackOfferConfigDetails.minCashBackOfferAmt
+                    | currencyFormatter: currencyCode
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-auto pw-confirmation-box__label">
+                {{ 'pw.paymentCashBackOffer.maximumLabel' | translate }}
+              </div>
+              <div
+                class="col-auto pw-confirmation-box__label pw-confirmation-box__padding-5"
+              >
+                :
+              </div>
+              <div class="col pw-font-weight-bold">
+                {{
+                  cashBackOfferConfigDetails.maxCashbackOfferAmt
+                    | currencyFormatter: currencyCode
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pw-confirmation-box__item pw-confirmation-box__label pw-font-weight-bold"
+        >
+          {{ 'pw.paymentCashBackOffer.swipeAmtLabel' | translate }}
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-auto pw-confirmation-box__label">
+                {{ 'pw.paymentCashBackOffer.minimumLabel' | translate }}
+              </div>
+              <div
+                class="col-auto pw-confirmation-box__label pw-confirmation-box__padding-5"
+              >
+                :
+              </div>
+              <div class="col pw-font-weight-bold">
+                {{
+                  cashBackOfferConfigDetails.minSwipeAmt
+                    | currencyFormatter: currencyCode
+                }}
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-auto pw-confirmation-box__label">
+                {{ 'pw.paymentCashBackOffer.maximumLabel' | translate }}
+              </div>
+              <div
+                class="col-auto pw-confirmation-box__label pw-confirmation-box__padding-5"
+              >
+                :
+              </div>
+              <div class="col pw-font-weight-bold">
+                {{
+                  cashBackOfferConfigDetails.maxSwipeAmt
+                    | currencyFormatter: currencyCode
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+          <mat-form-field class="col-7">
+            <mat-label>{{
+              'pw.paymentCashBackOffer.cardNumberLabel' | translate
+            }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="cardNumber"
+              name="giftCardField"
+              possWebMaxLengthValidator
+              required
+            />
+            <mat-error
+              *ngIf="
+                cashBackOfferForm.get('cardNumber').errors &&
+                cashBackOfferForm.get('cardNumber').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  cashBackOfferForm.get('cardNumber').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <div class="col-5" *ngIf="isCashBackValidated">
+            <div class="pw-confirmation-box__label">
+              {{ 'pw.paymentCashBackOffer.cashBackOfferAmntLabel' | translate }}
+            </div>
+
+            <div class="pw-font-weight-bold mt-1">
+              {{
+                isCashBackValidated.discountValue
+                  | currencyFormatter: currencyCode
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-7">
+            <mat-label
+              >{{ 'pw.paymentCashBackOffer.swipeAmntLabel' | translate }}
+            </mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="swipeAmnt"
+              possWebAmountInput
+              required
+            />
+            <mat-error
+              *ngIf="
+                cashBackOfferForm.get('swipeAmnt').errors &&
+                cashBackOfferForm.get('swipeAmnt').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  cashBackOfferForm.get('swipeAmnt').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <div class="col-auto pw-confirmation-box__right-content">
+            <button
+              class="pw-btn pw-accent-btn"
+              [disabled]="cashBackOfferForm.invalid"
+              (click)="validateCard()"
+            >
+              {{ 'pw.paymentCashBackOffer.validateBtnLabel' | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-4">
+            <div class="pw-confirmation-box__label">
+              {{ 'pw.paymentCashBackOffer.cmAmountLabel' | translate }}
+            </div>
+            <div class="pw-font-weight-bold pw-confirmation-box__margin-top-5">
+              {{ invoiceAmount | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="pw-confirmation-box__label">
+              {{ 'pw.paymentCashBackOffer.paymentCollectedLabel' | translate }}
+            </div>
+            <div class="pw-font-weight-bold pw-confirmation-box__margin-top-5">
+              {{ paymentCollected | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="pw-confirmation-box__label">
+              {{ 'pw.paymentCashBackOffer.remainingAmntLabel' | translate }}
+            </div>
+            <div class="pw-font-weight-bold pw-confirmation-box__margin-top-5">
+              {{ remainingAmnt | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer-box row">
+    <div class="col-auto ml-auto">
+      <button
+        [disabled]="!isCashBackValidated"
+        class="pw-btn pw-accent-btn"
+        (click)="addPayment()"
+      >
+        {{ 'pw.paymentCashBackOffer.addBtnLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

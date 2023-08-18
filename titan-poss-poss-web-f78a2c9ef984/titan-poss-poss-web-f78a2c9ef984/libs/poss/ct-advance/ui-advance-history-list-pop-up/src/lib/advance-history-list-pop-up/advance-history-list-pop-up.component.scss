@@ -1,0 +1,28 @@
+.pw-confirmation-box {
+  &__fixed-body {
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 991px) {
+  //   .pw-confirmation-box__fixed-width {
+  //     margin-top: -15px;
+  //     width: 100%;
+  //   }
+
+  .pw-confirmation-box {
+    //     &__footer {
+    //       border-top: 1px solid #e8e6e6;
+    //       padding-top: 15px;
+    //       margin-top: 0;
+    //     }
+
+    &__fixed-body {
+      max-height: calc(100vh - 130px);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+}

@@ -1,0 +1,119 @@
+<!-- <div *ngIf="parentForm.invalid" class="pw-error-container">
+  <div class="pw-error-container__content">
+    Grid is invalid you cannot add another row
+  </div>
+</div> -->
+<!-- <div
+  *ngIf="
+    currentColumnName !== null &&
+    parentForm.value.length !== 0 &&
+    parentForm.controls.length !== 0
+  "
+  class="pw-info-container"
+>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'itemCode'"
+  >
+    <span class="pw-fourth-color"> Variant code</span> :
+    {{ parentForm.controls[currentRowIndex].value.itemCode }}
+    <span
+      *ngIf="parentForm.controls[currentRowIndex].value.binCode"
+      class="pw-fourth-color"
+    >
+      Bin Code :
+    </span>
+    {{ parentForm.controls[currentRowIndex].value.binCode }}
+    <span
+      *ngIf="parentForm.controls[currentRowIndex].value.description"
+      class="pw-fourth-color"
+    >
+      Description :
+    </span>
+    {{ parentForm.controls[currentRowIndex].value.description }}
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'selectedLotNumber'"
+  >
+    <span class="pw-fourth-color"> Lot Number</span> :
+    {{ lotNumber }}
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'unitWeight'"
+  >
+    <span class="pw-fourth-color"> Unit Weight</span> :
+    {{ parentForm.controls[currentRowIndex].value.unitWeight }}
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'actualWeight'"
+  >
+    <span class="pw-fourth-color"> Actual Weight : </span>
+    {{
+      parentForm.controls[currentRowIndex].value.actualWeightGroup.actualWeight
+    }}
+    <span
+      class="pw-fourth-color"
+      *ngIf="
+        parentForm.controls[currentRowIndex].value.actualWeightGroup.reason
+      "
+    >
+      Reason :
+    </span>
+    {{ parentForm.controls[currentRowIndex].value.actualWeightGroup.reason }}
+    <span
+      *ngIf="
+        parentForm.controls[currentRowIndex].value.actualWeightGroup.remarks
+      "
+      class="pw-fourth-color"
+    >
+      Remarks :
+    </span>
+    {{ parentForm.controls[currentRowIndex].value.actualWeightGroup.remarks }}
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'selectedRso'"
+  >
+    <span class="pw-fourth-color"> RSO Name</span> :
+    {{ parentForm.controls[currentRowIndex].value.selectedRso }}
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'pricePerUnit'"
+  >
+    <span class="pw-fourth-color"> Price/Unit</span> :
+    {{ parentForm.controls[currentRowIndex].value.pricePerUnit }}
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'discount' && sampleDiscountData.length > 0"
+  >
+    <span class="pw-fourth-color">Discount </span> :
+    <span *ngFor="let element of sampleDiscountData">
+      {{ element.applicableDiscounts }}-({{ element.percentage }}%),
+    </span>
+  </div>
+  <div
+    class="pw-info-container__content"
+    *ngIf="currentColumnName === 'finalPrice'"
+  >
+    <span class="pw-fourth-color"> Final Price</span> :
+    {{ parentForm.controls[currentRowIndex].value.finalPrice }}
+  </div>
+</div> -->
+<ag-grid-angular
+  class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+  [rowData]="productGrid"
+  [columnDefs]="colDef"
+  [defaultColDef]="defaultColDef"
+  [domLayout]="domLayout"
+  (gridReady)="gridReady($event)"
+  [frameworkComponents]="getComponents()"
+  (cellClicked)="onCellClicked($event)"
+  [context]="getContext()"
+  (gridSizeChanged)="onGridSizeChanged()"
+>
+</ag-grid-angular>

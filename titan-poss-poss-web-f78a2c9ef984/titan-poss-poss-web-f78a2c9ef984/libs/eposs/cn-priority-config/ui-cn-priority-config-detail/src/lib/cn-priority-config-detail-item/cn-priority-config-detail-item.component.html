@@ -1,0 +1,129 @@
+<div *ngIf="cnPriorityConfig$ | async">
+  <form [formGroup]="cnPriorityConfigForm" novalidate autocomplete="off">
+    <div class="pw-form-card">
+      <div class="row">
+        <mat-form-field class="col-lg-4 col-5">
+          <mat-label>
+            {{ 'pw.cnPriorityConfig.configName' | translate }}
+          </mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="configName"
+            required
+            name="nameWithSpaceField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              cnPriorityConfigForm.get('configName').errors &&
+              cnPriorityConfigForm.get('configName').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnPriorityConfigForm.get('configName').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <div
+          class="col-auto pw-form-card__right-container pw-form-card__align-center"
+        >
+          <poss-web-toggle-button formControlName="isActive">
+          </poss-web-toggle-button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 no-gutters">
+      <div class="col-auto">
+        <div
+          *ngIf="cnPriorityList.length"
+          class="pw-vertical-list pw-vertical-list__number"
+        >
+          <div class="pw-vertical-list__background-header">
+            <div class="row">
+              <div class="col-auto">
+                {{ 'pw.cnPriorityConfig.priorityLabel' | translate }}
+              </div>
+            </div>
+          </div>
+          <div
+            *ngFor="let cnPriorityDetailsItem of cnPriorityList; let i = index"
+            class="pw-vertical-list__border-item pw-vertical-list__number-item"
+          >
+            <div class="pw-detail-card__number">{{ i + 1 }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-8">
+        <div *ngIf="cnPriorityList.length" class="pw-vertical-list">
+          <div class="pw-vertical-list__background-header">
+            <div class="row">
+              <div class="col-auto">
+                {{ 'pw.cnPriorityConfig.listOfCnType' | translate }}
+              </div>
+            </div>
+          </div>
+          <div
+            cdkDropList
+            class="pw-cdkDrag-list"
+            possWebCnPriorityList
+            [index]="currentIndex"
+            (cdkDropListDropped)="drop($event, latest)"
+          >
+            <div
+              class="row pw-vertical-list__border-item"
+              possWebCnPriorityListItems
+              (up)="moveUp(i, i - 1)"
+              (down)="moveDown(i, i + 1)"
+              *ngFor="
+                let cnPriorityDetailsItem of cnPriorityList;
+                let i = index
+              "
+              cdkDrag
+            >
+              {{ cnPriorityDetailsItem.cnType }}
+              <div class="col-auto pw-vertical-list__right-content">
+                <button
+                  type="button"
+                  class="pw-icon-btn"
+                  (click)="moveUp(i, i - 1)"
+                >
+                  <span class="pw-i-14 pw-up-arrow-icon-14"></span>
+                </button>
+              </div>
+              <div class="col-auto">
+                <button
+                  type="button"
+                  class="pw-icon-btn"
+                  (click)="moveDown(i, i + 1)"
+                >
+                  <span class="pw-i-14 pw-down-arrow-icon-14"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-auto ml-auto">
+        <button
+          [disabled]="configId === 'new'"
+          class="pw-btn pw-primary-btn"
+          (click)="locationMapping()"
+        >
+          {{ 'pw.cnPriorityConfig.locationMappingLabel' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="pw-btn pw-accent-btn" (click)="saveDetail()">
+          {{ 'pw.cnPriorityConfig.saveLabel' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

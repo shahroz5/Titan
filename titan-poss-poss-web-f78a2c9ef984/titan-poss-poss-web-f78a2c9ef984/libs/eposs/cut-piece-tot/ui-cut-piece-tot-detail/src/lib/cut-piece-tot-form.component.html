@@ -1,0 +1,72 @@
+<form [formGroup]="cutPieceTotDetailsForm" (ngSubmit)="onSubmit()">
+  <div class="pw-min-height">
+    <div class="pw-form-card pw-form-card__margin-bottom-0">
+      <div formArrayName="cutPieceTotDetailsFormArray">
+        <div
+          class="pw-grid-table__row"
+          *ngFor="
+            let control of cutPieceTotDetailsFormArray.controls;
+            let rowIndex = index
+          "
+          [formGroupName]="rowIndex"
+        >
+          <input type="hidden" formControlName="configId" />
+          <div class="pw-grid-table__item">
+            <h4>
+              {{ cutPieceTot[rowIndex].karat }}
+              {{ 'pw.cutPieceTot.karatage' | translate }}
+            </h4>
+            <div class="row">
+              <div class="col">
+                {{ 'pw.cutPieceTot.cutPieceProductCode' | translate }}
+                <mat-form-field
+                  appearance="outline"
+                  class="pw-ml-10 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    [value]="cutPieceTot[rowIndex].itemCode"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col">
+                {{ 'pw.cutPieceTot.l3TOTDeduction' | translate }}
+                <mat-form-field
+                  appearance="outline"
+                  class="pw-ml-10 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input matInput formControlName="l3DeductionPercent" />
+                  <mat-error
+                    *ngIf="
+                      control.get('l3DeductionPercent').errors &&
+                      control.get('l3DeductionPercent').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [errorMessage]="
+                        control.get('l3DeductionPercent').errors.errorArray
+                      "
+                    >
+                    </poss-web-error-info-tooltip>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-auto ml-auto">
+      <button
+        type="submit"
+        class="pw-btn pw-accent-btn"
+        [disabled]="!cutPieceTotDetailsForm.dirty"
+      >
+        {{ 'pw.cutPieceTot.save' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

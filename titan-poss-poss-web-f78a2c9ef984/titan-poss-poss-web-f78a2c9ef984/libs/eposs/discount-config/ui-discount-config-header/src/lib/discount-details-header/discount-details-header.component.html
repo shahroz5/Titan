@@ -1,0 +1,270 @@
+<div class="pw-form-card" [formGroup]="form">
+  <div class="row align-items-baseline">
+    <mat-form-field class="col-auto col-lg-3 mt-2">
+      <mat-label>
+        {{ 'pw.discountConfig.discountCodeLabel' | translate }}</mat-label
+      >
+      <input
+        matInput
+        type="text"
+        placeholder="  {{ 'pw.discountConfig.discountCodeLabel' | translate }}"
+        formControlName="discountCode"
+        required
+      />
+
+      <mat-error
+        *ngIf="
+          form.get('discountCode').errors &&
+          form.get('discountCode').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="form.get('discountCode').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-auto col-lg-2 mt-2">
+      <mat-label>
+        {{ 'pw.discountConfig.occasionLabel' | translate }}</mat-label
+      >
+      <input
+        matInput
+        type="text"
+        placeholder=" {{ 'pw.discountConfig.occasionLabel' | translate }}"
+        formControlName="occasion"
+        required
+      />
+      <mat-error
+        *ngIf="
+          form.get('occasion').errors && form.get('occasion').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="form.get('occasion').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <poss-web-select-dropdown
+      class="col-2 col-lg-2 mt-2"
+      [placeholder]="'pw.discountConfig.brandCodeLabel' | translate"
+      [required]="true"
+      [options]="brands"
+      [control]="form.get('brandCode')"
+      (selectionChange)="emitBrandCode($event)"
+    >
+    </poss-web-select-dropdown>
+    <poss-web-select-dropdown
+      class="col-2 col-lg-2 mt-2"
+      [placeholder]="'pw.discountConfig.subBarndCodeLabel' | translate"
+      [required]="true"
+      [options]="subBrands"
+      [control]="form.get('subBrandCode')"
+    >
+    </poss-web-select-dropdown>
+  </div>
+
+  <div class="row">
+    <poss-web-select-dropdown
+      class="col-3"
+      [placeholder]="'pw.discountConfig.discountTypeLabel' | translate"
+      [required]="true"
+      [options]="discountTypes"
+      [control]="form.get('discountType')"
+      [disabled]="params !== 'new'"
+      (selectionChange)="selectChangeHandler($event)"
+    >
+    </poss-web-select-dropdown>
+
+    <mat-form-field class="col-3">
+      <mat-label>
+        {{ 'pw.discountConfig.descriptionLabel' | translate }}</mat-label
+      >
+      <input
+        matInput
+        type="text"
+        placeholder=" {{ 'pw.discountConfig.descriptionLabel' | translate }}"
+        formControlName="description"
+      />
+      <mat-error
+        *ngIf="
+          form.get('description').errors &&
+          form.get('description').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="form.get('description').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <poss-web-select-dropdown
+      *ngIf="!discountWorkflow"
+      class="col-3"
+      [placeholder]="'pw.discountConfig.approvedByLabel' | translate"
+      [required]="!discountWorkflow"
+      [options]="approvers"
+      [control]="form.get('approvedBy')"
+    >
+    </poss-web-select-dropdown>
+  </div>
+  <div class="row">
+    <div class="col-auto mt-4" *ngIf="enableRiva()">
+      <mat-checkbox
+        (click)="rivaAvailableOfferChangeFn($event.checked)"
+        formControlName="isRiva"
+      >
+        {{ 'pw.discountConfig.isRivaLabel' | translate }}</mat-checkbox
+      >
+    </div>
+    <div class="col-auto mt-4" *ngIf="enablePreviewAvailable()">
+      <mat-checkbox
+        formControlName="isPreviewApplicable"
+        (click)="previewAvailableChangeFn()"
+        (change)="previewChange($event)"
+      >
+        {{ 'pw.discountConfig.isPreviewApplicable' | translate }}</mat-checkbox
+      >
+    </div>
+    <div class="col-auto mt-4" *ngIf="enableAbCoConfig()">
+      <mat-checkbox
+        formControlName="isABOfferApplicable"
+        (click)="abOfferApplicableChangeFn($event.checked)"
+      >
+        {{ 'pw.discountConfig.isAbOfferApplicable' | translate }}</mat-checkbox
+      >
+    </div>
+    <div class="col-auto mt-4" *ngIf="enableAbCoConfig()">
+      <mat-checkbox
+        formControlName="isCOOfferApplicable"
+        (click)="coOfferApplicableChangeFn($event.checked)"
+      >
+        {{ 'pw.discountConfig.isCoOfferApplicable' | translate }}</mat-checkbox
+      >
+    </div>
+    <div class="col-auto mt-4" *ngIf="enableAccuralEncircle()">
+      <mat-checkbox formControlName="accrualUlpPoints">
+        {{ 'pw.discountConfig.accuralEncirclePoint' | translate }}</mat-checkbox
+      >
+    </div>
+    <mat-form-field class="col-auto" *ngIf="enableApplicableEncircle()">
+      <mat-label>
+        {{
+          'pw.discountConfig.applicableEncircleCreationDate' | translate
+        }}</mat-label
+      >
+      <input
+        matInput
+        readonly
+        [matDatepicker]="picker"
+        formControlName="ulpCreateDate"
+        (click)="picker.open()"
+        [required]="enablePreviewAvailable() ? isPreviewApplicable : false"
+        [disabled]="enablePreviewAvailable() ? !isPreviewApplicable : false"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="
+          form.get('ulpCreateDate').errors &&
+          form.get('ulpCreateDate').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="form.get('ulpCreateDate').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="col-4 pr-0" *ngIf="enableApplicableLevel()">
+      <mat-label>
+        {{ 'pw.discountConfig.applicableLevelLabel' | translate }}</mat-label
+      >
+      <mat-select
+        [required]="applicableLevelsMandatoryCheck()"
+        class="pw-single-bordered-input"
+        formControlName="applicableLevel"
+        multiple
+      >
+        <mat-option
+          *ngFor="let level of applicableLevels"
+          [value]="level.value"
+          >{{ level.code }}</mat-option
+        >
+      </mat-select>
+      <mat-error
+        *ngIf="
+          form.get('applicableLevel').errors &&
+          form.get('applicableLevel').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="form.get('applicableLevel').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-4 pr-0">
+      <mat-label> {{ 'pw.discountConfig.remarksLabel' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="{{ 'pw.discountConfig.remarksLabel' | translate }}"
+        formControlName="remarks"
+      />
+      <mat-error
+        *ngIf="
+          form.get('remarks').errors && form.get('remarks').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="form.get('remarks').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <div
+      *ngIf="discountWorkflow && tabType === 'request'"
+      class="col-auto mt-2"
+    >
+      <poss-web-file-upload
+        [uploadLabel]="'Upload FAQ'"
+        [imageUrl]="imageUrl"
+        (fileEmitter)="upload($event)"
+        (errorEmitter)="uploadError($event)"
+        [previewHeader]="previewHeader"
+        [fileName]="fileName"
+        [isDocumentDownload]="true"
+        (downloadDocument)="downloadDocument($event)"
+      ></poss-web-file-upload>
+    </div>
+    <div
+      *ngIf="
+        discountWorkflow &&
+        tabType !== 'request' &&
+        discountDetails?.workflowFileUploadDetails
+      "
+      class="col-auto mt-2"
+    >
+      <div class="pw-tertiary-color">FAQ Document</div>
+      <div class="pw-fourth-color">
+        <poss-web-file-upload
+          [imageUrl]="'true'"
+          [enableClose]="enableClose"
+          [previewHeader]="previewHeader"
+          [fileName]="fileName"
+          [isDocumentDownload]="true"
+          (downloadDocument)="downloadPreviewDocument($event)"
+        ></poss-web-file-upload>
+      </div>
+    </div>
+    <div class="col-auto ml-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        [disabled]="!form.valid"
+        (click)="saveForm()"
+      >
+        {{ 'pw.discountConfig.saveButtonTxt' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

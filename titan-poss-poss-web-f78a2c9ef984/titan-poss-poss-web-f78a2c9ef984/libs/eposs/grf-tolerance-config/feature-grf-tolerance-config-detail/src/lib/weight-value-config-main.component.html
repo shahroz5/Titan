@@ -1,0 +1,64 @@
+<poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+<div class="row m-0">
+  <div class="col-12 col-lg-10 m-auto">
+    <div class="pw-top-heading-container">
+      <div class="row pw-top-heading-container__item">
+        <div class="col-auto">
+          <div class="pw-top-heading-container__main-head">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+            <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+            <div>
+              <h2>
+                {{
+                  'pw.paymentConfiguration.customerTransactionLabel' | translate
+                }}
+              </h2>
+              <h5 class="pw-top-heading-container__sub-heading">
+                {{ 'pw.configurations.configuration' | translate }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pw-sub-header">
+      <div class="col-auto">
+        <div class="pw-sub-header__padding-heading">
+          {{ 'pw.weightValueConfig.weightValueConfigLabel' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <span *ngIf="!showViewOnly; else viewOnly">
+      <poss-web-weight-value-config-details
+        *ngIf="weightValueConfigDetails$ | async"
+        [weightValueConfigDetails]="weightValueConfigDetails$ | async"
+        [routeParam]="routeParam"
+        (formOutput)="formOutput($event)"
+        (openLocationMappingEvent)="openLocationMapping($event)"
+      >
+      </poss-web-weight-value-config-details>
+    </span>
+    {{ mappedLocations }}
+    <ng-template #viewOnly>
+      <poss-web-grf-tolerance-config-view
+        *ngIf="weightValueConfigDetails$ | async"
+        [weightValueConfigDetails]="weightValueConfigDetails$ | async"
+      ></poss-web-grf-tolerance-config-view>
+      <div class="row mb-3">
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-primary-btn"
+            type="button"
+            [disabled]="isNew"
+            (click)="openViewLocationMapping()"
+          >
+            {{ 'pw.weightValueConfig.locationMapping' | translate }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

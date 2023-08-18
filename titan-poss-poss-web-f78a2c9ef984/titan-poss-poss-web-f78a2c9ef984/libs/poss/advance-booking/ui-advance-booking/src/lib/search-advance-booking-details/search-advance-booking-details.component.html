@@ -1,0 +1,160 @@
+<div *ngIf="advanceBookingDetailsResponse" class="pw-detail-card">
+  <div class="row">
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.ABDocNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetailsResponse.headerData.data.docNo }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.reqNo' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetailsResponse.docNo }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.status' | translate }}
+      </div>
+      <div
+        [ngClass]="
+          getStatusColor(
+            advanceBookingDetailsResponse.approvalStatus
+              ? advanceBookingDetailsResponse.approvalStatus
+              : ''
+          )
+        "
+      >
+        {{ advanceBookingDetailsResponse.approvalStatus }}
+      </div>
+    </div>
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.performedBy' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetailsResponse.headerData.data.employeeCode }}
+      </div>
+    </div>
+    <div class="col-lg-2 col-3" *ngIf="advanceBookingDetailsResponse.approvalStatus === 'APPROVED' ">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.approvedBy' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetailsResponse.approvedby }}
+      </div>
+    </div>
+    <div class="col-lg-2 col-3" *ngIf="advanceBookingDetailsResponse.approvalStatus === 'REJECTED' ">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.rejectedBy' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetailsResponse.approvedby }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-detail-card__secondary-section">
+    <div class="row">
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.docDate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            dateFormat(advanceBookingDetailsResponse.docDate) | dateFormatter
+          }}
+        </div>
+      </div>
+
+      <div
+        class="col-lg-2 col-3"
+        *ngIf="
+          advanceBookingDetailsResponse.headerData.data.isFrozenRate &&
+          advanceBookingDetailsResponse.headerData.data.metalRateList
+            ?.metalRates?.J?.metalTypeCode === metalTypeEnum.GOLD
+        "
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.frozenGoldRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetailsResponse.headerData.data.metalRateList
+              ?.metalRates?.J.ratePerUnit | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+
+      <div
+        class="col-lg-2 col-3"
+        *ngIf="
+          advanceBookingDetailsResponse.headerData.data.isFrozenRate &&
+          advanceBookingDetailsResponse.headerData.data.metalRateList
+            ?.metalRates?.P?.metalTypeCode === metalTypeEnum.SILVER
+        "
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.frozenSiverRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetailsResponse.metalRateList?.metalRates.P
+              .ratePerUnit | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+      <div
+        class="col-lg-2 col-3"
+        *ngIf="
+          advanceBookingDetailsResponse.headerData.data.isFrozenRate &&
+          advanceBookingDetailsResponse.headerData.data.metalRateList
+            ?.metalRates?.L?.metalTypeCode === metalTypeEnum.PLATINUM
+        "
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.frozenPlatinumRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetailsResponse.headerData.data.metalRateList
+              ?.metalRates.L.ratePerUnit | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-3" *ngIf="advanceBookingDetailsResponse.headerData?.data?.remarks !== null ">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.remarks' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetailsResponse.headerData.data.remarks }}
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-3" *ngIf="advanceBookingDetailsResponse.approvalStatus === 'APPROVED' ">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.approverRemarks' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetailsResponse.approverRemarks }}
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-3" *ngIf="advanceBookingDetailsResponse.approvalStatus === 'REJECTED' ">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.rejectedRemarks' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetailsResponse.approverRemarks }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

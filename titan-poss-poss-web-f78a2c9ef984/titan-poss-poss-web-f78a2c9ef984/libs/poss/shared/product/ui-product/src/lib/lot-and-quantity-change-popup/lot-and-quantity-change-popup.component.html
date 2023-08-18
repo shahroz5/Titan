@@ -1,0 +1,81 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-confirmation-box pw-confirmation-box__fixed-width">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{ 'pw.productGrid.lotNumberHeaderText' | translate }}
+      </div>
+
+      <div class="col pw-text-right">
+        <button
+          mat-icon-button
+          (click)="closeDialog(false)"
+          class="pw-confirmation-box__icon-button"
+        >
+          <mat-icon>
+            <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body">
+      <div [formGroup]="lotQtyForm" class="pw-confirmation-box__item">
+        <mat-form-field class="pw-w-100">
+          <mat-label>
+            {{ 'pw.productGrid.lotNumberTableHeaderText' | translate }}
+          </mat-label>
+          <mat-select
+            formControlName="lotNumber"
+            disableOptionCentering
+            required
+            (selectionChange)="onLotNumChange()"
+          >
+            <mat-option
+              *ngFor="let option of valueForPopup.lotNumberList"
+              [value]="option.inventoryId"
+              >{{ option.lotNumber }}</mat-option
+            >
+          </mat-select>
+          <mat-error
+            *ngIf="
+              lotQtyForm.get('lotNumber').errors &&
+              lotQtyForm.get('lotNumber').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="lotQtyForm.get('lotNumber').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="pw-w-100">
+          <input
+            matInput
+            type="text"
+            placeholder="{{ 'pw.productGrid.qtyLabel' | translate }}"
+            class="pw-single-bordered-input"
+            formControlName="quantity"
+            required
+          />
+          <mat-error
+            *ngIf="
+              lotQtyForm.get('quantity').errors &&
+              lotQtyForm.get('quantity').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="lotQtyForm.get('quantity').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col pw-text-right">
+          <button class="pw-btn pw-accent-btn mt-4" (click)="apply()">
+            {{ 'pw.productGrid.applyButtonText' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

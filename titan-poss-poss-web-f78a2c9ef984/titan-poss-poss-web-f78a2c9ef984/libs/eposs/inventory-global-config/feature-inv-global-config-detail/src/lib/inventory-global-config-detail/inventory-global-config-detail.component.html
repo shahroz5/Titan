@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+              <div>
+                <h2>
+                  {{
+                    'pw.invGlobalConfiguration.invmangementLabel' | translate
+                  }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.invGlobalConfiguration.configuration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{
+              'pw.invGlobalConfiguration.invGlobalConfigurationlabel'
+                | translate
+            }}
+          </div>
+        </div>
+      </div>
+      <poss-web-inventory-global-config-detail-item
+        *ngIf="invglobalConfigurationFiledValue$ | async"
+        [invglobalConfigurationFiledValue$]="invglobalConfigurationFiledValue$"
+        (updatedFiledValue)="UpdateFieldValue($event)"
+      >
+      </poss-web-inventory-global-config-detail-item>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

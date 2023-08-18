@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.conversionConfig.inventoryManagement' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.conversionConfig.configurationLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto pw-top-heading-container__right-content">
+            <button
+              (click)="loadDetailPage('new')"
+              class="pw-btn pw-accent-btn"
+            >
+              {{ 'pw.conversionConfig.addNewLabel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <poss-web-conversion-config-items
+        [ConversionConfigList]="conversionConfigList$ | async"
+        [count]="totalElements$ | async"
+        [pageEvent]="initialPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        [invalidSearch]="invalidSearch"
+        (paginator)="loadPaginateData($event)"
+        (configIdView)="loadDetailPageView($event)"
+        (configId)="loadDetailPage($event)"
+        (toggleValue)="updateToggle($event)"
+        (emitSearchValue)="search($event)"
+        (clearEvent)="clearSearch()"
+      >
+      </poss-web-conversion-config-items>
+      <div
+        *ngIf="
+          ((isLoading$ | async) === false &&
+            (conversionConfigList$ | async)?.length == 0) ||
+          invalidSearch
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">
+          {{ noDataFoundMessage }}
+        </h3>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<form
+  class="row mt-3"
+  autocomplete="off"
+  [formGroup]="employeeDiscountFormGroup"
+>
+  <mat-form-field class="col-lg-3 col-5">
+    <mat-label class="pw-fourth-color">
+      {{ 'pw.discount.enterCouponCode' | translate }}</mat-label
+    >
+    <input matInput required formControlName="couponCode" />
+    <mat-error
+      *ngIf="
+        employeeDiscountFormGroup.get('couponCode').errors &&
+        employeeDiscountFormGroup.get('couponCode').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="
+          employeeDiscountFormGroup.get('couponCode').errors.errorArray
+        "
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+  <div class="col-auto mt-2">
+    <button
+      *ngIf="!isCouponApplied"
+      mat-flat-button
+      class="pw-btn pw-accent-btn"
+      type="button"
+      [disabled]="
+        employeeDiscountFormGroup.invalid || !cashMemoId || cashMemoId == 'new'
+      "
+      (click)="onApply()"
+    >
+      {{ 'pw.discount.apply' | translate }}
+    </button>
+    <button
+      *ngIf="isCouponApplied"
+      mat-flat-button
+      class="pw-btn pw-accent-btn"
+      type="button"
+      (click)="removeCoupon()"
+    >
+      {{ 'pw.discount.remove' | translate }}
+    </button>
+  </div>
+</form>

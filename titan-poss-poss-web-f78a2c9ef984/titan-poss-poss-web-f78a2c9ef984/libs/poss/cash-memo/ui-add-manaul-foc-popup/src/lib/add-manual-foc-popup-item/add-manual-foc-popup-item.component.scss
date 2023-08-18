@@ -1,0 +1,41 @@
+.pw-mat-header {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pw-scrollable-table {
+  display: block;
+  max-height: 250px;
+  overflow: scroll;
+}
+
+.pw-mat-table_footer {
+  margin-top: -10px;
+  height: 45px;
+}
+mat-cell {
+  flex: none;
+}
+mat-header-cell {
+  flex: none;
+}
+.pw-cell-width-5 {
+  width: 5%;
+}
+.pw-cell-width-27 {
+  width: 27%;
+}
+.pw-cell-width-15 {
+  width: 15%;
+}
+.pw-cell-width-20 {
+  width: 20%;
+}
+.pw-cell-width-18 {
+  width: 18%;
+}
+
+.pw-mat-table__header {
+  height: 40px;
+  min-height: 40px;
+}

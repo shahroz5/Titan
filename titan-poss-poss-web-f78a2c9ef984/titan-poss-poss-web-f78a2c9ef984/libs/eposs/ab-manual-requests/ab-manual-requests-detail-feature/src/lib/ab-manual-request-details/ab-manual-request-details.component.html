@@ -1,0 +1,75 @@
+<div class="pw-body-bg-img">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto pr-0">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+            </div>
+            <div class="col-auto pl-0">
+              <div class="pw-top-heading-container__main-head">
+                <span class="pw-i-36 pw-location-icon-36"></span>
+                <div>
+                  <h2>
+                    {{
+                      'pw.abRequestApproval.customerTransactionHeadingTxt'
+                        | translate
+                    }}
+                  </h2>
+                  <h5 class="pw-top-heading-container__sub-heading">
+                    {{
+                      'pw.abRequestApproval.approvalSubHeadingTxt' | translate
+                    }}
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4>{{ 'pw.abRequestApproval.abManualApproval' | translate }}</h4>
+        <poss-web-customer-view
+          *ngIf="cmCustomerDetails$ | async"
+          [cmCustomerDetails$]="cmCustomerDetails$"
+        ></poss-web-customer-view>
+
+        <poss-web-header-view
+          [cmHeaderDetails$]="cmRequestDetails$ | async"
+          [imageUrl]="imageUrl"
+        ></poss-web-header-view>
+        <poss-web-product-view
+          [productDetails$]="productDetails$"
+          (loadImageUrl)="loadImageUrl($event)"
+          [imageUrlData$]="imageUrlData$"
+          [pgDesc$]="pgDesc$"
+          [locationCode]="
+            (cmRequestDetails$ | async)?.locationCode
+              ? (cmRequestDetails$ | async)?.locationCode
+              : null
+          "
+          [rsoNames]="rsoDetails$ | async"
+        ></poss-web-product-view>
+
+        <ng-content> </ng-content>
+        <poss-web-discount-view></poss-web-discount-view>
+        <poss-web-summary-view
+          [cmRequestDetails$]="cmRequestDetails$"
+          (isApprove)="isApprove($event)"
+        ></poss-web-summary-view>
+      </div>
+    </div>
+  </div>
+</div>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.manualCashMemo.regulariseBillMsg' | translate }}
+    </h3>
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.manualCashMemo.cmNumber' | translate }} {{ docNo }}
+    </h5>
+  </div>
+</ng-template>

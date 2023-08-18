@@ -1,0 +1,24 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [rowData]="searchedCOItems"
+  [frameworkComponents]="getComponents()"
+  [context]="getContext()"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  [defaultColDef]="defaultColumnDefs"
+  [suppressRowClickSelection]="suppressRowClickSelection"
+  (gridReady)="gridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged()"
+  (cellFocused)="onCellFocused($event)"
+  (focusout)="focusOut($event)"
+>
+</ag-grid-angular>

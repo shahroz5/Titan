@@ -1,0 +1,20 @@
+<poss-web-cashback-offer-config-list-item
+  *ngFor="let cashBackOfferListItem of cashBackOfferList; trackBy: trackBy"
+  [cashBackOfferListItem]="cashBackOfferListItem"
+  (configId)="edit($event)"
+  (toggleValue)="change($event)"
+  (viewMode)="openViewPage($event)"
+>
+</poss-web-cashback-offer-config-list-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && cashBackOfferList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

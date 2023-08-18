@@ -1,0 +1,78 @@
+<div class="pw-white-overlay-box">
+  <div class="mg-t-50"></div>
+  <div class="pw-confirmation-box pw-confirmation-box__width-450">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{ data.label }}
+        {{ 'pw.fileUploadPopup.fileUploadStatusMsg' | translate }}
+      </div>
+      <div class="col pw-text-right">
+        <a class="sub-heading">
+          <span
+            class="pw-i-24 pw-close-no-border-icon-24"
+            (click)="closePopUp()"
+          ></span>
+        </a>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body">
+      <h4 class="pw-confirmation-box__label" *ngIf="!data.isFileError">
+        {{ successMsg }}
+      </h4>
+      <h4 class="pw-confirmation-box__label" *ngIf="data.isFileError">
+        {{ failureMag }}
+      </h4>
+      <div class="row pw-confirmation-box__item" *ngIf="!data.isFileError">
+        <div class="col-4 pw-confirmation-box__border-right">
+          <div>{{ 'pw.fileUploadPopup.failureCountLabel' | translate }}</div>
+
+          <h2 class="pw-error-color pw-font-size-24">
+            {{ data.fileUploadResponse.failureCount }}
+          </h2>
+        </div>
+        <div class="col-4 pw-confirmation-box__border-right">
+          <div>{{ 'pw.fileUploadPopup.successCountLabel' | translate }}</div>
+
+          <h2 class="pw-success-color pw-font-size-24">
+            {{ data.fileUploadResponse.successCount }}
+          </h2>
+        </div>
+        <div class="col-4">
+          <div>
+            {{ 'pw.fileUploadPopup.totalCountMsg' | translate }}
+          </div>
+
+          <h2 class="pw-font-size-24">
+            {{ data.fileUploadResponse.totalCount }}
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-confirmation-box__footer">
+      <div class="row pw-confirmation-box__footer-border">
+        <div class="col-auto" *ngIf="data.fileUploadResponse.failureCount > 0">
+          <button
+            mat-flat-button
+            class="pw-btn pw-primary-btn"
+            (click)="download()"
+            *ngIf="label !== 'Upload-Eghs'"
+          >
+            {{ 'pw.fileUploadPopup.downloadErrorLogButton' | translate }}
+          </button>
+          <button
+            mat-flat-button
+            class="pw-btn pw-primary-btn"
+            (click)="showErrorRecords()"
+            *ngIf="label === 'Upload-Eghs'"
+          >
+            {{ 'pw.fileUploadPopup.errorRecordsButton' | translate }}
+          </button>
+        </div>
+        <div class="col-auto ml-auto">
+          <button class="pw-btn pw-accent-btn" (click)="okButton()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

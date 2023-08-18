@@ -1,0 +1,65 @@
+<div class="pw-detail-card">
+  <div class="row align-items-center">
+    <div class="col-lg-7 col-12">
+      <div class="row">
+        <div class="col-lg-3 col-2 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.priceGroup.priceGroupLable' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-list-card__padding-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              priceGroupItem.priceGroup
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.priceGroup.descriptionLable' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-list-card__padding-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              priceGroupItem.description
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="view(priceGroupItem.priceGroup)">
+        <span class="pw-detail-card__icon-text">{{
+          'pw.priceGroup.viewLable' | translate
+        }}</span>
+      </a>
+      &nbsp;
+
+      <a
+        *ngIf="priceGroupItem?.isActive"
+        (click)="edit(priceGroupItem.priceGroup)"
+      >
+        <span class="pw-detail-card__icon-text">{{
+          'pw.priceGroup.editLable' | translate
+        }}</span>
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+
+    <div class="col-auto">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

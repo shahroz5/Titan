@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1qqjxkp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.2">
+  <bpmn:process id="WORKFLOWSERVICEL1" name="WORKFLOWSERVICEL1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ymb5mo</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="requestApproverL1" name="REQUEST_APPROVER_L1" camunda:candidateGroups="${approverL1}">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="approvedL1" label="Approved L1?" type="boolean" />
+          <camunda:formField id="approverCommentsL1" label="Approver Comments L1" type="string" />
+          <camunda:formField id="approverNameL1" label="Approver Name L1" type="string" />
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="level1">1</camunda:outputParameter>
+        </camunda:inputOutput>
+        <camunda:taskListener class="com.titan.poss.workflow.camundabpm.TaskAssignmentListenerApproverL1" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1etpnaz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1umgy9t</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0ymb5mo" sourceRef="StartEvent_1" targetRef="assignApprover" />
+    <bpmn:sequenceFlow id="Flow_1etpnaz" sourceRef="assignApprover" targetRef="requestApproverL1" />
+    <bpmn:endEvent id="confirmationEmailSent" name="Approval Confirmation Email Sent">
+      <bpmn:incoming>Flow_17xl2n0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1umgy9t" sourceRef="requestApproverL1" targetRef="Gateway_07vg2ur" />
+    <bpmn:exclusiveGateway id="Gateway_07vg2ur">
+      <bpmn:incoming>Flow_1umgy9t</bpmn:incoming>
+      <bpmn:outgoing>requestApprovedbyL1</bpmn:outgoing>
+      <bpmn:outgoing>requestRejectedbyL1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="requestApprovedbyL1" name="Request Approved by L1" sourceRef="Gateway_07vg2ur" targetRef="sendConfirmationEmailtoRequestor">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approvedL1 == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="requestRejectedbyL1" name="Request Rejected by L1" sourceRef="Gateway_07vg2ur" targetRef="sendRejectionEmailtoRequestorL1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approvedL1 == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="rejectionEmailSent" name="Rejection Email Sent">
+      <bpmn:incoming>Flow_1xrffhn</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_17xl2n0" sourceRef="sendConfirmationEmailtoRequestor" targetRef="confirmationEmailSent" />
+    <bpmn:sendTask id="sendConfirmationEmailtoRequestor" name="Send Approval Confirmation Email to Requestor" camunda:class="com.titan.poss.workflow.camundabpm.SendEmailtoRequestorByApproverL1">
+      <bpmn:incoming>requestApprovedbyL1</bpmn:incoming>
+      <bpmn:outgoing>Flow_17xl2n0</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sendTask id="sendRejectionEmailtoRequestorL1" name="Send Rejection Email to Requestor" camunda:class="com.titan.poss.workflow.camundabpm.SendEmailtoRequestorByApproverL1">
+      <bpmn:incoming>requestRejectedbyL1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xrffhn</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_1xrffhn" sourceRef="sendRejectionEmailtoRequestorL1" targetRef="rejectionEmailSent" />
+    <bpmn:serviceTask id="assignApprover" name="Assign Approver" camunda:asyncBefore="true" camunda:class="com.titan.poss.workflow.camundabpm.ConfigureApproverDetailsinBPMN">
+      <bpmn:incoming>Flow_0ymb5mo</bpmn:incoming>
+      <bpmn:outgoing>Flow_1etpnaz</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="WORKFLOWSERVICEL1">
+      <bpmndi:BPMNEdge id="Flow_1xrffhn_di" bpmnElement="Flow_1xrffhn">
+        <di:waypoint x="820" y="360" />
+        <di:waypoint x="820" y="452" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17xl2n0_di" bpmnElement="Flow_17xl2n0">
+        <di:waypoint x="1110" y="120" />
+        <di:waypoint x="1212" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xqqu6x_di" bpmnElement="requestRejectedbyL1">
+        <di:waypoint x="820" y="145" />
+        <di:waypoint x="820" y="280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="826" y="200" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j9rmxk_di" bpmnElement="requestApprovedbyL1">
+        <di:waypoint x="845" y="120" />
+        <di:waypoint x="1010" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="871" y="90" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1umgy9t_di" bpmnElement="Flow_1umgy9t">
+        <di:waypoint x="620" y="120" />
+        <di:waypoint x="795" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1etpnaz_di" bpmnElement="Flow_1etpnaz">
+        <di:waypoint x="360" y="120" />
+        <di:waypoint x="520" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ymb5mo_di" bpmnElement="Flow_0ymb5mo">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0emdle8_di" bpmnElement="requestApproverL1">
+        <dc:Bounds x="520" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1euuoqp_di" bpmnElement="confirmationEmailSent">
+        <dc:Bounds x="1212" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1201" y="145" width="63" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_07vg2ur_di" bpmnElement="Gateway_07vg2ur" isMarkerVisible="true">
+        <dc:Bounds x="795" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12rd5g8_di" bpmnElement="rejectionEmailSent">
+        <dc:Bounds x="802" y="452" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="783" y="495" width="77" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jy68d5_di" bpmnElement="sendConfirmationEmailtoRequestor">
+        <dc:Bounds x="1010" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bg08oo_di" bpmnElement="sendRejectionEmailtoRequestorL1">
+        <dc:Bounds x="770" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1178qui_di" bpmnElement="assignApprover">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

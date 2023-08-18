@@ -1,0 +1,59 @@
+<div class="pw-list-card px-3">
+  <div class="row">
+    <div class="col-lg-7 col-12">
+      <div class="row">
+        <div class="col-lg-3 col-2 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.brandMaster.brandCode' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-list-card__padding-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{ listItem.brandCode }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.brandMaster.description' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-list-card__padding-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{ listItem.description }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="viewDetailsPage(); $event.stopPropagation()">
+        <span class="pw-detail-card__icon-text">
+          {{ 'View' | translate }}
+        </span>
+      </a>
+      &nbsp;
+      <a (click)="emitBrandcode()">
+        <span class="pw-detail-card__icon-text">{{
+          'pw.subBrand.edit' | translate
+        }}</span>
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+
+    <div class="col-auto align-self-center">
+      <poss-web-toggle-button
+        [isActive]="checked"
+        (changeEvent)="changeEvent($event)"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>

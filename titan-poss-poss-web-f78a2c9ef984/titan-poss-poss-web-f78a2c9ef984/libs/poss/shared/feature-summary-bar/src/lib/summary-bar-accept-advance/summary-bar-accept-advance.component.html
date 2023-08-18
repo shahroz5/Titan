@@ -1,0 +1,146 @@
+<div class="pw-overlay-notification-band">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 m-auto">
+        <div class="row">
+          <div class="col-auto pw-overlay-notification-band__tablet-border">
+            <p class="pw-tooltip-container">
+              {{ 'pw.acceptAdvance.totalAmount' | translate }}
+            </p>
+            {{ totalAmt | currencyFormatter: currencyCode }}
+          </div>
+          <div
+            class="col-auto ml-auto pw-overlay-notification-band__input-container"
+          >
+            <mat-form-field
+              class="pw-form-field-padding-bottom-0 pw-white-form-field"
+              *ngIf="data?.type === ctAdvanceTabsEnum.ACCEPT_ADVANCE"
+            >
+              <mat-label>
+                {{ 'pw.summaryBar.remarksLabel' | translate }}
+              </mat-label>
+              <input
+                matInput
+                type="text"
+                [formControl]="remarksFormControl"
+                (focusout)="trimRemarks()"
+              />
+              <!-- <div
+                matPrefix
+                class="mr-2"
+                *ngIf="
+                  remarksFormControl?.errors?.errorArray &&
+                  remarksFormControl.touched
+                "
+              >
+                <span
+                  *ngFor="
+                    let errorMesage of remarksFormControl.errors.errorArray;
+                    let i = index
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    *ngIf="remarksFormControl.errors.errorArray.length === 1"
+                    [errorMessage]="[errorMesage]"
+                    (click)="$event.stopPropagation()"
+                  ></poss-web-error-info-tooltip>
+                  <poss-web-error-info-tooltip
+                    *ngIf="
+                      i > 0 && remarksFormControl.errors.errorArray.length > 1
+                    "
+                    [errorMessage]="errorMesage"
+                    (click)="$event.stopPropagation()"
+                  ></poss-web-error-info-tooltip>
+                </span>
+              </div> -->
+            </mat-form-field>
+            <ng-container
+              *ngIf="
+                remarksFormControl?.errors?.errorArray &&
+                remarksFormControl.touched
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="remarksFormControl?.errors?.errorArray"
+                (click)="$event.stopPropagation()"
+              ></poss-web-error-info-tooltip>
+            </ng-container>
+          </div>
+
+          <div
+            class="col-auto pw-overlay-notification-band__padding-5"
+            *ngIf="data?.type === ctAdvanceTabsEnum.ACCEPT_ADVANCE"
+          >
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="closeAdvanceData()"
+            >
+              {{ 'pw.acceptAdvance.clear' | translate }}
+            </button>
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__padding-5"
+            *ngIf="data?.type === ctAdvanceTabsEnum.ACCEPT_ADVANCE"
+          >
+            <!-- <ng-container
+              *possWebPermission="
+                loadPermission(ACCEPT_ADVANCE_CONFIRM_SUBMENU)
+              "
+            > -->
+            <button
+              [ngClass]="
+                totalAmt - totalPaidAmt !== 0 || totalAmt === 0
+                  ? 'pw-disabled pw-overlay-notification-band__btn-gold'
+                  : 'pw-overlay-notification-band__btn-gold'
+              "
+              (click)="confirmAcceptAdvance()"
+              [disabled]="totalAmt - totalPaidAmt !== 0 || totalAmt === 0"
+            >
+              {{ 'pw.acceptAdvance.confirm' | translate }}
+            </button>
+            <!-- </ng-container> -->
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__padding-5"
+            *ngIf="
+              data?.type === ctAdvanceTabsEnum.HISTORY &&
+              data?.status === statusTypesEnum?.CONFIRMED
+            "
+          >
+            <button
+              class="pw-overlay-notification-band__btn-gold"
+              (click)="printAdvanceItem()"
+            >
+              {{ 'pw.acceptAdvance.print' | translate }}
+            </button>
+          </div>
+          <!-- <div
+            class="col-auto pw-overlay-notification-band__padding-5"
+            *ngIf="data?.type === ctAdvanceTabsEnum.ACCEPT_ADVANCE"
+          >
+            <button
+              class="pw-icon-btn"
+              [matMenuTriggerFor]="printMenu"
+              [disabled]="false"
+            >
+              <span class="pw-i-24 pw-3-dot-icon"></span>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #printMenu="matMenu" xPosition="before">
+  <button mat-menu-item [disabled]="false" (click)="printAdvanceItem()">
+    {{ 'pw.giftCards.printLastTransaction' | translate }}
+  </button>
+  <!-- <button mat-menu-item [disabled]="true">
+    {{ 'pw.giftCards.convertToAdvance' | translate }}
+  </button> -->
+  <button mat-menu-item (click)="delete()">
+    {{ 'pw.summaryBar.deleteButtonLabel' | translate }}
+  </button>
+</mat-menu>

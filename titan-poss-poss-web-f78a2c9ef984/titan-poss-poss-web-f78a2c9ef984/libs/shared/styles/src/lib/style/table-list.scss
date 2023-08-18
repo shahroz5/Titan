@@ -1,0 +1,27 @@
+.pw-table-list {
+  width: 100%;
+  font-size: em(14);
+  font-weight: normal;
+  color: $secondary-color;
+  font-family: $ibm-plex-condensed;
+
+  &__header {
+    background: $primary-color;
+    border-bottom: 1px solid $twelth-color;
+    font-weight: bold;
+  }
+
+  &__item {
+    padding: 2px 10px;
+    border-right: 1px solid $twelth-color;
+  }
+
+  &__body-item {
+    border-bottom: 1px solid $twelth-color;
+  }
+
+  .pw-delete-black-icon-24 {
+    position: relative;
+    top: 4px;
+  }
+}

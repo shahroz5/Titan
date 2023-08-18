@@ -1,0 +1,41 @@
+.width {
+  max-width: 100px;
+  min-width: 85px;
+}
+
+.height {
+  max-height: 330px;
+  overflow: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+.padding-5 {
+  padding: 0 5px;
+}
+
+.pw-text-overflow {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  position: relative;
+  top: 2px;
+}
+
+.pw-label-position {
+  position: relative;
+  top: 7px;
+}
+
+.pw-error-label {
+  font-weight: 700;
+  font-size: em(12);
+  align-self: center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.mat-width {
+  width: 45%;
+}

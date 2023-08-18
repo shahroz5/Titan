@@ -1,0 +1,16 @@
+<ng-container *ngIf="loginStatus$ | async; else guestLayout">
+  <ng-container *ngIf="isPrimaryLayout; else secondaryLayout">
+    <poss-web-user-layout
+      [possWebBlockCopyPaste]="blockCopyPasteValue$ | async"
+    ></poss-web-user-layout>
+  </ng-container>
+
+  <ng-template #secondaryLayout>
+    <poss-web-user-layout-secondary></poss-web-user-layout-secondary>
+  </ng-template>
+</ng-container>
+
+<ng-template #guestLayout>
+  <poss-web-guest-layout></poss-web-guest-layout>
+</ng-template>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

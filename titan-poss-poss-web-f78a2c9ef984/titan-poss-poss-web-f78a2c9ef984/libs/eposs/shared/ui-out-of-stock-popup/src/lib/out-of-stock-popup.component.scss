@@ -1,0 +1,13 @@
+.pw-confirmation-box {
+  max-height: 500px;
+
+  &__scrollable-item {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+
+  &__list-item {
+    padding: 10px 0;
+    border-top: 1px solid #f1f1f1;
+  }
+}

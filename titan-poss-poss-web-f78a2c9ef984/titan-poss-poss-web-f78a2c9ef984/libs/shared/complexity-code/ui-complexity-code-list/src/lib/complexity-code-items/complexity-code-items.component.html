@@ -1,0 +1,20 @@
+<poss-web-complexity-code-item
+  *ngFor="let compexityCodeItem of complexityCodeList; trackBy: trackBy"
+  [compexityCodeItem]="compexityCodeItem"
+  (complexityCode)="edit($event)"
+  (emitToggle)="emitToggleValue($event)"
+  (viewPage)="openViewPage($event)"
+>
+</poss-web-complexity-code-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && complexityCodeList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

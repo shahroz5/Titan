@@ -1,0 +1,153 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<div *ngIf="isHistory === false">
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table pw-revenue-table"
+    [columnDefs]="reqColumnDefs"
+    [rowHeight]="rowHeight"
+    [rowData]="isEposs ? pendingRequests : requestsListPoss"
+    [animateRows]="animateRows"
+    [suppressRowClickSelection]="true"
+    [domLayout]="domLayout"
+    [rowSelection]="rowSelection"
+    (gridReady)="requestGridReady($event)"
+    (gridSizeChanged)="onGridSizeChanged()"
+    [defaultColDef]="defaultColDef"
+    (sortChanged)="sortChanged($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+    (cellFocused)="onCellFocused($event)"
+    (focusout)="focusOut($event)"
+  ></ag-grid-angular>
+</div>
+
+<div *ngIf="!isEposs">
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > minPageSize && requestsListPoss.length > 0 && count > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+
+<div *ngIf="isEposs === true && isHistory === true">
+  <div class="pw-fixed-container">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [columnDefs]="histroyColumnDefs"
+      [rowData]="
+        isHistory === true && isApproved === true
+          ? approvedRequests
+          : closedRequests.length > 0
+          ? closedRequests
+          : rejectedRequests
+      "
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+      [domLayout]="domLayout"
+      (gridReady)="requestGridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged()"
+      [defaultColDef]="defaultColDef"
+      (sortChanged)="sortChanged($event)"
+      (cellFocused)="onCellFocused($event)"
+      (focusout)="focusOut($event)"
+    ></ag-grid-angular>
+  </div>
+</div>
+<div *ngIf="isEposs === true && isHistory === false" class="row">
+  <mat-paginator
+    class="pw-paginator col-auto ml-auto"
+    *ngIf="
+      pendingRequests[0]?.totalElements > minPageSize &&
+      pendingRequests[0]?.totalElements > 0
+    "
+    [length]="pendingRequests[0]?.totalElements"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+
+<div *ngIf="isEposs === true && isApproved === true" class="row">
+  <mat-paginator
+    class="pw-paginator col-auto ml-auto"
+    *ngIf="
+      approvedRequests[0]?.totalElements > minPageSize &&
+      approvedRequests[0]?.totalElements > 0
+    "
+    [length]="approvedRequests[0]?.totalElements"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+
+<div *ngIf="isEposs === true && isApproved === false" class="row">
+  <mat-paginator
+    class="pw-paginator col-auto ml-auto"
+    *ngIf="
+      rejectedRequests[0]?.totalElements > minPageSize &&
+      rejectedRequests[0].totalElements > 0
+    "
+    [length]="rejectedRequests[0]?.totalElements"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+
+<div *ngIf="isEposs === true && closedRequests.length > 0" class="row">
+  <mat-paginator
+    class="pw-paginator col-auto ml-auto"
+    *ngIf="
+      closedRequests[0]?.totalElements > minPageSize &&
+      closedRequests[0].totalElements > 0
+    "
+    [length]="closedRequests[0]?.totalElements"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+
+<div class="row mb-3" *ngIf="isEposs === true && isHistory === false">
+  <div class="col-auto ml-auto">
+    <button
+      [disabled]="disable"
+      (click)="reject()"
+      class="pw-btn pw-primary-btn"
+    >
+      {{ 'pw.roRequestApproval.rejectButtonLabel' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      [disabled]="disable"
+      (click)="accept()"
+      class="pw-btn pw-accent-btn"
+    >
+      {{ 'pw.roRequestApproval.accecptButtonLabel' | translate }}
+    </button>
+  </div>
+</div>

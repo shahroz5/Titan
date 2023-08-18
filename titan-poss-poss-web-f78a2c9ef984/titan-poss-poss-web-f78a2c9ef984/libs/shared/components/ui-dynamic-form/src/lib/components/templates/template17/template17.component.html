@@ -1,0 +1,214 @@
+<div class="row">
+  <div class="errorMessage" *ngFor="let error of form.errors | objIterator">
+    <poss-web-error-message [formId]="formId" [error]="error">
+    </poss-web-error-message>
+  </div>
+  <div class="col-lg-12 col-14">
+    <div class="pw-form-card" *ngIf="fields.length > 0">
+      <!-- for subform -->
+      <div class="row">
+        <div class="col-7">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[0]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+        <!-- <div class="col-auto pw-form-card__right-container">
+            <poss-web-dynamic-input
+              [style]="style"
+              [field]="fields[1]"
+              [form]="form"
+              (selectChange)="selectChange($event)"
+          (selectRefreshClick)="selectRefreshClickEvent($event)"
+              (radioChange)="radioChange($event)"
+              (checkboxChange)="checkBoxChange($event)"
+            >
+            </poss-web-dynamic-input>
+          </div> -->
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[1]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+        <div class="col-3">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[2]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[3]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+        <div class="col-3">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[4]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[5]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[6]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+        <div class="col-3">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[7]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[8]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+        <div class="col-3">
+          <poss-web-dynamic-input
+            [style]="style"
+            [field]="fields[9]"
+            [form]="form"
+            (selectChange)="selectChange.emit($event)"
+            (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+            (radioChange)="radioChange.emit($event)"
+            (checkboxChange)="checkBoxChange.emit($event)"
+          >
+          </poss-web-dynamic-input>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-4 mb-4" *ngIf="!disabled && !disableSubmit">
+  <div class="col-auto ml-auto">
+    <div class="row justify-content-end">
+      <ng-container *ngIf="buttonNames">
+        <button
+          type="button"
+          class="pw-btn pw-primary-btn col-auto mr-3"
+          (click)="onDeleteForm.emit(true)"
+          [disabled]="(!form.valid && !enableSubmitOnInvalid) || !form.dirty"
+        >
+          {{ buttonNames[0] | translate }}
+        </button>
+        <button
+          type="submit"
+          class="pw-btn pw-accent-btn col-auto mr-3"
+          (click)="onAddForm.emit(true)"
+          [disabled]="(!form.valid && !enableSubmitOnInvalid) || !form.dirty"
+        >
+          {{ buttonNames[1] | translate }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="commandButtons">
+        <ng-container *ngFor="let btn of commandButtons; let i = index">
+          <div *ngIf="btn.permission; else elseNoPermission">
+            <button
+              *possWebPermission="btn?.permission"
+              #commandButtonPanel
+              type="{{ btn.type }}"
+              class="{{ btn.cssClassName }} col-auto mr-3 "
+              (click)="emitButton.emit({ btn: btn, i: i })"
+              [disabled]="
+                btn.type != ButtonType.BUTTON
+                  ? (!form.valid && !enableSubmitOnInvalid) || !form.dirty
+                  : 'false'
+              "
+            >
+              {{ btn.name | translate }}
+            </button>
+          </div>
+          <ng-template #elseNoPermission>
+            <button
+              #commandButtonPanel
+              type="{{ btn.type }}"
+              class="{{ btn.cssClassName }} col-auto mr-3 "
+              (click)="emitButton.emit({ btn: btn, i: i })"
+              [disabled]="
+                btn.type != ButtonType.BUTTON
+                  ? (!form.valid && !enableSubmitOnInvalid) || !form.dirty
+                  : 'false'
+              "
+            >
+              {{ btn.name | translate }}
+            </button>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

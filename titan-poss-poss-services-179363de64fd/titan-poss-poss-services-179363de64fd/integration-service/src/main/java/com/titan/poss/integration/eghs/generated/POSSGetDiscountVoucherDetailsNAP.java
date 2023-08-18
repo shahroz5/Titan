@@ -1,0 +1,92 @@
+
+package com.titan.poss.integration.eghs.generated;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="voucherNo" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="accNo" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="ulpID" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "voucherNo",
+    "accNo",
+    "ulpID"
+})
+@XmlRootElement(name = "POSS_GetDiscountVoucherDetails_NAP")
+public class POSSGetDiscountVoucherDetailsNAP {
+
+    protected int voucherNo;
+    protected int accNo;
+    protected int ulpID;
+
+    /**
+     * Gets the value of the voucherNo property.
+     * 
+     */
+    public int getVoucherNo() {
+        return voucherNo;
+    }
+
+    /**
+     * Sets the value of the voucherNo property.
+     * 
+     */
+    public void setVoucherNo(int value) {
+        this.voucherNo = value;
+    }
+
+    /**
+     * Gets the value of the accNo property.
+     * 
+     */
+    public int getAccNo() {
+        return accNo;
+    }
+
+    /**
+     * Sets the value of the accNo property.
+     * 
+     */
+    public void setAccNo(int value) {
+        this.accNo = value;
+    }
+
+    /**
+     * Gets the value of the ulpID property.
+     * 
+     */
+    public int getUlpID() {
+        return ulpID;
+    }
+
+    /**
+     * Sets the value of the ulpID property.
+     * 
+     */
+    public void setUlpID(int value) {
+        this.ulpID = value;
+    }
+
+}

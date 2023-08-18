@@ -1,0 +1,206 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.discountConfig.offerConfigurationLabel' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.discountConfig.configurationLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-12">
+          <div class="pw-tab">
+            <div class="row">
+              <ul class="pw-tab__list ml-3">
+                <li class="pw-tab__list-item">
+                  <a class="pw-is-active-bar">
+                    <h5 class="pw-tab__item">
+                      {{ 'pw.discountConfig.discountsHeaderLabel' | translate }}
+                    </h5>
+                  </a>
+                </li>
+              </ul>
+              <div class="col-auto ml-auto mt-3">
+                <a>
+                  <div class="row">
+                    <p (click)="fileInput.click()" class="pw-fourth-color mt-1">
+                      <input
+                        [hidden]="true"
+                        #fileInput
+                        class="pw-hidden"
+                        type="file"
+                        (change)="uploadFile($event)"
+                      />{{
+                        'pw.discountConfig.bestDealDiscUploadLabel' | translate
+                      }}
+                    </p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-auto mt-3 ml-4">
+                <a>
+                  <div class="row">
+                    <p
+                      (click)="fileInput1.click()"
+                      class="pw-fourth-color mt-1"
+                    >
+                      <input
+                        [hidden]="true"
+                        #fileInput1
+                        class="pw-hidden"
+                        type="file"
+                        (change)="uploadItemGroupDiscFile($event)"
+                      />{{
+                        'pw.discountConfig.itemGroupDiscUpload' | translate
+                      }}
+                    </p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-auto mb-2">
+                <button
+                  (click)="selectedConfig('new')"
+                  class="pw-btn pw-accent-btn"
+                >
+                  {{ 'pw.discountConfig.addNewLabel' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" [formGroup]="filterForm">
+        <div class="col-auto pw-font-weight-bold">
+          {{ 'pw.discountConfig.listOfDiscLabel' | translate }}
+        </div>
+        <div class="col ml-auto">
+          <div class="row align-items-baseline justify-content-end">
+            <div class="col-2">
+              <poss-web-select-dropdown
+                placeholder="{{
+                  'pw.discountConfig.publishedLabel' | translate
+                }}"
+                [control]="filterForm.get('publishStatus')"
+                [options]="publishStatusList"
+                (selectionChange)="publishStatusChangeHandler($event)"
+              >
+              </poss-web-select-dropdown>
+            </div>
+            <div class="col-2">
+              <poss-web-select-dropdown
+                [placeholder]="
+                  'pw.discountConfig.discountTypeLabel' | translate
+                "
+                [options]="discountTypes"
+                (selectionChange)="discountTypeChangeHandler($event)"
+              >
+              </poss-web-select-dropdown>
+            </div>
+
+            <poss-web-select-dropdown
+              class="col-2"
+              [placeholder]="'pw.discountConfig.discountStatus' | translate"
+              [control]="filterForm.get('discountStatus')"
+              [options]="statusList"
+              (selectionChange)="selectChangeHandler($event)"
+            >
+            </poss-web-select-dropdown>
+            <div class="col-5 row no-gutters">
+              <poss-web-select-dropdown
+                class="col-5 pw-form-field-padding-bottom-0 pw-customer-position"
+                placeholder="{{
+                  'pw.customerSearch.searchByLabel' | translate
+                }}"
+                [control]="filterForm.get('searchBy')"
+                [options]="dropdownSearchOptions"
+                [required]="true"
+                (selectionChange)="onSelectionChang($event)"
+              >
+              </poss-web-select-dropdown>
+              <mat-form-field
+                class="col-7 pw-form-field-padding-bottom-0 pw-search-bar pw-form-field-border-top-0"
+              >
+                <input
+                  #searchBox
+                  matInput
+                  type="text"
+                  placeholder=" {{
+                    filterForm.get('searchBy').value === 'Occasion'
+                      ? ('pw.discountConfig.searchLabelOccasion' | translate)
+                      : ('pw.discountConfig.searchLabel' | translate)
+                  }}"
+                  class="single-bordered-input"
+                  formControlName="searchValue"
+                />
+                <mat-icon matSuffix>
+                  <span
+                    class="pw-i-16 pw-search-icon-16"
+                    *ngIf="!filterForm.value.searchValue"
+                  ></span>
+                </mat-icon>
+                <mat-icon matSuffix (click)="clearSearch()">
+                  <span
+                    *ngIf="filterForm.value.searchValue"
+                    class="pw-i-10 pw-close-icon-16"
+                  ></span
+                ></mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <poss-web-ui-discount-config-list
+        *ngIf="!invalidSearch"
+        [discountConfigList]="discountConfigList$ | async"
+        [count]="totalElements$ | async"
+        [pageEvent]="initialPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        [minPageSize]="minPageSize"
+        (paginator)="loadPaginateData($event)"
+        (selected)="selectedConfig($event)"
+        (publishId)="publish($event)"
+        (emitToggleValue)="onChangeToggle($event)"
+        (viewPage)="openViewPage($event)"
+      >
+      </poss-web-ui-discount-config-list>
+
+      <div
+        *ngIf="
+          ((isLoading$ | async) === false &&
+            !(discountConfigList$ | async)?.length) ||
+          invalidSearch
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.fileStatus.fileUploadStatusMessage' | translate }}
+      <u class="pw-pointer" (click)="fileStatus()">
+        {{ 'pw.fileStatus.fileStatus' | translate }}</u
+      >
+    </h3>
+  </div>
+</ng-template>

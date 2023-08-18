@@ -1,0 +1,30 @@
+<div
+  class="pw-confirmation-box pw-confirmation-box__fixed-width"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="row pw-confirmation-box__header">
+    <div class="col-auto">Uploaded Documents</div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="onClose()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div>
+      <ag-grid-angular
+        class="pw-titan-poss-theme pw-ag-grid-table pw-scrollable-ag-grid mt-3"
+        [columnDefs]="columnDefs"
+        [rowHeight]="rowHeight"
+        (cellClicked)="onCellClicked($event)"
+        [defaultColDef]="defaultColDef"
+        [rowData]="data.files"
+        [domLayout]="domLayout"
+      >
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>

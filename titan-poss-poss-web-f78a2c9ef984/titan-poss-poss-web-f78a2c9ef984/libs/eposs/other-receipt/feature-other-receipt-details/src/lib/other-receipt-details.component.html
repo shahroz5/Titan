@@ -1,0 +1,607 @@
+<poss-web-expansion-panel>
+  <poss-web-expansion-panel-summary>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+          <div class="pw-top-heading-container">
+            <div class="row pw-top-heading-container__item align-items-end">
+              <div class="col-auto pl-0">
+                <div class="pw-top-heading-container__main-head">
+                  <a (click)="back()">
+                    <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+                  </a>
+                  <span class="pw-i-36 pw-receive-stock-icon-36"></span>
+                  <div>
+                    <h2>{{ 'pw.otherReceiptsIssues.title' | translate }}</h2>
+                    <h5
+                      class="pw-top-heading-container__sub-heading pw-fith-heading"
+                    >
+                      {{
+                        'pw.otherReceiptsIssues.receiptLableText' | translate
+                      }}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <h4>
+                  {{ 'pw.otherReceiptsIssues.requestNoLabelText' | translate
+                  }}{{ selectedStock?.srcDocNo }}
+                </h4>
+                <ng-container *ngIf="selectedStock?.transactionType == 'EXH'">
+                  <div>{{ 'pw.otherReceiptsIssues.EXH' | translate }}</div>
+                </ng-container>
+
+                <ng-container *ngIf="selectedStock?.transactionType == 'LOAN'">
+                  <div>{{ 'pw.otherReceiptsIssues.loan' | translate }}</div>
+                </ng-container>
+              </div>
+
+              <div class="col-auto">
+                <p>
+                  {{ selectedStock?.totalAvailableQuantity }}
+                  {{ 'pw.otherReceiptsIssues.productsLableText' | translate }} |
+                  {{
+                    selectedStock?.totalAvailableValue
+                      | currencyFormatter: selectedStock?.currencyCode
+                  }}
+                </p>
+                <p class="mt-1">
+                  <ng-container>
+                    {{ 'pw.otherReceiptsIssues.dateLableText' | translate }} :
+                    {{ selectedStock?.srcDocDate | dateFormatter }}
+                  </ng-container>
+                </p>
+              </div>
+
+              <div class="col">
+                <p>
+                  Total Received Weight :
+                  {{ selectedStock?.totalAvailableWeight | weightFormatter }}
+                  {{ selectedStock?.weightUnit }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </poss-web-expansion-panel-summary>
+
+  <poss-web-expansion-panel-content>
+    <div class="container-fluid" [formGroup]="stockForm">
+      <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+          <div class="pw-top-heading-container">
+            <div class="row pw-top-heading-container__item">
+              <div class="col-auto pl-0">
+                <div class="pw-top-heading-container__main-head">
+                  <a (click)="back()">
+                    <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+                  </a>
+                  <span class="pw-i-36 pw-receive-stock-icon-36"></span>
+                  <div>
+                    <h2>{{ 'pw.otherReceiptsIssues.title' | translate }}</h2>
+                    <h5 class="pw-top-heading-container__sub-heading">
+                      {{
+                        'pw.otherReceiptsIssues.receiptLableText' | translate
+                      }}
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-6 pw-grid-card">
+              <div class="pw-grid-card__item pw-is-active-bar">
+                <h4>
+                  {{ 'pw.otherReceiptsIssues.requestNoLabelText' | translate
+                  }}{{ selectedStock?.srcDocNo }}
+                </h4>
+                <ng-container *ngIf="selectedStock?.transactionType == 'EXH'">
+                  <div>{{ 'pw.otherReceiptsIssues.EXH' | translate }}</div>
+                </ng-container>
+
+                <ng-container *ngIf="selectedStock?.transactionType == 'LOAN'">
+                  <div>{{ 'pw.otherReceiptsIssues.loan' | translate }}</div>
+                </ng-container>
+                <div class="mt-1">
+                  <p>
+                    {{ selectedStock?.totalAvailableQuantity }}
+                    {{ 'pw.otherReceiptsIssues.productsLableText' | translate }}
+                    |
+                    {{
+                      selectedStock?.totalAvailableValue
+                        | currencyFormatter: selectedStock?.currencyCode
+                    }}
+                  </p>
+
+                  <div class="row">
+                    <div class="col-auto mr-auto">
+                      <p>
+                        <ng-container>
+                          {{
+                            'pw.otherReceiptsIssues.dateLableText' | translate
+                          }}
+                          :
+                          {{ selectedStock?.srcDocDate | dateFormatter }}
+                        </ng-container>
+                      </p>
+                    </div>
+                    <div class="col-auto pw-text-right">
+                      <span class="pw-font-weight-bold"
+                        >{{ selectedStock?.orderType }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-6 col-6 no-gutters align-self-center">
+              <div class="pw-grid-card__no-bg">
+                <div class="row no-gutters mt-1"></div>
+
+                <div class="row no-gutters mt-1">
+                  <div class="col-sm-4 col-xs-auto">
+                    <p>Total Received Weight</p>
+                  </div>
+                  <div class="col-auto">
+                    <p>
+                      :
+                      {{
+                        selectedStock?.totalAvailableWeight | weightFormatter
+                      }}
+                      {{ selectedStock?.weightUnit }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-5 ml-auto pw-text-right">
+              <div
+                *ngIf="
+                  (itemsTotalCountLoaded$ | async) &&
+                  nonVerifiedItemsTotalCount == 0 &&
+                  verifiedItemsTotalCount != 0 &&
+                  (hasSearchedItems$ | async) === false &&
+                  (isSearchingItems$ | async) === false &&
+                  (isVerifiedItemsLoading$ | async) === false &&
+                  tab == 'verified'
+                "
+              >
+                <p>
+                  <span class="pw-font-weight-bold">
+                    {{
+                      'pw.otherReceiptsIssues.assignBinCodeToAllDropDownText'
+                        | translate
+                    }}
+                  </span>
+                </p>
+                <button
+                  mat-flat-button
+                  class="pw-btn pw-cta-btn"
+                  (click)="openBinSelectionPopup($event)"
+                >
+                  <div class="row">
+                    <div class="col-auto">
+                      <p>
+                        <ng-container
+                          *ngIf="selectedBinCode; else showSelectBin"
+                        >
+                          {{ selectedBinCode }}
+                        </ng-container>
+                        <ng-template #showSelectBin>
+                          {{ 'pw.stockReceive.selectBinCodeLable' | translate }}
+                        </ng-template>
+                      </p>
+                    </div>
+                    <div class="col-auto ml-auto">
+                      <span class="pw-i-16 pw-bin-icon-16"></span>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </poss-web-expansion-panel-content>
+</poss-web-expansion-panel>
+
+<div
+  class="container-fluid"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row mt-3">
+    <div class="col-lg-10 col-12 m-auto">
+      <mat-accordion *ngIf="selectedStock?.transactionType == 'EXH'">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.AddressDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row wrap">
+            <div class="col-lg-9 pw-card__border">
+              <div class="row">
+                <mat-form-field class="col-6">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Address 1"
+                    value="{{ selectedStock?.carrierDetails?.data?.address1 }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Address 2"
+                    value="{{ selectedStock?.carrierDetails?.data?.address2 }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="State"
+                    value="{{ selectedStock?.carrierDetails?.data?.town }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="City"
+                    value="{{ selectedStock?.carrierDetails?.data?.city }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Pin Code"
+                    value="{{ selectedStock?.carrierDetails?.data?.pincode }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approval Code"
+                    value="{{
+                      selectedStock?.otherDetails?.data?.approvalCode
+                    }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approved By"
+                    value="{{ selectedStock?.otherDetails?.data?.approvedBy }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion *ngIf="selectedStock?.transactionType == 'LOAN'">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.EmployeeDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row wrap">
+            <div class="col-lg-6 pw-card__border">
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Employee Id"
+                    value="{{ selectedStock?.carrierDetails?.data.employeeId }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Employee Name"
+                    value="{{
+                      selectedStock?.carrierDetails?.data.employeeName
+                    }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approval Code"
+                    value="{{ selectedStock?.otherDetails?.data.approvalCode }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approved By"
+                    value="{{ selectedStock?.otherDetails?.data.approvedBy }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="pw-filter-box">
+        <div class="row align-items-end">
+          <div class="col-lg-7">
+            <ul class="pw-filter-box__sub-head-lists">
+              <li class="pw-filter-box__list">
+                <a
+                  [class.is-active]="tab == 'nonverified'"
+                  (click)="changeTab('nonverified')"
+                  class="pw-filter-box__heading"
+                >
+                  {{
+                    'pw.otherReceiptsIssues.nonVerifiedProductsTabText'
+                      | translate
+                  }}
+                  <span class="pw-fourth-color"
+                    >({{ nonVerifiedItemsTotalCount }})</span
+                  >
+                </a>
+              </li>
+              <li class="pw-filter-box__list">
+                <a
+                  [class.is-active]="tab == 'verified'"
+                  (click)="changeTab('verified')"
+                  class="pw-filter-box__heading"
+                >
+                  {{
+                    'pw.otherReceiptsIssues.verifiedProductsTabText' | translate
+                  }}
+                  <span class="pw-fourth-color"
+                    >({{ verifiedItemsTotalCount }})</span
+                  >
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-5">
+            <div class="row pw-filter-box__right-content align-items-end">
+              <div class="col-auto">
+                <a (click)="openFilter()">
+                  <p>
+                    <span
+                      *ngIf="
+                        (filterNonVerified.length === 0 &&
+                          tab == 'nonverified') ||
+                        (filterVerified.length === 0 && tab == 'verified')
+                      "
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="
+                        (filterNonVerified.length !== 0 &&
+                          tab == 'nonverified') ||
+                        (filterVerified.length !== 0 && tab == 'verified')
+                      "
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.otherReceiptsIssues.filterLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a (click)="openSort()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.otherReceiptsIssues.sortLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <poss-web-item-search
+                class="col-lg-6 col-4 ml-auto ml-lg-0"
+                placeholder="{{
+                  'pw.otherReceiptsIssues.searchByVariantCodePlaceholderText'
+                    | translate
+                }}"
+                (search)="searchItems($event)"
+                (clear)="clearSearchItems()"
+              >
+              </poss-web-item-search>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <poss-web-other-receipt-item-list
+        *ngIf="
+          (hasSearchedItems$ | async) === false &&
+          (isSearchingItems$ | async) === false &&
+          tab == 'nonverified'
+        "
+        [count]="itemsCountNonVerified$ | async"
+        [itemList]="nonVerifiedItems$ | async"
+        [isVerified]="false"
+        [binCodes]="binCodes"
+        [binGroupCode]="binGroupCode"
+        [remarks]="remarks$ | async"
+        [pageSize]="pageSize"
+        [pageEvent]="nonVerifiedItemsPageEvent"
+        (verify)="verifyItem($event)"
+        (paginator)="paginateNonVerifedItems($event)"
+        (parentFormDirty)="onParentFormDirty($event)"
+        [pageSizeOptions]="pageSizeOptions"
+        (validate)="validateItem($event)"
+        (loadImageEvent)="loadImageUrl($event, false)"
+      ></poss-web-other-receipt-item-list>
+
+      <div
+        *ngIf="
+          (isNonVerifiedItemsLoaded$ | async) &&
+          (nonVerifiedItems$ | async)?.length === 0 &&
+          !(
+            filterNonVerified.length > 0 ||
+            itemCode ||
+            sortMapNonverified.size > 0
+          ) &&
+          tab == 'nonverified'
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        <span class="pw-i-16 pw-success-icon-16"></span>
+        {{ 'pw.otherReceiptsIssues.emptyNonVerifiedTabMessage' | translate }}
+      </div>
+      <div
+        *ngIf="
+          (isNonVerifiedItemsLoaded$ | async) &&
+          (filterNonVerified.length > 0 ||
+            itemCode ||
+            sortMapNonverified.size > 0) &&
+          (nonVerifiedItems$ | async)?.length == 0 &&
+          tab == 'nonverified'
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+      <poss-web-other-receipt-item-list
+        *ngIf="
+          (hasSearchedItems$ | async) === false &&
+          (isSearchingItems$ | async) === false &&
+          tab == 'verified'
+        "
+        [count]="itemsCountVerified$ | async"
+        [itemList]="verifiedItems$ | async"
+        [binCodes]="binCodes"
+        [binGroupCode]="binGroupCode"
+        [remarks]="remarks$ | async"
+        [isVerified]="true"
+        [pageSize]="pageSize"
+        [pageEvent]="verifiedItemsPageEvent"
+        (update)="updateItem($event)"
+        (paginator)="paginateVerifedItems($event)"
+        (parentFormDirty)="onParentFormDirty($event)"
+        [pageSizeOptions]="pageSizeOptions"
+        (validate)="validateItem($event)"
+        (loadImageEvent)="loadImageUrl($event, true)"
+      ></poss-web-other-receipt-item-list>
+
+      <div
+        *ngIf="
+          (isVerifiedItemsLoaded$ | async) &&
+          (verifiedItems$ | async)?.length === 0 &&
+          !(
+            filterVerified.length > 0 ||
+            itemCode ||
+            sortMapVerified.size > 0
+          ) &&
+          tab == 'verified'
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ 'pw.otherReceiptsIssues.emptyVerifiedTabMessage' | translate }}
+      </div>
+      <div
+        *ngIf="
+          (isVerifiedItemsLoaded$ | async) &&
+          (filterVerified.length > 0 || itemCode || sortMapVerified.size > 0) &&
+          (verifiedItems$ | async)?.length == 0 &&
+          tab == 'verified'
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+
+      <poss-web-loader
+        *ngIf="
+          (isLoadingBinGroups$ | async) ||
+          (isLoadingSelectedStock$ | async) ||
+          (isLoadingRemarks$ | async) ||
+          (itemsTotalCountLoading$ | async) ||
+          (isNonVerifiedItemsLoading$ | async) ||
+          (isVerifiedItemsLoading$ | async) ||
+          (isLoadingImage$ | async)
+        "
+      >
+      </poss-web-loader>
+      <div
+        *ngIf="
+          (hasSearchedItems$ | async) && (searchedItems$ | async)?.length == 0
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+      <ng-template #confirmSuccessNotificationTemplate>
+        <div class="pw-text-center">
+          <h3 class="pw-success-color">
+            {{ 'pw.stockReceiveNotificationMessages.confirmReceiveSuccessMessage' | translate }}
+            {{ requestDocNumber }}
+          </h3>
+          <h4 class="pw-success-color pw-pointer" (click)="print()">
+            <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+          </h4>
+        </div>
+      </ng-template>
+      <poss-web-loader *ngIf="(isSearchingItems$ | async) || (printingService.getPrinterIsLoading() | async)"> </poss-web-loader>
+    </div>
+  </div>
+</div>

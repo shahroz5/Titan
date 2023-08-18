@@ -1,0 +1,177 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.productCategory.viewHeading' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-form-card">
+      <div class="row pw-form-card__margin-bottom">
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.productCategoryCodeField' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{
+                dialogData.productCategoryCode
+                  ? dialogData.productCategoryCode
+                  : '--'
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.descriptionField' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData.description ? dialogData.description : '--' }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.hallmarkingCharges' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData.hallmarkDetails.data.hallmarkingCharges }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.hallmarkingQuantity' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.hallmarkQuantity }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.isAllowedForHallmarking' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              <mat-checkbox
+                class="pw-form-card__checkbox-pl-t-pos-0"
+                [checked]="
+                  dialogData.hallmarkDetails.data.isAllowedForHallmarking
+                "
+                [disabled]="true"
+              ></mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{
+                  'pw.productCategory.isFOCForHallmarkingCharges' | translate
+                }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              <mat-checkbox
+                class="pw-form-card__checkbox-pl-t-pos-0"
+                [checked]="
+                  dialogData.hallmarkDetails.data.isFOCForHallmarkingCharges
+                "
+                [disabled]="true"
+              ></mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.isConversionEnabled' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              <mat-checkbox
+                class="pw-form-card__checkbox-pl-t-pos-0"
+                [checked]="dialogData.isConversionEnabled"
+                [disabled]="true"
+              ></mat-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.productCategory.isActiveLabel' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              <mat-slide-toggle [checked]="dialogData.isActive" disabled>
+                {{ dialogData.isActive ? 'Active' : 'In Active' }}
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: file-service
+  profiles:    active: dev
+  cloud:
+    config:
+      uri: http://config-server/config
+      name: file-service
+      label: v2
+      username: configadmin
+      password: SrrL28WdGwaXtSRM
+      fallbackLocation: fallback/file

@@ -1,0 +1,85 @@
+<div class="pw-form-card">
+  <div class="row align-items-center pw-form-card__item">
+    <div class="col-auto">
+      <h4>
+        {{
+          'pw.abResidualToleranceDetails.residualToleranceDetails' | translate
+        }}
+      </h4>
+    </div>
+
+    <div class="col-auto ml-auto">
+      <button class="pw-btn pw-primary-btn pw-add-button" (click)="add()">
+        <span class="pw-i-24 pw-add-icon-24"></span>
+        {{ 'pw.abResidualToleranceDetails.add' | translate }}
+      </button>
+    </div>
+  </div>
+  <poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+  >
+  </poss-web-top-info-panel>
+  <ag-grid-angular
+    class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+    suppressMovable="true"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [rowData]="rowData"
+    [context]="getContext()"
+    [domLayout]="domLayout"
+    [animateRows]="true"
+    rowSelection="single"
+    [suppressRowClickSelection]="true"
+    (gridReady)="gridReady($event)"
+    [frameworkComponents]="getComponents()"
+    (gridSizeChanged)="onGridSizeChanged()"
+    (rowSelected)="onRowSelected($event)"
+    (cellFocused)="onCellFocused($event)"
+    (focusout)="focusOut($event)"
+  >
+  </ag-grid-angular>
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="
+      totalCount > minPageSize &&
+      resdiualWeightRange.length > 0 &&
+      totalCount != 1
+    "
+    [length]="totalCount"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+<div class="row mb-3">
+  <button
+    class="pw-btn pw-accent-btn ml-3"
+    [disabled]="!enableButton"
+    (click)="edit()"
+  >
+    {{ 'pw.abResidualToleranceDetails.editForceClosure' | translate }}
+  </button>
+  <div class="col-auto ml-auto">
+    <button
+      class="pw-btn pw-primary-btn"
+      [disabled]="configId === 'new'"
+      (click)="openLocationMapping()"
+    >
+      {{ 'pw.abResidualToleranceDetails.locationMapping' | translate }}
+    </button>
+  </div>
+
+  <div class="col-auto">
+    <button class="pw-btn pw-accent-btn" [disabled]="formData" (click)="save()">
+      {{ 'pw.abResidualToleranceDetails.saveLable' | translate }}
+    </button>
+  </div>
+</div>

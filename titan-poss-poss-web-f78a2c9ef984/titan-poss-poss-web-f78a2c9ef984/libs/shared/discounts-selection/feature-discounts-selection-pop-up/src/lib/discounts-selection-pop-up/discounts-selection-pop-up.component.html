@@ -1,0 +1,50 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-confirmation-box pw-confirmation-box__width-800">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{ 'SELECT DISCOUNT' | translate }}
+      </div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="close(false)">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body">
+      <div class="row">
+        <div class="col-auto">
+          <span class="pw-font-weight-bold">Please select one discount.</span>
+        </div>
+      </div>
+      <br />
+      <poss-web-discounts-selection-grid
+        [discountsList]="data"
+        (selectedDiscount)="getSelectedDiscount($event)"
+      ></poss-web-discounts-selection-grid>
+    </div>
+    <div class="pw-text-right">
+      <div class="row pw-confirmation-box__footer-border">
+        <div class="col-auto pw-confirmation-box__footer-item">
+          <button
+            mat-button
+            class="pw-btn pw-accent-btn"
+            (click)="close(false)"
+          >
+            {{ 'CANCEL' | translate }}
+          </button>
+        </div>
+
+        <div class="col-auto pw-confirmation-box__footer-item">
+          <button
+            mat-button
+            class="pw-btn pw-accent-btn"
+            (click)="confirm()"
+            [disabled]="!selectedDiscount"
+          >
+            {{ 'CONFIRM' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

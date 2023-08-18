@@ -1,0 +1,65 @@
+<div class="pw-body-bg-img">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto pw-inv-cta">
+        <div #menuRef class="row">
+          <div id="firmer" class="col-lg-4 pw-inv-cta__item">
+            <a (click)="fileInput.click()">
+              <input
+                #fileInput
+                class="pw-hidden"
+                type="file"
+                (change)="uploadFile($event)"
+              />
+
+              <div class="pw-icon-card">
+                <div class="pw-icon-card__icon">
+                  <span class="pw-i-64 pw-upload-icon-64"></span>
+                </div>
+                <div class="pw-icon-card__text">
+                  <h2>FIR/MER Upload</h2>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- <div id="invoice" class="col-lg-4 pw-inv-cta__item border-right">
+            <a (click)="invoiceUpload()">
+              <div class="pw-icon-card">
+                <div class="pw-icon-card__icon">
+                  <span class="pw-i-64 pw-upload-icon-64"></span>
+                </div>
+                <div class="pw-icon-card__text">
+                  <h2>Process Invoice</h2>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div id="stn" class="col-lg-4 pw-inv-cta__item">
+            <a (click)="STNUpload()">
+              <div class="pw-icon-card">
+                <div class="pw-icon-card__icon">
+                  <span class="pw-i-64 pw-upload-icon-64"></span>
+                </div>
+                <div class="pw-icon-card__text">
+                  <h2>Process STN</h2>
+                </div>
+              </div>
+            </a>
+          </div> -->
+          <!-- loader -->
+          <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+          <ng-template #confirmSuccessNotificationTemplate>
+            <div class="pw-text-center">
+              <h3 class="pw-success-color">
+                {{ 'pw.fileStatus.fileUploadStatusMessage' | translate }}
+                <u class="pw-pointer" (click)="fileStatus()">
+                  {{ 'pw.fileStatus.fileStatus' | translate }}</u
+                >
+              </h3>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

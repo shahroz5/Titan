@@ -1,0 +1,140 @@
+<div class="pw-detail-card" *ngIf="maxAmount > 0 && isGcSaleAllowed">
+  <div class="row pw-detail-card__flex-end">
+    <div class="col-auto">
+      <poss-web-ui-rso-name
+        [selectedRso]="selectedRso"
+        [rsoNamesList]="rsoNamesList"
+        (selectedRSOName)="setSelectedRSOName($event)"
+        [clearSelectedRsoName]="clearSelectedRsoName"
+      >
+      </poss-web-ui-rso-name>
+    </div>
+    <div class="col-auto">
+      <mat-checkbox
+        class="pw-list-card__checkbox"
+        (change)="setScan($event.checked)"
+      >
+        {{ 'pw.giftCards.scan' | translate }}
+      </mat-checkbox>
+    </div>
+    <div class="col-lg-3 col-3 pw-form-field-position">
+      <poss-web-ui-gc-bar-code
+        *ngIf="isScan"
+        [cardsList]="cardsList"
+        [clearCardNumberField]="clearCardNumberField"
+        [tabType]="'sale'"
+        (cardNumberEmit)="getCardNumber($event)"
+        (isScanEmit)="changeScanCheckboxState($event)"
+      ></poss-web-ui-gc-bar-code>
+      <poss-web-ui-gc-number-manual-entry
+        class="col-lg-3 col-3"
+        *ngIf="!isScan"
+        [clearCardNumberField]="clearCardNumberField"
+        (gcNumberManualEmit)="getCardNumber($event)"
+      >
+      </poss-web-ui-gc-number-manual-entry>
+    </div>
+    <mat-form-field
+      class="col-lg-2 col-3 pw-form-field-position"
+      [floatLabel]="'auto'"
+      [formGroup]="giftCardSaleFormGroup"
+    >
+      <mat-label
+        >{{ 'pw.giftCards.enterAmount' | translate }}({{
+          currencySymbolService.get(baseCurrencyCode)
+        }})
+      </mat-label>
+      <input
+        type="text"
+        matInput
+        autoComplete="off"
+        formControlName="amount"
+        name="amountField"
+        required
+        possWebOnlyNumber
+      />
+      <mat-error
+        *ngIf="
+          giftCardSaleFormGroup?.get('amount')?.errors &&
+          giftCardSaleFormGroup?.get('amount')?.errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            giftCardSaleFormGroup?.get('amount')?.errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <div class="col-auto">
+      <button
+        mat-flat-button
+        class="pw-btn pw-accent-btn"
+        (click)="addGiftCard()"
+        [disabled]="
+          !(
+            recentlyAddedCardNumber &&
+            recentlyAddedCardNumber?.length === 16 &&
+            giftCardSaleFormGroup?.get('amount')?.value
+          ) || giftCardSaleFormGroup?.invalid
+        "
+      >
+        {{ 'pw.giftCards.addGc' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <poss-web-ag-gift-cards-grid
+        [currencyCode]="baseCurrencyCode"
+        [giftCardEvent]="giftCardObservable$"
+        [clearAllEvent]="clearAllDataObservable$"
+        [deleteId]="deleteId"
+        [maxAmount]="maxAmount"
+        [minAmount]="minAmount"
+        [updateAmountSuccessInput]="updateAmount"
+        (updateAmount)="partiallyUpdateGiftCardItem($event)"
+        (deleteEmit)="deleteItemFromGiftCardsList($event)"
+        (totalCardValues)="getTotalGiftCardValues($event)"
+      >
+      </poss-web-ag-gift-cards-grid>
+    </div>
+  </div>
+</div>
+
+<ng-template #gcSaleSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.giftCards.gcCmSuccessMessage' | translate }}
+    </h3>
+    <br />
+    <div class="pw-black-popup-box__margin-top-10" *ngIf="cashMemoId">
+      {{ 'pw.giftCards.cashMemoNumberLabel' | translate }}: {{ cashMemoNumber }}
+    </div>
+    <br />
+    <div class="pw-black-popup-box__margin-top-10">
+      <button
+        matButton
+        class="pw-white-btn"
+        (click)="
+          printGcCashMemo(
+            cashMemoId,
+            transactionTypeEnum?.CM,
+            subTransactionTypeEnum?.GIFT_SALE
+          )
+        "
+      >
+        {{ 'pw.giftCards.print' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isOrderConfirmationLoading$ | async) ||
+    (printingService.getPrinterIsLoading() | async)
+  "
+></poss-web-loader>

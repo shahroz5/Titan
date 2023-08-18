@@ -1,0 +1,76 @@
+<div class="add-new-button col-auto pw-top-heading-container__right-content">
+  <button
+    class="pw-btn pw-accent-btn"
+    (click)="updateRole.emit('')"
+    *possWebPermission="loadPermission(ROLE_LIST_ADDNEWROLE_BTN)"
+  >
+    {{ 'pw.rolemanagementlist.addnewroleButtonText' | translate }}
+  </button>
+</div>
+
+<div
+  class="pw-search-box"
+  *possWebPermission="loadPermission(ROLE_LIST_SEARCHROLE_INPUT)"
+>
+  <span class="pw-i-16 pw-search-icon-16"></span>
+  <input
+    type="text"
+    [placeholder]="'pw.rolemanagementlist.searchBoxPlaceholderText' | translate"
+    [formControl]="searchFormControl"
+    class="pw-search-box__input"
+  />
+</div>
+
+<div class="row pw-list-header">
+  <div class="col-auto pw-list-header__right-content">
+    <button
+      mat-button
+      (click)="filter.emit()"
+      *possWebPermission="loadPermission(ROLE_LIST_FILTERROLE_BTN)"
+    >
+      <span
+        class="pw-i-24"
+        [ngClass]="
+          appliedFilter ? 'pw-filter-icon-color-24' : 'pw-filter-icon-24'
+        "
+      ></span>
+      {{ 'pw.rolemanagementlist.filterButtonText' | translate }}
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="!!rolesList && rolesList.length > 0; else emptyList">
+  <ng-container *possWebPermission="loadPermission(ROLE_LIST_CONTAINER_CARD)">
+    <poss-web-role
+      *ngFor="let role of rolesList"
+      [role]="role"
+      (updateRole)="updateRole.emit($event)"
+      (viewRole)="viewRole.emit($event)"
+      (toggleRole)="toggleRole.emit($event)"
+      [permissions$]="permissions$"
+    ></poss-web-role>
+
+    <mat-paginator
+      class="pw-paginator"
+      *ngIf="rolesListSize > minPageSize && rolesList.length > 0"
+      [length]="rolesListSize"
+      [pageSize]="pageEvent.pageSize"
+      [pageIndex]="pageEvent.pageIndex"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="paginateRolesList.emit($event)"
+    >
+    </mat-paginator>
+  </ng-container>
+</ng-container>
+
+<ng-template #emptyList>
+  <div class="mg-t-100"></div>
+  <div class="pw-text-center pw-fourth-color">
+    <div class="pw-font-24">
+      <span class="pw-font-weight-bold">
+        {{ noDataFoundMessage }}
+      </span>
+    </div>
+  </div>
+</ng-template>

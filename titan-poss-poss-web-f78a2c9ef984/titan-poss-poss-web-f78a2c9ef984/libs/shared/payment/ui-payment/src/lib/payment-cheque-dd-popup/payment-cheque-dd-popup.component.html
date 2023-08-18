@@ -1,0 +1,145 @@
+<form class="pw-confirmation-box" autocomplete="off">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ typeLabel }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body" [formGroup]="paymentDetailForm">
+    <div class="row">
+      <mat-form-field class="col-8">
+        <mat-label>Bank</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="bankName"
+          [matAutocomplete]="auto"
+          name="nameWithSpaceField"
+          possWebMaxLengthValidator
+          required
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredOptions | async"
+            [value]="option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="
+            paymentDetailForm.get('bankName').errors &&
+            paymentDetailForm.get('bankName').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="paymentDetailForm.get('bankName').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+          paymentDetailForm.get('bankName').errors &&
+          !paymentDetailForm.get('bankName').errors.errorArray &&
+          paymentDetailForm.get('bankName').errors.invalidAutocompleteString
+          "
+        >
+          Select one of the dropdown option
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-8">
+        <mat-label>{{ fieldTypeLabel }} Number</mat-label>
+        <input
+          matInput
+          formControlName="number"
+          name="chequeDDNoField"
+          possWebMaxLengthValidator
+          required
+        />
+        <mat-error
+          *ngIf="
+            paymentDetailForm.get('number').errors &&
+            paymentDetailForm.get('number').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="paymentDetailForm.get('number').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-8">
+        <mat-label>{{ fieldTypeLabel }} Date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          [min]="minValidation()"
+          [max]="maxValidation()"
+          required
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error
+          *ngIf="
+            paymentDetailForm.get('date').errors &&
+            paymentDetailForm.get('date').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="paymentDetailForm.get('date').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-8">
+        <mat-label
+          >Enter Amount ({{ data.currencyCode | currencySymbol }})</mat-label
+        >
+        <input matInput formControlName="amount" possWebAmountInput required  [allowDecimal]="false" />
+        <mat-error
+          *ngIf="
+            paymentDetailForm.get('amount').errors &&
+            paymentDetailForm.get('amount').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="paymentDetailForm.get('amount').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer mt-0">
+    <div class="row pw-confirmation-box__footer-border no-gutters">
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="!paymentDetailForm.valid"
+          (click)="addPayment()"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

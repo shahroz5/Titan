@@ -1,0 +1,176 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.vendorMaster.qcGc' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-form-card">
+      <div class="row pw-form-card__margin-bottom">
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.userName' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.UserName }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.password' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.Password }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.forwardingEntityId' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.ForwardingEntityId }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.forwardingEntityPassword' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.ForwardingEntityPassword }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.host' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.Host }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.isForwardingEntityExists' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              <mat-checkbox
+                [disabled]="true"
+                [checked]="dialogData?.vendorDetail?.IsForwardingEntityExists"
+              >
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.posEntryMode' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.POSEntrymode }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.posTypeId' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.POSTypeId }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.employeeCodePrefix' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.EmployeeCodePrefix }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+{
+	"customFields": {
+		"data": {
+			"productGroupCode": [
+				"72",
+				"71"
+			],
+			"productCategoryCode": [
+				"RING",
+				"BANGLES"
+			],
+			"binGroupCode": [
+				"ZEROBIN",
+				"ZEROBIN"
+			]
+		},
+		"type": "String"
+	},
+	"fromDate": "2020-11-30T06:30:56.900Z",
+	"locationCode": [
+		"urb",
+		"bos"
+	],
+	"ownerType": [
+		"L1",
+		"L2"
+	],
+	"reportType": "SUMMARY",
+	"stateId": "2317E0DF-P340-7835-9GTR-7405FF32F789",
+	"subBrandCode": [
+		"brand1",
+		"brand2"
+	],
+	"subRegionCode": [
+		"subRegioncode1",
+		"subRegioncode2"
+	],
+	"toDate": "2020-11-30T06:30:56.900Z",
+	"townId": [
+		"2317E0DF-P340-7835-9GTR-7405FF32F789",
+		"2317E0DF-P340-7835-9GTR-7405FF32F789"
+	]
+}
+

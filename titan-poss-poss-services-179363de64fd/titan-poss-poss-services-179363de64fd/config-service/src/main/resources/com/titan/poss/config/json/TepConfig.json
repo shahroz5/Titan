@@ -1,0 +1,12 @@
+{
+	"type": "TEP_CONFIG",
+	"data": {
+		"isEnabled": true,
+		"tepDetails": [
+			{
+				"durationInDays": "value from rangeMaster",
+				"recoveryPercent": 1
+			}
+		]
+	}
+}

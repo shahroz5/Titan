@@ -1,0 +1,116 @@
+<div class="pw-list-card px-3">
+  <div class="row">
+    <div class="col-lg-3 col-8">
+      <div class="row">
+        <div class="col-5 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.locationMaster.locationCode' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{ listItem.locationCode }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.locationMaster.brandCode' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{ listItem.brandCode }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.locationMaster.townName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{ listItem.townName }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.locationMaster.stateName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{ listItem.stateName }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-4">
+      <div class="row">
+        <div class="col-7 pr-0">
+          <p class="pw-fourth-color">
+            {{ 'pw.locationMaster.locationType' | translate }}
+          </p>
+        </div>
+        <div class="col-auto px-0">
+          <p class="pw-fourth-color">:</p>
+        </div>
+        <div class="col-auto">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              listItem.locationTypeCode
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="viewDetailsPage(); $event.stopPropagation()">
+        <span class="pw-detail-card__icon-text">
+          {{ 'View' | translate }}
+        </span>
+      </a>
+
+      <a (click)="loadDetailsPage(); $event.stopPropagation()">
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.taxMaster.edit' | translate }}
+        </span>
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto align-self-center">
+      <a class="mr-2" (click)="openDialog(); $event.stopPropagation()">
+        <span class="pw-mont-semibold-14 pw-fourth-color pw-position-text">{{
+          'pw.locationMaster.copyDetails' | translate
+        }}</span>
+        <span class="pw-i-24 pw-copy-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto align-self-center">
+      <poss-web-toggle-button
+        [isActive]="checked"
+        (changeEvent)="change($event)"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>

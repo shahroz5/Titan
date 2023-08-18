@@ -1,0 +1,13 @@
+{
+	"type": "CASHMEMO_DETAILS",
+	"data": {
+		"isBillCancelApprovalRequired": true,
+		"isMobileAndEmail": true,
+		"isMobileAndEmailMandatoryForCorrection": true,
+		"isEditWeightAllowed": true,
+		"isTitle": true,
+		"maxNoOfHoursForBillCancel": 4,
+		"noOfHoursForOpenTaskDeletionCM": 12,
+		"cmHoldTimeInMinutes": 4
+	}
+}

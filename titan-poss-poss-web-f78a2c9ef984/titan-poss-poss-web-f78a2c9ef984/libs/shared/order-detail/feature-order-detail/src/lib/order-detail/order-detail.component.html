@@ -1,0 +1,8 @@
+<h4 *ngIf="orderNumber !== 0 && status === StatusTypesEnumRef.OPEN">
+  {{ 'pw.cashMemoShell.openTaskLabel' | translate }}
+  : {{ orderNumber }}
+</h4>
+<h4 *ngIf="orderNumber !== 0 && status === StatusTypesEnumRef.HOLD">
+  {{ 'pw.cashMemoShell.orderNoLabel' | translate }} :
+  {{ orderNumber }}
+</h4>

@@ -1,0 +1,316 @@
+<div class="pw-detail-card">
+  <div class="pw-detail-card__heading">
+    {{ 'pw.acceptAdvance.acceptAdvanceDetails' | translate }}
+  </div>
+  <div
+    class="row pw-detail-card__flex-end"
+    [formGroup]="acceptAdvanceHistoryForm"
+  >
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{
+        'pw.acceptAdvance.docNoPlaceholder' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="docNumber"
+        maxLength="10"
+        type="tel"
+        autocomplete="off"
+      />
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('docNumber').errors &&
+          acceptAdvanceHistoryForm.get('docNumber').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('docNumber').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{
+        'pw.acceptAdvance.cnDocNoPlaceholder' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="cnDocNo"
+        type="number"
+        autocomplete="off"
+      />
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('cnDocNo').errors &&
+          acceptAdvanceHistoryForm.get('cnDocNo').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('cnDocNo').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <poss-web-fiscal-year
+      class="col-lg-2 col-3"
+      [control]="acceptAdvanceHistoryForm.get('fiscalYear')"
+      [required]="false"
+      [currentFiscalYear]="currentFiscalYear"
+      [placeHolder]="'pw.creditNote.searchByFiscalYearLabel' | translate"
+      [disabled]="false"
+    ></poss-web-fiscal-year>
+    <!-- <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{
+        'pw.acceptAdvance.fiscalYearPlaceholder' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="fiscalYear"
+        type="number"
+        autocomplete="off"
+      />
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('fiscalYear').errors &&
+          acceptAdvanceHistoryForm.get('fiscalYear').errors.errorArray
+        "
+      >
+        <span
+          *ngFor="
+            let errorMessage of acceptAdvanceHistoryForm.get('fiscalYear')
+              .errors.errorArray;
+            let i = index
+          "
+        >
+          <span *ngIf="i === 0"> {{ errorMessage }}</span>
+          <poss-web-error-info-tooltip
+            *ngIf="i > 0"
+            [errorMessage]="errorMessage"
+          >
+          </poss-web-error-info-tooltip>
+        </span>
+      </mat-error>
+    </mat-form-field> -->
+    <poss-web-select-dropdown
+      class="col-lg-2 col-3"
+      [placeholder]="'pw.acceptAdvance.searchType' | translate"
+      [control]="acceptAdvanceHistoryForm.get('searchType')"
+      [options]="searchTypes"
+      [required]="false"
+      (selectionChange)="onSearchTypeChanged($event)"
+    ></poss-web-select-dropdown>
+    <mat-form-field
+      class="col-lg-2 col-3"
+      [floatLabel]="'auto'"
+      *ngIf="showSearchField"
+    >
+      <mat-label>{{ searchFieldPlaceholder | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="searchField"
+        type="text"
+        required
+        autocomplete="off"
+      />
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('searchField').errors &&
+          acceptAdvanceHistoryForm.get('searchField').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('searchField').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <poss-web-select-dropdown
+      class="col-lg-2 col-3"
+      [placeholder]="'pw.acceptAdvance.status' | translate"
+      [control]="acceptAdvanceHistoryForm.get('status')"
+      [options]="statusOptions"
+      [required]="true"
+      (selectionChange)="onStatusChanged($event)"
+    ></poss-web-select-dropdown>
+    <mat-form-field class="col-lg-4 col-3">
+      <mat-label>{{ 'pw.acceptAdvance.docDateRange' | translate }}</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [max]="currentDate">
+        <input
+          matStartDate
+          formControlName="startDate"
+          placeholder="Doc From Date"
+        />
+        <input matEndDate formControlName="endDate" placeholder="Doc To Date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>
+          <span class="pw-i-12 pw-calender-icon-12"></span>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('startDate').errors &&
+          acceptAdvanceHistoryForm.get('startDate').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('startDate').errors.errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('endDate').errors &&
+          acceptAdvanceHistoryForm.get('endDate').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('endDate').errors.errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{
+        'pw.acceptAdvance.fromNetAmountPlaceholder' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="fromNetAmount"
+        type="text"
+        autocomplete="off"
+        possWebAmountInput
+      />
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('fromNetAmount').errors &&
+          acceptAdvanceHistoryForm.get('fromNetAmount').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('fromNetAmount').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{
+        'pw.acceptAdvance.toNetAmountPlaceholder' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="toNetAmount"
+        type="text"
+        autocomplete="off"
+        possWebAmountInput
+      />
+      <mat-error
+        *ngIf="
+          acceptAdvanceHistoryForm.get('toNetAmount').errors &&
+          acceptAdvanceHistoryForm.get('toNetAmount').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            acceptAdvanceHistoryForm.get('toNetAmount').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <div class="col-auto pw-detail-card__right-container">
+      <button
+        mat-flat-button
+        class="pw-btn pw-accent-btn"
+        (click)="searchAdvanceHistoryItem(0, 10)"
+        [disabled]="acceptAdvanceHistoryForm.invalid"
+      >
+        {{ 'pw.acceptAdvance.search' | translate }}
+      </button>
+    </div>
+  </div>
+  <!-- <div class="pw-detail-card__secondary-section" *ngIf="selectedHistoryItem">
+    <div class="row">
+      <div class="col-auto">
+        <div class="pw-detail-card__label">
+          {{ 'pw.acceptAdvance.advanceNumber' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ selectedHistoryItem?.docNo ? selectedHistoryItem?.docNo : '-' }}
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="pw-detail-card__label">
+          {{ 'pw.acceptAdvance.creditNoteNumber' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            selectedHistoryItem?.cnDocNo ? selectedHistoryItem?.cnDocNo : '-'
+          }}
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="pw-detail-card__label">
+          {{ 'pw.acceptAdvance.date' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            selectedHistoryItem?.createdDate
+              ? moment(selectedHistoryItem?.createdDate).format('MM/DD/YYYY')
+              : '-'
+          }}
+        </div>
+      </div>
+      <poss-web-ui-rso-name
+        class="col-lg-2 col-3 pw_top"
+        [rsoNamesList]="rsoNamesList"
+        [selectedRso]="selectedRso"
+        [clearSelectedRsoName]="clearSelectedRsoName"
+      >
+      </poss-web-ui-rso-name>
+    </div>
+  </div> -->
+</div>
+
+<poss-web-advance-history-item-listing
+  *ngIf="advanceHistoryItems && advanceHistoryItems.length > 0"
+  [advanceHistoryItemList]="advanceHistoryItems"
+  (selectedHistoryItem)="getSelectedHistoryItem($event)"
+></poss-web-advance-history-item-listing>
+<mat-paginator
+  *ngIf="totalElements > minPageSize && advanceHistoryItems.length > 0"
+  class="pw-paginator"
+  [length]="totalElements"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginate($event)"
+>
+</mat-paginator>
+<h3
+  class="pw-text-center m-5 pw-success-color"
+  *ngIf="advanceHistoryItems?.length === 0"
+>
+  {{ noDataFoundMessageHistory }}
+</h3>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

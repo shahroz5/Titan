@@ -1,0 +1,98 @@
+<mat-accordion multi>
+  <poss-web-view-details-advance-booking
+    *ngIf="tab === 'view'"
+    [advanceBookingDetails]="currentAdvanceBookingDetailsResponse"
+    [currencyCode]="currencyCode"
+  ></poss-web-view-details-advance-booking>
+
+  <poss-web-search-advance-booking-details
+    *ngIf="tab === 'cancel' || tab === 'activate'"
+    [advanceBookingDetailsResponse]="selectedData$ | async"
+    [currencyCode]="currencyCode"
+  ></poss-web-search-advance-booking-details>
+
+  <poss-web-regularize-advance-booking-details
+    *ngIf="tab === 'regularize'"
+    [advanceBookingDetailsResponse]="selectedData$ | async"
+    [currencyCode]="currencyCode"
+    [imageUrl]="imageUrl"
+  ></poss-web-regularize-advance-booking-details>
+</mat-accordion>
+
+<poss-web-product-view
+  [productDetails$]="productDetails$"
+  (loadImageUrl)="loadImageUrl($event)"
+  [imageUrlData$]="imageUrlData$.asObservable()"
+  [cashMemoData]="selectedItemsDetails"
+  [pgDesc$]="pgDesc$"
+  [showFOCButton]="true"
+  [focData]="selectedFOCSchemes"
+  [rsoNames]="rsoDetails$ | async"
+></poss-web-product-view>
+
+<mat-expansion-panel class="pw-expansion-panel mt-2">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      Uploaded Documents
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="pw-white-overlay-box">
+    <poss-web-file-upload-list-items
+      [fileList]="filesList"
+      (view)="loadFileImageUrl($event)"
+      [viewMode]="'true'"
+    ></poss-web-file-upload-list-items>
+  </div>
+</mat-expansion-panel>
+
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-black-popup-box px-3">
+    <div class="pw-text-center">
+      <h3 class="pw-success-color">
+        {{ 'pw.advanceBooking.advanceRequestMsg' | translate }} {{ successMsg }}
+      </h3>
+      <h5>
+        {{ 'pw.advanceBooking.doNoHeaderLabel' | translate }} : {{ resDocNo }}
+      </h5>
+      <div
+        *ngIf=" creditnote?.length > 0 "
+        class="pw-black-popup-box__margin-top-10"
+      >
+        {{ 'pw.advanceBooking.CNNO' | translate }} : {{ creditnote }}
+      </div>
+      <div *ngIf="successMsg === 'CANCELLED'">
+        <h4 class="pw-success-color pw-pointer" (click)="print()">
+          <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+        </h4>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #confirmRegularizeSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.advanceBooking.regulariseBillMsg' | translate }}
+    </h3>
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.advanceBooking.manualBookingDocNo' | translate }} : {{ docNo }}
+    </h5>
+    <div class="pw-black-popup-box__margin-top-10">
+      {{ 'pw.advanceBooking.CNNO' | translate }} : {{ creditnote }}
+    </div>
+  </div>
+</ng-template>
+
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isLoadingOrder$ | async) ||
+    (isCommonLoading$ | async) || 
+    (printingService.getPrinterIsLoading() | async)
+  "
+>
+</poss-web-loader>

@@ -1,0 +1,38 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">{{ config.headerLabel | translate }}</div>
+    <div class="col pw-text-right">
+      <!-- <a class="sub-heading" (click)="close()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a> -->
+    </div>
+  </div>
+
+  <div class="pw-confirmation-box__body pw-confirmation-box__scrollable-body">
+    {{ 'pw.foc.noActiveFocSchemesAvailableMsg' | translate }}
+    <div class="mt-4">
+      {{ config.infoLabel | translate }}
+    </div>
+  </div>
+
+  <div class="pw-confirmation-box__footer mt-2">
+    <div class="row pw-confirmation-box__footer-border no-gutters">
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button class="pw-btn pw-accent-btn" (click)="close()">
+          {{ 'pw.foc.backButtonLabel' | translate }}
+        </button>
+      </div>
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button class="pw-btn pw-accent-btn" (click)="continue()">
+          {{ 'pw.foc.continueWithoutFoc' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

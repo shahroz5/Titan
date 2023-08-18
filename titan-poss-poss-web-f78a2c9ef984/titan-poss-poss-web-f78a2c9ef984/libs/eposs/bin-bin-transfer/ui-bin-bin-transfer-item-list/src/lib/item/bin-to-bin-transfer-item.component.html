@@ -1,0 +1,202 @@
+<div class="row no-gutters">
+  <div *ngIf="canSelect" class="col-auto pw-list-card__checkbox">
+    <mat-checkbox
+      [checked]="
+        (item.isSelected && item.isBinToBinAllowed) ||
+        (item.isBinToBinAllowed && isSelectAll)
+      "
+      (change)="sendSelectionChangeEvent($event.checked)"
+      [disabled]="item.isDisabled || !item.isBinToBinAllowed || isSelectAll"
+    >
+    </mat-checkbox>
+  </div>
+  <poss-web-item-details
+    [item]="itemData"
+    [toLoadImageUrlFromAPI]="true"
+    (loadImageEvent)="loadImage()"
+  >
+  </poss-web-item-details>
+
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.binToBinTransfer.quantityLableText' | translate }}
+        </div>
+        <input
+          readonly
+          type="text"
+          [value]="item.availableQuantity"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          placeholder="{{
+            'pw.binToBinTransfer.itemQuantityLableText' | translate
+          }}"
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.binToBinTransfer.transferQtyLableText' | translate }}
+        </div>
+        <input
+          [ngClass]="{
+            'pw-error-bg': transferQuantity.dirty && transferQuantity.invalid
+          }"
+          [readonly]="item.productGroup !== '73' || item.isDisabled"
+          type="number"
+          [formControl]="transferQuantity"
+          (keypress)="validateQty($event)"
+          [min]="1"
+          [max]="item.availableQuantity"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          placeholder="{{
+            'pw.binToBinTransfer.itemQuantityLableText' | translate
+          }}"
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.binToBinTransfer.itemWeightLableText' | translate }} ({{
+            item.weightUnit
+          }})
+        </div>
+        <input
+          readonly
+          type="text"
+          class="pw-bg-input-box"
+          [class.pw-border-radius-right]="!showSourceBin"
+          placeholder="{{
+            'pw.binToBinTransfer.itemWeightLableText' | translate
+          }}
+          "
+          value="{{ item.availableWeight | weightFormatter }}"
+        />
+      </div>
+      <div class="col-auto pw-input-group__item" *ngIf="showSourceBin">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.binToBinTransfer.sourceBinGroupLable' | translate }}
+        </div>
+        <input
+          readonly
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          [value]="item.binGroupCode"
+          placeholder="{{
+            'pw.binToBinTransfer.sourceBinGroupLable' | translate
+          }}
+          "
+        />
+      </div>
+      <div class="col-auto pw-input-group__item" *ngIf="showSourceBin">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.binToBinTransfer.sourceBinLableText' | translate }}
+        </div>
+        <input
+          readonly
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          [value]="item.binCode"
+          placeholder="{{
+            'pw.binToBinTransfer.sourceBinLableText' | translate
+          }}
+          "
+        />
+      </div>
+    </div>
+  </div>
+  <div class="col-2 pw-list-card__item" *ngIf="showDestinationBin">
+    <p>
+      <span class="pw-font-weight-bold">
+        {{ 'pw.binToBinTransfer.destinationBinLableText' | translate }}
+      </span>
+    </p>
+    <button
+      class="pw-btn pw-accent-btn"
+      (click)="openBinSelectionPopup()"
+      [disabled]="!item.isSelected"
+    >
+      <div class="row no-gutters pw-text-left align-items-center">
+        <div class="col pw-text-overflow-ellipisis">
+          <p class="pw-text-overflow-ellipisis">
+            <ng-container *ngIf="item.destinationBinCode; else showSelectBin">
+              {{ item.destinationBinCode }} ({{ item.destinationBinGroupCode }})
+            </ng-container>
+            <ng-template #showSelectBin>
+              {{ 'pw.binToBinTransfer.selectPlaceholderText' | translate }}
+            </ng-template>
+          </p>
+        </div>
+        <div class="col-auto ml-auto">
+          <span class="pw-i-16 pw-bin-icon-16"></span>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <div *ngIf="canDelete" class="col-auto pw-list-card__right-container">
+    <span class="pw-i-24 pw-close-icon-24" (click)="deleteItem()"></span>
+  </div>
+</div>
+<div class="row mt-2 no-gutters">
+  <ng-container
+    *ngIf="
+      item.isSelected &&
+      item.isBinToBinAllowed &&
+      !isSelectAll &&
+      (item.destinationBinGroupCode ===
+        stockItemBinGroupCodeEnumRef.DEFECTIVE ||
+        (!showDestinationBin &&
+          selectedBin === stockItemBinGroupCodeEnumRef.DEFECTIVE))
+    "
+  >
+    <div class="col-auto ml-19 pw-input-group__item">
+      <div class="pw-input-group__item-label">
+        {{ 'pw.binToBinTransfer.defectTypeDescription' | translate }}
+      </div>
+      <mat-select
+        disableOptionCentering
+        [ngClass]="{
+          'pw-error-bg': !defectTypeDescription.valid,
+          'pw-success-bg': defectTypeDescription.valid
+        }"
+        class="pw-bg-input-box pw-select-bingroup pw-select-box-padding pw-input-group__item-border-right"
+        [formControl]="defectTypeDescription"
+        placeholder="{{ 'pw.stockReceive.selectPlaceholderText' | translate }}"
+      >
+        <ng-container *ngFor="let item of defectTypeDescriptionList">
+          <mat-option [value]="item.id">
+            {{ item.id }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </div>
+    <div class="col-auto pw-input-group__item">
+      <div class="pw-input-group__item-label">
+        {{ 'pw.binToBinTransfer.defectCodeDescription' | translate }}
+      </div>
+      <mat-select
+        disableOptionCentering
+        [ngClass]="{
+          'pw-error-bg': !defectCodeDescription.valid,
+          'pw-success-bg': defectCodeDescription.valid
+        }"
+        class="pw-bg-input-box pw-select-bingroup pw-select-box-padding pw-input-group__item-border-left"
+        [formControl]="defectCodeDescription"
+        placeholder="{{ 'pw.stockReceive.selectPlaceholderText' | translate }}"
+      >
+        <ng-container *ngFor="let item of defectCodeDescriptionList">
+          <mat-option [value]="item.id">
+            {{ item.id }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </div>
+  </ng-container>
+
+  <div
+    class="col-auto ml-auto pw-list-card__error-label"
+    *ngIf="showDestinationBin && item.isSelected && !item.destinationBinCode"
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.binToBinTransfer.assignDestinationBinErrorMessage' | translate }}
+  </div>
+</div>

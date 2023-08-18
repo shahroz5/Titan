@@ -1,0 +1,60 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentModeUnipay.unipayLabel' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="pw-confirmation-box__body">
+    <div class="pw-confirmation-box__detail">
+      <div class="row ml-2 mr-2">
+        <div class="pw-confirmation-box__item">
+          <span class="pw-confirmation-box__label"
+            >{{ data.mode }} Failed:</span
+          >
+          <span
+            *ngIf="data && data.ResponsePayload"
+            class="pw-confirmation-box__sub-heading"
+            >{{ data.ResponsePayload.ResponseMessage }}</span
+          >
+        </div>
+      </div>
+      <div class="row ml-2 mr-2">
+        <div class="pw-confirmation-box__item">
+          <p class="pw-confirmation-box__label">
+            {{ 'pw.paymentModeUnipay.retryText' | translate }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer-box row">
+    <div class="col-auto">
+      <button mat-flat-button class="pw-btn  pw-primary-btn" (click)="close()">
+        {{ 'pw.paymentModeUnipay.cancelButtonText' | translate }}
+      </button>
+    </div>
+    <div class="col-auto ml-auto">
+      <button mat-flat-button class="pw-btn pw-accent-btn " (click)="retry()">
+        {{ 'pw.paymentModeUnipay.retryButtonText' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

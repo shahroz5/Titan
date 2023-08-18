@@ -1,0 +1,71 @@
+<div class="pw-form-card pw-form-card__height-390">
+  <form [formGroup]="form" autocomplete="off">
+    <h4>
+      {{ 'pw.discountApplicable.clubbingDiscountsheader' | translate }}
+    </h4>
+    <ng-container *ngIf="!enableClubbingBillLevelDiscountOption">
+      <div class="row">
+        <div class="col-auto pt-3">
+
+          <div>
+            {{
+              'pw.discountApplicable.clubbingOtherDiscountsAllowedLabel'
+                | translate
+            }}
+            <span class="pw-warning-color">*</span>
+          </div>
+          <mat-radio-group formControlName="isClubbedOtherDiscounts">
+            <mat-radio-button [value]="true"
+              ><span class="pw-radio-button-text">{{
+                'pw.discountApplicable.yesLabel' | translate
+              }}</span>
+            </mat-radio-button>
+            <mat-radio-button [value]="false">
+              <span class="pw-radio-button-text">{{
+                'pw.discountApplicable.noLabel' | translate
+              }}</span>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="row">
+        <poss-web-select-dropdown
+          class="col-auto pt-3"
+          [placeholder]="
+            'pw.discountApplicable.selectTypePlaceholder' | translate
+          "
+          [options]="clubbingDiscountTypes"
+          [control]="form.get('type')"
+          [required]="true"
+        >
+        </poss-web-select-dropdown>
+      </div>
+    </ng-container>
+
+    <div class="row" *ngIf="enableClubbingBillLevelDiscountOption">
+      <div class="col-auto pt-3">
+
+
+        <mat-radio-group formControlName="isClubbedOtherBillLevelDiscounts">
+          <div>
+            {{
+              'pw.discountApplicable.clubbingBillDiscountsAllowedLabel'
+                | translate
+            }}
+            <span class="pw-warning-color">*</span>
+          </div>
+          <mat-radio-button [value]="true"
+            ><span class="pw-radio-button-text">{{
+              'pw.discountApplicable.yesLabel' | translate
+            }}</span>
+          </mat-radio-button>
+          <mat-radio-button [value]="false">
+            <span class="pw-radio-button-text">{{
+              'pw.discountApplicable.noLabel' | translate
+            }}</span>
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </form>
+</div>

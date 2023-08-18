@@ -1,0 +1,18 @@
+.expansion-panel {
+  cursor: pointer;
+}
+
+.pw-bg-set {
+  background: var(--sixth-color);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+  border-top: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.pw-down-arrow-icon-24 {
+  margin-right: 25px;
+}

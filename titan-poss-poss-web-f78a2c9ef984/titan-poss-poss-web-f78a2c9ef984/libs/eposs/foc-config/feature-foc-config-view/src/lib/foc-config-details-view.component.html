@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row mb-5">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.focConfiguration.offerConfiguration' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.focConfiguration.configuration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.focConfiguration.newSchemeBasedConfiguration' | translate }}
+          </div>
+        </div>
+      </div>
+      <poss-web-foc-config-view
+        *ngIf="
+          (schemeDetails$ | async) &&
+          (valueBasedVariantDetailsGoldStandard$ | async) &&
+          (valueBasedVariantDetailsGoldSlab$ | async) &&
+          (valueBasedVariantDetailsOthersStandard$ | async) &&
+          (valueBasedVariantDetailsOthersSlab$ | async) &&
+          (weightBasedVariantDetailsGoldStandard$ | async) &&
+          (weightBasedVariantDetailsGoldSlab$ | async) &&
+          (weightBasedVariantDetailsOthersStandard$ | async) &&
+          (weightBasedVariantDetailsOthersSlab$ | async)
+        "
+        [schemeDetails]="schemeDetails$ | async"
+        [valueBasedVariantDetailsGoldStandard]="
+          valueBasedVariantDetailsGoldStandard$ | async
+        "
+        [valueBasedVariantDetailsGoldSlab]="
+          valueBasedVariantDetailsGoldSlab$ | async
+        "
+        [valueBasedVariantDetailsOthersStandard]="
+          valueBasedVariantDetailsOthersStandard$ | async
+        "
+        [valueBasedVariantDetailsOthersSlab]="
+          valueBasedVariantDetailsOthersSlab$ | async
+        "
+        [weightBasedVariantDetailsGoldStandard]="
+          weightBasedVariantDetailsGoldStandard$ | async
+        "
+        [weightBasedVariantDetailsGoldSlab]="
+          weightBasedVariantDetailsGoldSlab$ | async
+        "
+        [weightBasedVariantDetailsOthersStandard]="
+          weightBasedVariantDetailsOthersStandard$ | async
+        "
+        [weightBasedVariantDetailsOthersSlab]="
+          weightBasedVariantDetailsOthersSlab$ | async
+        "
+        (loadProductGroups)="productGroupMapping($event)"
+      ></poss-web-foc-config-view>
+
+      <div class="row">
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-primary-btn"
+            (click)="focItemCodeMapping()"
+            type="button"
+          >
+            {{ 'pw.focConfiguration.focItemCodeMapping' | translate }}
+          </button>
+        </div>
+        <div class="col-auto">
+          <button class="pw-btn pw-primary-btn" (click)="locationMapping()">
+            {{ 'pw.focConfiguration.locationMappingTabLabel' | translate }}
+          </button>
+        </div>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+    <div>
+  </div>
+</div>

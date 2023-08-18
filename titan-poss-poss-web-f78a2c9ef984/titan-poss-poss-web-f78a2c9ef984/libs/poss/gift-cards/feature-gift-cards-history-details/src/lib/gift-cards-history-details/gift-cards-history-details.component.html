@@ -1,0 +1,93 @@
+<div class="pw-detail-card" *ngIf="selectedHistoryItem">
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.giftCardsHistory.documentNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.docNo ? selectedHistoryItem?.docNo : '-' }}
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.giftCardsHistory.date' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.docDate
+            ? (dateFormat(selectedHistoryItem?.docDate) | dateFormatter)
+            : '-'
+        }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.giftCardsHistory.rsoName' | translate }}
+      </div>
+      <div matTooltip = "{{selectedHistoryItem?.employeeCode}}" class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.employeeCode
+            ? getRsoNameFromCode(selectedHistoryItem?.employeeCode)
+            : '-'
+        }}
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.giftCardsHistory.status' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.status ? selectedHistoryItem?.status : '-' }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.giftCardsHistory.remarks' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.remarks ? selectedHistoryItem?.remarks : '-' }}
+      </div>
+    </div>
+
+    <div class="col-auto" *ngIf='selectedHistoryItem?.oldPanCardNumber'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.cashMemoHistory.oldPanCardLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.oldPanCardNumber }}
+      </div>
+    </div>
+    <div class="col-auto" *ngIf='selectedHistoryItem?.panCardNumber'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.cashMemoHistory.panCardLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.panCardNumber }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pw-detail-card" *ngIf="gcCmDetails">
+  <div class="row">
+    <div class="col-lg-12">
+      <poss-web-ag-gift-cards-grid
+        [giftCardEvent]="giftCardObservable$"
+        [clearAllEvent]="clearAllDataObservable$"
+        [operationType]="giftCardsTypesEnum?.GIFTCARD_CANCELLATION"
+      >
+      </poss-web-ag-gift-cards-grid>
+    </div>
+  </div>
+</div>
+
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isCommonFacadeLoading$ | async) ||
+    (isCustomerFacadeLoading$ | async) ||
+    (printingService.getPrinterIsLoading() | async)
+  "
+></poss-web-loader>

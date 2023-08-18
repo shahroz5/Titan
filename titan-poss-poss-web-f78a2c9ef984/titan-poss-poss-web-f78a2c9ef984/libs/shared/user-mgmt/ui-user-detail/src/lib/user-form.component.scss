@@ -1,0 +1,43 @@
+.user-form-fields {
+  width: 100%;
+}
+
+.cal-icon {
+  text-align: end;
+}
+
+.form-label {
+  padding: 0 0 15px 0;
+}
+
+.select-input {
+  position: absolute;
+  margin-top: 0;
+}
+
+.pw-margin-btm {
+  margin-bottom: 20px;
+}
+
+.pw-list-header {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.pw-height-full {
+  height: 95%;
+}
+
+.pw-height-half {
+  &__upper {
+    height: 51%;
+  }
+
+  &__lower {
+    height: 41%;
+  }
+}
+
+.pw-form-card__header {
+  margin-bottom: 10px;
+}

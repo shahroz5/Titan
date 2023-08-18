@@ -1,0 +1,84 @@
+<div *ngIf="grnApprovalConfig$ | async">
+  <div class="pw-form-card">
+    <div class="row">
+      <div class="col-4">
+        <p class="pw-fourth-color">
+          {{ 'pw.grnApprovalConfig.grnTypeLabel' | translate }}
+        </p>
+        <div class="pw-font-weight-bold">
+          {{ grnDescription }}
+        </div>
+      </div>
+
+      <div class="col-4">
+        <p class="pw-fourth-color">
+          {{ 'pw.grnApprovalConfig.configNameLabel' | translate }}
+        </p>
+        <div class="pw-font-weight-bold">
+          {{ configDetail.description }}
+        </div>
+      </div>
+
+      <div
+        class="col-auto pw-form-card__right-container pw-form-card__align-center"
+      >
+        <poss-web-toggle-button
+          [isActive]="configDetail.isActive"
+          [isDisabled]="true"
+        >
+        </poss-web-toggle-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pw-form-card">
+    <div class="pw-font-weight-bold pw-form-card__item">
+      {{ 'pw.grnApprovalConfig.detailsLabel' | translate }}
+    </div>
+    <table class="pw-grid-table"  aria-describedby="table" description="Table">
+      <thead>
+        <tr class="pw-grid-table__background-header">
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.grnApprovalConfig.approverLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.grnApprovalConfig.approveTypeLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.grnApprovalConfig.fromNumberLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.grnApprovalConfig.toNumberLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.grnApprovalConfig.upperLimitLabel' | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="pw-grid-table__body">
+        <tr *ngFor="let item of configDetail.config" class="pw-grid-table__row">
+          <td class="pw-grid-table__item">{{ item.roleCode }}</td>
+          <td class="pw-grid-table__item">{{ item.processType }}</td>
+          <td class="pw-grid-table__item">
+            {{ item.fromDays }}
+          </td>
+          <td class="pw-grid-table__item">
+            {{ item.tillDays }}
+          </td>
+          <td class="pw-grid-table__item">
+            {{ item.upperLimit }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-auto ml-auto">
+      <button class="pw-btn pw-primary-btn" (click)="locationMapping()">
+        {{ 'pw.grnApprovalConfig.locationMappingLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

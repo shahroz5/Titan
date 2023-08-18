@@ -1,0 +1,25 @@
+{
+	"type": "ITEM_GROUP_LEVEL",
+	"data": {
+		"maxMetalCharge": {
+			"percent": 0,
+			"value": 5.33
+		},
+		"maxStoneCharges": {
+			"percent": 0,
+			"value": 5.33
+		},
+		"maxUCP": {
+			"percent": 0,
+			"value": 5.33
+		},
+		"maxMC": {
+			"percent": 0,
+			"value": 5.33
+		},
+		"maxPsPerGram": {
+			"percent": 0,
+			"weight": 5.33
+		}
+	}
+}

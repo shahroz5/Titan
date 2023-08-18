@@ -1,0 +1,111 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+ 
+ /**
+ * @author  Mindtree Ltd.
+ * @version 1.0
+ */
+ 
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+
+if (project.hasProperty('mono')) {
+	println 'sales library is created'
+	apply plugin: 'java-library'
+
+	bootJar {
+		enabled = false
+		launchScript()
+		exclude 'SalesPaymentFlow.xlsx'
+	}
+	
+	jar {
+	enabled = true
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
+}
+} else {
+	println 'sales service is created'
+	apply plugin: 'java'
+
+	bootJar {
+		enabled = true
+		launchScript()
+	}
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies{
+   implementation ('de.codecentric:spring-boot-admin-starter-client:2.1.3')
+   implementation project(':core-service:core-kernel')
+   implementation project(':core-service:location-data')
+   implementation project(':core-service:inventory-data')
+   annotationProcessor('org.projectlombok:lombok:1.18.8')
+   implementation project(':core-service:sales-data')
+   implementation project(':core-service:sync-data')
+   implementation project(':core-service:config-data')
+   implementation project(':core-service:product-data')
+   runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+   implementation ('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.2.RELEASE')
+   implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+   implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.4.RELEASE'
+    testImplementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+    
+    implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.29'
+    // https://mvnrepository.com/artifact/com.itextpdf/html2pdf
+    //implementation group: 'com.itextpdf', name: 'html2pdf', version: '3.0.3'
+    //implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.2'
+
+	// https://mvnrepository.com/artifact/org.jsoup/jsoup
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
+	
+	 // https://mvnrepository.com/artifact/org.json/json
+	implementation group: 'org.json', name: 'json', version: '20090211'
+	
+	implementation group: 'com.openhtmltopdf', name: 'openhtmltopdf-core', version: '1.0.6'
+	implementation group: 'com.openhtmltopdf', name: 'openhtmltopdf-pdfbox', version: '1.0.6'
+
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox-tools
+	//implementation group: 'org.apache.pdfbox', name: 'pdfbox-tools', version: '2.0.19'
+    // https://mvnrepository.com/artifact/net.sf.cssbox/pdf2dom
+	//implementation group: 'net.sf.cssbox', name: 'pdf2dom', version: '1.9'
+
+	// ITEXT2    
+   	// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf
+	// implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-pdf', version: '9.1.20'
+
+	// ITEXT4
+//	implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-pdf-openpdf', version: '9.1.20'
+
+	// https://mvnrepository.com/artifact/com.openhtmltopdf/openhtmltopdf-core
+//	implementation group: 'com.openhtmltopdf', name: 'openhtmltopdf-core', version: '1.0.6'
+	// https://mvnrepository.com/artifact/com.openhtmltopdf/openhtmltopdf-pdfbox
+//	implementation group: 'com.openhtmltopdf', name: 'openhtmltopdf-pdfbox', version: '1.0.6'
+
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
+	
+	
+       implementation('org.apache.logging.log4j:log4j-api') {
+           version {
+             strictly '2.18.0'
+        }
+        }
+
+	   
+ }
+ 

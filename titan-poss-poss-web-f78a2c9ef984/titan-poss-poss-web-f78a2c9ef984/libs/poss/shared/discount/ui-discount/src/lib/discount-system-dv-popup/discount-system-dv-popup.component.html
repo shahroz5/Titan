@@ -1,0 +1,79 @@
+<div class="pw-confirmation-box pw-confirmation-box__width-450">
+  <div class="row pw-confirmation-box__header">
+    <div class="col-auto">
+      {{ 'pw.discount.discountVoucherDetails' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <a (click)="close()" class="sub-heading">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body" [formGroup]="formData">
+    <div class="row">
+      <mat-form-field class="col-12">
+        <mat-label class="pw-fourth-color">
+          {{ 'pw.discount.accountNumber' | translate }}</mat-label
+        >
+        <input
+          matInput
+          formControlName="accountNo"
+          required
+          type="text"
+          class="pw-single-bordered-input"
+        />
+
+        <mat-error
+          *ngIf="
+            formData.get('accountNo').touched &&
+            formData.get('accountNo').errors &&
+            formData.get('accountNo').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="formData.get('accountNo').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row pw-confirmation-box__item">
+      <mat-form-field class="col-12">
+        <mat-label class="pw-fourth-color">
+          {{ 'pw.discount.voucherNumber' | translate }}</mat-label
+        >
+        <input
+          matInput
+          formControlName="voucherCode"
+          required
+          type="text"
+          class="pw-single-bordered-input"
+        />
+
+        <mat-error
+          *ngIf="
+            formData.get('voucherCode').touched &&
+            formData.get('voucherCode').errors &&
+            formData.get('voucherCode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="formData.get('voucherCode').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer mt-0">
+    <div class="row pw-confirmation-box__footer-without-border no-gutters">
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          class="pw-btn pw-accent-btn"
+          (click)="apply()"
+          [disabled]="formData.invalid"
+        >
+          {{ 'pw.discount.apply' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+ 
+ /**
+ * @author  Mindtree Ltd.
+ * @version 1.0
+ */
+
+
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+
+if (project.hasProperty('mono')) {
+	println 'store library is created'
+	apply plugin: 'java-library'
+
+	bootJar {
+		enabled = false
+		launchScript()
+	}
+	
+	jar {
+	enabled = true
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
+}
+} else {
+	println 'store service is created'
+	apply plugin: 'java'
+
+	bootJar {
+		enabled = true
+		launchScript()
+	}
+}
+
+sourceCompatibility = '11'
+
+
+repositories {
+    mavenCentral()
+}
+
+
+ext {
+	set('springBootAdminVersion', '2.1.4')
+	set('swaggerVersion','2.9.2')
+}
+
+test {
+	useJUnitPlatform()
+	ignoreFailures = true
+	systemProperty "error-messages.properties-file","../error-messages.properties"
+	systemProperty "common.properties-file","../common.properties"
+	systemProperty "strictCheck","false"
+}
+
+
+dependencies {
+	implementation ('de.codecentric:spring-boot-admin-starter-client:2.1.3')
+	implementation project(':core-service:core-kernel')
+	implementation project(':core-service:store-data')
+	implementation project(':core-service:sync-data')
+    annotationProcessor('org.projectlombok:lombok:1.18.8')
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+    implementation ('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.2.RELEASE')
+    implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+    implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+
+
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.4.RELEASE'
+    testImplementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+    
+     implementation('org.apache.logging.log4j:log4j-api') {
+           version {
+            strictly '2.18.0'
+        }
+        }
+}
+
+

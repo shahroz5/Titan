@@ -1,0 +1,29 @@
+<poss-web-card-menu
+  *ngIf="showMenu"
+  [title]="title"
+  [menu]="menu"
+  [permissions$]="permissions$"
+  [selectedMenuIndex]="selectedMenuIndex"
+  (loadSubMenu)="loadSubMenu($event)"
+  (menuSelected)="navigateMenu($event)"
+  (selected)="menuSelected($event)"
+>
+</poss-web-card-menu>
+<poss-web-card-submenu
+  *ngIf="!showMenu"
+  [subMenu]="selectedSubMenu"
+  [permissions$]="permissions$"
+  (selected)="menuSelected($event)"
+  (back)="navigateMenu($event)"
+>
+</poss-web-card-submenu>
+
+<button
+  mat-mini-fab
+  color="primary"
+  class="pw-up-arrow-btn"
+  (click)="scrollUp()"
+  *ngIf="showScrollUpOption"
+>
+  <span class="pw-i-32 pw-up-arrow-icon-32"></span>
+</button>

@@ -1,0 +1,314 @@
+<div class="pw-location-mapping pw-location-mapping__fixed-width">
+  <div
+    class="row pw-location-mapping__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <h3 class="pw-message col-auto">
+      {{ 'pw.prooductCategoryMapping.addProductCategoryLabel' | translate }}
+    </h3>
+
+    <div class="col pw-text-right">
+      <button
+        class="pw-location-mapping__icon-btn"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-location-mapping__body">
+    <mat-divider></mat-divider>
+
+    <div class="pw-dialog-container__tab pw-location-mapping__tab-height">
+      <div class="row no-gutters pw-location-mapping__config-tab">
+        <div class="col-12 pw-tab__content">
+          <div class="row pw-location-mapping__row">
+            <div class="col-6 pw-location-mapping__padding-5">
+              <mat-card class="pw-location-mapping__columns">
+                <div class="pw-location-mapping__column-body">
+                  <div class="row no-gutters align-items-center">
+                    <mat-form-field
+                      appearance="outline"
+                      floatLabel="none"
+                      class="col-8"
+                    >
+                      <input
+                        #searchInput
+                        matInput
+                        placeholder=" {{
+                          'pw.prooductCategoryMapping.searchProductCategoryLable'
+                            | translate
+                        }}"
+                        (keyup)="scrollToTop('new')"
+                        class="pw-input-box"
+                      />
+                      <mat-icon matPrefix>
+                        <span class="pw-i-16 pw-search-icon-16"></span
+                      ></mat-icon>
+                      <mat-icon matSuffix (click)="searchInput.value = null">
+                        <span
+                          *ngIf="searchInput.value"
+                          class="pw-i-10 pw-close-icon-16"
+                        ></span
+                      ></mat-icon>
+                    </mat-form-field>
+                    <div class="ml-auto">
+                      <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        [(ngModel)]="selectAllOfAddNewTab"
+                        (change)="selectAll('new', $event.checked)"
+                        [disabled]="!allProductCategory.length"
+                      >
+                      </mat-checkbox>
+
+                      <span> Select All </span>
+                    </div>
+                  </div>
+
+                  <!-- <div class="pw-selection-list_header">
+                    <div>
+                      {{
+                        'pw.prooductCategoryMapping.descriptionLable'
+                          | translate
+                      }}
+                    </div>
+                    <div>
+                      {{ 'pw.prooductCategoryMapping.codeLable' | translate }}
+                    </div>
+                  </div> -->
+
+                  <cdk-virtual-scroll-viewport
+                    [itemSize]="itemSize"
+                    [minBufferPx]="minBufferPx"
+                    [maxBufferPx]="maxBufferPx"
+                    class="pw-selection-list"
+                    #virtualScrollNewList
+                  >
+                    <ng-container *ngIf="allProductCategory.length === 0">
+                      <div
+                        class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-no-data-message pw-fourth-color"
+                      >
+                        {{ noDataFoundMessage }}
+                        !
+                      </div>
+                    </ng-container>
+                    <div
+                      class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-no-data-message pw-fourth-color"
+                      *ngIf="
+                        allProductCategory.length !== 0 &&
+                        (
+                          allProductCategory
+                          | productCategorySearch: searchInput.value:'id'
+                        ).length === 0
+                      "
+                    >
+                      {{ noDataFoundMessage }}
+                    </div>
+                    <div
+                      *cdkVirtualFor="
+                        let productCategory of allProductCategory
+                          | productCategorySearch: searchInput.value:'id';
+                        templateCacheSize: 0;
+                        trackBy: trackByProductCategory
+                      "
+                      (click)="
+                        selectionChange(
+                          productCategory,
+                          !productCategory.isSelected,
+                          'new'
+                        )
+                      "
+                      class="pw-selection-list_item d-flex justify-content-between pw-font-weight-bold"
+                    >
+                      <div class="pw-text-ellipsis">
+                        <mat-checkbox
+                          class="pw-mat-checkbox"
+                          [(ngModel)]="productCategory.isSelected"
+                          (change)="
+                            selectionChange(
+                              productCategory,
+                              productCategory.isSelected,
+                              'new'
+                            )
+                          "
+                          (click)="$event.stopPropagation()"
+                        ></mat-checkbox>
+                        <span [matTooltip]="productCategory.description">
+                          {{ productCategory.description }}
+                        </span>
+                      </div>
+
+                      <div class="mr-3">
+                        {{ productCategory.id }}
+                      </div>
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+                  <button
+                    [disabled]="!allProductCategory.length"
+                    mat-flat-button
+                    class="pw-btn pw-primary-btn pw-width-100 mt-3"
+                    (click)="updateSelectedProductCategory('new')"
+                  >
+                    {{ 'pw.prooductCategoryMapping.addButtonText' | translate }}
+                  </button>
+                </div>
+              </mat-card>
+            </div>
+            <div class="col-6 pw-location-mapping__padding-5">
+              <mat-card class="pw-location-mapping__columns">
+                <div class="pw-location-mapping__column-body">
+                  <div class="row no-gutters align-items-center">
+                    <mat-form-field
+                      appearance="outline"
+                      floatLabel="none"
+                      class="col-8"
+                    >
+                      <input
+                        class="pw-input-box"
+                        #searchSelectedPGInput
+                        matInput
+                        placeholder=" {{
+                          'pw.prooductCategoryMapping.searchProductCategoryLable'
+                            | translate
+                        }}"
+                        (keyup)="scrollToTop('selected')"
+                      />
+                      <mat-icon matPrefix>
+                        <span class="pw-i-16 pw-search-icon-16"></span
+                      ></mat-icon>
+                      <mat-icon
+                        matSuffix
+                        (click)="searchSelectedPGInput.value = null"
+                      >
+                        <span
+                          *ngIf="searchSelectedPGInput.value"
+                          class="pw-i-10 pw-close-icon-16"
+                        ></span
+                      ></mat-icon>
+                    </mat-form-field>
+
+                    <div class="ml-auto">
+                      <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        [(ngModel)]="selectAllOfSelectedTab"
+                        (change)="selectAll('selected', $event.checked)"
+                        [disabled]="!selectedProuctCategories.length"
+                      >
+                      </mat-checkbox>
+                      <span> Select All </span>
+                    </div>
+                  </div>
+                  <!-- <div class="pw-selection-list_header">
+                    <div>
+                      {{
+                        'pw.prooductCategoryMapping.descriptionLable'
+                          | translate
+                      }}
+                    </div>
+
+                    <div>
+                      {{ 'pw.prooductCategoryMapping.codeLable' | translate }}
+                    </div>
+                  </div> -->
+                  <cdk-virtual-scroll-viewport
+                    [itemSize]="itemSize"
+                    [minBufferPx]="minBufferPx"
+                    [maxBufferPx]="maxBufferPx"
+                    class="pw-selection-list"
+                    #virtualScrollSelectedPC
+                  >
+                    <div
+                      class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-no-data-message pw-fourth-color"
+                      *ngIf="
+                        selectedProuctCategories.length === 0 ||
+                        (
+                          selectedProuctCategories
+                          | productCategorySearch
+                            : searchSelectedPGInput.value
+                            : 'id'
+                        ).length === 0
+                      "
+                    >
+                      {{ noDataFoundMessage }}
+                    </div>
+                    <div
+                      *cdkVirtualFor="
+                        let productCategory of selectedProuctCategories
+                          | productCategorySearch
+                            : searchSelectedPGInput.value
+                            : 'id';
+                        templateCacheSize: 0;
+                        trackBy: trackByProductCategory
+                      "
+                      (click)="
+                        selectionChange(
+                          productCategory,
+                          !productCategory.isSelected,
+                          'selected'
+                        )
+                      "
+                      class="pw-selection-list_item d-flex justify-content-between pw-font-weight-bold"
+                    >
+                      <div class="pw-text-ellipsis">
+                        <mat-checkbox
+                          class="pw-mat-checkbox"
+                          [(ngModel)]="productCategory.isSelected"
+                          (change)="
+                            selectionChange(
+                              productCategory,
+                              productCategory.isSelected,
+                              'selected'
+                            )
+                          "
+                          (click)="$event.stopPropagation()"
+                        ></mat-checkbox>
+                        <span [matTooltip]="productCategory.description">
+                          {{ productCategory.description }}
+                        </span>
+                      </div>
+
+                      <div class="mr-3">
+                        {{ productCategory.id }}
+                      </div>
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+                  <button
+                    [disabled]="!selectedProuctCategories.length"
+                    mat-flat-button
+                    class="pw-btn pw-primary-btn mt-3"
+                    (click)="updateSelectedProductCategory('selected')"
+                  >
+                    {{
+                      'pw.prooductCategoryMapping.removeButtonText' | translate
+                    }}
+                  </button>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pw-location-mapping__footer pw-text-right">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button
+          mat-flat-button
+          [disabled]="!hasChange"
+          class="pw-btn pw-accent-btn pw-width-100"
+          (click)="applyProductCategories()"
+        >
+          {{ 'pw.prooductCategoryMapping.applyButtonText' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

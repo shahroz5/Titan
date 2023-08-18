@@ -1,0 +1,266 @@
+<div [formGroup]="filterForm">
+  <div class="row no-gutters">
+    <mat-form-field class="col-3 px-2">
+      <mat-label>{{ 'pw.reports.dateRangeLabel' | translate }}</mat-label>
+      <mat-date-range-input
+        [rangePicker]="picker"
+        [max]="toMaxDate"
+      >
+        <input
+          matStartDate
+          formControlName="fromDate"
+          placeholder="'pw.reports.fromDateLabel' | translate"
+          (dateChange)="getMaxDate()"
+          required
+        />
+        <input
+          matEndDate
+          formControlName="toDate"
+          placeholder="'pw.reports.toDateLabel' | translate"
+          required
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>
+          <span class="pw-i-12 pw-calender-icon-12"></span>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error
+        *ngIf="
+        filterForm.get('fromDate').errors &&
+        filterForm.get('fromDate').errors
+            .errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+          filterForm.get('fromDate').errors
+              .errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+      <mat-error
+        *ngIf="
+        filterForm.get('toDate').errors &&
+          filterForm.get('toDate').errors
+            .errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+          filterForm.get('toDate').errors
+              .errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.levelLabel' | translate }} </mat-label>
+
+      <mat-select formControlName="level" disableOptionCentering multiple>
+        <mat-option
+          *ngFor="let option of filterOptions?.levels"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.brandLabel' | translate }} </mat-label>
+      <mat-select
+        formControlName="brand"
+        disableOptionCentering
+        multiple
+        required
+      >
+        <mat-option
+          *ngFor="let option of filterOptions?.brands"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+      <mat-error
+        *ngIf="
+          filterForm.get('brand').errors &&
+          filterForm.get('brand').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('brand').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.subBrandLabel' | translate }} </mat-label>
+      <mat-select
+        formControlName="subBrand"
+        disableOptionCentering
+        multiple
+      >
+        <mat-option
+          *ngFor="let option of filterOptions?.subBrands"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+      <mat-error
+        *ngIf="
+          filterForm.get('subBrand').errors &&
+          filterForm.get('subBrand').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('subBrand').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <poss-web-select-dropdown
+      class="col-3 px-2"
+      [placeholder]="'pw.reports.countryLabel' | translate"
+      [options]="filterOptions?.countries"
+      [control]="filterForm.get('country')"
+      [required]="false"
+      (selectionChange)="onCountryDropDownChange($event)"
+    >
+    </poss-web-select-dropdown>
+
+    <poss-web-search-dropdown
+		  class="col-3 px-2"
+		  [options]="filterOptions?.states"
+		  [control]="filterForm.get('state')"
+		  [placeholder]="'pw.reports.stateLabel' | translate"
+		  [searchPlaceholder]="'pw.reports.searchDropdownLabel' | translate"
+		  (selectionChangeEvent)="onStateDropDownChange($event)"
+		  >
+		</poss-web-search-dropdown>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.townLabel' | translate }} </mat-label>
+
+      <mat-select formControlName="town" disableOptionCentering multiple>
+        <mat-option
+          *ngFor="let option of filterOptions?.towns"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.regionLabel' | translate }} </mat-label>
+
+      <mat-select formControlName="region" disableOptionCentering multiple>
+        <mat-option
+          *ngFor="let option of filterOptions?.regions"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <poss-web-search-dropdown
+      class="col-3 px-2"
+      [options]="filterOptions?.locations"
+      [control]="filterForm.get('btqCode')"
+      [placeholder]="'pw.reports.btqCodeLabel' | translate"
+      [searchPlaceholder]="'pw.reports.searchDropdownLabel' | translate"
+      [isMultiSelect]=true
+      [isFullDescription]=true
+      >
+    </poss-web-search-dropdown>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.cnType' | translate }} </mat-label>
+
+      <mat-select
+        formControlName="cnType"
+        disableOptionCentering
+        multiple
+        required
+      >
+        <mat-option
+          *ngFor="let option of filterOptions?.cnType"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+
+      <mat-error
+        *ngIf="
+          filterForm.get('cnType').errors &&
+          filterForm.get('cnType').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('cnType').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label> {{ 'pw.reports.cnStatus' | translate }} </mat-label>
+
+      <mat-select
+        formControlName="cnStatus"
+        disableOptionCentering
+        multiple
+        required
+      >
+        <mat-option
+          *ngFor="let option of filterOptions?.cnStatus"
+          [value]="option.id"
+          >{{ option.description }}</mat-option
+        >
+      </mat-select>
+
+      <mat-error
+        *ngIf="
+          filterForm.get('cnStatus').errors &&
+          filterForm.get('cnStatus').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('cnStatus').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row px-2 no-gutters">
+    <div
+      class="ml-auto col-9 align-self-center row no-gutters d-flex justify-content-end"
+    >
+      <button
+        mat-button
+        class="pw-btn pw-primary-btn mr-3"
+        (click)="clearFilter()"
+      >
+        {{ 'pw.reports.clearButton' | translate }}
+      </button>
+      <button
+        mat-button
+        class="pw-btn pw-accent-btn mr-3"
+        (click)="fieldSettings()"
+      >
+        {{ 'pw.reports.fieldSettings' | translate }}
+      </button>
+
+      <button
+        mat-button
+        class="pw-btn pw-accent-btn mr-3"
+        (click)="saveSearch()"
+      >
+        {{ 'pw.reports.saveSearch' | translate }}
+      </button>
+      <button
+        mat-button
+        class="pw-btn pw-accent-btn"
+        (click)="generateReport()"
+      >
+        {{ 'pw.reports.generateReportButton' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

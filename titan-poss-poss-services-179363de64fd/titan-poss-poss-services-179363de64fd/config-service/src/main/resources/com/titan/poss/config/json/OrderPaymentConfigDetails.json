@@ -1,0 +1,8 @@
+{
+	"type": "ORDER_AB_PAYMENT_CONFIG ",
+	"data": {
+		"metalRateFrozenPercent": 10,
+		"metalRateNonFrozenPercent": 25.5,
+		"bestRatePercent": 50
+	}
+}

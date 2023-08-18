@@ -1,0 +1,20 @@
+export enum FunctionTypesEnum {
+  MAIN_SEARCH = 'Focus on Searchbar',
+  CARD_LIST = 'Focus on Card List',
+  PRIMARY_DROPDOWN = 'Focus on Primary Dropdown',
+  BACK = 'Move Back to Previous Page',
+  FILTER = 'Open Filter Popup',
+  SORT = 'Open Sort Popup',
+  CLEAR_ALL = 'Clear All Selection',
+  SELECT_ALL = 'Select All Data',
+  SELECT_CURRENT_PAGE = 'Select Current Page Data ',
+  SHORTCUT_ENABLE = 'Enable Keyboard Shortcuts',
+  SHORTCUT_DISABLE = 'Disable Keyboard Shortcuts',
+  SHORTCUT_HELP = 'Open Shortcut Help',
+  NAVIGATION_TOGGLE = 'Toggle SideNav',
+  OVERLAY_FOCUS = 'Focus on Overlay',
+  SECONDARY_DROPDOWN = 'Focus on Secondary Dropdown',
+  SECONDARY_SEARCH = 'Focus on Secondary Search',
+  MENU4 = 'Menu - 4',
+  PRIMARY_BUTTON = 'Focus on Primary Button'
+}

@@ -1,0 +1,320 @@
+<ng-container *ngIf="!viewMode">
+  <form [formGroup]="addressForm" autocomplete="off" novalidate>
+    <div class="row">
+      <mat-form-field class="col-12">
+        <mat-label>{{
+          'pw.addressPanel.addressLine1Label' | translate
+        }}</mat-label>
+        <input
+          #firstname="matInput"
+          matInput
+          type="text"
+          autocomplete="off"
+          required
+          possWebMaxLengthValidator
+          name="addressField"
+          formControlName="addressLine1"
+        />
+        <mat-error
+          *ngIf="
+            addressForm.get('addressLine1').errors &&
+            addressForm.get('addressLine1').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('addressLine1').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-12">
+        <mat-label>{{
+          'pw.addressPanel.addressLine2Label' | translate
+        }}</mat-label>
+        <input
+          matInput
+          type="text"
+          possWebMaxLengthValidator
+          name="addressField"
+          autocomplete="off"
+          formControlName="addressLine2"
+          required
+        />
+        <mat-error
+          *ngIf="
+            addressForm.get('addressLine2').errors &&
+            addressForm.get('addressLine2').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('addressLine2').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-12">
+        <mat-label>{{
+          'pw.addressPanel.addressLine3Label' | translate
+        }}</mat-label>
+        <input
+          matInput
+          type="text"
+          possWebMaxLengthValidator
+          name="addressField"
+          autocomplete="off"
+          formControlName="addressLine3"
+        />
+        <mat-error
+          *ngIf="
+            addressForm.get('addressLine3').errors &&
+            addressForm.get('addressLine3').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('addressLine3').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <poss-web-select-dropdown
+        *ngIf="customerType !== 'INTERNATIONAL'"
+        disableOptionCentering
+        class="col-6"
+        [placeholder]="'pw.addressPanel.countryLabel' | translate"
+        [control]="addressForm.get('country')"
+        [options]="countryListToDropdown"
+        [required]="true"
+      >
+      </poss-web-select-dropdown>
+      <!-- <mat-form-field class="col-6" *ngIf="customerType !== 'INTERNATIONAL'">
+        <mat-label>{{ 'pw.addressPanel.countryLabel' | translate }}</mat-label>
+        <mat-select disableOptionCentering required formControlName="country">
+          <mat-option
+            *ngFor="let option of countryList"
+            [value]="option.description"
+            (onSelectionChange)="selectedCountryId($event, option.value)"
+            >{{ option.description }}</mat-option
+          >
+        </mat-select>
+        
+        <mat-error
+          *ngIf="
+            addressForm.get('country').errors &&
+            addressForm.get('country').errors.errorArray
+          "
+        >
+          <span
+            *ngFor="
+              let errorMesage of addressForm.get('country').errors.errorArray;
+              let i = index
+            "
+          >
+            <span *ngIf="i === 0"> {{ errorMesage }}</span>
+            <poss-web-error-info-tooltip
+              *ngIf="i > 0"
+              [errorMessage]="errorMesage"
+            ></poss-web-error-info-tooltip>
+          </span>
+        </mat-error>
+      </mat-form-field> -->
+      <mat-form-field class="col-6" *ngIf="customerType === 'INTERNATIONAL'">
+        <mat-label>{{ 'pw.addressPanel.countryLabel' | translate }}</mat-label>
+
+        <input
+          #autoComplInput
+          autocomplete="off"
+          type="text"
+          matInput
+          formControlName="country"
+          [matAutocomplete]="autoCountry"
+          required
+          (ngModelChange)="
+            selectedCountryDescription(addressForm.get('country').value)
+          "
+        />
+        <mat-autocomplete
+          #autoCountry="matAutocomplete"
+          (optionSelected)="selectionChangeCountry()"
+        >
+          <mat-option
+            *ngFor="let option of filteredCountryOptions$ | async"
+            [value]="option.description"
+            (onSelectionChange)="selectedCountryId($event, option.value)"
+            >{{ option.description }}</mat-option
+          >
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="
+            addressForm.get('country').errors &&
+            addressForm.get('country').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('country').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-6">
+        <mat-label>{{ 'pw.addressPanel.pincodeLabel' | translate }}</mat-label>
+        <input
+          matInput
+          type="text"
+          possWebMaxLengthValidator
+          [name]="
+            customerType !== 'INTERNATIONAL' ? 'pincodeField' : 'numbersField'
+          "
+          autocomplete="off"
+          formControlName="pincode"
+          required
+          (blur)="onPincodeChange()"
+        />
+        <mat-error
+          *ngIf="
+            addressForm.get('pincode').errors &&
+            addressForm.get('pincode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('pincode').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <!-- <poss-web-select-dropdown
+        *ngIf="customerType !== 'INTERNATIONAL'"
+        disableOptionCentering
+        class="col-6"
+        [placeholder]="'pw.addressPanel.stateLabel' | translate"
+        [control]="addressForm.get('state')"
+        [options]="stateList"
+        [required]="true"
+        (selectionChange)="selectionChangeState($event)"
+      >
+      </poss-web-select-dropdown> -->
+      <mat-form-field class="col-6" *ngIf="customerType !== 'INTERNATIONAL'">
+        <mat-label>{{ 'pw.addressPanel.stateLabel' | translate }}</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="state"
+          [matAutocomplete]="autoState1"
+          required
+          possWebMaxLengthValidator
+          name="stateField"
+        />
+        <mat-autocomplete #autoState1="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredStateOptions$ | async"
+            (onSelectionChange)="selectedStateId($event, option.value)"
+            [value]="option.description"
+            >{{ option.description }}</mat-option
+          >
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="
+            addressForm.get('state').errors &&
+            addressForm.get('state').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('state').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            addressForm.get('state').errors &&
+            !addressForm.get('state').errors.errorArray &&
+            addressForm.get('state').errors.invalidAutocompleteString
+          "
+        >
+          Click one of the dropdown option
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-6" *ngIf="customerType === 'INTERNATIONAL'">
+        <mat-label>{{ 'pw.addressPanel.stateLabel' | translate }}</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="state"
+          [matAutocomplete]="autoState"
+          required
+          possWebMaxLengthValidator
+          name="stateField"
+        />
+        <mat-autocomplete #autoState="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredStateOptions$ | async"
+            (onSelectionChange)="selectedStateId($event, option.value)"
+            [value]="option.description"
+            >{{ option.description }}</mat-option
+          >
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="
+            addressForm.get('state').errors &&
+            addressForm.get('state').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('state').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-6">
+        <mat-label>{{ 'pw.addressPanel.cityLabel' | translate }}</mat-label>
+        <input
+          type="text"
+          autocomplete="off"
+          matInput
+          formControlName="city"
+          [matAutocomplete]="autoCity"
+          required
+          possWebMaxLengthValidator
+          name="cityField"
+        />
+
+        <mat-autocomplete #autoCity="matAutocomplete">
+          <mat-option
+            *ngFor="let option of filteredCityOptions$ | async"
+            [value]="option.description"
+            >{{ option.description }}</mat-option
+          >
+        </mat-autocomplete>
+        <mat-error
+          *ngIf="
+            addressForm.get('city').errors &&
+            addressForm.get('city').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="addressForm.get('city').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</ng-container>
+<ng-container *ngIf="viewMode">
+  <p class="pw-address-panel__label">
+    {{ 'pw.addressPanel.addressLabel' | translate }}
+  </p>
+  <div class="pw-confirmation-box__address">
+    <span *ngIf="addressDetail.addressLines[0]">
+      {{ addressDetail.addressLines[0] }},
+    </span>
+    <span *ngIf="addressDetail.addressLines[1]">
+      {{ addressDetail.addressLines[1] }},
+    </span>
+    <span *ngIf="addressDetail.addressLines[2]">
+      {{ addressDetail.addressLines[2] }},
+    </span>
+    {{ addressDetail.city }},
+    {{ addressDetail.state }}
+    {{ addressDetail.country }} <span *ngIf="addressDetail.pinCode"> - </span>
+    {{ addressDetail.pinCode }}
+  </div>
+</ng-container>

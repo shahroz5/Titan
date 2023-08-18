@@ -1,0 +1,30 @@
+<div class="pw-form-card mt-2">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+  {{ 'pw.grf.uploadedDocumentsLabel' | translate }}
+  </div>
+  <table class="pw-grid-table"  aria-describedby="table" description="Table">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">{{ 'pw.grf.nameLabel' | translate }}</th>
+        <th class="pw-grid-table__header-item" scope="col">{{ 'pw.grf.previewLabel' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr *ngFor="let data of filesList" class="pw-grid-table__row">
+        <td class="pw-grid-table__item">{{ data.name }}</td>
+
+        <td class="col-3 pw-text-right">
+          <a>
+            <u (click)="openPopUp(data.id)">
+              {{ 'pw.fileUpload.view' | translate }}</u
+            >
+          </a>
+        </td>
+
+        <!-- <a><td class="pw-grid-table__item pw-anchor-underline">View</td></a> -->
+      </tr>
+    </tbody>
+  </table>
+</div>

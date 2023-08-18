@@ -1,0 +1,7 @@
+{
+	"type": "TEP_GENERAL_CODES_CONFIG",
+	"data": {
+		"isCMMandatory": "true",
+		"isValuationAtStore": "true"
+	}
+}

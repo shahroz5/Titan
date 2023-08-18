@@ -1,0 +1,7 @@
+package com.titan.poss.core.enums;
+
+public enum EmailIdVerificationEnum {
+	
+	EMAIL
+
+}

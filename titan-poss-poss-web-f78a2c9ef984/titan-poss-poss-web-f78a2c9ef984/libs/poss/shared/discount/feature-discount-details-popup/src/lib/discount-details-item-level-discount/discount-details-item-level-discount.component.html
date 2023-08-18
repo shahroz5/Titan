@@ -1,0 +1,104 @@
+<div class="row no-gutters mt-2">
+  <mat-form-field class="pw-single-bordered-input" *ngIf="isPopupReadonly">
+    <mat-label>
+      {{
+        'pw.discountDetailsPopup.selectedDiscountLabel' | translate
+      }}</mat-label
+    >
+    <input matInput value="{{ selectedDiscountDescription }}" readonly />
+  </mat-form-field>
+  <poss-web-select-dropdown
+    class="mr-2"
+    *ngIf="!isPopupReadonly"
+    [placeholder]="
+      (txnType === transactionTypeRef.CM
+        ? 'pw.discountDetailsPopup.selectCMDiscountLabel'
+        : 'pw.discountDetailsPopup.selectDiscountLabel'
+      ) | translate
+    "
+    [options]="availableDiscountOptions"
+    [control]="selectDiscountFormControl"
+    [isTooltip]="true"
+  >
+  </poss-web-select-dropdown>
+
+  <poss-web-select-dropdown
+    class="mr-2"
+    *ngIf="
+      !isPopupReadonly &&
+      txnType === transactionTypeRef.CM &&
+      typeOfCMByRefTxnId !== null &&
+      availableABDiscountOptions.length !== 0
+    "
+    [placeholder]="'pw.discountDetailsPopup.selectABDiscountLabel' | translate"
+    [options]="availableABDiscountOptions"
+    [control]="selectABDiscountFormControl"
+    [isTooltip]="true"
+  >
+  </poss-web-select-dropdown>
+
+  <poss-web-select-dropdown
+    *ngIf="enablereasonForDiscountChange && !isPopupReadonly"
+    #reasonsForDiscountChanges
+    class="mr-2 pw-reason-dropdown"
+    [placeholder]="
+      'pw.discountDetailsPopup.reaonsForDiscountChangeLabel' | translate
+    "
+    [options]="reasonsForDiscountChange"
+    [control]="reasonForDiscountChangeControl"
+    [required]="true"
+  >
+  </poss-web-select-dropdown>
+  <poss-web-select-dropdown
+    *ngIf="enableReasonForNoDiscount && !isPopupReadonly"
+    #reasonForNoDiscount
+    class="mr-2 pw-reason-dropdown"
+    [placeholder]="
+      'pw.discountDetailsPopup.reasonForNotGivingDiscountsLabel' | translate
+    "
+    [options]="reasonsForNoDiscounts"
+    [control]="reasonForNoDiscountFormControl"
+    [required]="true"
+  >
+  </poss-web-select-dropdown>
+
+  <div *ngIf="selectedDiscountReason" class="col-auto ml-auto pw-disc-reason-margin">
+    {{ 'pw.discountDetailsPopup.selectedReasonLabel' | translate }}: {{ selectedDiscountReason }}
+  </div>
+</div>
+
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="rowData"
+  [singleClickEdit]="true"
+  [domLayout]="domLayout"
+  [rowHeight]="50"
+  [animateRows]="animateRows"
+  (gridReady)="gridReady1($event)"
+  [frameworkComponents]="getComponents()"
+  [context]="getContext()"
+  [tooltipShowDelay]="tooltipShowDelay"
+  (cellValueChanged)="onCellValueChanged($event)"
+  (cellClicked)="rowEdit()"
+  (cellKeyPress)="rowEdit()"
+  (cellFocused)="onCellFocused($event)"
+  (cellEditingStarted)="cellEditingStarted($event)"
+>
+</ag-grid-angular>
+
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table pw-ag-grid-footer-table"
+  [columnDefs]="footerColumnDefs"
+  [defaultColDef]="defaultColDef"
+  [rowData]="totalData"
+  [domLayout]="domLayout"
+  [rowHeight]="35"
+  [animateRows]="animateRows"
+  [rowStyle]="{ fontWeight: 'bold' }"
+  (gridReady)="gridReady2($event)"
+  (click)="stopEditing()"
+  (cellFocused)="onFooterCellFocused($event)"
+>
+</ag-grid-angular>

@@ -1,0 +1,66 @@
+<!-- <div class="pw-menu-bar" *ngIf="bussinessDay">
+  <div class="pw-menu-bar__list">
+    <ul class="row pw-menu-bar__ul">
+      <li class="col-auto pw-menu1 pw-menu-bar__item">
+        <span class="pw-secondary-color pw-menu-bar__content-2">
+          {{ 'pw.toolbar.businessDay' | translate }} :
+        </span>
+        <span
+          *ngIf="bussinessDay"
+          class="pw-fourth-color pw-menu-bar__content-2"
+        >
+          {{ dateFormat(bussinessDay) | dateFormatter }}
+        </span>
+
+        <span
+          *ngIf="!bussinessDay"
+          class="pw-fourth-color pw-menu-bar__content-2"
+        >
+          --
+        </span>
+      </li>
+    </ul>
+  </div>
+</div> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span
+                  class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                ></span>
+              </a>
+              <span class="pw-i-40 pw-cash-memo-icon-40"></span>
+              <div>
+                <h2>{{ 'pw.revenue.revenueHeader' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.revenue.todayRevenueHeader' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <poss-web-revenue-filter
+        *ngIf="isCorpUser"
+        [revenueType]="revenueTypeEnumRef.REVENUE_TODAY"
+        [selectedLocation]="selectedLocation"
+        (loadSelectedLocation)="loadSelectedLocation($event)"
+        (getLocationCode)="getLocationCode()"
+      ></poss-web-revenue-filter>
+      <div>
+        <poss-web-today-revenue-list
+          [todayRevenueList]="todayRevenueList$ | async"
+          [ghsRevenueList]="ghsRevenueList$ | async"
+          [serviceRevenueList]="serviceRevenueList$ | async"
+        ></poss-web-today-revenue-list>
+      </div>
+    </div>
+  </div>
+</div>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

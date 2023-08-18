@@ -1,0 +1,147 @@
+<ng-container *ngIf="isLoggedIn">
+  <div class="pw-menu-bar">
+    <div class="pw-menu-bar__list">
+      <poss-web-toolbar
+        (selectedIdEmit)="onSelected($event)"
+        [item]="currentItem"
+      ></poss-web-toolbar>
+    </div>
+  </div>
+
+  <div
+    class="container-fluid"
+    [class.pw-overlay-notification-gutter]="hasNotification"
+  >
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="back()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div class="pw-top-heading-container__heading">
+                  {{ 'pw.acceptAdvance.acceptAdvance' | translate }}
+                </div>
+              </div>
+            </div>
+            <!-- <ng-container
+              *possWebPermission="
+                loadPermission(ACCEPT_ADVANCE_ADD_EDIT_SUBMENU)
+              "
+            > -->
+            <poss-web-customer-search-container
+              *ngIf="router.url.includes('accept-advance')"
+              class="col-auto ml-auto"
+            ></poss-web-customer-search-container>
+            <!-- </ng-container> -->
+          </div>
+        </div>
+
+        <div class="pw-tab row no-gutters">
+          <ul class="pw-tab__list col">
+            <!-- <ng-container
+              *possWebPermission="loadPermission(ACCEPT_ADVANCE_VIEW_SUBMENU)"
+            > -->
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./accept-advance/new']"
+                [class.pw-is-active-bar]="
+                  !router.url.includes('manual-accept-advance') &&
+                  !router.url.includes('history')
+                "
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.acceptAdvance.acceptAdvanceTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+            <!-- </ng-container>
+            <ng-container
+              *possWebPermission="
+                loadPermission(ACCEPT_ADVANCE_HISTORY_SUBMENU)
+              "
+            > -->
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./history']"
+                [class.pw-is-active-bar]="router.url.includes('history')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.acceptAdvance.history' | translate }}
+                </h5></a
+              >
+            </li>
+            <!-- </ng-container> -->
+          </ul>
+          <poss-web-order-detail
+            [transactionType]="commomStateAttributeTypeEnum?.ACCEPT_ADVANCE"
+          ></poss-web-order-detail>
+        </div>
+
+        <router-outlet></router-outlet>
+
+        <!-- <div class="pw-tab row no-gutters">
+        <ul class="pw-tab__list col">
+          <li class="pw-tab__list-item">
+            <a
+              [class.pw-is-active-bar]="
+                tab === ctAdvanceTabsEnum.ACCEPT_ADVANCE
+              "
+              (click)="changeTab(ctAdvanceTabsEnum.ACCEPT_ADVANCE)"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.acceptAdvance.acceptAdvanceTabLabel' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              [class.pw-is-active-bar]="
+                tab === ctAdvanceTabsEnum.MANUAL_ACCEPT_ADVANCE
+              "
+              (click)="changeTab(ctAdvanceTabsEnum.MANUAL_ACCEPT_ADVANCE)"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.acceptAdvance.manualAcceptAdvance' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              [class.pw-is-active-bar]="tab === ctAdvanceTabsEnum.HISTORY"
+              (click)="changeTab(ctAdvanceTabsEnum.HISTORY)"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.acceptAdvance.history' | translate }}
+              </h5>
+            </a>
+          </li>
+        </ul>
+        <h4 *ngIf="status === StatusTypesEnumRef?.OPEN">
+          {{ 'pw.cashMemoShell.openTaskLabel' | translate }}
+          : {{ orderNumber }}
+        </h4>
+      </div>
+      <poss-web-accept-advance
+        *ngIf="tab === ctAdvanceTabsEnum.ACCEPT_ADVANCE"
+        (orderNumber)="selectedOrderNumber($event)"
+      >
+      </poss-web-accept-advance>
+      <poss-web-manual-accept-advance
+        *ngIf="tab === ctAdvanceTabsEnum.MANUAL_ACCEPT_ADVANCE"
+      >
+      </poss-web-manual-accept-advance>
+      <poss-web-accept-advance-history
+        *ngIf="tab === ctAdvanceTabsEnum.HISTORY"
+      >
+      </poss-web-accept-advance-history> -->
+        <poss-web-payment *ngIf="enablePayment()"></poss-web-payment>
+      </div>
+    </div>
+  </div>
+</ng-container>

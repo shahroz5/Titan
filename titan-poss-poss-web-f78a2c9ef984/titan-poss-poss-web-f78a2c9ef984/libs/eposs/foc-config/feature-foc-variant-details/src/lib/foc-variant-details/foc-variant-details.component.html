@@ -1,0 +1,343 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.focConfiguration.offerConfiguration' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.focConfiguration.configuration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.focConfiguration.newSchemeBasedConfiguration' | translate }}
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-auto ml-auto">
+          <div
+            class="pw-form-card pw-form-card__padding-10 pw-form-card__margin-bottom"
+          >
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+                <span class="pw-i-24 pw-alaram-icon-24"></span>
+              </div>
+              <div class="col pw-error-color">
+                {{
+                  'pw.focConfiguration.publishNotificationMessage' | translate
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-form-card">
+        <div class="row">
+          <poss-web-select-dropdown
+            class="col-auto"
+            [placeholder]="'pw.focConfiguration.valueBased' | translate"
+            [options]="itemTypeDropDownArray"
+            [control]="itemTypeControl"
+            [required]="true"
+            (selectionChange)="onValueBasedDropDownChange($event)"
+          >
+          </poss-web-select-dropdown>
+
+          <poss-web-select-dropdown
+            class="col-auto"
+            [placeholder]="'pw.focConfiguration.weightBased' | translate"
+            [options]="itemTypeDropDownArray"
+            [control]="itemTypeControl"
+            [required]="true"
+            (selectionChange)="onWeightBasedDropDownChange($event)"
+          >
+          </poss-web-select-dropdown>
+
+          <mat-form-field class="col-4">
+            <mat-label class="pw-fourth-color">
+              {{ 'pw.focConfiguration.schemeNameLabel' | translate }}</mat-label
+            >
+            <input
+              readonly
+              matInput
+              class="pw-single-bordered-input"
+              value="{{ schemeName }}"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="pw-tab mt-4">
+        <ul class="pw-tab__list">
+          <li
+            *ngIf="selectedValueBased === 'GOLD_COIN'"
+            class="pw-tab__list-item"
+          >
+            <a
+              (click)="changeTab(0)"
+              [class.pw-is-active-bar]="selectedTab === 0"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.valueBasedGold' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li *ngIf="selectedValueBased === 'OTHERS'" class="pw-tab__list-item">
+            <a
+              (click)="changeTab(1)"
+              [class.pw-is-active-bar]="selectedTab === 1"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.valueBasedOthers' | translate }}
+              </h5>
+            </a>
+          </li>
+
+          <li
+            *ngIf="selectedWeightBased === 'GOLD_COIN'"
+            class="pw-tab__list-item"
+          >
+            <a
+              (click)="changeTab(2)"
+              [class.pw-is-active-bar]="selectedTab === 2"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.weightBasedGold' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li
+            *ngIf="selectedWeightBased === 'OTHERS'"
+            class="pw-tab__list-item"
+          >
+            <a
+              (click)="changeTab(3)"
+              [class.pw-is-active-bar]="selectedTab === 3"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.weightBasedOthers' | translate }}
+              </h5>
+            </a>
+          </li>
+
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(4)"
+              [class.pw-is-active-bar]="selectedTab === 4"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.focItemCodeMapping' | translate }}
+              </h5></a
+            >
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(5)"
+              [class.pw-is-active-bar]="selectedTab === 5"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.focConfiguration.locationMappingTabLabel' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="selectedTab === 0">
+        <poss-web-foc-value-based-gold
+          [varinatDetails]="valueBasedVariantDetails$ | async"
+          [category]="category"
+          [itemType]="itemType"
+          [focTypeDetails]="getFocTypeState$ | async"
+          (loadFocTypeState)="loadFocTypeState($event)"
+          [prodouctGroupLoadingError]="prodouctGroupLoadingError"
+          [schemeDetails]="schemeDetails"
+          (saveVariantDetails)="saveVariantDetails($event)"
+          (loadVariantDetails)="loadVariantDetails($event)"
+          (mapProductGroup)="mapProductGroup($event)"
+          (loadProductGroups)="loadProductGroups($event)"
+          (deleteSchemes)="deleteSchemes($event)"
+          [selectedSlabProductGroups]="selectedProductGroups$ | async"
+          [selectedGroups]="observable"
+        ></poss-web-foc-value-based-gold>
+      </div>
+
+      <div *ngIf="selectedTab === 1">
+        <poss-web-foc-value-based-others
+          [varinatDetails]="valueBasedVariantDetails$ | async"
+          [category]="category"
+          [itemType]="itemType"
+          [focTypeDetails]="getFocTypeState$ | async"
+          (loadFocTypeState)="loadFocTypeState($event)"
+          [selectedSlabProductGroups]="selectedProductGroups$ | async"
+          (saveVariantDetails)="saveVariantDetails($event)"
+          (loadVariantDetails)="loadVariantDetails($event)"
+          (loadProductGroups)="loadProductGroups($event)"
+          (deleteSchemes)="deleteSchemes($event)"
+          (mapProductGroup)="mapProductGroup($event)"
+          [focItemCodes]="mappedFocItems"
+          [schemeDetails]="schemeDetails"
+          [selectedGroups]="observable"
+          [focEligiblity]="focEligiblity"
+        ></poss-web-foc-value-based-others>
+      </div>
+
+      <div *ngIf="selectedTab === 2">
+        <poss-web-foc-weight-based-gold
+          [varinatDetails]="weightBasedVariantDetails$ | async"
+          [category]="category"
+          [itemType]="itemType"
+          [focTypeDetails]="getFocTypeState$ | async"
+          (loadFocTypeState)="loadFocTypeState($event)"
+          [selectedSlabProductGroups]="selectedProductGroups$ | async"
+          (saveVariantDetails)="saveVariantDetails($event)"
+          (loadVariantDetails)="loadVariantDetails($event)"
+          (loadProductGroups)="loadProductGroups($event)"
+          (deleteSchemes)="deleteSchemes($event)"
+          (mapProductGroup)="mapProductGroup($event)"
+          [selectedGroups]="observable"
+          [schemeDetails]="schemeDetails"
+        ></poss-web-foc-weight-based-gold>
+      </div>
+
+      <div *ngIf="selectedTab === 3">
+        <poss-web-foc-weight-based-others
+          [varinatDetails]="weightBasedVariantDetails$ | async"
+          [category]="category"
+          [itemType]="itemType"
+          [focTypeDetails]="getFocTypeState$ | async"
+          (loadFocTypeState)="loadFocTypeState($event)"
+          [selectedSlabProductGroups]="selectedProductGroups$ | async"
+          (saveVariantDetails)="saveVariantDetails($event)"
+          (loadVariantDetails)="loadVariantDetails($event)"
+          (loadProductGroups)="loadProductGroups($event)"
+          (deleteSchemes)="deleteSchemes($event)"
+          (mapProductGroup)="mapProductGroup($event)"
+          [focItemCodes]="mappedFocItems"
+          [schemeDetails]="schemeDetails"
+          [selectedGroups]="observable"
+        ></poss-web-foc-weight-based-others>
+      </div>
+
+      <div [hidden]="selectedTab !== 4">
+        <div class="row">
+          <div class="col-auto mt-2">
+            {{ 'pw.focConfiguration.focItemCodesLabel' | translate }}
+          </div>
+          <div class="col-auto ml-auto mt-2"></div>
+          <div class="col-auto m1-auto">
+            <div class="pw-search-bar">
+              <mat-form-field [formGroup]="searchForm">
+                <input
+                  #searchBox
+                  matInput
+                  type="text"
+                  placeholder=" {{
+                    'pw.focConfiguration.searchItemCodeLabel' | translate
+                  }}"
+                  class="single-bordered-input"
+                  formControlName="searchValue"
+                />
+                <mat-icon matSuffix>
+                  <span
+                    class="pw-i-16 pw-search-icon-16"
+                    *ngIf="!searchForm.value.searchValue"
+                  ></span>
+                </mat-icon>
+                <mat-icon matSuffix (click)="clearSearch()">
+                  <span
+                    *ngIf="searchForm.value.searchValue"
+                    class="pw-i-10 pw-close-icon-16"
+                  ></span
+                ></mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-auto">
+            <button class="pw-btn pw-primary-btn" (click)="addFocItemCodes()">
+              {{ 'pw.focConfiguration.addFocCodesLabel' | translate }}
+            </button>
+          </div>
+        </div>
+        <poss-web-foc-item-code-mapping
+          [focMappedItems]="mappedFocItems"
+          [count]="totalFocItems$ | async"
+          [pageEvent]="focItemCodePageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          [schemeDetails]="schemeDetails"
+          (paginator)="paginate($event, 'itemCode')"
+          [minPageSize]="minPageSize"
+          (deleteItemCode)="deleteItemCode($event)"
+        ></poss-web-foc-item-code-mapping>
+      </div>
+
+      <div [hidden]="selectedTab !== 5">
+        <div class="row">
+          <div class="col-auto ml-auto mt-2"></div>
+          <div class="col-auto m1-auto">
+            <div class="pw-search-bar">
+              <mat-form-field [formGroup]="locationSearchForm">
+                <input
+                  #locationSearchBox
+                  matInput
+                  type="text"
+                  placeholder="  {{
+                    'pw.focConfiguration.searchLocationCodeLabel' | translate
+                  }}"
+                  class="single-bordered-input"
+                  formControlName="locationSearch"
+                />
+                <mat-icon matSuffix>
+                  <span
+                    class="pw-i-16 pw-search-icon-16"
+                    *ngIf="!locationSearchForm.value.locationSearch"
+                  ></span>
+                </mat-icon>
+                <mat-icon matSuffix (click)="clearLocationSearch()">
+                  <span
+                    *ngIf="locationSearchForm.value.locationSearch"
+                    class="pw-i-10 pw-close-icon-16"
+                  ></span
+                ></mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-auto">
+            <button
+              class="pw-btn pw-primary-btn"
+              (click)="openLocationMappingPopup()"
+            >
+              {{ 'pw.focConfiguration.addLocationLabel' | translate }}
+            </button>
+          </div>
+        </div>
+        <poss-web-location-mapping
+          (updateLocation)="updateLocation($event)"
+          (updateIsActiveStatus)="updateIsActiveStatus($event)"
+          [locationList]="locationList"
+          [count]="totalLocations$ | async"
+          [pageEvent]="locationPageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          (paginator)="paginate($event, 'location')"
+          [minPageSize]="minPageSize"
+          [schemeDetails]="schemeDetails"
+        ></poss-web-location-mapping>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

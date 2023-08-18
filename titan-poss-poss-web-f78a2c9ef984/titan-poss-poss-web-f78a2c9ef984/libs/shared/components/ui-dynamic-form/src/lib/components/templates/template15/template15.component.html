@@ -1,0 +1,111 @@
+<div class="row m-0">
+  <div class="errorMessage" *ngFor="let error of form.errors | objIterator">
+    <poss-web-error-message [formId]="formId" [error]="error">
+    </poss-web-error-message>
+  </div>
+
+  <div class="col-12 borderCls mb-4 pw-form-card" *ngIf="fields.length > 0">
+    <div class="{{ fields[0]?.classNames?.join(' ') }}">
+      <!-- for subform -->
+      <poss-web-dynamic-input
+        [style]="style"
+        [field]="fields[0]"
+        [form]="form"
+        (selectChange)="selectChange.emit($event)"
+        (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+        (radioChange)="radioChange.emit($event)"
+        (checkboxChange)="checkBoxChange.emit($event)"
+      >
+      </poss-web-dynamic-input>
+    </div>
+  </div>
+
+  <div
+    class="col-lg-6  borderCls mb-4 pw-form-card {{
+      fields[1]?.classNames?.join(' ')
+    }}"
+    *ngIf="fields.length > 1"
+  >
+    <!-- for subform -->
+    <poss-web-dynamic-input
+      [style]="style"
+      [field]="fields[1]"
+      [form]="form"
+      (selectChange)="selectChange.emit($event)"
+      (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+      (radioChange)="radioChange.emit($event)"
+      (checkboxChange)="checkBoxChange.emit($event)"
+    >
+    </poss-web-dynamic-input>
+  </div>
+  <div class="borderCls mb-4 pw-form-card" *ngIf="fields.length > 2">
+    <!-- for subform -->
+    <poss-web-dynamic-input
+      [style]="style"
+      [field]="fields[2]"
+      [form]="form"
+      (selectChange)="selectChange.emit($event)"
+      (selectRefreshClick)="selectRefreshClickEvent.emit($event)"
+      (radioChange)="radioChange.emit($event)"
+      (checkboxChange)="checkBoxChange.emit($event)"
+    >
+    </poss-web-dynamic-input>
+  </div>
+</div>
+<div class="row" *ngIf="!disabled && !disableSubmit">
+  <div class="col-auto ml-auto">
+    <div class="row justify-content-end">
+      <ng-container *ngIf="buttonNames">
+        <button
+          #commandButtonPanel
+          *ngFor="let btn of commandButtons; let i = index"
+          type="{{ btn.type }}"
+          class="{{ btn.cssClassName }} col-auto mr-3 "
+          (click)="emitButton.emit({ btn: btn, i: i })"
+          [disabled]="
+            btn.type != ButtonType.BUTTON
+              ? (!form.valid && !enableSubmitOnInvalid) || !form.dirty
+              : 'false'
+          "
+        >
+          {{ btn.name | translate }}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="commandButtons">
+        <ng-container *ngFor="let btn of commandButtons; let i = index">
+          <div *ngIf="btn.permission; else elseNoPermission">
+            <button
+              *possWebPermission="btn?.permission"
+              #commandButtonPanel
+              type="{{ btn.type }}"
+              class="{{ btn.cssClassName }} col-auto mr-3 "
+              (click)="emitButton.emit({ btn: btn, i: i })"
+              [disabled]="
+                btn.type != ButtonType.BUTTON
+                  ? (!form.valid && !enableSubmitOnInvalid) || !form.dirty
+                  : 'false'
+              "
+            >
+              {{ btn.name | translate }}
+            </button>
+          </div>
+          <ng-template #elseNoPermission>
+            <button
+              #commandButtonPanel
+              type="{{ btn.type }}"
+              class="{{ btn.cssClassName }} col-auto mr-3 "
+              (click)="emitButton.emit({ btn: btn, i: i })"
+              [disabled]="
+                btn.type != ButtonType.BUTTON
+                  ? (!form.valid && !enableSubmitOnInvalid) || !form.dirty
+                  : 'false'
+              "
+            >
+              {{ btn.name | translate }}
+            </button>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

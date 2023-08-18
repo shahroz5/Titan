@@ -1,0 +1,21 @@
+{
+	"type": "INVENTORY_DETAILS",
+	"data": {
+		"isIssueToFactory": true,
+		"isIssueToMerchandise": true,
+		"isIssueToOtherBoutique": true,
+		"isIssueToTEP": true,
+		"isIssueToGEP": true,
+		"isIssueDefective": true,
+		"isIssueOthers": true,
+		"maximumNoOfDaysForPhysicalReceiptDate": 1,
+		"maximumNoOfDaysForSTNCancellation": 4,
+		"isSTNcancellationAllowed": true,
+		"isConversionRestricted": true,
+		"isStuddedSplitAllowed": true,
+		"sparewtToleranceforStockItem": 0,
+		"servicewtToleranceforStockItem": 4,
+		"conversionwtToleranceforBangle":0
+	}
+}
+

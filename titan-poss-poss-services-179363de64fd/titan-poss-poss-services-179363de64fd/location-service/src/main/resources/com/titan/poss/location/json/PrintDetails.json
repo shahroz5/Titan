@@ -1,0 +1,26 @@
+{
+	"type": "PRINT_DETAILS",
+	"data": {
+		"printWastagePercent": true,
+		"printWastageComponent": true,
+		"printWastageCharge": true,
+		"printStoneValue": true,
+		"printGoldValue": true,
+		"printPrice": true,
+		"freeTextForGrams": "String",
+		"mcOrWastageExpense": "string",
+		"isMCAndWastage": true,
+		"isDisplayWastagePercent": true,
+		"isVariablePrice": true,
+		"printMakingCharges": true,
+		"printCustomerNumberinReport": true,
+		"printCashMemo": true,
+		"printGuaranteeCard": true,
+		"printOtherStoneWtinGuaranteeCard": true,
+		"printOtherStoneWeightinAnnexure": true,
+		"noOfInvoicecopiesforRegularOrQuickCM": 1,
+		"invoiceType": "string",
+		"printImage": true
+	}
+}
+

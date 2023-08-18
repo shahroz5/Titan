@@ -1,0 +1,170 @@
+<div class="pw-tab">
+  <ul class="pw-tab__list">
+    <li class="pw-tab__list-item">
+      <a (click)="changeTab(0)" [class.pw-is-active-bar]="selectedTab === 0">
+        <h5 class="pw-tab__item">
+          {{ 'Value based - Gold Coin' | translate }}
+        </h5>
+      </a>
+    </li>
+    <li class="pw-tab__list-item">
+      <a (click)="changeTab(1)" [class.pw-is-active-bar]="selectedTab === 1">
+        <h5 class="pw-tab__item">
+          {{ 'Value based - Others' | translate }}
+        </h5>
+      </a>
+    </li>
+    <li class="pw-tab__list-item">
+      <a (click)="changeTab(2)" [class.pw-is-active-bar]="selectedTab === 2">
+        <h5 class="pw-tab__item">
+          {{ 'Weight based - Gold Coin' | translate }}
+        </h5>
+      </a>
+    </li>
+    <li class="pw-tab__list-item">
+      <a (click)="changeTab(3)" [class.pw-is-active-bar]="selectedTab === 3">
+        <h5 class="pw-tab__item">
+          {{ 'Weight based - Others' | translate }}
+        </h5>
+      </a>
+    </li>
+  </ul>
+</div>
+<div *ngIf="selectedTab === 0">
+  Standard
+  <ng-container
+    *ngIf="valueBasedVariantDetailsGoldStandard.length; else elseStandardZero"
+  >
+    <poss-web-value-gold-standard-view
+      [valueBasedVariantDetailsGoldStandard]="
+        valueBasedVariantDetailsGoldStandard
+      "
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-value-gold-standard-view>
+  </ng-container>
+  <ng-template #elseStandardZero
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+
+  <br />
+  Slab
+  <ng-container
+    *ngIf="valueBasedVariantDetailsGoldSlab.length; else elseSlabZero"
+  >
+    <poss-web-value-gold-slab-view
+      [valueBasedVariantDetailsGoldSlab]="valueBasedVariantDetailsGoldSlab"
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-value-gold-slab-view>
+  </ng-container>
+  <ng-template #elseSlabZero
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+</div>
+<div *ngIf="selectedTab === 1">
+  Standard
+  <ng-container
+    *ngIf="valueBasedVariantDetailsOthersStandard.length; else elseStandardOne"
+  >
+    <poss-web-value-other-standard-view
+      [valueBasedVariantDetailsOthersStandard]="
+        valueBasedVariantDetailsOthersStandard
+      "
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-value-other-standard-view>
+  </ng-container>
+  <ng-template #elseStandardOne
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+  <br />
+  Slab
+  <ng-container
+    *ngIf="valueBasedVariantDetailsOthersSlab.length; else elseSlabOne"
+  >
+    <poss-web-value-other-slab-view
+      [valueBasedVariantDetailsOthersSlab]="valueBasedVariantDetailsOthersSlab"
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-value-other-slab-view>
+  </ng-container>
+  <ng-template #elseSlabOne
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+</div>
+<div *ngIf="selectedTab === 2">
+  Standard
+  <ng-container
+    *ngIf="weightBasedVariantDetailsGoldStandard.length; else elseStandardTwo"
+  >
+    <poss-web-weight-gold-standard-view
+      [weightBasedVariantDetailsGoldStandard]="
+        weightBasedVariantDetailsGoldStandard
+      "
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-weight-gold-standard-view>
+  </ng-container>
+  <ng-template #elseStandardTwo
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+  <br />
+  Slab
+  <ng-container
+    *ngIf="weightBasedVariantDetailsGoldSlab.length; else elseSlabTwo"
+  >
+    <poss-web-weight-gold-slab-view
+      [weightBasedVariantDetailsGoldSlab]="weightBasedVariantDetailsGoldSlab"
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-weight-gold-slab-view>
+  </ng-container>
+  <ng-template #elseSlabTwo
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+</div>
+<div *ngIf="selectedTab === 3">
+  Standard
+  <ng-container
+    *ngIf="
+      weightBasedVariantDetailsOthersStandard.length;
+      else elseStandardThree
+    "
+  >
+    <poss-web-weight-other-standard-view
+      [weightBasedVariantDetailsOthersStandard]="
+        weightBasedVariantDetailsOthersStandard
+      "
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-weight-other-standard-view>
+  </ng-container>
+  <ng-template #elseStandardThree
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+  <br />
+  Slab
+  <ng-container
+    *ngIf="weightBasedVariantDetailsOthersSlab.length; else elseSlabThree"
+  >
+    <poss-web-weight-other-slab-view
+      [weightBasedVariantDetailsOthersSlab]="
+        weightBasedVariantDetailsOthersSlab
+      "
+      (loadProductGroups)="productGroupMapping($event)"
+    ></poss-web-weight-other-slab-view>
+  </ng-container>
+  <ng-template #elseSlabThree
+    ><div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div></ng-template
+  >
+</div>

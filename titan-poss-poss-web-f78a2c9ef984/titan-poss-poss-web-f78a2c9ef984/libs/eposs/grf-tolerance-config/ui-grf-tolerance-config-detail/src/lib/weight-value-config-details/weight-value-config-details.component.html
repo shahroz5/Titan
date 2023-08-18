@@ -1,0 +1,179 @@
+<form [formGroup]="weightValueConfigDetailsForm">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="pw-form-card">
+        <div class="row">
+          <mat-form-field class="col-lg-8 col-5">
+            <mat-label>
+              {{ 'pw.weightValueConfig.configName' | translate }}</mat-label
+            >
+            <input required matInput formControlName="configName" />
+
+            <mat-error
+              *ngIf="
+                weightValueConfigDetailsForm.get('configName').errors &&
+                weightValueConfigDetailsForm.get('configName').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  weightValueConfigDetailsForm.get('configName').errors
+                    .errorArray
+                "
+              >
+              </poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-6">
+        <div class="pw-form-card">
+          <ng-template mat-tab-label>
+            <span
+              class="pw-tab__label"
+              [class.pw-tab__active]="tabGroup.selectedIndex == 0"
+            >
+              {{ 'pw.weightValueConfig.weightBasedProducts' | translate }}
+            </span>
+          </ng-template>
+
+          <div class="pw-margin-top">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="pw-fourth-color">
+                  <h4>Weight Based Products</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-auto ml-auto pw-padding-5">
+                <button
+                  class="pw-btn pw-primary-btn pw-add-button"
+                  [disabled]="disableWeightBased"
+                  (click)="addAboveNewWeightBasedMapping()"
+                >
+                  <span class="pw-i-24 pw-add-icon-24"></span> Add Above
+                </button>
+              </div>
+
+              <div class="col-auto">
+                <button
+                  [disabled]="disableWeightBased"
+                  class="pw-btn pw-primary-btn pw-add-button"
+                  (click)="addBelowNewWeightBasedMapping()"
+                >
+                  <span class="pw-i-24 pw-add-icon-24"></span> Add Below
+                </button>
+              </div>
+            </div>
+
+            <ag-grid-angular
+              class="pw-titan-poss-theme pw-ag-grid-table"
+              class="pw-titan-poss-theme pw-ag-grid-table"
+              editType="fullRow"
+              [columnDefs]="weightBasedColumnDefs"
+              [rowData]="weightBasedRowData"
+              rowSelection="single"
+              [rowHeight]="rowHeight"
+              [context]="getWeightContext()"
+              [frameworkComponents]="getComponents()"
+              [animateRows]="animateRows"
+              [domLayout]="domLayout"
+              (selectionChanged)="onSelectionChanged($event)"
+              (rowValueChanged)="rowValueChanged($event)"
+              (rowEditingStarted)="weightRowEditingStarted($event)"
+              (gridReady)="weightGridReady($event)"
+            ></ag-grid-angular>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="pw-form-card">
+          <ng-template mat-tab-label>
+            <span
+              class="pw-tab__label"
+              [class.pw-tab__active]="tabGroup.selectedIndex == 1"
+            >
+              {{ 'pw.weightValueConfig.valueBasedProducts' | translate }}
+            </span>
+          </ng-template>
+
+          <div class="pw-margin-top" formArrayName="valueBasedFormArray">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="pw-fourth-color">
+                  <h4>
+                    {{ 'pw.weightValueConfig.valueBasedProducts' | translate }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-auto ml-auto pw-padding-5">
+                <button
+                  class="pw-btn pw-primary-btn pw-add-button"
+                  [disabled]="disableValueBased"
+                  (click)="addAboveNewValueBasedMapping()"
+                >
+                  <span class="pw-i-24 pw-add-icon-24"></span> Add Above
+                </button>
+              </div>
+
+              <div class="col-auto">
+                <button
+                  [disabled]="disableValueBased"
+                  class="pw-btn pw-primary-btn pw-add-button"
+                  (click)="addBelowNewValueBasedMapping()"
+                >
+                  <span class="pw-i-24 pw-add-icon-24"></span> Add Below
+                </button>
+              </div>
+            </div>
+
+            <ag-grid-angular
+              class="pw-titan-poss-theme pw-ag-grid-table"
+              editType="fullRow"
+              rowSelection="single"
+              [defaultColDef]="defaultColDef"
+              [rowData]="valueBasedRowData"
+              [columnDefs]="valueBasedcolumnDefs"
+              [rowHeight]="rowHeight"
+              [context]="getValueContext()"
+              [frameworkComponents]="getComponents()"
+              [animateRows]="animateRows"
+              [domLayout]="domLayout"
+              (selectionChanged)="onSelectionChanged($event)"
+              (rowValueChanged)="rowValueChanged($event)"
+              (rowEditingStarted)="valueRowEditingStarted($event)"
+              (gridReady)="valueGridReady($event)"
+            ></ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-auto ml-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        type="button"
+        [disabled]="isNew"
+        (click)="openLocationMapping()"
+      >
+        {{ 'pw.weightValueConfig.locationMapping' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button (click)="onSubmit()" class="pw-btn pw-accent-btn" type="submit">
+        {{ 'pw.weightValueConfig.save' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

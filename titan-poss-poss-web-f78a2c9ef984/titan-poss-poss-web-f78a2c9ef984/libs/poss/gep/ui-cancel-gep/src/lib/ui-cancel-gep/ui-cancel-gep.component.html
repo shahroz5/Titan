@@ -1,0 +1,112 @@
+<mat-accordion multi>
+  <mat-expansion-panel expanded class="pw-expansion-panel">
+    <mat-expansion-panel-header
+      class="pw-expansion-panel__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel__heading">
+        {{ 'pw.gep.gepHeader' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form
+      [formGroup]="gepForm"
+      (ngSubmit)="onSubmit($event)"
+      autocomplete="off"
+    >
+      <div class="row">
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>
+            {{ 'pw.gep.gepNumberLbl' | translate }}
+          </mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            placeholder="GEP Number"
+            formControlName="gepNo"
+          />
+          <mat-error
+            *ngIf="
+              gepForm.get('gepNo').errors &&
+              gepForm.get('gepNo').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="gepForm.get('gepNo').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>
+            {{ 'pw.gep.mobileNumberLbl' | translate }}
+          </mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            placeholder="Mobile Number"
+            formControlName="mobileNo"
+          />
+          <mat-error
+            *ngIf="
+              gepForm.get('mobileNo').errors &&
+              gepForm.get('mobileNo').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="gepForm.get('mobileNo').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <poss-web-fiscal-year
+          class="col-lg-2 col-3"
+          [control]="gepForm.get('fiscalYear')"
+          [required]="false"
+          [currentFiscalYear]="currentFiscalYear"
+          [placeHolder]="'pw.creditNote.searchByFiscalYearLabel' | translate"
+          [disabled]="false"
+        ></poss-web-fiscal-year>
+
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>
+            {{ 'pw.gep.docDateLbl' | translate }}
+          </mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            [matDatepicker]="datePicker"
+            [max]="currentDate"
+            (click)="datePicker.open()"
+            readonly
+            placeholder="Doc Date"
+            formControlName="docDate"
+          />
+          <mat-datepicker-toggle matSuffix [for]="datePicker">
+            <mat-icon matDatepickerToggleIcon>
+              <span class="pw-i-12 pw-calender-icon-12"></span>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #datePicker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="col-auto pw-detail-card__right-container">
+          <button
+            class="pw-btn pw-accent-btn"
+            [disabled]="
+              !(
+                gepForm.valid &&
+                (gepForm.get('fiscalYear').value ||
+                  gepForm.get('mobileNo').value ||
+                  gepForm.get('gepNo').value ||
+                  gepForm.get('docDate').value)
+              )
+            "
+          >
+            {{ 'pw.gep.searchLbl' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>

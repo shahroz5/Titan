@@ -1,0 +1,134 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.regularTepApproval.customerTransaction' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.regularTepApproval.approval' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-tab mt-4">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a class="pw-is-active-bar">
+              <h5 class="pw-tab__item">
+                {{
+                  'pw.regularTepApproval.fullValueTepRequestForApproval'
+                    | translate
+                }}
+                ({{ totalElements }})
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="row" [formGroup]="filterForm">
+        <div class="col-lg-auto col-auto align-self-center ml-auto">
+          <a id="sort" (click)="openSortDailog()">
+            <p>
+              <span class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"></span>
+              {{ 'pw.regularTepApproval.sortLable' | translate }}
+            </p>
+          </a>
+        </div>
+
+        <poss-web-select-dropdown
+          [placeholder]="'TEP Type' | translate"
+          [control]="filterForm?.get('tepType')"
+          [options]="tepTypes"
+          [required]="true"
+          (selectionChange)="onTepTypeChanged($event)"
+          class="col-lg-4 col-4 align-self-center"
+        ></poss-web-select-dropdown>
+
+        <mat-form-field
+          class="col-lg-auto col-auto align-self-center pw-form-field-padding-bottom-0 pw-search-bar"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder="{{
+              'pw.regularTepApproval.searchByMobileNumberLabel' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="mobileNumber"
+          />
+
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!filterForm.value.mobileNumber"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearMobileNumberSearch()">
+            <span
+              *ngIf="filterForm.value.mobileNumber"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field
+          class="col-lg-auto col-auto align-self-center pw-form-field-padding-bottom-0 pw-search-bar"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder="{{
+              'pw.regularTepApproval.searchByLocationCodeLabel' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="locationCode"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!filterForm.value.locationCode"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearLocationSearch()">
+            <span
+              *ngIf="filterForm.value.locationCode"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <poss-web-full-value-tep-request-list-grid
+            [tepRequestList]="fullValueTepRequestsList"
+            [count]="totalElements"
+            [pageEvent]="tepApprovalPageEvent"
+            (paginator)="paginate($event)"
+            [pageSizeOptions]="pageSizeOptions"
+            [minPageSize]="minPageSize"
+            (emitApprovedData)="getApprovedData($event)"
+            (onselected)="openFileDownloadPopup($event)"
+          >
+          </poss-web-full-value-tep-request-list-grid>
+        </div>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

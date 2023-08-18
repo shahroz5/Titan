@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="10" viewBox="0 0 20 10">
+  <defs>
+    <clipPath id="clip-icon_10x10">
+      <rect width="20" height="10"/>
+    </clipPath>
+  </defs>
+  <g id="icon_10x10" clip-path="url(#clip-icon_10x10)">
+    <g id="Group_3910" data-name="Group 3910" transform="translate(-66 -130)">
+      <path id="Path_481" data-name="Path 481" d="M0,0H10V10H0Z" transform="translate(66 130)" fill="none"/>
+      <g id="Group_3911" data-name="Group 3911" transform="translate(-1.167 -1.167)">
+        <line id="Line_75" data-name="Line 75" x2="6.5" y2="6.5" transform="translate(68.917 132.917)" fill="none" stroke="#333" stroke-linecap="round" stroke-width="1.5"/>
+        <line id="Line_76" data-name="Line 76" x1="6.5" y2="6.5" transform="translate(68.917 132.917)" fill="none" stroke="#333" stroke-linecap="round" stroke-width="1.5"/>
+      </g>
+    </g>
+    <g id="Group_3912" data-name="Group 3912" transform="translate(-56 -130)">
+      <path id="Path_481-2" data-name="Path 481" d="M0,0H10V10H0Z" transform="translate(66 130)" fill="none"/>
+      <g id="Group_3911-2" data-name="Group 3911" transform="translate(-1.167 -1.167)">
+        <line id="Line_75-2" data-name="Line 75" x2="6.5" y2="6.5" transform="translate(68.917 132.917)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+        <line id="Line_76-2" data-name="Line 76" x1="6.5" y2="6.5" transform="translate(68.917 132.917)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+      </g>
+    </g>
+  </g>
+</svg>

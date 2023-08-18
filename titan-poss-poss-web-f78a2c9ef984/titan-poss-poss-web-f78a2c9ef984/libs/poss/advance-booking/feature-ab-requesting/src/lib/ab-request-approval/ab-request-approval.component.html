@@ -1,0 +1,95 @@
+<mat-accordion multi>
+  <poss-web-ab-requests-details
+    (formSubmit)="formDetails($event)"
+    [advanceBookingDetailsResponse]="currentAdvanceBookingDetailsResponse"
+    [actionType]="type"
+    [currencyCode]="currencyCode"
+    [rsoDetails]="rso"
+    [clearPage]="clearPage"
+  ></poss-web-ab-requests-details>
+</mat-accordion>
+
+<poss-web-product-view
+  [productDetails$]="productDetails$"
+  (loadImageUrl)="loadImageUrl($event)"
+  [imageUrlData$]="imageUrlData$.asObservable()"
+  [cashMemoData]="selectedItemsDetails"
+  [pgDesc$]="pgDesc$"
+  [rsoNames] = "rsoDetails$ | async"
+></poss-web-product-view>
+
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-black-popup-box px-3">
+    <div class="pw-text-center">
+      <h3 class="pw-success-color">
+        {{ 'pw.advanceBooking.advanceRequestMsg' | translate }} {{ successMsg }}
+      </h3>
+      <h5
+        *ngIf="
+          (actionType === 'CANCEL_REQUEST_ADVANCE_BOOKING' ||
+            actionType === 'ACTIVATE_REQUEST_ADVANCE_BOOKING') &&
+          resDocNo
+        "
+      >
+        {{ 'pw.advanceBooking.reqDocNumber' | translate }} {{ resDocNo }}
+      </h5>
+
+      <h5 *ngIf="actionType === 'CANCEL_ADVANCE_BOOKING' && resDocNo">
+        {{ 'pw.advanceBooking.docNumber' | translate }} {{ resDocNo }}
+      </h5>
+      <div
+        *ngIf="actionType === 'CANCEL_ADVANCE_BOOKING'"
+        class="pw-black-popup-box__margin-top-10"
+      >
+        {{ 'pw.advanceBooking.CNNO' | translate }} : {{ creditnote }}
+      </div>
+      <div *ngIf="actionType === 'CANCEL_ADVANCE_BOOKING'">
+        <h4 class="pw-success-color pw-pointer" (click)="print()">
+          <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+        </h4>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #freezeSuccessNotificationTemplate>
+  <div class="pw-black-popup-box px-3">
+    <div class="pw-text-center">
+      <h3 class="pw-success-color">
+        {{ 'pw.advanceBooking.FreezeSuccessMsg' | translate }} :
+        {{ orderNo }}
+      </h3>
+      <h4 class="pw-success-color pw-pointer" (click)="print()">
+        <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+      </h4>
+      <div class="pw-black-popup-box__margin-top-10">
+        {{ 'pw.advanceBooking.CNNO' | translate }} : {{ creditnote }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #AddPaymentSuccessNotificationTemplate>
+  <div class="pw-black-popup-box px-3">
+    <div class="pw-text-center">
+      <h3 class="pw-success-color">
+        {{ 'pw.advanceBooking.paymentSuccessMsg' | translate }} :
+        {{ orderNo }}
+      </h3>
+      <h4 class="pw-success-color pw-pointer" (click)="print()">
+        <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+      </h4>
+      <div class="pw-black-popup-box__margin-top-10">
+        {{ 'pw.advanceBooking.CNNO' | translate }} : {{ creditnote }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isLoadingOrder$ | async) ||
+    (isCommonLoading$ | async) ||
+    (printingService.getPrinterIsLoading() | async)
+  "
+>
+</poss-web-loader>

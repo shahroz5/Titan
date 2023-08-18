@@ -1,0 +1,19 @@
+<poss-web-rivaah-eligibility-config
+  [totalCount]="totalElements$ | async"
+  [pageEvent]="initialPageEvent"
+  [pageSizeOptions]="pageSizeOptions"
+  [occasion]="occasion"
+  [eleventhDigit]="eleventhDigit"
+  (paginator)="loadPaginateData($event)"
+  [rivaahEligibilityConfig]="rivaahEligibilityConfig"
+  (responseEvent)="saveEligibility($event)"
+  (loadProductGroups)="loadProductGroups($event)"
+  (mapProductGroup)="mapProductGroup($event)"
+  [selectedGroups]="observable"
+  [allProductCategories]="allProductCategories"
+  [mappedProductCategories]="mappedProductCategories"
+  (searchProductGroup)="searchProductGroup($event)"
+  (clearProductGroupSearch)="clearProductGroupSearch()"
+>
+</poss-web-rivaah-eligibility-config>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

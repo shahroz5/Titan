@@ -1,0 +1,18 @@
+//stateId,townId will be UUID
+{
+	"type": "REPORT_QUERY",
+	"data": {
+		"reportType": "Stock reoprt",
+		"ownerType": "L1",
+		"brandCode": "Tanishq",
+		"countryCode": "IND",
+		"stateId": "1917E0DF-C340-4235-9CEE-7405FF32F923",
+		"townId": "2317E0DF-P340-7835-9GTR-7405FF32F789",
+		"regionCode": "South",
+		"locationCode": "URB",
+		"productGroupCode": "72",
+		"productCategoryCode": "BANGLES",
+		"binGroupCode": "ZEROBIN"
+	}
+}
+

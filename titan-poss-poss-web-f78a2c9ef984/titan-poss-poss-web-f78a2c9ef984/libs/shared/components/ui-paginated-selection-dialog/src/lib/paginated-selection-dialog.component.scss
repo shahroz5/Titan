@@ -1,0 +1,47 @@
+.pw-selection-dialog {
+  align-items: center;
+
+  &__list {
+    height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  &__list-item {
+    height: 25px;
+    cursor: pointer;
+    padding: 5px 5px;
+    margin: 10px 5px;
+
+    &:hover,
+    &:focus {
+      background-color: var(--fourth-color);
+      color: var(--sixth-color);
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__no-result-text {
+    text-align: center;
+    margin-top: 100px;
+  }
+}
+
+.pw-close-icon-16 {
+  cursor: pointer;
+}
+
+.pw-left-arrow {
+  transform: rotate(0deg);
+}
+
+.pw-right-arrow {
+  transform: rotate(180deg);
+}

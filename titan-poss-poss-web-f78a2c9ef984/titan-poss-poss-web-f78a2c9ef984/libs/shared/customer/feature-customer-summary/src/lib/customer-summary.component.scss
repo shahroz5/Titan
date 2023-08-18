@@ -1,0 +1,18 @@
+.pw-confirmation-box {
+  &__fixed-width {
+    max-width: 991px;
+    max-height: 800px;
+  }
+
+  &__address {
+    text-transform: capitalize;
+  }
+}
+
+@media (max-width: 991px) {
+  .pw-confirmation-box {
+    &__fixed-width {
+      max-width: 600px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+	"type": "BASIC_CRITERIA",
+	"data": {
+		"isNarationMandatory": true,
+		"maxDiscount": 3.44,
+		"isEditable": true,
+		"isTepRecovery": true,
+		"isFullValueTepDiscountRecovery": true
+	}
+}

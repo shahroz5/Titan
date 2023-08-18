@@ -1,0 +1,541 @@
+<div
+  class="container-fluid pw-overlay-notification-gutter"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a>
+                <span
+                  (click)="back()"
+                  class="pw-i-24 pw-back-arrow-icon-24"
+                ></span>
+              </a>
+              <span class="pw-i-36 pw-issue-stock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.returnInvoiceCFA.title' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.returnInvoiceCFA.subTitle' | translate }}
+                  <span class="pw-fourth-color"></span>
+                  <span
+                    *ngIf="
+                    isL1L2Store
+                    "
+                    class="pw-seventh-color"
+                    >({{
+                      'Direct Issue' | translate
+                    }})</span
+                  >
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-0">
+        <div
+          class="col-lg-3 col-md-4 col-6"
+          *ngIf="isL1L2Store"
+        >
+          <form [formGroup]="LocationCodeform">
+            <div class="col-lg-3 col-3">
+              <mat-form-field
+                class="pw-single-bordered-input"
+              >
+                <input
+                  matInput
+                  type="text"
+                  formControlName="locationCodes"
+                  placeholder="Source location code"
+                  (click)="openLocationCodes()"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                  LocationCodeform.get('locationCodes').errors &&
+                  LocationCodeform.get('locationCodes').errors.errorArray
+                  "
+                  class="mt-2"
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="LocationCodeform.get('locationCodes').errors.errorArray"
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+            <!-- <input type="text" placeholder="'pw.stockIssue.selectLocationCodeText' | translate" (click)="open()"> -->
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 pw-grid-card" *ngIf="isL3Store">
+          <div class="pw-grid-card__item pw-is-active-bar">
+            <h4>To:</h4>
+            <p *ngIf="cfaToAddress.length">{{ cfaToAddress[0] }}</p>
+            <p *ngIf="cfaToAddress.length">{{ cfaToAddress[1] }}</p>
+            <!-- <p>{{ CFAddress?.description }} ({{ CFAddress?.locationCode }})</p>
+            <p>{{ CFAddress?.address }}</p> -->
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-3">
+          <div>
+            <div class="p-2">
+              <p>
+                {{ 'pw.stockIssueTepGep.totalWeightLabelText' | translate }} :
+                {{ measuredWeight | weightFormatter }}
+              </p>
+              <p class="pt-2">
+                {{ 'pw.stockIssueTepGep.totalValueLabelText' | translate }} :
+                {{ weightUnit | currencyFormatter: currencyCode }}
+              </p>
+              <p class="pt-2">
+                {{ 'pw.stockIssueTepGep.totalQuantityLabelText' | translate }}
+                :
+                {{ totalMeasuredQuantity }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 col-md-5 align-self-flex-end">
+          <div class="pb-2 pw-mont-semibold-14">
+            {{ 'pw.stockIssue.carrierDetailsText' | translate }}
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-12">
+              <mat-radio-group
+                aria-label="Select an option"
+                required
+                (change)="loadForm($event)"
+              >
+                <mat-radio-button class="mr-3" value="3" checked>
+                  {{
+                    'pw.returnInvoiceCFA.courierRadioButtonLabel' | translate
+                  }}</mat-radio-button
+                >
+                <mat-radio-button class="mr-3" value="4">
+                  {{
+                    'pw.returnInvoiceCFA.handCarryRadioButtonLabel' | translate
+                  }}</mat-radio-button
+                >
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <form [formGroup]="form">
+            <div class="row">
+              <div class="col-12">
+                <div formArrayName="formCollection">
+                  <div *ngFor="let form of formList.controls; let i = index">
+                    <ng-container
+                      *ngIf="
+                        selectedFormName !==
+                          stockIssueTEPGEPCourierRBTypesEnumRef.HANDCARRY;
+                        else formTwoBlock
+                      "
+                      [formGroupName]="i"
+                    >
+                      <div class="row">
+                        <div class="col-3">
+                          <poss-web-select-dropdown
+                            #typeDropdown
+                            [placeholder]="
+                              'pw.stockIssue.selectCourierText' | translate
+                            "
+                            [control]="form.get('courierName')"
+                            [options]="courierDetailsResponse"
+                            [required]="true"
+                            (selectionChange)="selectionChange($event)"
+                          >
+                          </poss-web-select-dropdown>
+                        </div>
+                        <mat-form-field class="col-3">
+                          <input
+                            matInput
+                            placeholder="{{
+                              'pw.stockIssue.courierDocketNumberText'
+                                | translate
+                            }}"
+                            formControlName="courierDocketNumber"
+                            required
+                            name="courierDocNoField"
+                            possWebMaxLengthValidator
+                          />
+
+                          <mat-error
+                            *ngIf="
+                              form.get('courierDocketNumber').errors &&
+                              form.get('courierDocketNumber').errors.errorArray
+                            "
+                          >
+                            <poss-web-error-info-tooltip
+                              [errorMessage]="
+                                form.get('courierDocketNumber').errors
+                                  .errorArray
+                              "
+                            ></poss-web-error-info-tooltip>
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="col-3">
+                          <input
+                            matInput
+                            class="pw-input-box"
+                            placeholder="{{
+                              'pw.stockIssue.courierPermitNumber' | translate
+                            }}"
+                            formControlName="courierRoadPermitNumber"
+                            name="courierRoadPermitNoField"
+                            possWebMaxLengthValidator
+                          />
+
+                          <mat-error
+                            *ngIf="
+                              form.get('courierRoadPermitNumber').errors &&
+                              form.get('courierRoadPermitNumber').errors
+                                .errorArray
+                            "
+                          >
+                            <poss-web-error-info-tooltip
+                              [errorMessage]="
+                                form.get('courierRoadPermitNumber').errors
+                                  .errorArray
+                              "
+                            ></poss-web-error-info-tooltip>
+                          </mat-error>
+                        </mat-form-field>
+                        <div class="col-3 align-self-center">
+                          <a class="pw-cta-button" (click)="boxDetailsPopup()">
+                            <div
+                              class="pw-text-center"
+                              *ngIf="boxDetails_count == 0"
+                            >
+                              {{
+                                'pw.stockIssue.boxDetailsLabelText' | translate
+                              }}
+                            </div>
+                            <div
+                              class="pw-text-center"
+                              *ngIf="boxDetails_count == 1"
+                            >
+                              {{ boxDetails_count }}
+                              {{
+                                'pw.stockIssue.boxAddedLabelText' | translate
+                              }}
+                            </div>
+                            <div
+                              class="pw-text-center"
+                              *ngIf="boxDetails_count > 1"
+                            >
+                              {{ boxDetails_count }}
+                              {{
+                                'pw.stockIssue.boxesAddedLabelText' | translate
+                              }}
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-template #formTwoBlock [formGroupName]="i">
+                      <div class="row">
+                        <mat-form-field class="col-3">
+                          <input
+                            type="text"
+                            placeholder="Employee ID"
+                            aria-label="Number"
+                            matInput
+                            formControlName="employeeID"
+                            (input)="
+                              employeeIDChange(form.get('employeeID').value)
+                            "
+                            [matAutocomplete]="auto"
+                            required
+                            name="employeeCodeField"
+                            possWebMaxLengthValidator
+                          />
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option
+                              *ngFor="let employeeCode of employeeCodes"
+                              [value]="employeeCode"
+                              (onSelectionChange)="
+                                employeeIDSelected($event, employeeCode)
+                              "
+                            >
+                              {{ employeeCode }}
+                            </mat-option>
+                          </mat-autocomplete>
+
+                          <mat-error
+                            *ngIf="
+                              form.get('employeeID').errors &&
+                              form.get('employeeID').errors.errorArray
+                            "
+                          >
+                            <poss-web-error-info-tooltip
+                              [errorMessage]="
+                                form.get('employeeID').errors.errorArray
+                              "
+                            ></poss-web-error-info-tooltip>
+                          </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-3">
+                          <input
+                            matInput
+                            class="pw-input-box"
+                            placeholder="{{
+                              'pw.stockIssue.employeeNameText' | translate
+                            }}"
+                            formControlName="employeeName"
+                            [readonly]="isReadOnly"
+                            required
+                            name="nameWithSpaceField"
+                            possWebMaxLengthValidator
+                          />
+
+                          <mat-error
+                            *ngIf="
+                              form.get('employeeName').errors &&
+                              form.get('employeeName').errors.errorArray
+                            "
+                          >
+                            <poss-web-error-info-tooltip
+                              [errorMessage]="
+                                form.get('employeeName').errors.errorArray
+                              "
+                            ></poss-web-error-info-tooltip>
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="col-3">
+                          <input
+                            matInput
+                            class="pw-input-box"
+                            placeholder="{{
+                              'pw.stockIssue.mobileNoText' | translate
+                            }}"
+                            formControlName="employeeMobileNumber"
+                            [readonly]="isReadOnly"
+                            required
+                            name="mobileField"
+                            possWebMaxLengthValidator
+                          />
+
+                          <mat-error
+                            *ngIf="
+                              form.get('employeeMobileNumber').errors &&
+                              form.get('employeeMobileNumber').errors.errorArray
+                            "
+                          >
+                            <poss-web-error-info-tooltip
+                              [errorMessage]="
+                                form.get('employeeMobileNumber').errors
+                                  .errorArray
+                              "
+                            ></poss-web-error-info-tooltip>
+                          </mat-error>
+                        </mat-form-field>
+                        <!-- lock number -->
+                        <mat-form-field class="col-3">
+                          <input
+                            matInput
+                            class="pw-input-box"
+                            placeholder="Permit Number"
+                            formControlName="permitNumber"
+                          />
+
+                          <mat-error
+                            *ngIf="
+                              form.get('permitNumber').errors &&
+                              form.get('permitNumber').errors.errorArray
+                            "
+                          >
+                            <poss-web-error-info-tooltip
+                              [errorMessage]="
+                                form.get('permitNumber').errors.errorArray
+                              "
+                            ></poss-web-error-info-tooltip>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <poss-web-item-search-list
+        placeholder="{{ 'pw.returnInvoiceCFA.searchLabel' | translate }}"
+        [itemList]="
+          (searchedItems$ | async).length > 1 ? (searchedItems$ | async) : []
+        "
+        [multipleSelection]="true"
+        [isMaintainSelection]="true"
+        (search)="onSearch($event)"
+        (selected)="addToCart($event)"
+        (clear)="clearSearchedItems()"
+        [hasResults]="
+          !(
+            (hasSearchedItems$ | async) && (searchedItems$ | async).length === 0
+          )
+        "
+      >
+        <ng-template let-item="data">
+          <poss-web-stock-return-item
+            class="pw-list-card d-block"
+            [cart]="false"
+            [item]="item"
+            (selection)="selectionEmit($event)"
+            [selectionEvents]="selectionAllSubject.asObservable()"
+            (loadImageEvent)="loadImageUrl($event, true)"
+          >
+          </poss-web-stock-return-item>
+        </ng-template>
+      </poss-web-item-search-list>
+
+      <div class="row align-items-flex-end pw-filter-box">
+        <div class="col-lg-7">
+          <div class="row" [formGroup]="selectForm">
+            <mat-radio-group
+              aria-label="Select an option"
+              class="col-auto"
+              (change)="selectChange()"
+              formControlName="selectRadioButton"
+            >
+              <mat-radio-button value="1" class="mr-3">
+                <p>
+                  {{ 'pw.returnInvoiceCFA.selectAllProdcutsLabel' | translate }}
+                </p>
+              </mat-radio-button>
+              <mat-radio-button value="2">
+                <p>
+                  {{ 'pw.returnInvoiceCFA.selectPageWiseLabel' | translate }}
+                </p>
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="col-auto ml-auto ml-lg-0">
+              <a (click)="clearAll()">
+                <p>
+                  <span class="pw-i-16 pw-clear-icon-16"></span>
+                  {{ 'pw.returnInvoiceCFA.clearAllLabel' | translate }}
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 mt-lg-0">
+          <div class="row pw-filter-box__right-content">
+            <div class="col-auto">
+              <a (click)="openFilter()">
+                <p>
+                  <span
+                    *ngIf="filter.length === 0"
+                    class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                  ></span>
+                  <span
+                    *ngIf="filter.length !== 0"
+                    class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                  ></span>
+                  {{ 'pw.returnInvoiceCFA.filterLabel' | translate }}
+                </p>
+              </a>
+            </div>
+            <div class="col-auto">
+              <a (click)="openSortDailog()">
+                <p>
+                  <span
+                    class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                  ></span>
+                  {{ 'pw.returnInvoiceCFA.sortLabel' | translate }}
+                </p>
+              </a>
+            </div>
+            <poss-web-item-search
+              class="col-lg-6 col-4 ml-auto ml-lg-0"
+              placeholder="{{
+                'pw.binToBinTransfer.searchByVariantCodePlaceholderText'
+                  | translate
+              }}"
+              (search)="search($event)"
+              (clear)="onSearchClear()"
+            >
+            </poss-web-item-search>
+          </div>
+        </div>
+      </div>
+      <poss-web-stock-return-itemlist
+        [count]="
+          selectedProductsSearchCount != null
+            ? selectedProductsSearchCount
+            : totalItemsCount
+        "
+        [itemList]="CFAItems$ | async"
+        (removeItem)="removeItem($event)"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageEvent]="issuedItemsPageEvent"
+        (paginator)="CFAPaginatedItems($event)"
+        (selection)="selectionEmit($event)"
+        [selectionEvents]="selectionAllObservable"
+        (loadImageEvent)="loadImageUrl($event, false)"
+      >
+      </poss-web-stock-return-itemlist>
+
+      <poss-web-loader
+        *ngIf="
+          (isLoading$ | async) ||
+          (isSearchingItems$ | async) ||
+          (isLoadingImage$ | async)
+        "
+      >
+      </poss-web-loader>
+      <div
+        *ngIf="
+          (isLoading$ | async) === false &&
+          (CFAItems$ | async)?.length == 0 &&
+          selectedProductsSearchCount == null &&
+          CFAddress !== null
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ 'pw.returnInvoiceCFA.noProductAddedLabel' | translate }}
+      </div>
+      <div
+        *ngIf="(isLoading$ | async) === false && CFAddress == null"
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        No CFA configured
+      </div>
+      <div
+        *ngIf="
+          (isLoading$ | async) === false &&
+          (CFAItems$ | async)?.length == 0 &&
+          (selectedProductsSearchCount == 0 ||
+            (hasSelectedProductsSearchedItems$ | async) === false ||
+            (hasSelectedProductsSearchedItems$ | async) === undefined)
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.returnInvoiceCFA.successfullyIssued' | translate }}
+    </h3>
+
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.returnInvoiceCFA.invoiceNumberGenerated' | translate }}
+      {{ invoiceNumber }}
+    </h5>
+    <h4 class="pw-success-color pw-pointer" (click)="print()">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>
+      {{ 'pw.advanceBooking.print' | translate }}
+    </h4>
+  </div>
+</ng-template>

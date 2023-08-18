@@ -1,0 +1,338 @@
+<div class="pw-form-card pw-form-card__height-390">
+  <form [formGroup]="form" autocomplete="off">
+    <h4>
+      {{ 'pw.discountApplicable.basicDiscountCategoryLabel' | translate }}
+    </h4>
+    <ng-container *ngIf="enableUCPValue">
+      <div class="row align-items-center">
+        <mat-form-field class="col-8 pt-3" *ngIf="form.get('isUcpValue').value">
+          <input
+            placeholder="{{
+              'pw.discountApplicable.ucpValueLabel' | translate
+            }}"
+            formControlName="ucpValue"
+            matInput
+            possWebAmountInput
+            [required]="isUcpValue"
+          />
+
+          <mat-error
+            *ngIf="
+              form.get('ucpValue').errors &&
+              form.get('ucpValue').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('ucpValue').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field
+          class="col-8 pt-3"
+          *ngIf="!form.get('isUcpValue').value"
+        >
+          <input
+            placeholder="{{
+              'pw.discountApplicable.ucpPercentageLabel' | translate
+            }}"
+            formControlName="ucpPercentage"
+            matInput
+            [required]="isUcpPercent"
+          />
+
+          <mat-error
+            *ngIf="
+              form.get('ucpPercentage').errors &&
+              form.get('ucpPercentage').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('ucpPercentage').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <div class="col">
+          %
+          <mat-slide-toggle
+            class="mx-1"
+            formControlName="isUcpValue"
+            (change)="setValidation($event.checked)"
+          >
+          </mat-slide-toggle>
+          {{ currencyCode | currencySymbol }}
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="row">
+      <div class="col-12 pt-3" *ngIf="enableNarrationOption">
+        <mat-checkbox formControlName="isNarationMandatory">
+          {{ 'pw.discountApplicable.narratioNMandatoryLabel' | translate }}
+        </mat-checkbox>
+      </div>
+      <div class="col-12 pt-3" *ngIf="enableStoreEditOption">
+        <mat-checkbox formControlName="isEditable">
+          {{ 'pw.discountApplicable.isEditableAtStoreLabel' | translate }}
+        </mat-checkbox>
+      </div>
+
+      <mat-form-field class="col-8" *ngIf="enableConiConfig">
+        <mat-label>
+          {{ 'pw.discountApplicable.coinPurchasePeriodLabel' | translate }}
+        </mat-label>
+        <mat-date-range-input [rangePicker]="picker1" required>
+          <input
+            matStartDate
+            formControlName="coinPurchasePeriodFrom"
+            placeholder="{{
+              'pw.discountApplicable.fromDateLabel' | translate
+            }} "
+          />
+          <input
+            matEndDate
+            formControlName="coinPurchasePeriodTo"
+            placeholder="{{ 'pw.discountApplicable.toDateLabel' | translate }}"
+          />
+        </mat-date-range-input>
+
+        <mat-datepicker-toggle matSuffix [for]="picker1">
+          <mat-icon matDatepickerToggleIcon>
+            <span class="pw-i-12 pw-calender-icon-12"></span>
+          </mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker1></mat-date-range-picker>
+        <mat-error
+          *ngIf="
+            form.get('coinPurchasePeriodFrom').errors &&
+            form.get('coinPurchasePeriodFrom').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              form.get('coinPurchasePeriodFrom').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            form.get('coinPurchasePeriodTo').errors &&
+            form.get('coinPurchasePeriodTo').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="form.get('coinPurchasePeriodTo').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="col-auto pt-3">
+        <mat-checkbox
+          formControlName="isTepRecovery"
+          (change)="checkTEPDisable()"
+        >
+          {{ 'pw.discountApplicable.tepDiscountRecoveryLabel' | translate }}
+        </mat-checkbox>
+      </div>
+      <div
+        *ngIf="enableFullValueTEPDiscountRecoveryOption"
+        class="col-auto pt-3"
+      >
+        <mat-checkbox formControlName="isFullValueTepDiscountRecovery">
+          {{
+            'pw.discountApplicable.isFullValueTepDiscountRecoveryLabel'
+              | translate
+          }}
+        </mat-checkbox>
+      </div>
+
+      <div
+        *ngIf="enableApplicableForAutomatedDiscountOption"
+        class="col-auto pt-3"
+      >
+        <mat-checkbox formControlName="isApplicableForAutomatedDiscount">
+          {{
+            'pw.discountApplicable.isApplicableForAutomatedDiscountLabel'
+              | translate
+          }}
+        </mat-checkbox>
+      </div>
+
+      <ng-container *ngIf="enableTataEmployeeConfig">
+        <mat-form-field class="col-8 pt-3">
+          <input
+            placeholder="{{
+              'pw.discountApplicable.maxCountLabel' | translate
+            }}"
+            formControlName="maxCount"
+            matInput
+            required
+          />
+          <mat-error
+            *ngIf="
+              form.get('maxCount').errors &&
+              form.get('maxCount').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('maxCount').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="enableConiConfig">
+        <mat-form-field class="col-8">
+          <mat-label>
+            {{ 'pw.discountApplicable.tepPeriodLabel' | translate }}
+          </mat-label>
+          <mat-date-range-input
+            [rangePicker]="picker2"
+            required
+            [min]="form.get('coinPurchasePeriodFrom').value"
+          >
+            <input
+              matStartDate
+              formControlName="tepPeriodFrom"
+              placeholder="{{
+                'pw.discountApplicable.fromDateLabel' | translate
+              }} "
+            />
+            <input
+              matEndDate
+              formControlName="tepPeriodTo"
+              placeholder="{{
+                'pw.discountApplicable.toDateLabel' | translate
+              }}"
+            />
+          </mat-date-range-input>
+
+          <mat-datepicker-toggle matSuffix [for]="picker2">
+            <mat-icon matDatepickerToggleIcon>
+              <span class="pw-i-12 pw-calender-icon-12"></span>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-date-range-picker #picker2></mat-date-range-picker>
+          <mat-error
+            *ngIf="
+              form.get('tepPeriodFrom').errors &&
+              form.get('tepPeriodFrom').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('tepPeriodFrom').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              form.get('tepPeriodTo').errors &&
+              form.get('tepPeriodTo').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('tepPeriodTo').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-8 pt-3">
+          <input
+            placeholder="{{
+              'pw.discountApplicable.tepCNPercentageLabel' | translate
+            }}"
+            formControlName="tepCNPercentage"
+            matInput
+            required
+          />
+          <mat-error
+            *ngIf="
+              form.get('tepCNPercentage').errors &&
+              form.get('tepCNPercentage').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('tepCNPercentage').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-8 pt-3">
+          <input
+            [placeholder]="mcPercentageLabel"
+            formControlName="makingChargePercentage"
+            matInput
+          />
+          <mat-error
+            *ngIf="
+              form.get('makingChargePercentage').errors &&
+              form.get('makingChargePercentage').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                form.get('makingChargePercentage').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+
+      <mat-form-field class="col-8 pt-3" *ngIf="enableSerialNoOption">
+        <input
+          placeholder="{{
+            'pw.discountApplicable.serialNoStartsFromPlaceholder' | translate
+          }}"
+          formControlName="startingSerialNo"
+          matInput
+          required
+        />
+        <mat-error
+          *ngIf="
+            form.get('startingSerialNo').errors &&
+            form.get('startingSerialNo').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="form.get('startingSerialNo').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <ng-container *ngIf="enableMultipleTransactionPerDayOption">
+      <div class="row">
+        <div class="col-auto pt-3">
+          <mat-checkbox formControlName="isMultipleTransactionPerDayAllowed">
+            {{
+              'pw.discountApplicable.multipleTransactionPerDayLabel' | translate
+            }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-8 pt-3">
+          <input
+            placeholder="{{
+              'pw.discountApplicable.maxTransactionPerDayLabel' | translate
+            }}"
+            formControlName="maxTransactionPerDay"
+            matInput
+            possWebAmountInput
+          />
+
+          <mat-error
+            *ngIf="
+              form.get('maxTransactionPerDay').errors &&
+              form.get('maxTransactionPerDay').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                form.get('maxTransactionPerDay').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </ng-container>
+  </form>
+</div>

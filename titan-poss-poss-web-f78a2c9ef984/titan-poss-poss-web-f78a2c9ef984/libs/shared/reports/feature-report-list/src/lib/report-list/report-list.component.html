@@ -1,0 +1,179 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.reports.reportListMenuTitle' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.reports.reportListMenuSubTitle' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3" [formGroup]="reportForm">
+        <mat-form-field class="col-lg-3 col-4">
+          <mat-label>
+            {{ 'pw.reports.filterByDateRangeLabel' | translate }}
+          </mat-label>
+          <mat-date-range-input
+            [rangePicker]="picker1"
+            [max]="boutiqueUser ? businessDate : currentDate"
+          >
+            <input
+              matStartDate
+              formControlName="fromDate"
+              placeholder="{{ 'pw.reports.fromDateLabel' | translate }}"
+              required
+              (dateChange)="fromDateChange($event)"
+            />
+            <input
+              matEndDate
+              formControlName="toDate"
+              placeholder="{{ 'pw.reports.toDateLabel' | translate }}"
+              required
+              (dateChange)="toDateChange($event)"
+            />
+          </mat-date-range-input>
+
+          <mat-datepicker-toggle matSuffix [for]="picker1">
+            <mat-icon matDatepickerToggleIcon>
+              <span class="pw-i-12 pw-calender-icon-12"></span>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-date-range-picker #picker1></mat-date-range-picker>
+
+          <mat-error
+            *ngIf="
+              reportForm.get('fromDate').errors &&
+              reportForm.get('fromDate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="reportForm.get('fromDate').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              reportForm.get('toDate').errors &&
+              reportForm.get('toDate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="reportForm.get('toDate').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>
+            {{ 'pw.reports.searchLabel' | translate }}
+          </mat-label>
+          <input
+            #searchBox
+            matInput
+            type="text"
+            class="single-bordered-input"
+            formControlName="referenceNumber"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!reportForm.value.referenceNumber"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="reportForm.value.referenceNumber"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <poss-web-select-dropdown
+          placeholder=" {{ 'pw.reports.reportGroupLabel' | translate }}"
+          [control]="reportForm.get('reportGroup')"
+          [options]="reportGroups"
+          (selectionChange)="onReportGroupChange($event)"
+          class="col-lg-2 col-3"
+        >
+        </poss-web-select-dropdown>
+
+        <poss-web-select-dropdown
+          placeholder="  {{ 'pw.reports.reportNameLabel' | translate }}"
+          [control]="reportForm.get('reportName')"
+          [options]="reportNames"
+          (selectionChange)="onReportNameChange($event)"
+          class="col-lg-3 col-4"
+        >
+        </poss-web-select-dropdown>
+
+        <poss-web-select-dropdown
+          placeholder="{{ 'pw.reports.reportStatusLabel' | translate }}"
+          [control]="reportForm.get('reportStatus')"
+          [options]="reportStatusOptions"
+          class="col-lg-2 col-3"
+        >
+        </poss-web-select-dropdown>
+      </div>
+
+      <div class="pw-tab">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(0)"
+              [class.pw-is-active-bar]="selectedTab === 0"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.reports.manual' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(1)"
+              [class.pw-is-active-bar]="selectedTab === 1"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.reports.auto' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <poss-web-ui-report-list
+        [reports]="reports"
+        [count]="totalReports"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageEvent]="pageEvent"
+        (paginator)="loadPaginateData($event)"
+        (download)="downloadReport($event)"
+      >
+      </poss-web-ui-report-list>
+      <div
+        *ngIf="
+          (isLoading$ | async) === false &&
+          (isLoadingReports$ | async) === false &&
+          !reports.length
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">{{ noDataFoundMessage }}</h3>
+      </div>
+      <poss-web-loader
+        *ngIf="(isLoading$ | async) || (isLoadingReports$ | async)"
+      ></poss-web-loader>
+    </div>
+  </div>
+</div>

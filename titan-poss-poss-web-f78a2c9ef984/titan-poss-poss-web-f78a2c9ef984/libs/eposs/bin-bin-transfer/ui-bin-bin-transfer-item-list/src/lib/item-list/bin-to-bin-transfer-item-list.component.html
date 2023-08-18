@@ -1,0 +1,42 @@
+<div *ngIf="!isHistory" possWebFocusableList>
+  <poss-web-bin-to-bin-transfer-item
+    possWebFocusableListItem
+    class="pw-list-card d-block"
+    *ngFor="let item of itemList; trackBy: trackBy"
+    [class.pw-list-card__error-border]="checkSameBinError(item)"
+    [item]="item"
+    [canSelect]="canSelect"
+    [canDelete]="canDelete"
+    [selectedBin]="selectedBin"
+    [isSelectAll]="isSelectAll"
+    [showSourceBin]="showSourceBin"
+    [showDestinationBin]="showDestinationBin"
+    [defectTypeDescriptionList]="defectTypeDescriptionList"
+    [defectCodeDescriptionList]="defectCodeDescriptionList"
+    [bins]="bins"
+    (updateItem)="updateItem.emit($event)"
+    (delete)="delete.emit($event)"
+    (loadImageEvent)="loadImageUrl($event)"
+  ></poss-web-bin-to-bin-transfer-item>
+</div>
+<div possWebFocusableList *ngIf="isHistory">
+  <poss-web-history-item
+    possWebFocusableListItem
+    class="pw-list-card d-block"
+    *ngFor="let item of itemList; trackBy: trackBy"
+    [item]="item"
+    (loadImageEvent)="loadImageUrl($event)"
+  >
+  </poss-web-history-item>
+</div>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > getMinPageSize() && itemList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginate($event)"
+>
+</mat-paginator>

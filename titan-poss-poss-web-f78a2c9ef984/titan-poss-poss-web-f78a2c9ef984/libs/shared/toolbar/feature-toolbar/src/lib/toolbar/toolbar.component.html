@@ -1,0 +1,88 @@
+<ul *ngIf="!isCorpUser" class="row pw-menu-bar__ul">
+  <li class="col-auto pw-menu1 pw-menu-bar__item">
+    <span class="pw-secondary-color pw-menu-bar__content-2">
+      {{ 'pw.toolbar.businessDay' | translate }} :
+    </span>
+    <span *ngIf="bussinessDay" class="pw-fourth-color pw-menu-bar__content-2">
+      {{ dateFormat(bussinessDay) | dateFormatter }}
+    </span>
+
+    <span *ngIf="!bussinessDay" class="pw-fourth-color pw-menu-bar__content-2">
+      --
+    </span>
+  </li>
+
+  <li *ngIf="enableMetalPrice" class="col-auto pw-menu1 pw-menu-bar__item">
+    <poss-web-material-price
+      [metalPrice]="metals"
+      [currencyCode]="currencyCode"
+    ></poss-web-material-price>
+  </li>
+
+  <!-- <ng-container *possWebPermission="loadPermission(item)"> -->
+    <li *ngIf="enableOpenOrders" class="col-auto pw-menu-bar__item pw-menu2">
+      <a
+        #openOrderTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="openordersmenu"
+        class="pw-menu-bar__button"
+      >
+        <span class="pw-secondary-color pw-menu-bar__content-2">
+          {{ 'pw.toolbar.openTasksLabel' | translate }}
+        </span>
+        <span class="pw-fourth-color pw-menu-bar__content-2">
+          ({{ openOrdersCount }})</span
+        >
+      </a>
+
+      <mat-menu
+        #openordersmenu="matMenu"
+        class="pw-menu-profile pw-menu-profile__width-500"
+        (closed)="resetOpenOrderData()"
+      >
+        <poss-web-open-orders
+          [openOrdersList$]="openOrdersResponse$"
+          [subTxnType]="subTxnType"
+          (openOrdersSearchEvent)="searchItems($event)"
+          (openOrdersClearSearchEvent)="clearSearch($event)"
+          (openOrdersPaginateEvent)="paginate($event)"
+          (selectedIdEvent)="selectedId($event)"
+          [setFocus]="setOpenFocus"
+        ></poss-web-open-orders>
+      </mat-menu>
+    </li>
+  <!-- </ng-container> -->
+
+  <!-- <ng-container *possWebPermission="loadPermission(item)"> -->
+    <li *ngIf="enableOnHold" class="col-auto pw-menu-bar__item pw-menu2">
+      <a
+        #onHoldTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="onholdmenu"
+        class="pw-menu-bar__button"
+      >
+        <span class="pw-secondary-color pw-menu-bar__content-2">
+          {{ 'pw.toolbar.onHoldLabel' | translate }}
+        </span>
+        <span class="pw-fourth-color pw-menu-bar__content-2">
+          ({{ onHoldCount }})</span
+        >
+      </a>
+
+      <mat-menu
+        #onholdmenu="matMenu"
+        class="pw-menu-profile pw-menu-profile__width-500"
+        (closed)="resetHoldOrderData()"
+      >
+        <poss-web-on-hold
+          [holdResult$]="onHoldResponse$"
+          (holdSearchItemsEvent)="searchItems($event)"
+          (holdClearSearchEvent)="clearSearch($event)"
+          (holdPaginateEvent)="paginate($event)"
+          (selectedIdEvent)="selectedId($event)"
+          [setFocus]="setHoldFocus"
+          [configHoldTime$]="configHoldTime$"
+        ></poss-web-on-hold>
+      </mat-menu>
+    </li>
+  <!-- </ng-container> -->
+</ul>
+<poss-web-loader *ngIf="isLoading"></poss-web-loader>

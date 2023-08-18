@@ -1,0 +1,9 @@
+//fields will be list of string
+{
+	"type": "REPORT_TEMPLATE",
+	"data": {
+		"fields": [
+			"string"
+		]
+	}
+}

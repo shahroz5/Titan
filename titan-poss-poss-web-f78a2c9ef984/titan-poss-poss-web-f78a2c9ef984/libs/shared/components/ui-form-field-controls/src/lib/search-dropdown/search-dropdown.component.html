@@ -1,0 +1,62 @@
+<mat-form-field class="pw-w-100">
+  <ng-container *ngIf="isMultiSelect">
+    <mat-select
+    (openedChange)="openedChange($event)"
+    (selectionChange)="selectionChange($event)"
+    [placeholder]="placeholder"
+    [required]="required"
+    [formControl]="control" multiple
+    >
+      <mat-form-field class="pw-w-100 pw-padding-5">
+        <input #search  [placeholder]="searchPlaceholder"  matInput [formControl]="searchTextboxControl" (keydown)="handleKeyDown($event)">
+      </mat-form-field>
+      <ng-container *ngIf='isFullDescription'>
+        <mat-option (onSelectionChange)="selectionChange($event)" *ngFor="let option of filteredOptions | async" [value]="option.id ? option.id : option.value">
+          {{option.id}} - {{option.description}}
+        </mat-option>
+      </ng-container>
+      <ng-container *ngIf='!isFullDescription'>
+        <mat-option (onSelectionChange)="selectionChange($event)" *ngFor="let option of filteredOptions | async" [value]="option.id ? option.id : option.value">
+          {{option.description}}
+        </mat-option>
+      </ng-container>
+    </mat-select>
+  </ng-container>
+  <ng-container *ngIf="!isMultiSelect">
+    <mat-select
+  (openedChange)="openedChange($event)"
+  (selectionChange)="selectionChange($event)"
+  [placeholder]="placeholder"
+  [required]="required"
+  [formControl]="control">
+    <mat-form-field class="pw-w-100 pw-padding-5">
+      <input #search  [placeholder]="searchPlaceholder"  matInput [formControl]="searchTextboxControl">
+    </mat-form-field>
+    <mat-option
+      *ngIf="!required && placeholder"
+    >
+      {{ placeholder }}
+    </mat-option>
+    <mat-option
+      *ngIf="!required && !placeholder"
+    >
+      {{ 'pw.selectDropdown.noneOption' | translate }}
+    </mat-option>
+    <ng-container *ngIf='isFullDescription'>
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id ? option.id : option.value">
+        {{option.id ? option.id : option.value}} - {{option.description}}
+      </mat-option>
+    </ng-container>
+    <ng-container *ngIf='!isFullDescription'>
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id ? option.id : option.value">
+        {{option.description}}
+      </mat-option>
+    </ng-container>
+    </mat-select>
+  </ng-container>
+  <mat-error *ngIf="control.errors && control.errors.errorArray">
+    <poss-web-error-info-tooltip
+      [errorMessage]="control.errors.errorArray"
+    ></poss-web-error-info-tooltip>
+  </mat-error>
+</mat-form-field>

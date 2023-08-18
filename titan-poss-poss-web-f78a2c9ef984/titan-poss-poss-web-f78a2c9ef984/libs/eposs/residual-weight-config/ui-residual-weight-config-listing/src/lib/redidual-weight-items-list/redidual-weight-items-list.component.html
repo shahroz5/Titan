@@ -1,0 +1,24 @@
+<poss-web-redidual-weight-item
+  *ngFor="
+    let residualWeightListItem of residualWeightItemList;
+    trackBy: trackBy
+  "
+  [residualWeightItem]="residualWeightListItem"
+  [permissions$]="permissions$"
+  (configId)="edit($event)"
+  (toggleValue)="change($event)"
+  (viewPage)="openViewPage($event)"
+>
+</poss-web-redidual-weight-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && residualWeightItemList.length > 0 && count != 1"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

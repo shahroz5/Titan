@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-6">
+    <u> {{ params.productGroupCount }}</u>
+  </div>
+  <div *ngIf="!params.productGroupCount" class="col-5 pw-text-right">
+    <a (click)="openPopUp(params)" [class.disable]="disable">
+      <p *ngIf="params.id === ''">
+        {{ 'pw.focConfiguration.mapNowLable' | translate }}
+      </p>
+      <p>
+        <u *ngIf="params.id !== ''">
+          {{ 'pw.focConfiguration.mapNowLable' | translate }}</u
+        >
+      </p>
+    </a>
+  </div>
+  <div *ngIf="params.productGroupCount" class="col-5 pw-text-right">
+    <a>
+      <p>
+        <u (click)="openPopUp(params)">
+          {{ 'pw.focConfiguration.editMapping' | translate }}</u
+        >
+      </p>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="pw-list-card row">
+  <div class="col-2">
+    <p class="pw-fourth-color">
+      {{ 'pw.rolemanagementlist.rolecodeColumnTitle' | translate }}
+    </p>
+    <div>{{ role.roleCode }}</div>
+  </div>
+  <div class="col-2">
+    <p class="pw-fourth-color">
+      {{ 'pw.rolemanagementlist.rolenameColumnTitle' | translate }}
+    </p>
+    <div>{{ role.roleName }}</div>
+  </div>
+  <div class="col-4">
+    <p class="pw-fourth-color">
+      {{ 'pw.rolemanagementlist.descriptionColumnTitle' | translate }}
+    </p>
+    <div>
+      {{ role.description }}
+    </div>
+  </div>
+
+  <div class="col-auto pw-list-card__right-container pointer">
+    <div
+      class="pw-edit-icon pw-fourth-color"
+      (click)="viewRole.emit(role.roleCode)"
+      *possWebPermission="loadPermission(ROLE_LIST_VIEWROLE_LINK)"
+    >
+      <span class="pw-edit-text">
+        <span class="pw-font-weight-bold">{{
+          'pw.rolemanagementlist.viewQuickAction' | translate
+        }}</span></span
+      >
+
+      <span class="pw-i-24 pw-edit-icon-24"></span>
+    </div>
+    <div
+      class="pw-edit-icon pw-fourth-color"
+      (click)="updateRole.emit(role.roleCode)"
+      *possWebPermission="loadPermission(ROLE_LIST_EDITROLE_LINK)"
+    >
+      <span class="pw-edit-text">
+        <span class="pw-font-weight-bold">{{
+          'pw.rolemanagementlist.editQuickAction' | translate
+        }}</span></span
+      >
+
+      <span class="pw-i-24 pw-edit-icon-24"></span>
+    </div>
+    <div
+      class="pw-right-icons"
+      *possWebPermission="loadPermission(ROLE_LIST_TOGGLE_ACTIVEINACTIVE_BTN)"
+    >
+      <poss-web-toggle-button
+        [isActive]="
+          role.roleCode ? (role.isActive ? role.isActive : false) : false
+        "
+        (changeEvent)="
+          toggleRole.emit({
+            checked: $event.checked,
+            roleCode: role.roleCode,
+            roleName: role.roleName
+          })
+        "
+      >
+      </poss-web-toggle-button>
+    </div>
+    <ng-container *ngIf="!hasPermission">
+      <div
+      class="pw-right-icons"
+      *possWebPermission="loadPermission(ROLE_LIST_TOGGLE_ACTIVEINACTIVE_BTN_VIEW)"
+    >
+      <poss-web-toggle-button
+        [isActive]="
+          role.roleCode ? (role.isActive ? role.isActive : false) : false
+        "
+        [isDisabled]=true
+      >
+      </poss-web-toggle-button>
+    </div>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+
+<div class="pw-detail-card">
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-12">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-6 col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.cpgProductGroupConfig.cpgGroupName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col px-1">
+          <p>
+            <strong>
+              {{ cpgproductGroupConfigListItem.paymentCategoryName }}</strong
+            >
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-6 col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.cpgProductGroupConfig.cpgGroupDescription' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col px-1">
+          <p>
+            <strong> {{ cpgproductGroupConfigListItem.description }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-auto ml-auto align-self-center">
+      <div class="row no-gutters pw-width-150">
+        <div class="col-6 align-self-center">
+          <a
+            (click)="
+              getCPGProductGroupConfigIdView(
+                cpgproductGroupConfigListItem.paymentCategoryName
+              )
+            "
+          >
+            <span
+              class="pw-mont-semibold-14 pw-fourth-color pw-position-text a"
+            >
+              {{ 'pw.cpgProductGroupConfig.view' | translate }} &nbsp;</span
+            >
+          </a>
+        </div>
+        <div class="col-6 align-self-center">
+          <a
+            (click)="
+              getCPGProductGroupConfigId(
+                cpgproductGroupConfigListItem.paymentCategoryName
+              )
+            "
+            *ngIf="cpgproductGroupConfigListItem.isActive"
+          >
+            <span
+              class="pw-mont-semibold-14 pw-fourth-color pw-position-text a"
+            >
+              {{ 'pw.cpgProductGroupConfig.edit' | translate }} &nbsp;</span
+            >
+            <span class="pw-i-24 pw-edit-icon-24"></span>
+          </a>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-auto pw-detail-card__right-container">
+      <a
+        class="mr-3"
+        (click)="
+          getCPGProductGroupConfigIdView(
+            cpgproductGroupConfigListItem.paymentCategoryName
+          )
+        "
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.cpgProductGroupConfig.view' | translate }}</span
+        >&nbsp;
+      </a>
+
+      <a
+        (click)="
+          getCPGProductGroupConfigId(
+            cpgproductGroupConfigListItem.paymentCategoryName
+          )
+        "
+        *ngIf="cpgproductGroupConfigListItem.isActive"
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.cpgProductGroupConfig.edit' | translate }}</span
+        >
+
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto align-self-center">
+      <poss-web-toggle-button
+        [isActive]="checked"
+        (changeEvent)="change($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

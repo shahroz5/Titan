@@ -1,0 +1,10 @@
+{
+	"type": "GHS",
+	"data": {
+		"soapAction": "http://tempuri.org/IPOSSImpactService",
+		"accesskey": "AKIAIVWZ6S3AZEJTYYDA",
+		"secretkey": "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",
+		"region": "ap-southeast-1",
+		"bucket": "deveghsimages"
+	}
+}

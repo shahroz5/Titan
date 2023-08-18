@@ -1,0 +1,16 @@
+{
+	"type": "CUSTOMER_DETAILS",
+	"data": {
+		"isDownloadDocumentAllowed": true,
+		"isUploadDocumentAllowed": true,
+		"isDocumentDisplayForCC": true,
+		"isEmailForEncircleCustomer": true,
+		"isMobileNoForOneTimeCustomer": true,
+		"isEmailForOneTimeCustomer": true,
+		"isEmailForInstitutionalCustomer": true,
+		"isMobileNoForInstitutionalCustomer": true,
+		"isEmailForInternationalCustomer": true,
+		"isMobileNoForInternationalCustomer": true
+	}
+}
+

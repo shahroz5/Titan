@@ -1,0 +1,11 @@
+{
+	"type": "PURITY_PRODUCT_GROUP_DETAILS",
+	"data": {
+		"purityProductDetails": {
+			"98(gep purity value)": {
+				"71(productGroupCode)": "98(applicablePct)"
+			}
+		}
+	}
+}
+	

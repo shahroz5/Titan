@@ -1,0 +1,14 @@
+{
+	"type": "ORDER_CONFIG",
+	"data": {
+		"isGoldRateFrozenForCO": true,
+		"isGoldRateFrozenForAB": true,
+		"offerPeriodForCO": 8,
+		"offerPeriodForAB": 8,
+		"coPercent": 5,
+		"abPercent": 5,
+		"isDisplayOnAB": true,
+		"isAllowedToChange": true,
+		"isDisplayOnCO": true
+	}
+}

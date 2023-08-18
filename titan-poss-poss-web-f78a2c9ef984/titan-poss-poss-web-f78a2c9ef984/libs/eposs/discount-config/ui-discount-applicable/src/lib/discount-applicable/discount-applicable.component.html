@@ -1,0 +1,167 @@
+<div class="row" *ngIf="config">
+  <poss-web-basic-discount-category
+    class="col-lg-4 col-12 d-flex"
+    [params]="params"
+    [selectedDiscount]="selectedDiscount"
+    [config]="config.basicCriteria.data"
+    [currencyCode]="currencyCode"
+    [enableStoreEditOption]="enableStoreEditOption()"
+    [enableMultipleTransactionPerDayOption]="
+      enableMultipleTransactionPerDayOption()
+    "
+    [enableUCPValue]="enableUCPValue()"
+    [enableAccuralOption]="enableAccuralOption()"
+    [enableNarrationOption]="enableNarrationOption()"
+    [enableSerialNoOption]="enableSerialNoOption()"
+    [enableMinKaratageEligibleForGEP]="enableMinKaratageEligibleForGEP()"
+    [enableTataEmployeeConfig]="enableTataEmployeeConfig()"
+    [enableConiConfig]="enableConiConfig()"
+    [enableApplicableForAutomatedDiscountOption]="
+      enableApplicableForAutomatedDiscountOption()
+    "
+    [enableFullValueTEPDiscountRecoveryOption]="
+      enableFullValueTEPDiscountRecoveryOption()
+    "
+    (formDirtyCheck)="formDirtyCheck($event)"
+    (formValidityCheck)="basicDiscountsValidCheck($event)"
+    (update)="basicDiscountCategoryChange($event)"
+  ></poss-web-basic-discount-category>
+  <poss-web-clubbing-offers
+    *ngIf="enableClubbingOffersOption()"
+    [isSystemDiscount]="isSystemDiscount()"
+    [isEmpowermentDiscount]="isEmpowermentDiscount()"
+    [isCoinOfferDiscount]="isCoinOfferDiscount()"
+    [enableClubbingBillLevelDiscountOption]="
+      !enableClubbingBillLevelDiscountOption()
+    "
+    class="col-lg-4 col-12 d-flex"
+    [selectedDiscount]="selectedDiscount"
+    [config]="config.clubOtherOffersConfig.data"
+    [isRiva]="isRiva"
+    (update)="clubbingOffersChange($event)"
+    (formDirtyCheck)="formDirtyCheck($event)"
+    (formValidityCheck)="clubOtherOfferDisountsValidCheck($event)"
+  >
+  </poss-web-clubbing-offers>
+  <poss-web-clubbing-discounts
+    *ngIf="enableClubbingDiscountOption()"
+    [enableClubbingBillLevelDiscountOption]="
+      enableClubbingBillLevelDiscountOption()
+    "
+    [enableClubbingDiscountOption]="enableClubbingDiscountOption()"
+    class="col-lg-4 col-12 d-flex"
+    [selectedDiscount]="selectedDiscount"
+    [discountTypes]="discountTypes"
+    [clubbingDiscountTypes]="clubbingDiscountTypes"
+    [config]="config.clubDiscountType.data"
+    (update)="clubbingDiscountsChange($event)"
+    (formDirtyCheck)="formDirtyCheck($event)"
+    (formValidityCheck)="clubDisountsValidCheck($event)"
+  >
+  </poss-web-clubbing-discounts>
+
+  <poss-web-cumulative-discounts
+    *ngIf="enableCumulativeDiscountConfig()"
+    class="col-lg-4 col-12 d-flex"
+    [selectedDiscount]="selectedDiscount"
+    [config]="config.cumulativeDetails.data"
+    (update)="cumulativeDiscountChange($event)"
+    (formDirtyCheck)="formDirtyCheck($event)"
+  >
+  </poss-web-cumulative-discounts>
+</div>
+<mat-accordion>
+  <mat-expansion-panel
+    class="pw-expansion-panel-without-margin"
+    *ngIf="config && enableGrnConfig()"
+  >
+    <mat-expansion-panel-header
+      class="pw-expansion-panel-without-margin__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel-without-margin__heading">
+        {{ 'pw.discountApplicable.grnConfigurationLabel' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-grn-config
+      [selectedDiscount]="selectedDiscount"
+      [enableDaysOptionOfGRN]="enableDaysOptionOfGRN()"
+      [enableDaysOptionOfInvoice]="enableDaysOptionOfInvoice()"
+      [enableGRNApplicableOption]="enableGRNApplicableOption()"
+      [enableAllowedForGRNBeforeOfferPeriodOption]="
+        enableAllowedForGRNBeforeOfferPeriodOption()
+      "
+      [enableGRNSameCFAEligibleOption]="enableGRNSameCFAEligibleOption()"
+      [enableGrnPercentage]="enableGrnPercentageOption()"
+      [config]="config.grnDetails.data"
+      (update)="grnDetailsChange($event)"
+      (formDirtyCheck)="formDirtyCheck($event)"
+    >
+    </poss-web-grn-config>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    class="pw-expansion-panel-without-margin"
+    *ngIf="config && enableTepDiscountRecovery"
+  >
+    <mat-expansion-panel-header
+      class="pw-expansion-panel-without-margin__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel-without-margin__heading">
+        {{ 'pw.discountApplicable.tepDiscountRecoveryLabel' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <poss-web-tep-recovery-config
+      [selectedDiscount]="selectedDiscount"
+      [durations]="durations | async"
+      [tepConfig]="config.tepDetails.data"
+      [discountDetails]="discountDetails"
+      (update)="tepRecoveryConfigChange($event)"
+    >
+    </poss-web-tep-recovery-config>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+    class="pw-expansion-panel-without-margin pw-bordered-accordion"
+    *ngIf="config && enableAbCoConfig()"
+  >
+    <mat-expansion-panel-header
+      class="pw-expansion-panel-without-margin__header pw-bordered-accordion__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel-without-margin__heading">
+        {{ 'pw.discountApplicable.abCoConfigurationLabel' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <poss-web-ab-co-config
+      [selectedDiscount]="selectedDiscount"
+      [config]="config.orderDetails.data"
+      [isABOfferApplicable]="enableAbCoConfig()"
+      [isCOOfferApplicable]="enableAbCoConfig()"
+      (update)="abCoConfigChange($event)"
+      (formDirtyCheck)="formDirtyCheck($event)"
+    >
+    </poss-web-ab-co-config>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="row mt-4">
+  <div class="col-auto ml-auto">
+    <button
+      class="pw-btn pw-accent-btn"
+      [disabled]="
+        basicDiscountsInvalid ||
+        (enableClubbingDiscountOption() && clubDiscountsInvalid) ||
+        clubOtherDiscountsInvalid
+      "
+      (click)="saveFn()"
+    >
+      {{ 'pw.discountApplicable.saveButton' | translate }}
+    </button>
+  </div>
+</div>

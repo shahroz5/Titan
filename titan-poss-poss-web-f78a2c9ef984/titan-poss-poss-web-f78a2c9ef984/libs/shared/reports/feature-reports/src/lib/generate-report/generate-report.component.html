@@ -1,0 +1,1039 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-64 pw-lov-icon-64"></span>
+              <div>
+                <h2>
+                  {{ 'pw.reports.generateReportLabel' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.reports.reportHeading' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showFilter" class="pw-form-card">
+        <div class="row no-gutters">
+          <poss-web-select-dropdown
+            class="col-3 px-2"
+            [placeholder]="'pw.reports.reportGroupLabel' | translate"
+            [control]="reportGroupControl"
+            [options]="reportGroups"
+            [required]="true"
+            (selectionChange)="onReprotGroupChange($event)"
+          >
+          </poss-web-select-dropdown>
+
+          <poss-web-select-dropdown
+            class="col-4"
+            [placeholder]="'pw.reports.reportNameLabel' | translate"
+            [options]="reportNameDropDown"
+            [control]="reportNameControl"
+            [required]="true"
+            (selectionChange)="onReportNameChange($event)"
+          >
+          </poss-web-select-dropdown>
+
+          <a
+            class="px-2 m-4 ml-auto pw-pointer align-items-center"
+            (click)="fetch()"
+            *ngIf='selectedReportName?.name'
+          >
+            <u
+              ><p>
+                {{ 'pw.reports.fetchSavedSearchParameter' | translate }}
+              </p></u
+            >
+          </a>
+        </div>
+
+        <!-- Inventory filters-->
+        <poss-web-inventory-stock-summary-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_SUMMARY_REPORT
+          "
+          [loadCommon]="loadCommon"
+          [filterConfig]="filterConfig"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-inventory-stock-summary-btq-user>
+        <poss-web-inventory-stock-summary-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_SUMMARY_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-stock-summary-corp-user>
+        <poss-web-inventory-stock-summary-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_SUMMARY_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-stock-summary-reg-user>
+
+        <poss-web-inventory-stock-details-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_DETAIL_REPORT
+          "
+          [loadCommon]="loadCommon"
+          [filterConfig]="filterConfig"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-inventory-stock-details-btq-user>
+        <poss-web-inventory-stock-details-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_DETAIL_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-stock-details-corp-user>
+        <poss-web-inventory-stock-details-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_DETAIL_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-stock-details-reg-user>
+
+        <poss-web-inventory-stock-issue-details-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_ISSUE_REPORT
+          "
+          [loadCommon]="loadCommon"
+          [filterConfig]="filterConfig"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-inventory-stock-issue-details-btq-user>
+        <poss-web-inventory-stock-issue-details-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_ISSUE_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-stock-issue-details-corp-user>
+        <poss-web-inventory-stock-issue-details-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.STOCK_ISSUE_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-stock-issue-details-reg-user>
+
+        <poss-web-inventory-other-issue-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.OTHER_ISSUE_REPORT
+          "
+          [loadCommon]="loadCommon"
+          [filterConfig]="filterConfig"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-inventory-other-issue-btq-user>
+        <poss-web-inventory-other-issue-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.OTHER_ISSUE_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-other-issue-corp-user>
+        <poss-web-inventory-other-issue-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.OTHER_ISSUE_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-other-issue-reg-user>
+
+        <poss-web-inventory-other-receipt-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.OTHER_RECEIPT_REPORT
+          "
+          [loadCommon]="loadCommon"
+          [filterConfig]="filterConfig"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-inventory-other-receipt-btq-user>
+        <poss-web-inventory-other-receipt-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.OTHER_RECEIPT_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-other-receipt-corp-user>
+        <poss-web-inventory-other-receipt-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.OTHER_RECEIPT_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (brandChange)="onBrandChange($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          >>
+        </poss-web-inventory-other-receipt-reg-user>
+
+        <!-- Payment filters-->
+        <poss-web-payment-detail-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.PAYMENT_DETAIL_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-payment-detail-filter-btq-user>
+        <poss-web-payment-detail-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.PAYMENT_DETAIL_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-payment-detail-filter-corp-user>
+        <poss-web-payment-detail-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.PAYMENT_DETAIL_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-payment-detail-filter-reg-user>
+
+        <!-- Discount filters-->
+        <poss-web-discount-loc-report-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.DISCOUNTS_LOC_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-discount-loc-report-filter-btq-user>
+        <poss-web-discount-loc-report-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.DISCOUNTS_LOC_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-discount-loc-report-filter-corp-user>
+        <poss-web-discount-loc-report-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.DISCOUNTS_LOC_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [regionCode]="filterConfig.regionCode"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-discount-loc-report-filter-reg-user>
+
+        <poss-web-discount-txn-report-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.DISCOUNT_TXN_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          [businessDate]="businessDate"
+          (apply)="generateSalesOrDiscountTxnReport($event, false)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-discount-txn-report-filter-btq-user>
+        <poss-web-discount-txn-report-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.DISCOUNT_TXN_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          (apply)="generateSalesOrDiscountTxnReport($event, false)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (locationCodeChange)="locationCodeChange($event)"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-discount-txn-report-filter-corp-user>
+        <poss-web-discount-txn-report-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.DISCOUNT_TXN_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          [regionCode]="filterConfig.regionCode"
+          (apply)="generateSalesOrDiscountTxnReport($event, false)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (locationCodeChange)="locationCodeChange($event)"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-discount-txn-report-filter-reg-user>
+
+        <!-- CN filters-->
+        <poss-web-cn-register-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.CN_REGISTER_REPORT
+          "
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [businessDate]="businessDate"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateCreditNoteReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        ></poss-web-cn-register-filter-btq-user>
+        <poss-web-cn-register-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.CN_REGISTER_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateCreditNoteReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-cn-register-filter-corp-user>
+        <poss-web-cn-register-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.CN_REGISTER_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+            [regionCode]="filterConfig.regionCode"
+          (apply)="generateCreditNoteReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-cn-register-filter-reg-user>
+
+        <!-- Sales filters-->
+        <poss-web-sales-report-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            selectedReportName?.name === REPORT_GROUPS.SALES_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          [businessDate]="businessDate"
+          (apply)="generateSalesOrDiscountTxnReport($event, true)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-sales-report-filter-btq-user>
+        <poss-web-sales-report-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            selectedReportName?.name === REPORT_GROUPS.SALES_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          (apply)="generateSalesOrDiscountTxnReport($event, true)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (locationCodeChange)="locationCodeChange($event)"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-sales-report-filter-corp-user>
+        <poss-web-sales-report-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            selectedReportName?.name === REPORT_GROUPS.SALES_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          [regionCode]="filterConfig.regionCode"
+          (apply)="generateSalesOrDiscountTxnReport($event, true)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (locationCodeChange)="locationCodeChange($event)"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-sales-report-filter-reg-user>
+
+        <!-- Common filters-->
+
+        <!-- Common Discount filter-->
+        <poss-web-discount-common-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.DISCOUNTS_REPORT
+          "
+          [currentFiscalYear]="currentFiscalYear"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        ></poss-web-discount-common-filter-btq-user>
+        <poss-web-discount-common-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.DISCOUNTS_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [currentFiscalYear]="currentFiscalYear"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-discount-common-filter-corp-user>
+        <poss-web-discount-common-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.DISCOUNTS_REPORT
+          "
+          [currentFiscalYear]="currentFiscalYear"
+          [reportNameDetails]="selectedReportName"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [regionCode]="filterConfig.regionCode"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-discount-common-filter-reg-user>
+
+        <!-- Common Payment filter-->
+        <poss-web-payment-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.PAYMENTS_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-payment-filter-btq-user>
+        <poss-web-payment-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.PAYMENTS_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-payment-filter-corp-user>
+        <poss-web-payment-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.PAYMENTS_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-payment-filter-reg-user>
+
+        <!-- Common CN filter-->
+        <poss-web-cn-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.CREDIT_NOTES_REPORT
+          "
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [businessDate]="businessDate"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateCreditNoteReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        ></poss-web-cn-filter-btq-user>
+        <poss-web-cn-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.CREDIT_NOTES_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateCreditNoteReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-cn-filter-corp-user>
+        <poss-web-cn-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.CREDIT_NOTES_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [regionCode]="filterConfig.regionCode"
+          (apply)="generateCreditNoteReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        ></poss-web-cn-filter-reg-user>
+
+        <!-- Common Inventory filter-->
+        <poss-web-inventory-filter-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.INVENTORY_REPORT
+          "
+          [loadCommon]="loadCommon"
+          [filterConfig]="filterConfig"
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [businessDate]="businessDate"
+          (apply)="generateReport($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-inventory-filter-btq-user>
+        <poss-web-inventory-filter-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.INVENTORY_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-filter-corp-user>
+        <poss-web-inventory-filter-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.INVENTORY_REPORT
+          "
+          [filterConfig]="filterConfig"
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameDetails]="selectedReportName"
+          [regionCode]="filterConfig.regionCode"
+          [reportNameControl]="reportNameControl"
+          [searchParameter]="searchParameter$ | async"
+          (apply)="generateReport($event)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-inventory-filter-reg-user>
+
+        <!-- Common Sales filter-->
+        <poss-web-sales-report-common-btq-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isBTQUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.SALES_REPORT
+          "
+          [reportNameDetails]="selectedReportName"
+          [filterOptions]="filterOptions"
+          [reportNameControl]="reportNameControl"
+          [boutiqueCode]="filterConfig.boutiqueCode"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          [businessDate]="businessDate"
+          (apply)="generateSalesOrDiscountTxnReport($event, true)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+        >
+        </poss-web-sales-report-common-btq-user>
+        <poss-web-sales-report-common-corp-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isCorpUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.SALES_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          (apply)="generateSalesOrDiscountTxnReport($event, true)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (locationCodeChange)="locationCodeChange($event)"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-sales-report-common-corp-user>
+        <poss-web-sales-report-common-reg-user
+          *ngIf="
+            showFilter &&
+            filterConfig.isRegUser &&
+            loadCommon &&
+            selectedReportGroup === REPORT_GROUPS.SALES_REPORT
+          "
+          [filterOptions]="filterOptions"
+          [defaultCountry]="defaultCountry"
+          [defaultBrands]="defaultBrands"
+          [reportNameControl]="reportNameControl"
+          [reportNameDetails]="selectedReportName"
+          [searchParameter]="searchParameter$ | async"
+          [currentFiscalYear]="currentFiscalYear"
+          [regionCode]="filterConfig.regionCode"
+          (apply)="generateSalesOrDiscountTxnReport($event, true)"
+          (countryChange)="countryChange($event)"
+          (stateChange)="stateChange($event)"
+          (loadLocations)="loadLocations($event)"
+          (saveSearchParameters)="saveSearchParameters($event)"
+          (fieldSet)="fieldSet()"
+          (locationCodeChange)="locationCodeChange($event)"
+          (brandChange)="onBrandChange($event)"
+        >
+        </poss-web-sales-report-common-reg-user>
+      </div>
+    </div>
+  </div>
+
+  <poss-web-loader *ngIf="!showFilter"></poss-web-loader>
+</div>

@@ -1,0 +1,46 @@
+<div
+  class="row no-gutters"
+  *ngIf="excludeSchemeCodes.length > 0; else errorMesage"
+>
+  <table  aria-describedby="table" class="pw-grid-table col-12 col-lg-12">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discountExculdeConfig.schemeCodePlaceholder' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discountExculdeConfig.isActive' | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr *ngFor="let item of excludeSchemeCodes" class="pw-grid-table__row">
+        <td class="pw-grid-table__item">{{ item.schemeCode }}</td>
+        <td class="pw-grid-table__item">{{ item.isActive }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row mt-2">
+  <div class="col-auto ml-auto">
+    <mat-paginator
+      class="pw-paginator"
+      *ngIf="
+        excludeSchemeCodesCount > minPageSize && excludeSchemeCodes.length > 0
+      "
+      [length]="excludeSchemeCodesCount"
+      [pageSize]="pageEvent.pageSize"
+      [pageIndex]="pageEvent.pageIndex"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="paginatorFn($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
+
+<ng-template #errorMesage>
+  <div class="pw-sub-heading pw-message pw-text-center">
+    {{ 'No Records' | translate }}
+  </div>
+</ng-template>

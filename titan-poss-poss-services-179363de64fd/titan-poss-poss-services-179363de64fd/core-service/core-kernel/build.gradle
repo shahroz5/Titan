@@ -1,0 +1,114 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+ 
+ /**
+ * @author  Mindtree Ltd.
+ * @version 1.0
+ */
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java-library'
+}
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs= ["src/main/resources"]
+        }
+    }
+}
+
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+	springfoxSwaggerVersion = '2.9.2'
+}
+
+
+
+dependencies {
+    
+    //Spring (Boot, Cloud...) Dependencies
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-sleuth-zipkin', version: '2.1.2.RELEASE'
+	api group: 'org.springframework.cloud', name: 'spring-cloud-starter-config', version: '2.1.2.RELEASE'
+	api group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.1.2.RELEASE'
+	api group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-ribbon', version: '2.1.2.RELEASE'
+	
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.2.RELEASE'
+	
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.2.RELEASE'
+	
+	
+	api group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.2.RELEASE'
+	
+	api group: 'org.springframework.security', name: 'spring-security-web', version: '5.1.5.RELEASE'
+	api group: 'org.springframework.security', name: 'spring-security-config', version: '5.1.5.RELEASE'
+	api group: 'org.springframework', name: 'spring-context-support', version: '5.1.9.RELEASE'
+	
+	//swagger
+    api group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+	//Lombok
+	api ('org.projectlombok:lombok:1.18.8')
+    annotationProcessor('org.projectlombok:lombok:1.18.8')
+	
+	//Others
+	api "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    api "org.glassfish.jaxb:jaxb-runtime:2.3.2"
+	
+	implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+	api 'com.github.ulisesbocchio:jasypt-spring-boot-starter:2.1.1'
+    api 'org.apache.commons:commons-lang3:3.7'
+	api group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
+	api group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+	api group: 'com.auth0', name: 'java-jwt', version: '3.1.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9'
+    
+	implementation group: 'com.opencsv', name: 'opencsv', version: '5.2'
+    
+     // https://mvnrepository.com/artifact/org.json/json
+	implementation group: 'org.json', name: 'json', version: '20090211'
+      
+	api group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+	
+	// print, html library, 
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
+	implementation group: 'com.openhtmltopdf', name: 'openhtmltopdf-core', version: '1.0.6'
+	implementation group: 'com.openhtmltopdf', name: 'openhtmltopdf-pdfbox', version: '1.0.6'
+
+	// QR Code generation library
+	implementation group: 'com.google.zxing', name: 'core', version: '3.4.1'
+	implementation group: 'com.google.zxing', name: 'javase', version: '3.4.1'
+	
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
+	
+	implementation('org.apache.logging.log4j:log4j-api') {
+           version {
+            strictly '2.18.0'
+        }
+        }
+	
+
+}

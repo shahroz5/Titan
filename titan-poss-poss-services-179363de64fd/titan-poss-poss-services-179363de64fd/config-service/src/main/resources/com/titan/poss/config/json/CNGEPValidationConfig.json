@@ -1,0 +1,13 @@
+{
+	"type": "CN_GEP_VALIDATION_CONFIG",
+	"data": {
+		"isCancellationAllowed": "bit",
+		"deductionRate": "",
+		"criteriaRateForDeduction": "",
+		"residentialValueAmount": "",
+		"isBrandWiseTransferAllowed": "",
+		"isBoutiqueWiseTransferAllowed": "",
+		"gHSUtilizationTransferPercent": "",
+		"gHSMaxAmountTransfer": ""
+	}
+}

@@ -1,0 +1,436 @@
+<div class="pw-location-mapping pw-location-mapping__fixed-width">
+  <div
+    class="row pw-location-mapping__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <h3 class="pw-message col-auto">
+      {{ 'pw.locationMapping.heading' | translate }}
+    </h3>
+
+    <div class="col pw-text-right">
+      <button
+        class="pw-location-mapping__icon-btn"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-location-mapping__body">
+    <ng-container *ngIf="config.template">
+      <div class="mb-1">
+        <ng-container [ngTemplateOutlet]="config.template"> </ng-container>
+      </div>
+    </ng-container>
+    <mat-divider></mat-divider>
+    <div class="pw-dialog-container__tab pw-location-mapping__tab-height">
+      <div class="row no-gutters pw-location-mapping__config-tab">
+        <div class="col-3 pw-vertical-tab">
+          <div class="pw-font-weight-bold pw-fourth-color ml-3 my-2">
+            {{ 'pw.locationMapping.filterlabel' | translate }}
+          </div>
+          <poss-web-location-filter
+            class="pw-vertical-tab__content"
+            [config]="config.filterConfig"
+            [readonly]="readonly"
+            buttonText="{{ 'pw.locationMapping.searchButtonText' | translate }}"
+            (clear)="clearFilter()"
+            (filter)="searchLocations($event)"
+            (loadStates)="loadStates.emit($event)"
+            (loadTowns)="loadTowns.emit($event)"
+          >
+          </poss-web-location-filter>
+        </div>
+        <div class="col-9 pw-tab__content">
+          <div class="row pw-location-mapping__row">
+            <div class="col-6 pw-location-mapping__padding-5">
+              <mat-card class="pw-location-mapping__columns">
+                <div class="pw-location-mapping__column-header">
+                  <mat-checkbox
+                    (click)="$event.stopPropagation()"
+                    [(ngModel)]="selectAllOfSearchTab"
+                    (change)="selectAll('new', $event.checked)"
+                    [disabled]="!locationResults.length"
+                  >
+                  </mat-checkbox>
+
+                  <span class="pw-location-mapping__checkbox-label">
+                    {{ 'pw.locationMapping.locationListingLable' | translate }}
+                    ({{ locationResults.length }})
+                  </span>
+                </div>
+                <div class="pw-location-mapping__column-body">
+                  <mat-form-field appearance="outline" floatLabel="none">
+                    <input
+                      #searchInput
+                      matInput
+                      placeholder=" {{
+                        'pw.locationMapping.searchLocationTabLable' | translate
+                      }}"
+                      (keyup)="scrollToTop('new')"
+                    />
+                    <mat-icon matPrefix>
+                      <span class="pw-i-16 pw-search-icon-16"></span
+                    ></mat-icon>
+                    <mat-icon matSuffix (click)="searchInput.value = null">
+                      <span
+                        *ngIf="searchInput.value"
+                        class="pw-i-10 pw-close-icon-16"
+                      ></span
+                    ></mat-icon>
+                  </mat-form-field>
+
+                  <div class="pw-selection-list_header">
+                    <div>
+                      {{ 'pw.locationMapping.locationCodeLable' | translate }}
+                    </div>
+                  </div>
+
+                  <cdk-virtual-scroll-viewport
+                    [itemSize]="itemSize"
+                    [minBufferPx]="minBufferPx"
+                    [maxBufferPx]="maxBufferPx"
+                    class="pw-selection-list-full"
+                    #virtualScrollNewLocation
+                  >
+                    <ng-container *ngIf="locationResults.length === 0">
+                      <div
+                        class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                        *ngIf="showLocationResult && !showSelectFilterMessage"
+                      >
+                        {{ noDataFoundMessageLocations }}
+                      </div>
+                      <div
+                        class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                        *ngIf="showSelectFilterMessage"
+                      >
+                        {{
+                          'pw.locationMapping.selectFilterMessage' | translate
+                        }}
+                      </div>
+                    </ng-container>
+                    <div
+                      class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                      *ngIf="
+                        locationResults.length !== 0 &&
+                        (
+                          locationResults
+                          | locationSearch: searchInput.value:'id'
+                        ).length === 0
+                      "
+                    >
+                      {{ noDataFoundMessageLocations }}
+                    </div>
+                    <div
+                      *cdkVirtualFor="
+                        let location of locationResults
+                          | locationSearch: searchInput.value:'id';
+                        templateCacheSize: 0;
+                        trackBy: trackByLocation
+                      "
+                      (click)="
+                        selectionChange(location, !location.isSelected, 'new')
+                      "
+                      class="pw-selection-list_item pw-font-weight-bold"
+                    >
+                      <mat-checkbox
+                        class="pw-mat-checkbox"
+                        [(ngModel)]="location.isSelected"
+                        (change)="
+                          selectionChange(location, location.isSelected, 'new')
+                        "
+                        (click)="$event.stopPropagation()"
+                      ></mat-checkbox>
+                      {{ location.id }}
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+
+                  <button
+                    [disabled]="!locationResults.length || readonly"
+                    mat-flat-button
+                    class="pw-btn pw-primary-btn pw-width-100 mt-2"
+                    (click)="updateSelectedLocations('new')"
+                  >
+                    {{ 'pw.locationMapping.addButtonText' | translate }}
+                  </button>
+                </div>
+              </mat-card>
+            </div>
+
+            <div class="col-6 pw-location-mapping__padding-5">
+              <mat-card class="pw-location-mapping__columns">
+                <ng-container *ngIf="!isConfig; else configTemplate">
+                  <div class="pw-location-mapping__column-header">
+                    <ng-container
+                      *ngTemplateOutlet="selectedLocationHeader"
+                    ></ng-container>
+                  </div>
+                  <div class="pw-location-mapping__column-body">
+                    <ng-container
+                      *ngTemplateOutlet="selectedLocationBody"
+                    ></ng-container>
+                  </div>
+                </ng-container>
+                <ng-template #configTemplate>
+                  <mat-accordion class="pw-location-mapping__accordion">
+                    <mat-expansion-panel
+                      class="pw-location-mapping__expansion-panel"
+                      expanded
+                      #selectedExpansionPanel
+                      (afterCollapse)="activeConfigExpansionPanel.open()"
+                    >
+                      <mat-expansion-panel-header
+                        class="pw-location-mapping__column-header"
+                        [collapsedHeight]="'40px'"
+                        [expandedHeight]="'40px'"
+                      >
+                        <mat-panel-title>
+                          <ng-container
+                            *ngTemplateOutlet="selectedLocationHeader"
+                          ></ng-container>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <ng-container
+                        *ngTemplateOutlet="selectedLocationBody"
+                      ></ng-container>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel
+                      class="pw-location-mapping__expansion-panel"
+                      #activeConfigExpansionPanel
+                      (afterCollapse)="selectedExpansionPanel.open()"
+                      [disabled]="readonly"
+                    >
+                      <mat-expansion-panel-header
+                        class="pw-location-mapping__column-header"
+                        [collapsedHeight]="'40px'"
+                        [expandedHeight]="'40px'"
+                      >
+                        <mat-panel-title>
+                          <mat-checkbox
+                            (click)="$event.stopPropagation()"
+                            [(ngModel)]="selectAllOfActiveConfig"
+                            (change)="selectAll('config', $event.checked)"
+                            [disabled]="!activeConfigs.length"
+                          >
+                          </mat-checkbox>
+                          <span class="pw-location-mapping__checkbox-label">
+                            {{
+                              'pw.locationMapping.activeConfigListingLable'
+                                | translate
+                            }}
+                            ({{ activeConfigs.length }})
+                          </span>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <mat-form-field appearance="outline" floatLabel="none">
+                        <input
+                          #searchActiveConfigInput
+                          matInput
+                          placeholder=" {{
+                            'pw.locationMapping.searchLocationTabLable'
+                              | translate
+                          }}"
+                          (keyup)="scrollToTop('config')"
+                        />
+                        <mat-icon matPrefix>
+                          <span class="pw-i-16 pw-search-icon-16"></span
+                        ></mat-icon>
+                        <mat-icon
+                          matSuffix
+                          (click)="searchActiveConfigInput.value = null"
+                        >
+                          <span
+                            *ngIf="searchActiveConfigInput.value"
+                            class="pw-i-10 pw-close-icon-16"
+                          ></span
+                        ></mat-icon>
+                      </mat-form-field>
+                      <div class="pw-selection-list_header">
+                        <div>
+                          {{
+                            'pw.locationMapping.locationCodeLable' | translate
+                          }}
+                        </div>
+
+                        <div>
+                          {{ 'pw.locationMapping.configNameLable' | translate }}
+                        </div>
+                      </div>
+                      <cdk-virtual-scroll-viewport
+                        [itemSize]="itemSize"
+                        [minBufferPx]="minBufferPx"
+                        [maxBufferPx]="maxBufferPx"
+                        class="pw-selection-list-2"
+                        #virtualScrollConfigs
+                      >
+                        <div
+                          class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                          *ngIf="
+                            activeConfigs.length === 0 ||
+                            (
+                              activeConfigs
+                              | locationSearch
+                                : searchActiveConfigInput.value
+                                : 'locationCode'
+                            ).length === 0
+                          "
+                        >
+                          {{ noDataFoundMessageActiveConfig }}
+                        </div>
+                        <div
+                          *cdkVirtualFor="
+                            let config of activeConfigs
+                              | locationSearch
+                                : searchActiveConfigInput.value
+                                : 'locationCode';
+                            templateCacheSize: 0;
+                            trackBy: trackByActiveConfig
+                          "
+                          (click)="
+                            selectionChangeConfig(config, !config.isSelected)
+                          "
+                          class="pw-selection-list_item d-flex justify-content-between pw-font-weight-bold"
+                        >
+                          <div>
+                            <mat-checkbox
+                              class="pw-mat-checkbox"
+                              [(ngModel)]="config.isSelected"
+                              (change)="
+                                selectionChangeConfig(config, config.isSelected)
+                              "
+                              (click)="$event.stopPropagation()"
+                            ></mat-checkbox>
+                            {{ config.locationCode }}
+                          </div>
+
+                          <div
+                            [matTooltip]="config.configName"
+                            class="pw-text-ellipsis mr-3"
+                          >
+                            {{ config.configName }}
+                          </div>
+                        </div>
+                      </cdk-virtual-scroll-viewport>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </ng-template>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pw-location-mapping__footer pw-text-right">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn pw-width-100"
+          (click)="applyLocations()"
+          [disabled]="readonly || !hasChange"
+        >
+          {{ 'pw.locationMapping.applyButtonText' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #selectedLocationHeader>
+  <mat-checkbox
+    (click)="$event.stopPropagation()"
+    [(ngModel)]="selectAllOfSelectedTab"
+    (change)="selectAll('selected', $event.checked)"
+    [disabled]="!selectedLocations.length || readonly"
+  >
+  </mat-checkbox>
+  <span class="pw-location-mapping__checkbox-label">
+    {{ 'pw.locationMapping.mappedlocationListingLable' | translate }}
+    ({{ selectedLocations.length }})
+  </span>
+</ng-template>
+
+<ng-template #selectedLocationBody>
+  <mat-form-field appearance="outline" floatLabel="none">
+    <input
+      #searchSelectedLocationsInput
+      matInput
+      placeholder=" {{
+        'pw.locationMapping.searchLocationTabLable' | translate
+      }}"
+      (keyup)="scrollToTop('selected')"
+    />
+    <mat-icon matPrefix>
+      <span class="pw-i-16 pw-search-icon-16"></span
+    ></mat-icon>
+    <mat-icon matSuffix (click)="searchSelectedLocationsInput.value = null">
+      <span
+        *ngIf="searchSelectedLocationsInput.value"
+        class="pw-i-10 pw-close-icon-16"
+      ></span
+    ></mat-icon>
+  </mat-form-field>
+  <div class="pw-selection-list_header">
+    <div>
+      {{ 'pw.locationMapping.locationCodeLable' | translate }}
+    </div>
+  </div>
+  <cdk-virtual-scroll-viewport
+    [itemSize]="itemSize"
+    [minBufferPx]="minBufferPx"
+    [maxBufferPx]="maxBufferPx"
+    [class.pw-selection-list-1]="isConfig"
+    [class.pw-selection-list-full]="!isConfig"
+    #virtualScrollSelectedLocation
+  >
+    <div
+      class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+      *ngIf="
+        selectedLocations.length === 0 ||
+        (
+          selectedLocations
+          | locationSearch: searchSelectedLocationsInput.value:'id'
+        ).length === 0
+      "
+    >
+      {{ noDataFoundMessageSelectedLocations }}
+    </div>
+    <div
+      *cdkVirtualFor="
+        let location of selectedLocations
+          | locationSearch: searchSelectedLocationsInput.value:'id';
+        templateCacheSize: 0;
+        trackBy: trackByLocation
+      "
+      (click)="selectionChange(location, !location.isSelected, 'selected')"
+      class="pw-selection-list_item pw-font-weight-bold"
+    >
+      <mat-checkbox
+        class="pw-mat-checkbox"
+        [(ngModel)]="location.isSelected"
+        (change)="selectionChange(location, location.isSelected, 'selected')"
+        (click)="$event.stopPropagation()"
+        [disabled]="readonly"
+      ></mat-checkbox>
+      <span class="pw-location-mapping__checkbox-label">
+        {{ location.id }}
+      </span>
+    </div>
+  </cdk-virtual-scroll-viewport>
+  <button
+    [disabled]="!selectedLocations.length || readonly"
+    mat-flat-button
+    class="pw-btn pw-primary-btn"
+    (click)="updateSelectedLocations('selected')"
+  >
+    {{ 'pw.locationMapping.removeButtonText' | translate }}
+  </button>
+</ng-template>

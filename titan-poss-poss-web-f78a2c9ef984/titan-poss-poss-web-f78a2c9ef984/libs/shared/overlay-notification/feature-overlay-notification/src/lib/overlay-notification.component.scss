@@ -1,0 +1,74 @@
+// popup-box
+.pw-overlay-notification {
+  background: var(--secondary-color);
+  color: var(--sixth-color);
+  width: 100vw;
+  position: relative;
+  padding: 0 30px;
+
+  .mat-icon-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .pw-btn {
+    margin-left: 15px;
+  }
+
+  &__content {
+    padding: 20px 0 15px;
+    font-size: 18px;
+    word-wrap: break-word;
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  .pw-white-form-field {
+    padding: 0;
+    background: var(--secondary-color);
+    width: 25%;
+    position: absolute;
+    right: 320px;
+    -webkit-transition: width 0.5s ease;
+    -moz-transition: width 0.5s ease;
+    -o-transition: width 0.5s ease;
+    transition: width 0.5s ease;
+    align-self: flex-end;
+
+    &.mat-focused {
+      width: 40%;
+      position: absolute;
+      background: var(--secondary-color);
+      z-index: 999;
+    }
+  }
+
+  .pw-close-button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+}
+
+.pw-btn-close {
+  padding-top: 5px;
+  line-height: 1;
+}
+
+.pw-btn-esc-text {
+  font-size: 10px;
+  line-height: 2;
+}
+
+@media (max-width: 1050px) {
+  .pw-overlay-notification {
+    .pw-white-form-field {
+      &.mat-focused {
+        width: 71%;
+      }
+    }
+  }
+}

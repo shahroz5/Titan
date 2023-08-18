@@ -1,0 +1,19 @@
+<poss-web-currency-listing-items
+  *ngFor="let currencyDetailsItem of currencyDetailsList; trackBy: trackBy"
+  [currencyDetailsList]="currencyDetailsItem"
+  (currencyCode)="emitCurrencyCode($event)"
+  (emitToggle)="emitToggle($event)"
+  (viewPage)="openViewPage($event)"
+>
+</poss-web-currency-listing-items>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

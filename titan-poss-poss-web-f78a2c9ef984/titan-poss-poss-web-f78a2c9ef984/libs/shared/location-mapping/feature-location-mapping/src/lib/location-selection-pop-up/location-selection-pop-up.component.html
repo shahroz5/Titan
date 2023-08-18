@@ -1,0 +1,162 @@
+<div
+  class="pw-location-mapping pw-location-mapping__fixed-width"
+  *ngIf="locationResults.length > 0"
+>
+  <div
+    class="row pw-location-mapping__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <h3 class="pw-message col-auto">
+      {{ 'pw.locationMapping.selectLocationAlertMessage' | translate }}
+    </h3>
+
+    <!-- <div class="col pw-text-right">
+      <button
+        class="pw-location-mapping__icon-btn"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div> -->
+  </div>
+  <div class="pw-location-mapping__body">
+    <div class="pw-dialog-container__tab pw-location-mapping__tab-height">
+      <div class="row no-gutters pw-location-mapping__config-tab">
+        <div class="col-12 pw-tab__content">
+          <div class="row pw-location-mapping__row">
+            <div class="col-12 pw-location-mapping__padding-5">
+              <mat-card class="pw-location-mapping__columns">
+                <div class="pw-location-mapping__column-header">
+                  <mat-checkbox
+                    (click)="$event.stopPropagation()"
+                    [(ngModel)]="selectAllOfSearchTab"
+                    (change)="selectAll('new', $event.checked)"
+                    [disabled]="!locationResults.length"
+                  >
+                  </mat-checkbox>
+
+                  <span class="pw-location-mapping__checkbox-label">
+                    {{ 'pw.locationMapping.locationListingLable' | translate }}
+                    ({{ locationResults.length }})
+                  </span>
+                </div>
+                <div class="pw-location-mapping__column-body">
+                  <mat-form-field appearance="outline" floatLabel="none">
+                    <input
+                      #searchInput
+                      matInput
+                      placeholder=" {{
+                        'pw.locationMapping.searchLocationTabLable' | translate
+                      }}"
+                      (keyup)="scrollToTop('new')"
+                    />
+                    <mat-icon matPrefix>
+                      <span class="pw-i-16 pw-search-icon-16"></span
+                    ></mat-icon>
+                    <mat-icon matSuffix (click)="searchInput.value = null">
+                      <span
+                        *ngIf="searchInput.value"
+                        class="pw-i-10 pw-close-icon-16"
+                      ></span
+                    ></mat-icon>
+                  </mat-form-field>
+
+                  <div class="pw-selection-list_header">
+                    <div>
+                      {{ 'pw.locationMapping.locationCodeLable' | translate }}
+                    </div>
+                  </div>
+
+                  <cdk-virtual-scroll-viewport
+                    [itemSize]="itemSize"
+                    [minBufferPx]="minBufferPx"
+                    [maxBufferPx]="maxBufferPx"
+                    class="pw-selection-list-full"
+                    #virtualScrollNewLocation
+                  >
+                    <ng-container
+                      *ngIf="
+                        (
+                          locationResults
+                          | locationSearch: searchInput.value:'id'
+                        ).length === 0
+                      "
+                    >
+                      <div
+                        class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color"
+                      >
+                        {{
+                          'pw.locationMapping.emptyLocationMessage' | translate
+                        }}
+                        !
+                      </div>
+                    </ng-container>
+                    <!-- <div
+                      class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color"
+                      *ngIf="
+                        locationResults.length !== 0 &&
+                        (
+                          locationResults
+                          | locationSearch: searchInput.value:'id'
+                        ).length === 0
+                      "
+                    >
+                      {{
+                        'pw.locationMapping.emptyLocationMessage' | translate
+                      }}
+                    </div> -->
+                    <div
+                      *cdkVirtualFor="
+                        let location of locationResults
+                          | locationSearch: searchInput.value:'id';
+                        templateCacheSize: 0;
+                        trackBy: trackByLocation
+                      "
+                      (click)="
+                        selectionChange(location, !location.isSelected, 'new')
+                      "
+                      class="pw-selection-list_item pw-font-weight-bold"
+                    >
+                      <mat-checkbox
+                        class="pw-mat-checkbox"
+                        [(ngModel)]="location.isSelected"
+                        (change)="
+                          selectionChange(location, location.isSelected, 'new')
+                        "
+                        (click)="$event.stopPropagation()"
+                      ></mat-checkbox>
+                      {{ location.id }}
+                    </div>
+                  </cdk-virtual-scroll-viewport>
+                </div>
+                <div class="pw-location-mapping-button-container">
+                  <button
+                    mat-flat-button
+                    class="pw-btn pw-primary-btn pw-width-100 mt-2 pw-cancel-button"
+                    (click)="close()"
+                  >
+                    {{ 'pw.locationMapping.cancel' | translate }}
+                  </button>
+                  <button
+                    [disabled]="locationResults.length === 0"
+                    mat-flat-button
+                    class="pw-btn pw-primary-btn pw-width-100 mt-2"
+                    (click)="updateSelectedLocations('new')"
+                  >
+                    {{ 'pw.locationMapping.addButtonText' | translate }}
+                  </button>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

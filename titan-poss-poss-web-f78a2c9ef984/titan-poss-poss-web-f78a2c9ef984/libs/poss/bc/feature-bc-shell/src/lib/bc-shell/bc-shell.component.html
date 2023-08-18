@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span
+                  class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                ></span>
+              </a>
+              <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+              <div class="pw-top-heading-container__heading">
+                {{ 'pw.bc.billCancellationHeaderLabel' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pw-tab row no-gutters">
+        <ul class="pw-tab__list col">
+          <li class="pw-tab__list-item">
+            <a
+              [class.pw-is-active-bar]="!(tab === BCTabsEnumRef.REQUESTS)"
+              (click)="changeTab(null)"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.bc.billCancellationSubHeaderLabel' | translate }}
+              </h5>
+            </a>
+          </li>
+          <!-- <ng-container
+            *possWebPermission="
+              loadPermission(BILL_CANCELLATION_REQUEST_VIEW_SUBMENU)
+            "
+          > -->
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="tab === BCTabsEnumRef.REQUESTS"
+                (click)="changeTab(BCTabsEnumRef.REQUESTS)"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.bc.requestStatusSubHeaderLabel' | translate }}
+                </h5>
+              </a>
+            </li>
+          <!-- </ng-container>
+          <ng-container
+            *possWebPermission="
+              loadPermission(BILL_CANCELLATION_HISTORY_SUBMENU)
+            "
+          > -->
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['/sales/bill-cancellation/history']"
+                [class.pw-is-active-bar]="tab === BCTabsEnumRef.HISTORY"
+              >
+                <h5 class="pw-tab__item">
+                  {{
+                    'pw.bc.billCancellationHistorySubHeaderLabel' | translate
+                  }}
+                </h5>
+              </a>
+            </li>
+          <!-- </ng-container> -->
+        </ul>
+      </div>
+      <poss-web-bc-list
+        *ngIf="!(tab === BCTabsEnumRef.REQUESTS)"
+      ></poss-web-bc-list>
+      <poss-web-bill-cancel-status
+        *ngIf="tab === BCTabsEnumRef.REQUESTS"
+      ></poss-web-bill-cancel-status>
+    </div>
+  </div>
+</div>

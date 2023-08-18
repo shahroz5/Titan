@@ -1,0 +1,9 @@
+{
+	"type": "TOKEN",
+	"data": {
+		"username": "nap_user",
+		"password": "VsXL5dUcbhn2+PvLlxPTsEaT9sVELtaUtnBFbDZMTcilXZVlstA0ZrkCj+DReh/1T2qNai4StpbktjWAXuQ0+JBfkzdXs4cW7QerovgE8euJWRzdTUbxa+6mYDbMdLhRGNqqQfXwYRXReYQntv36bEeJGjS7JDe6+KJB+0CBq87nuAnt/vZXu1a0K8RXpw2S47fVvEw9gmlbQRlEfLtDGAAwSlMD7+HLKgHd5T0kGmf+ayVN/JxU5nRLONs+HXFAmJpcJvWeOlhms5JvIf0RIqmL4aSCf4n/1un2qHlEbVQjCflbUQySyonHSJWh0D7iFf/EuU90wyq9myMx2b7SDw==",
+		"token": "eyJhbGciOiJIUzI1NiJ9.eyJsb2MiOiJUSkVXIiwiYXBpS2V5Ijp0cnVlLCJvcmciOiJUSkVXIiwiaXNzIjoicG9zcy50YW5pc2hxLmNvLmluIiwiZW1wIjoibmFwX3VzZXIiLCJhY2wiOltdLCJ0eXBlIjoiQVBJIiwiYXVkIjoiMTcyLjE3LjE1OS4yMTkiLCJ1cG4iOiJuYXBfdXNlciIsIm5iZiI6MTYyNTkwNTg2OSwiZW1wTmFtZSI6Im5hcF91c2VyIiwiZXhwIjoxNjI4NDk3ODcwLCJpYXQiOjE2MjU5MDU4NzB9.onbOY4zxne9X2aJjuNoi2n4kdWtuxxNqbSJyq_lITSg",
+		"exp": "09-08-2021 02:01:10 PM"
+	}
+}

@@ -1,0 +1,16 @@
+.pw-input-group {
+  &__item {
+    align-self: auto;
+  }
+}
+.pw-item-details__allign{
+  align-self: baseline
+}
+
+@media (max-width: 991px) {
+  .pw-input-group {
+    &__select {
+      align-self: center;
+    }
+  }
+}

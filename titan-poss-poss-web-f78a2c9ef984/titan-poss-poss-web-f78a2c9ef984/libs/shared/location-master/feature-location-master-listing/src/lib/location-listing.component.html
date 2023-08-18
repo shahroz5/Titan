@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-location-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.locationMaster.mainLocationlabel' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.locationMaster.mainSetuplabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto ml-auto">
+            <button
+              class="pw-btn pw-accent-btn"
+              (click)="addnew()"
+              routerLinkActive="router-link-active"
+            >
+              {{ 'pw.locationMaster.addNew' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pw-filter-box">
+        <div class="row pw-sub-header">
+          <div class="col-auto">
+            <div class="pw-sub-header__heading">
+              {{ 'pw.locationMaster.mainLocationlabel' | translate }}
+            </div>
+          </div>
+          <poss-web-location-search
+            class="col-3 ml-auto"
+            [resetSearch]="resetSearch"
+            (searchData)="search($event)"
+            (searchReset)="clearSearch()"
+          ></poss-web-location-search>
+        </div>
+      </div>
+      <!-- <div>{{ (locationListing$ | async) | json }}</div> -->
+      <poss-web-location-list-items
+        *ngIf="!invalidSearch"
+        [locationList]="locationListing$ | async"
+        [count]="totalCount$ | async"
+        [pageEvent]="locationListingPageEvent"
+        (paginator)="paginate($event)"
+        (locationCode)="loadDetailsPage($event)"
+        (viewLocationCode)="viewDetailsPage($event)"
+        (emitCopyLocationData)="copyLocation($event)"
+        [pageSize]="pageSize"
+        (emitToggleValue)="updateIsActive($event)"
+      >
+      </poss-web-location-list-items>
+
+      <div
+        *ngIf="
+          (hasError$ | async)?.code === searchErrorCode ||
+          invalidSearch ||
+          (!(locationListing$ | async)?.length &&
+            !(isLoadingLocations$ | async))
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">{{ noDataFoundMessageNonVerifiedItems }}</h3>
+      </div>
+    </div>
+
+    <poss-web-loader *ngIf="isLoadingLocations$ | async"> </poss-web-loader>
+  </div>
+</div>

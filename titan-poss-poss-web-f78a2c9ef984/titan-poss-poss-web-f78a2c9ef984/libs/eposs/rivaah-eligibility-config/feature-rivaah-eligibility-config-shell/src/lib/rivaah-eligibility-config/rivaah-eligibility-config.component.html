@@ -1,0 +1,31 @@
+<div
+class="container-fluid"
+>
+    <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+            <div class="pw-top-heading-container">
+                <div class="row pw-top-heading-container__item">
+                    <div class="col-auto">
+                        <div class="pw-top-heading-container__main-head">
+                            <a (click)="back()">
+                                <span class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                                ></span>
+                            </a>
+                            <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                            <div>
+                                <h2>
+                                  {{ 'pw.rivaahEligibilityConfig.rivaahConfigurationLabel' | translate }} 
+                                </h2>
+                                <h5 class="pw-top-heading-container__sub-heading">
+                                  {{ 'pw.rivaahEligibilityConfig.configurationLabel' | translate }} 
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <poss-web-rivaah-tabs></poss-web-rivaah-tabs>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

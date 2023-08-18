@@ -1,0 +1,29 @@
+<ng-container *ngIf="count != 0">
+  <div possWebFocusableList>
+    <poss-web-other-issues-approvals-item
+      possWebFocusableListItem
+      *ngFor="let item of itemList; let i = index; ; trackBy: trackBy"
+      class="pw-list-card d-block"
+      [item]="item"
+      [count]="count"
+      [selectionEvents]="selectionAllSubject.asObservable()"
+      [requestId]="requestId"
+      (isSelected)="isSelect($event)"
+      [locationCode]="locationCode"
+      (loadImageEvent)="loadImageUrl($event)"
+    >
+    </poss-web-other-issues-approvals-item>
+  </div>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > getMinPageSize() && itemList.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+</ng-container>

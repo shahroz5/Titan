@@ -1,0 +1,95 @@
+<div class="row no-gutters">
+  <poss-web-item-details
+    [item]="itemData"
+    [toLoadImageUrlFromAPI]="true"
+    (loadImageEvent)="loadImage()"
+  >
+  </poss-web-item-details>
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.conversion.itemQuantityText' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          placeholder="{{ 'pw.conversion.itemQuantityText' | translate }}"
+          value="{{
+            requestType === InStockConversionTypesEnumRef.REQUEST_SENT
+              ? item.requestedQuantity
+              : 1
+          }}"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.conversion.itemWeightText' | translate }}
+          ({{ item?.weightUnit ? item.weightUnit : 'gms' }})
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box"
+          placeholder="{{ 'pw.conversion.itemWeightText' | translate }}"
+          value="{{
+            (requestType === InStockConversionTypesEnumRef.REQUEST_SENT
+              ? item.requestedWeight
+              : item.receivedWeight
+            ) | weightFormatter
+          }}"
+          readonly
+        />
+      </div>
+
+      <div *ngIf="item?.destBinCode" class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.conversion.binText' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="{{ 'pw.conversion.binText' | translate }}"
+          value="{{ item.destBinCode }}"
+          readonly
+        />
+      </div>
+
+      <div
+        *ngIf="
+          item?.itemDetails?.sold === conversionItemDetailsEnum.SOLD_Y ||
+          item?.itemDetails?.sold === conversionItemDetailsEnum.SOLD_N
+        "
+        class="col-auto pw-input-group__item"
+      >
+        <div class="pw-input-group__item-label">
+          {{ 'pw.conversion.soldText' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="{{ 'pw.conversion.soldText' | translate }}"
+          value="{{
+            item.itemDetails.sold === conversionItemDetailsEnum.SOLD_Y
+              ? conversionItemDetailsEnum.SOLD_Yes
+              : conversionItemDetailsEnum.SOLD_No
+          }}"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="col-auto pw-list-card__item" *ngIf="itemData.finalValue">
+    <div class="pw-input-group__item-label">
+      {{ 'pw.conversion.finalValueLabel' | translate }}
+    </div>
+    <input
+      type="text"
+      class="pw-bg-input-box"
+      placeholder="{{ 'pw.conversion.finalValueLabel' | translate }}"
+      value="{{ itemData.finalValue }}"
+      readonly
+    />
+  </div>
+</div>

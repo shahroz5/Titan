@@ -1,0 +1,74 @@
+<div class="row mb-2 align-items-center">
+  <div
+    class="col-auto pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    {{ 'pw.tepProductGroupConfig.details' | translate }}
+  </div>
+  <div class="col-auto ml-auto">
+    <a id="sort" (click)="openSortDailog()" *ngIf="totalElements > 0">
+      <p>
+        <span
+          class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+        ></span>
+        {{ 'pw.tepProductGroupConfig.sortLable' | translate }}
+      </p>
+    </a>
+  </div>
+  <div class="col-lg-auto col-auto">
+    <div class="pw-search-bar">
+      <mat-form-field [formGroup]="searchForm">
+        <input
+          #searchBox
+          matInput
+          type="text"
+          placeholder="Search Product Group"
+          formControlName="searchValue"
+        />
+        <mat-icon matSuffix>
+          <span
+            class="pw-i-16 pw-search-icon-16"
+            *ngIf="!searchForm.value.searchValue"
+          ></span>
+        </mat-icon>
+        <mat-icon matSuffix (click)="clearSearch()">
+          <span
+            *ngIf="searchForm.value.searchValue"
+            class="pw-i-10 pw-close-icon-16"
+          ></span
+        ></mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="themeCodesColumnDefs"
+    [rowData]="tepProductGroupMappingGridData"
+    [context]="getContext()"
+    [domLayout]="domLayout"
+    [rowHeight]="rowHeight"
+    [animateRows]="animateRows"
+    [frameworkComponents]="getComponents()"
+    (gridReady)="gridReady($event)"
+  >
+  </ag-grid-angular>
+</div>
+<div class="col-auto ml-auto">
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="
+      totalElements > minPageSize &&
+      tepProductGroupMappingGridData.length > 0
+    "
+    [length]="totalElements"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>

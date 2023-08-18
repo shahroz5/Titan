@@ -1,0 +1,190 @@
+<mat-accordion multi>
+  <mat-expansion-panel expanded class="pw-expansion-panel">
+    <mat-expansion-panel-header
+      class="pw-expansion-panel__header"
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'"
+    >
+      <mat-panel-title class="pw-expansion-panel__heading">
+        Search Requests
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form
+      [formGroup]="billCancellationForm"
+      (ngSubmit)="onSubmit($event)"
+      novalidate
+      #validatePasswordFormDirective="ngForm"
+      autocomplete="off"
+    >
+      <div class="row">
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>Req. Number</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            placeholder="Req. Number"
+            formControlName="docNo"
+          />
+          <mat-error
+            *ngIf="
+              billCancellationForm.get('docNo').errors &&
+              billCancellationForm.get('docNo').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                billCancellationForm.get('docNo').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>CM Number</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            placeholder="Invoice Number"
+            formControlName="cmNo"
+          />
+          <mat-error
+            *ngIf="
+              billCancellationForm.get('cmNo').errors &&
+              billCancellationForm.get('cmNo').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                billCancellationForm.get('cmNo').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>Mobile Number</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            placeholder="Mobile Number"
+            formControlName="mobileNo"
+          />
+          <mat-error
+            *ngIf="
+              billCancellationForm.get('mobileNo').errors &&
+              billCancellationForm.get('mobileNo').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                billCancellationForm.get('mobileNo').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-2 col-3">
+          <mat-label>Location</mat-label>
+          <input
+            type="text"
+            type="text"
+            autocomplete="off"
+            placeholder="Location"
+            matInput
+            [formControl]="billCancellationForm.controls['location']"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option"
+              >{{ option }}
+            </mat-option>
+          </mat-autocomplete>
+
+          <mat-error
+            *ngIf="
+              billCancellationForm.get('location').errors &&
+              billCancellationForm.get('location').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                billCancellationForm.get('location').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="pw-detail-card__right-container">
+          <button
+            class="pw-btn pw-accent-btn"
+            [disabled]="
+              !(
+                (billCancellationForm.get('location').value ||
+                  billCancellationForm.get('docNo').value ||
+                  billCancellationForm.get('mobileNo').value ||
+                  billCancellationForm.get('cmNo').value) &&
+                billCancellationForm.valid
+              )
+            "
+          >
+            Search
+          </button>
+        </div>
+        <div class="col-auto pw-clear-btn">
+          <button class="pw-clear-btn pw-btn pw-primary-btn" (click)="reset()">
+            Clear
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="row pt-2"></div>
+<h4 *ngIf="productGrid?.length" class="pw-tertiary-color">Search Results</h4>
+<div class="row pt-2"></div>
+<div *ngIf="productGrid?.length">
+  <poss-web-top-info-panel
+    *ngIf="isFocusing && focusedHeaderName"
+    [isFocusing]="isFocusing"
+    [focusedHeaderName]="focusedHeaderName"
+    [currentRowData]="currentRowInfo"
+  >
+  </poss-web-top-info-panel>
+  <ag-grid-angular
+    class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+    [rowData]="productGrid"
+    [columnDefs]="colDef"
+    [pagination]="true"
+    [paginationPageSize]="pageSize"
+    [defaultColDef]="defaultColDef"
+    [domLayout]="domLayout"
+    [animateRows]="'true'"
+    [rowSelection]="'true'"
+    (gridReady)="gridReady($event)"
+    (cellClicked)="onCellClicked($event)"
+    (gridSizeChanged)="onGridSizeChanged($event)"
+    [suppressPaginationPanel]="true"
+    (cellFocused)="onCellFocused($event)"
+    (focusout)="focusOut($event)"
+  >
+  </ag-grid-angular>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > minPageSize && productGrid?.length > 0"
+    [length]="count"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="change($event)"
+    showFirstLastButtons
+  >
+  </mat-paginator>
+</div>
+<div
+  *ngIf="productGrid?.length === 0"
+  class="pw-success-color pw-message pw-text-center mg-t-100"
+>
+  <span class="pw-i-16"></span>
+  {{ status }}
+</div>

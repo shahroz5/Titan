@@ -1,0 +1,128 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.regularTepApproval.customerTransaction' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">Approval</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-tab mt-4">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a class="pw-is-active-bar">
+              <h5 class="pw-tab__item">
+                {{ 'pw.regularTepApproval.regularTepApproval' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="row" [formGroup]="filterForm">
+        <div class="col-auto ml-auto">
+          <mat-form-field
+            class="pw-single-bordered-input col-lg-auto col-auto"
+            required
+          >
+            <mat-label> {{ 'pw.tep.tepType' | translate }}</mat-label>
+            <mat-select
+              disableOptionCentering
+              placeholder="Type"
+              formControlName="type"
+              (selectionChange)="onSelectionStatusChange($event)"
+            >
+              <mat-option *ngFor="let type of typeList" [value]="type.value">{{
+                type.description
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            class="col-lg-auto col-auto align-self-center pw-form-field-padding-bottom-0 pw-search-bar"
+          >
+            <input
+              #searchBox
+              matInput
+              type="text"
+              placeholder="{{
+                'pw.regularTepApproval.searchByVariantCodeLabel' | translate
+              }}"
+              class="single-bordered-input"
+              formControlName="variantCode"
+            />
+
+            <mat-icon matSuffix>
+              <span
+                class="pw-i-16 pw-search-icon-16"
+                *ngIf="!filterForm.value.variantCode"
+              ></span>
+            </mat-icon>
+            <mat-icon matSuffix (click)="clearvariantCodeSearch()">
+              <span
+                *ngIf="filterForm.value.variantCode"
+                class="pw-i-10 pw-close-icon-16"
+              ></span
+            ></mat-icon>
+          </mat-form-field>
+
+          <mat-form-field
+            class="col-lg-auto col-auto align-self-center pw-form-field-padding-bottom-0 pw-search-bar"
+          >
+            <input
+              #searchBox
+              matInput
+              type="text"
+              placeholder="{{
+                'pw.regularTepApproval.searchByLocationCodeLabel' | translate
+              }}"
+              class="single-bordered-input"
+              formControlName="locationCode"
+            />
+            <mat-icon matSuffix>
+              <span
+                class="pw-i-16 pw-search-icon-16"
+                *ngIf="!filterForm.value.locationCode"
+              ></span>
+            </mat-icon>
+            <mat-icon matSuffix (click)="clearLocationSearch()">
+              <span
+                *ngIf="filterForm.value.locationCode"
+                class="pw-i-10 pw-close-icon-16"
+              ></span
+            ></mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <poss-web-tep-approval-list-items
+            [tepRequestList]="tepRequestList$ | async"
+            (saveStatus)="saveStatus($event)"
+            [count]="totalElements$ | async"
+            [pageEvent]="tepApprovalPageEvent"
+            (paginator)="paginate($event)"
+            [pageSizeOptions]="pageSizeOptions"
+            [minPageSize]="minPageSize"
+            (cellClicked)="cellClicked($event)"
+          >
+          </poss-web-tep-approval-list-items>
+        </div>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

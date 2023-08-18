@@ -1,0 +1,13 @@
+{
+	"type": "DISCOUNT_VALUE_DETAILS",
+	"data": {
+		"discountValueDetails": [
+			{
+				"component": "METAL_CHARGE or MAKING_CHARGE or STONE_CHARGE or UCP or UNIT_WEIGHT or BILL_DISCOUNT or KARATAGE_DISCOUNT_1KT or KARATAGE_DISCOUNT_2KT",
+				"discountPercent": "10",
+				"discountValue": "10000",
+				"isDiscountPercentage": true
+			}
+		]
+	}
+}

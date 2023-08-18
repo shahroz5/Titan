@@ -1,0 +1,85 @@
+<form [formGroup]="newBinRequestForm">
+  <div class="pw-confirmation-box">
+    <div
+      class="row pw-confirmation-box__header pw-cursor-grab"
+      cdkDragBoundary=".cdk-overlay-container"
+      cdkDragRootElement=".cdk-overlay-pane"
+      cdkDrag
+      cdkDragHandle
+    >
+      <div *ngIf="data.status === 'approve'" class="col-auto">
+        <span class="pw-font-weight-bold">Confirm Bin Requested</span>
+      </div>
+      <div *ngIf="data.status === 'reject'" class="col-auto">
+        <span class="pw-font-weight-bold">
+          {{ 'pw.instock.rejectPopup1' | translate }}</span
+        >
+      </div>
+      <div class="col pw-text-right">
+        <button
+          mat-icon-button
+          (click)="onClose()"
+          class="pw-confirmation-box__icon-button"
+        >
+          <mat-icon>
+            <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <div mat-dialog-content class="pw-confirmation-box__body">
+      <div class="pw-confirmation-box__body-item">
+        <span class="pw-font-weight-bold">
+          Are you sure you want to {{ data.status }} Request
+          <span class="pw-seventh-color">{{ data.reqDocNo }}</span> Document
+          Number ?
+        </span>
+      </div>
+
+      <div class="pw-confirmation-box__input">
+        <div class="row">
+          <mat-form-field class="col-12">
+            <textarea
+              matInput
+              formControlName="remarks"
+              class="single-bordered-input"
+              placeholder="Enter Your Remarks"
+              rows="4"
+            ></textarea>
+            <mat-error
+              *ngIf="
+                newBinRequestForm.get('remarks').errors &&
+                newBinRequestForm.get('remarks').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  newBinRequestForm.get('remarks').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-confirmation-box__footer pw-text-right">
+      <button
+        mat-button
+        *ngIf="data.status === 'approve'"
+        class="pw-btn pw-accent-btn"
+        (click)="approvedRejected(data.status)"
+      >
+        CONFIRM
+      </button>
+      <button
+        mat-button
+        *ngIf="data.status === 'reject'"
+        class="pw-btn pw-accent-btn"
+        (click)="approvedRejected(data.status)"
+      >
+        {{ 'pw.instock.Reject' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

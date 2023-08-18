@@ -1,0 +1,146 @@
+<mat-dialog-content class="pw-dialog-container">
+  <div
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+    class="pw-dialog-container__header pw-cursor-grab"
+  >
+    <button
+      mat-icon-button
+      mat-dialog-close="close"
+      (click)="searchSubscription.unsubscribe()"
+      class="pw-dialog-container__icon-button"
+    >
+      <mat-icon>
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </mat-icon>
+    </button>
+  </div>
+  <mat-tab-group
+    (focusChange)="onTabFocus($event)"
+    class="pw-dialog-container__tab"
+  >
+    <mat-tab *ngFor="let filterType of filterTypes" [label]="filterType">
+      <ng-template mat-tab-label>
+        <div>{{ filterType }}</div>
+        <div
+          class="pw-dialog-container__badge"
+          matBadge="{{ selectedFilterList[filterType]?.size }}"
+          matBadgeOverlap="false"
+        ></div>
+      </ng-template>
+      <div class="row pw-dialog-container__search-container">
+        <mat-form-field
+          *ngIf="data.showSearch"
+          class="col pw-search-bar pw-form-field-padding-bottom-0"
+          floatLabel="never"
+        >
+          <input
+            matInput
+            #searchBox
+            type="text"
+            placeholder="{{ 'pw.filterPopup.search' | translate }}"
+          />
+          <mat-icon matSuffix>
+            <span
+              *ngIf="searchBox.value.length === 0"
+              class="pw-i-16 pw-search-icon-16"
+            ></span>
+            <span
+              *ngIf="searchBox.value.length > 0"
+              (click)="searchBox.value = ''; onSearchChange('')"
+              class="pw-i-10 pw-close-icon-16 pw-pointer"
+            ></span>
+          </mat-icon>
+        </mat-form-field>
+        <div
+          class="col-auto pw-mont-semibold-14 pw-dialog-container__right-content"
+        >
+          {{
+            'pw.filterPopup.appliedFiltersText'
+              | translate
+                : {
+                    applied: selectedFilterList[filterType]?.size,
+                    totalfilters: data.filterlimit
+                  }
+          }}
+        </div>
+      </div>
+      <div class="row no-wrap pw-dialog-container__chip-section no-gutters">
+        <div class="col-12" *ngIf="selectedFilterList[filterType].size > 0">
+          <mat-chip-list class="pw-dialog-container__chip-box">
+            <mat-tab-group
+              class="col-12 group-pad chip-tab-group"
+              disableRipple="true"
+              backgroundColor="transparent"
+            >
+              <mat-tab>
+                <ng-template mat-tab-label>
+                  <mat-chip
+                    *ngFor="
+                      let chipitem of selectedFilterList[filterType] | keyvalue
+                    "
+                    removable="true"
+                    (removed)="removeFilterChip(filterType, chipitem.value)"
+                    [value]="chipitem.value"
+                  >
+                    {{ chipitem.value.description }}
+                    <mat-icon matChipRemove
+                      ><span class="pw-i-10 pw-close-icon-16"></span
+                    ></mat-icon>
+                  </mat-chip>
+                </ng-template>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-chip-list>
+        </div>
+      </div>
+      <div class="pw-dialog-container__body">
+        <div class="row wrap">
+          <mat-selection-list
+            class="col-12"
+            (selectionChange)="updateFilterList(filterType, $event)"
+          >
+            <ng-container
+              *ngFor="let filteritem of filterOptionsData[filterType]"
+            >
+              <mat-list-option
+                #listitem
+                checkboxPosition="before"
+                *ngIf="filteritem.description"
+                [disabled]="
+                  selectedFilterList[filterType]?.size === data.filterlimit &&
+                  !listitem.selected
+                "
+                [selected]="selectedFilterList[filterType].get(filteritem.id)"
+                [value]="filteritem"
+              >
+                {{ filteritem.description }}
+              </mat-list-option>
+            </ng-container>
+          </mat-selection-list>
+          <h3
+            class="col-12 mg-t-100 pw-text-center"
+            *ngIf="filterOptionsData[filterType].length === 0"
+          >
+            <!-- {{ 'pw.global.noDataFoundMessage' | translate }} -->
+            {{ noDataFoundMessage }}
+          </h3>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<div mat-dialog-actions class="pw-dialog-container__footer">
+  <button
+    class="pw-btn pw-primary-btn"
+    mat-raised-button
+    (click)="selectedFilterList[currentFilterType].clear()"
+  >
+    {{ 'pw.filterPopup.clearAction' | translate }}
+  </button>
+  <button class="pw-btn pw-accent-btn" mat-raised-button (click)="closePopUp()">
+    {{ 'pw.filterPopup.applyAction' | translate }}
+  </button>
+</div>

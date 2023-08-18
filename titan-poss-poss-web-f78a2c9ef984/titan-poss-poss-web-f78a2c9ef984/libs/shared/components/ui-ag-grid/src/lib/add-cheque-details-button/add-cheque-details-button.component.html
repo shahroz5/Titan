@@ -1,0 +1,11 @@
+<button
+  class="pw-btn pw-accent-btn alignCenter"
+  (click)="showChequeDetailsPopUp()"
+  [disabled]="params.data.chequeNumber"
+>
+  {{
+    params && params.data && params.data.chequeNumber
+      ? 'EDIT CHEQUE DETAILS'
+      : 'ADD CHEQUE DETAILS'
+  }}
+</button>

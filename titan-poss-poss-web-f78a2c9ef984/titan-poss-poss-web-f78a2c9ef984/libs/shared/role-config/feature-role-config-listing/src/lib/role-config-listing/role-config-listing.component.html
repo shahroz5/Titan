@@ -1,0 +1,45 @@
+<div
+  class="row align-items-center pw-location-button"
+  *possWebPermission="loadPermission(ROLELIMIT_SELECT_LOCATION_FORMAT)"
+>
+  <poss-web-select-dropdown
+    class="user-form-fields col-3 ml-auto"
+    [placeholder]="'pw.roleCountForm.locationSelectorLabelText' | translate"
+    [options]="locationformats"
+    [required]="false"
+    (selectionChange)="locationFormatChange($event)"
+  >
+  </poss-web-select-dropdown>
+</div>
+
+<ng-container *ngIf="(rolesList$ | async).length > 0; else showMessage">
+  <poss-web-role-config-list
+    [rolesList]="rolesList$ | async"
+    [isBTQUser]="isBTQUser"
+    (rolesRequested)="roleCountChange($event)"
+    [permissions$]="permissions$"
+  ></poss-web-role-config-list>
+</ng-container>
+
+<ng-template #showMessage>
+  <h3
+    class="pw-text-center m-5"
+    *possWebPermission="loadPermission(ROLELIMIT_SELECT_LOCATION_FORMAT)"
+  >
+    {{
+      (selectedLocationFormat
+        ? 'pw.roleCountForm.emptyrolesMessageLocationFormat'
+        : 'pw.roleCountForm.noLocationFormatMessage'
+      ) | translate
+    }}
+  </h3>
+
+  <h3
+    class="pw-text-center m-5"
+    *possWebPermission="loadPermission(SEND_REQUEST_FOR_EMPLOYEE_LIMIT)"
+  >
+    No Roles Found
+  </h3>
+</ng-template>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

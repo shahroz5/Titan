@@ -1,0 +1,22 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.approvalCode' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.approvalCode }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.tidNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.tidNumber }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.acquiredBank' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.bankName }}</div>
+    </div>
+  </div>
+</div>

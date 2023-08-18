@@ -1,0 +1,184 @@
+<div class="row pw-card__header" [formGroup]="CODetailsForm">
+  <div class="col">
+    <div class="pw-detail-card">
+      <div class="row pw-detail-card__flex-end">
+        <div class="col-auto">
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            formControlName="freezeRate"
+          >
+            <mat-radio-button
+              *ngFor="let option of freezeRateOptions"
+              [value]="option"
+              (change)="onSelectionChange(option)"
+              [disabled]="isDisabled"
+            >
+              {{ option }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div *ngIf="bgrAllowed" class="col-auto pw-list-card__checkbox">
+          <mat-checkbox
+            class="example-margin"
+            formControlName="bestGoldRate"
+            (change)="onCheckboxChange($event)"
+            [disabled]="isDisabled"
+            >{{ 'pw.newCustomerOrder.bestGoldRate' | translate }}</mat-checkbox
+          >
+        </div>
+      </div>
+
+      <div
+        *ngIf="
+          CODetailsForm.get('freezeRate').value == freezeRateEnum.YES &&
+          metalRate
+        "
+        class="pw-detail-card__secondary-section"
+      >
+        <div class="row">
+          <div
+            *ngIf="coDetailsResponse?.orderWeightDetails?.data.goldWeight > 0"
+            class="col-auto"
+          >
+            <div class="pw-detail-card__label">
+              {{ 'pw.newCustomerOrder.frozenGoldRate' | translate }}
+            </div>
+            <div
+              *ngIf="metalRate.J?.metalTypeCode === metalTypeEnum.GOLD"
+              class="pw-font-weight-bold"
+            >
+              {{ metalRate.J.ratePerUnit | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+          <div
+            *ngIf="
+              coDetailsResponse?.orderWeightDetails?.data.platinumWeight > 0
+            "
+            class="col-auto"
+          >
+            <div class="pw-detail-card__label">
+              {{ 'pw.newCustomerOrder.frozenPlatinumRate' | translate }}
+            </div>
+            <div
+              *ngIf="metalRate.L?.metalTypeCode === metalTypeEnum.PLATINUM"
+              class="pw-font-weight-bold"
+            >
+              {{ metalRate.L.ratePerUnit | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+          <div
+            *ngIf="coDetailsResponse.orderWeightDetails?.data.silverWeight > 0"
+            class="col-auto"
+          >
+            <div class="pw-detail-card__label">
+              {{ 'pw.newCustomerOrder.frozenSiverRate' | translate }}
+            </div>
+            <div
+              *ngIf="metalRate.P?.metalTypeCode === metalTypeEnum.SILVER"
+              class="pw-font-weight-bold"
+            >
+              {{ metalRate.P.ratePerUnit | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="CODetailsForm.get('bestGoldRate').value && metalRate"
+        class="pw-detail-card__secondary-section"
+      >
+        <div class="row">
+          <div class="col-auto">
+            <div class="pw-detail-card__label">
+              {{ 'pw.newCustomerOrder.goldRateLabel' | translate }}
+            </div>
+            <div
+              *ngIf="metalRate.J?.metalTypeCode === metalTypeEnum.GOLD"
+              class="pw-font-weight-bold"
+            >
+              {{ metalRate.J.ratePerUnit | currencyFormatter: currencyCode }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-card__body">
+      <div class="row pw-card__row">
+        <div class="col-4">
+          <mat-form-field class="pw-single-bordered-input pw-width-full">
+            <input
+              matInput
+              formControlName="prodToBeCollectedBy"
+              placeholder="{{
+                'pw.newCustomerOrder.productCollectedByLabel' | translate
+              }}"
+              autocomplete="off"
+            />
+            <mat-icon
+              *ngIf="
+                customerOrderId &&
+                CODetailsForm.get('prodToBeCollectedBy').valid
+              "
+              matSuffix
+              (click)="addProdToBeCollectedBy()"
+              ><span class="pw-i-12 pw-plus-icon-12"></span
+            ></mat-icon>
+          </mat-form-field>
+          <mat-error
+            *ngIf="
+              CODetailsForm.get('prodToBeCollectedBy').errors &&
+              CODetailsForm.get('prodToBeCollectedBy').errors.errorArray &&
+              CODetailsForm.get('prodToBeCollectedBy').touched
+            "
+            class="pw-error-color pw-align-top"
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                CODetailsForm.get('prodToBeCollectedBy').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </div>
+        <div class="col-xl-auto col-lg-auto col-auto">
+          <button
+            *ngIf="!addedNomineeDetails"
+            (click)="addNominee(addedNomineeDetails)"
+            mat-button
+            class="pw-btn pw-primary-btn mt-2"
+            [disabled]="customerOrderId === null"
+          >
+            {{ 'pw.addNominee.addNomineeHeaderLabel' | translate }}
+          </button>
+          <button
+            *ngIf="addedNomineeDetails"
+            (click)="addNominee(addedNomineeDetails)"
+            mat-button
+            class="pw-btn pw-primary-btn mt-2"
+            [disabled]="customerOrderId === null"
+          >
+            {{ 'pw.addNominee.updateNomineeLabel' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="coDetailsResponse" class="row pw-card__row pw-mt-15">
+        <!-- Sum of Weight of all Products coming from EA API -->
+        <!-- Total gross weight from API, shown as Total Order weight in UI -->
+        <div *ngIf="totalGrossWeight" class="col-xl-auto col-lg-auto col-auto">
+          <div class="pw-tertiary-color">
+            {{ 'pw.newCustomerOrder.totalOrderWeightLabel' | translate }}
+          </div>
+          {{ totalGrossWeight | weightFormatter }}
+          {{ weightUnit }}
+        </div>
+        <div *ngIf="totalOrderValue" class="col-xl-auto col-lg-auto col-auto">
+          <div class="pw-tertiary-color">
+            {{ 'pw.newCustomerOrder.totalOrderValueLabel' | translate }}
+          </div>
+          {{ totalOrderValue | currencyFormatter }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="pw-top-menu">
+  <div class="pw-top-menu__left-menu flex-row justify-content-start">
+    <ul role="navigation" class="d-flex flex-row">
+      <ng-container>
+        <li>
+          <a
+            *ngIf="appType === appTypesEnum.POSS && !isBtqUser"
+            class="nav-link"
+            [class.is-active]="router.isActive('home'.split('/')[0], false)"
+            title="{{ 'pw.navigation.home' | translate }}"
+            [href]="hostname + '/eposs/home'"
+            ><span class="nav-link-inner"
+              >{{ 'pw.navigation.home' | translate }}</span
+            >
+          </a>
+          <a
+            *ngIf="(appType === appTypesEnum.POSS && !!isBtqUser) || (appType === appTypesEnum.EPOSS && !!isBtqUser)"
+            class="nav-link"
+            [class.is-active]="router.isActive('home'.split('/')[0], false)"
+            title="{{ 'pw.navigation.home' | translate }}"
+            [href]="hostname + '/poss/home'"
+            ><span class="nav-link-inner"
+              >{{ 'pw.navigation.home' | translate }}</span
+            >
+          </a>
+          <a
+            *ngIf="appType === appTypesEnum.EPOSS && !isBtqUser"
+            class="nav-link"
+            [class.is-active]="router.isActive('home'.split('/')[0], false)"
+            title="{{ 'pw.navigation.home' | translate }}"
+            [routerLink]="'home'"
+            ><span class="nav-link-inner"
+              >{{ 'pw.navigation.home' | translate }}</span
+            >
+          </a>
+        </li>
+      </ng-container>
+
+      <!-- <ng-container *ngFor="let sideNavItem of sidenavSecondary">
+        <ng-container *ngIf="sideNavItem.external; else internalMenuItem">
+          <li *possWebPermission="getPermissions(sideNavItem.permission)">
+            <a
+              class="nav-link"
+              [class.is-active]="
+                router.isActive(sideNavItem.url.split('/')[0], false)
+              "
+              title="{{ sideNavItem.translatedName | translate }}"
+              [href]="hostname + '/' + sideNavItem.url"
+              ><span class="nav-link-inner"
+                >{{ sideNavItem.translatedName | translate }}</span
+              ></a
+            >
+          </li>
+        </ng-container>
+        <ng-template #internalMenuItem>
+          <li *possWebPermission="getPermissions(sideNavItem.permission)">
+            <a
+              class="nav-link"
+              [class.is-active]="
+                router.isActive(sideNavItem.url.split('/')[0], false)
+              "
+              title="{{ sideNavItem.translatedName | translate }}"
+              [routerLink]="sideNavItem.url"
+              ><span class="nav-link-inner"
+                >{{ sideNavItem.translatedName | translate }}</span
+              ></a
+            >
+          </li>
+        </ng-template>
+      </ng-container> -->
+    </ul>
+  </div>
+
+  <div class="pw-top-menu__right-menu d-flex flex-row justify-content-end">
+    <span class="pw-top-menu__right-item">{{ hostNameData }}</span>
+    <!-- <button mat-icon-button class="pw-top-menu__right-item">
+      <mat-icon>
+        <span class="pw-i-24 pw-dashboard-icon-24"></span>
+      </mat-icon>
+    </button> -->
+
+    <button
+      [matMenuTriggerFor]="menu"
+      mat-icon-button
+      class="pw-top-menu__right-item"
+    >
+      <mat-icon
+        [ngClass]="
+          notificationsCount > 99
+            ? 'pw-badge-container-for-bigger-number'
+            : 'pw-badge-container'
+        "
+        matBadge="{{ notificationsCount | shortNumber }}"
+        matBadgeColor="warn"
+        matBadgePosition="above after"
+        matBadgeSize="small"
+        [matBadgeHidden]="isNotificationBadgeHidden()"
+      >
+        <span class="pw-i-24 pw-bell-black-icon-24"></span>
+      </mat-icon>
+    </button>
+
+    <mat-menu
+      #menu="matMenu"
+      class="pw-menu-profile pw-menu-list pw-menu-notification"
+    >
+      <!-- <poss-web-sse-notifications></poss-web-sse-notifications> -->
+      <poss-web-notifications></poss-web-notifications>
+    </mat-menu>
+
+    <div class="pw-top-menu__right-item">
+      <a class="pw-top-menu__profile" [matMenuTriggerFor]="profileMenu">
+        <span class="pw-i-24 pw-user-icon-24"></span>
+        <span
+          *ngIf="shortcutService.shortcutEnable"
+          class="pw-top-menu__profile-badge"
+        ></span>
+      </a>
+
+      <mat-menu #profileMenu="matMenu" class="pw-menu-profile">
+        <div class="pw-menu-profile__middle-section">
+          <!-- <div mat-menu-item class="pw-menu-profile__item">
+            <div class="pw-font-weight-bold">
+              <span class="pw-i-16 pw-settings-icon-16"></span> Settings
+            </div>
+          </div> -->
+          <div mat-menu-item class="pw-menu-profile__item">
+            <div class="">
+              {{ 'pw.navigation.shortcutModes' | translate }}
+              <mat-slide-toggle
+                class="toggle pw-shortcut-key pw-mat-slide-toggle"
+                (change)="toggleShortcut()"
+                [checked]="shortcutService.shortcutEnable"
+              ></mat-slide-toggle>
+            </div>
+          </div>
+          <div
+            mat-menu-item
+            class="pw-menu-profile__item"
+            (click)="showAbout()"
+          >
+            <div class="">{{ 'pw.navigation.about' | translate }}</div>
+          </div>
+        </div>
+        <div class="pw-menu-profile__bottom-section">
+          <div
+            (click)="logout.emit()"
+            mat-menu-item
+            class="pw-menu-list__item pw-font-weight-bold"
+          >
+            <span class="pw-i-16 pw-logout-icon-16"></span
+            >{{'pw.navigation.logOut' | translate }}
+          </div>
+        </div>
+      </mat-menu>
+
+      <a [routerLink]="['/user-profile']">
+        <span matTooltip="{{ fullName }}" class="pw-top-menu__profile-text"
+          >{{ username }}</span
+        >
+      </a>
+      <a *ngIf="locationCode" class="pw-top-menu__location">
+        <span class="pw-top-menu__location_text"
+          >{{ 'pw.navigation.location' | translate }} : {{ locationCode }}</span
+        >
+      </a>
+    </div>
+  </div>
+</div>

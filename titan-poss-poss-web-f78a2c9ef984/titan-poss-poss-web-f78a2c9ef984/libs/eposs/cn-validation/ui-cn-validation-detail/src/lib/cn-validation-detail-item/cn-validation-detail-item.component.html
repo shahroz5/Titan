@@ -1,0 +1,344 @@
+<div *ngIf="cnValidation$ | async">
+  <form [formGroup]="cnValidationForm" novalidate autocomplete="off">
+    <div class="pw-form-card">
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>{{
+            'pw.cnValidation.configNameLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            formControlName="configName"
+            required
+            name="nameWithSpaceField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('configName').errors &&
+              cnValidationForm.get('configName').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('configName').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <poss-web-select-dropdown
+          disableOptionCentering
+          class="col-4"
+          [placeholder]="'pw.cnValidation.creditNoteTypeLabel' | translate"
+          [control]="cnValidationForm.get('creditNoteType')"
+          [options]="cnTypes"
+          [required]="true"
+        >
+        </poss-web-select-dropdown>
+
+        <div
+          class="col-auto pw-form-card__right-container pw-form-card__align-center"
+        >
+          <poss-web-toggle-button
+            [formControl]="cnValidationForm.controls['isActive']"
+          >
+          </poss-web-toggle-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-form-card">
+      <div class="pw-font-weight-bold pw-form-card__item">
+        {{ 'pw.cnValidation.addDetailLabel' | translate }}
+      </div>
+      <div>
+        <mat-checkbox formControlName="isCancellationAllowed"></mat-checkbox>
+        {{ 'pw.cnValidation.cancellationAllowedLabel' | translate }}
+      </div>
+      <div class="row">
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.deductionRateLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="deductionRate"
+            name="percentageField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('deductionRate').errors &&
+              cnValidationForm.get('deductionRate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('deductionRate').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.criteriaDeductionRateLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="criteriaRate"
+            name="percentageField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('criteriaRate').errors &&
+              cnValidationForm.get('criteriaRate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('criteriaRate').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.residualValueLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="residualAmount"
+            possWebAmountInput
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('residualAmount').errors &&
+              cnValidationForm.get('residualAmount').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('residualAmount').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="pw-form-card__item">
+        <mat-checkbox formControlName="brandwiseTransferAllowed"></mat-checkbox>
+        {{ 'pw.cnValidation.brandWiseTransferAllowedLabel' | translate }}
+      </div>
+      <div class="pw-form-card__item">
+        <mat-checkbox
+          formControlName="boutiquewiseTransferAllowed"
+        ></mat-checkbox>
+        {{ 'pw.cnValidation.boutiqueWiseTrasferAllowedLabel' | translate }}
+      </div>
+      <div
+        class="pw-form-card__item"
+        *ngIf="
+          cnValidationForm.get('creditNoteType').value ===
+          configTypeEnumRef.ADVANCE
+        "
+      >
+        <mat-checkbox
+          formControlName="mergingGRFAllowed"
+          (change)="onMergeGRF($event)"
+        ></mat-checkbox>
+        {{ 'pw.cnValidation.diffrentCustomerAllowedLabel' | translate }}
+      </div>
+      <div
+        class=""
+        *ngIf="
+          cnValidationForm.get('creditNoteType').value ===
+            configTypeEnumRef.ADVANCE &&
+          cnValidationForm.get('mergingGRFAllowed').value === true
+        "
+      >
+        <div>Resultant Credit Note for GRF to be in the name of</div>
+        <br />
+        <mat-radio-group
+          class="row"
+          formControlName="isOnlyCNCustomerAllowedForMergeGRF"
+          [required]="cnValidationForm.get('mergingGRFAllowed').value === true"
+        >
+          <mat-radio-button value="true" class="col-auto"
+            >Credit Note Customer
+          </mat-radio-button>
+          <mat-radio-button value="false" class="col-auto"
+            >Any Customer(Credit Note Customers or Third
+            Customers)</mat-radio-button
+          >
+        </mat-radio-group>
+        <mat-error
+          *ngIf="
+            cnValidationForm.get('isOnlyCNCustomerAllowedForMergeGRF').errors &&
+            cnValidationForm.get('isOnlyCNCustomerAllowedForMergeGRF').errors
+              .errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              cnValidationForm.get('isOnlyCNCustomerAllowedForMergeGRF').errors
+                .errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </div>
+
+      <div
+        class="row align-items-center"
+        *ngIf="
+          cnValidationForm.get('creditNoteType').value ===
+          configTypeEnumRef.ADVANCE
+        "
+      >
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.grfResidualAmountLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="grfResidualAmount"
+            possWebAmountInput
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('grfResidualAmount').errors &&
+              cnValidationForm.get('grfResidualAmount').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('grfResidualAmount').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div
+        class="row pw-form-card__item"
+        *ngIf="
+          cnValidationForm.get('creditNoteType').value ===
+          configTypeEnumRef.ADVANCE
+        "
+      >
+        <div class="col-auto">
+          <mat-checkbox
+            formControlName="isPercentage"
+            (change)="onCheckboxChange($event)"
+          ></mat-checkbox>
+          {{ 'pw.cnValidation.isPercentageLabel' | translate }}
+        </div>
+      </div>
+      <div
+        class="row"
+        *ngIf="
+          cnValidationForm.get('creditNoteType').value ===
+          configTypeEnumRef.ADVANCE
+        "
+      >
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.grfResidualForceClosureLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="residualForceClosure"
+            possWebWeightInput
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('residualForceClosure').errors &&
+              cnValidationForm.get('residualForceClosure').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('residualForceClosure').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.ghsUtilisationLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="ghsUtilisation"
+            name="percentageField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('ghsUtilisation').errors &&
+              cnValidationForm.get('ghsUtilisation').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('ghsUtilisation').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-lg-4 col-6">
+          <mat-label>{{
+            'pw.cnValidation.ghsAmountTransferLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="ghsAmount"
+            possWebAmountInput
+          />
+          <mat-error
+            *ngIf="
+              cnValidationForm.get('ghsAmount').errors &&
+              cnValidationForm.get('ghsAmount').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnValidationForm.get('ghsAmount').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-auto ml-auto">
+        <button
+          [disabled]="ruleId === 'new'"
+          class="pw-btn pw-primary-btn"
+          (click)="locationMapping()"
+        >
+          {{ 'pw.cnValidation.locationMappingLabel' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="pw-btn pw-accent-btn" (click)="saveDetail()">
+          {{ 'pw.cnValidation.saveLabel' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

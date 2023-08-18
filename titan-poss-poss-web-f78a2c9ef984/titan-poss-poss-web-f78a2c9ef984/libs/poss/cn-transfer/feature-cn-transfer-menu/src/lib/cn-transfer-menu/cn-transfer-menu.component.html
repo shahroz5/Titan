@@ -1,0 +1,40 @@
+<div class="pw-tab mt-4">
+  <ul class="pw-tab__list">
+    <li
+      class="pw-tab__list-item"
+      *possWebPermission="loadPermission(CN_SEARCH)"
+    >
+      <a
+        [class.pw-is-active-bar]="tab === cnTransferEnumRef.SEARCH"
+        (click)="changeTab(cnTransferEnumRef.SEARCH)"
+      >
+        <h5 class="pw-tab__item">
+          {{ 'pw.creditNote.cnActivityLabel' | translate }}
+        </h5>
+      </a>
+    </li>
+    <li class="pw-tab__list-item" *possWebPermission="loadPermission(CN_SENT)">
+      <a
+        [class.pw-is-active-bar]="tab === cnTransferEnumRef.SENT_REQUESTS"
+        (click)="changeTab(cnTransferEnumRef.SENT_REQUESTS)"
+      >
+        <h5 class="pw-tab__item">
+          {{ 'pw.creditNote.sentRequestLabel' | translate }}
+        </h5>
+      </a>
+    </li>
+    <li
+      class="pw-tab__list-item"
+      *possWebPermission="loadPermission(CN_RECEIVE)"
+    >
+      <a
+        [class.pw-is-active-bar]="tab === cnTransferEnumRef.RECEIVED_REQUESTS"
+        (click)="changeTab(cnTransferEnumRef.RECEIVED_REQUESTS)"
+      >
+        <h5 class="pw-tab__item">
+          {{ 'pw.creditNote.receiveRequestLabel' | translate }}
+        </h5>
+      </a>
+    </li>
+  </ul>
+</div>

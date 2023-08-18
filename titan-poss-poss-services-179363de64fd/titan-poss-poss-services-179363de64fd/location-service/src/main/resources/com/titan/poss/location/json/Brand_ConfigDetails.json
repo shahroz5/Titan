@@ -1,0 +1,14 @@
+{
+	"type": "CONFIG_DETAILS",
+	"data": {
+		"isInterbrandTEPAllowed": true,
+		"minUtilizationPercentageforGRN": 23,
+		"minUtilizationPercentageforGRF": 24,
+		"referCashPaymentConfig": "string",
+		"passwordConfigForCashDeposit": 78787,
+		"airpayPaymentExpiry": 2,
+		"razorpayPaymentExpiry": 2,
+		"isCustomerMandatoryForDigiGold ": true
+	}
+}
+

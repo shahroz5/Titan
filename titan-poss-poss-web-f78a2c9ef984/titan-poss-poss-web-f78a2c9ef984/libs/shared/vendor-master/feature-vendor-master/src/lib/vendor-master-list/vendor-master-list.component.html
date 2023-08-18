@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-product-master-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.vendorMaster.product' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.vendorMaster.attributes' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.vendorMaster.vendorMaster' | translate }}
+          </div>
+        </div>
+        <mat-form-field
+          class="col-3 ml-auto pw-form-field-padding-bottom-0 pw-search-bar"
+          [formGroup]="searchForm"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder="  {{
+              'pw.vendorMaster.searchByVendorCode' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="searchValue"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!searchForm.value.searchValue"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchForm.value.searchValue"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+      <poss-web-vendor-master-list-items
+        *ngIf="!invalidSearch"
+        [vendorMasterList]="vendorMasterList$ | async"
+        [count]="totalElements$ | async"
+        [pageEvent]="initialPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        (paginator)="loadPaginateData($event)"
+        (id)="openViewPage($event)"
+      ></poss-web-vendor-master-list-items>
+
+      <div
+        *ngIf="!(vendorMasterList$ | async).length || invalidSearch"
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">
+          {{ noDataFoundMessage }}
+        </h3>
+      </div>
+
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

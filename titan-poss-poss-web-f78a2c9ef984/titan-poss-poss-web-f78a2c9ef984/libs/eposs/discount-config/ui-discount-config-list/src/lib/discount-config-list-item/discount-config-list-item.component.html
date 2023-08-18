@@ -1,0 +1,198 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-xl-3 col-lg-3 col-5">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-6 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.discountCodeLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ discountConfig.discountCode }}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-6 col-lg-6 col-6 pr-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.occasionLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              discountConfig.occasion
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-6 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.lastModifiedDateLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ discountConfig.lastModifiedDate | dateFormatter }}</span
+            >
+          </p>
+        </div>
+      </div>
+      <div
+        class="row no-gutters pw-detail-card__row"
+        *ngIf="discountConfig.status === 'RUNNING'"
+      >
+        <div class="col-xl-6 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.statusLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ discountConfig.status }}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-7 pr-2">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-5 col-5">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.discountTypeLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ discountConfig.discountType }}
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-5 col-5">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.descriptionLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              discountConfig.description
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-5 col-5">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.createdDateLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ discountConfig.createdDate | dateFormatter }}</span
+            >
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-5 col-5">
+          <p class="pw-fourth-color">
+            {{ 'pw.discountConfig.lastModifiedBy' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ discountConfig.lastModifiedBy }}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto px-2 pw-position-top pw-detail-card__right-container">
+      <a (click)="openViewPage(discountConfig.id)" class="mr-2">
+        <span class="pw-detail-card__icon-text">{{
+          'pw.discountConfig.view' | translate
+        }}</span>
+      </a>
+      <a
+        *ngIf="
+          discountConfig.isActive === true && !discountConfig.isCreatedByWorkflow
+        "
+        (click)="selectedConfig(discountConfig.id)"
+        class="pw-fourth-color pw-pointer"
+      >
+        <span class="pw-detail-card__icon-text">{{
+          'pw.discountConfig.edit' | translate
+        }}</span>
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto px-0 pw-position-top align-self-center">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      >
+      </poss-web-toggle-button>
+    </div>
+    <div class="col-auto pr-2 pl-0 align-self-center">
+      <button
+        (click)="publish()"
+        [disabled]="!discountConfig.isPublishPending || discountConfig.isCreatedByWorkflow"
+        class="pw-btn pw-primary-btn"
+      >
+
+        {{
+          (discountConfig.isPublishPending
+            ? 'pw.focConfiguration.publishLabel'
+            : 'pw.focConfiguration.publishedLabel'
+          ) | translate
+        }}
+      </button>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div
+      class="col-auto ml-lg-auto align-self-center"
+      *ngIf="discountConfig.status === 'RUNNING'"
+    >
+      <span class="pw-detail-card__icon-text">Running Offer</span>
+    </div>
+  </div> -->
+</div>

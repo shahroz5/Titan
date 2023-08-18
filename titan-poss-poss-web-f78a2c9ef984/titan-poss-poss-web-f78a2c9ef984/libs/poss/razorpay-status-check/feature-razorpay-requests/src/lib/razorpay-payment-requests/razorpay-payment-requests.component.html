@@ -1,0 +1,272 @@
+<ng-container *ngIf="isLoggedIn">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="back()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div class="pw-top-heading-container__heading">
+                  Razorpay Status Check
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pw-tab">
+          <ul class="pw-tab__list">
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="tab === 'list'"
+                (click)="changeType('list')"
+              >
+                <h5 class="pw-tab__item">Requests</h5>
+              </a>
+            </li>
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="tab === 'history'"
+                (click)="changeType('history')"
+              >
+                <h5 class="pw-tab__item">Requests History</h5>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="tab === 'list'">
+          <div class="pw-detail-card" [formGroup]="requestListFormGroup">
+            <div class="pw-detail-card__heading">Search History</div>
+            <div class="row pw-detail-card__flex-end">
+              <mat-form-field class="col-lg-2 col-3">
+                <mat-label>Mobile Number</mat-label>
+                <input
+                  matInput
+                  formControlName="listMobileNo"
+                  type="text"
+                  class="pw-single-bordered-input"
+                  placeholder="Mobile Number"
+                  name="mobileField"
+                  possWebMaxLengthValidator
+                />
+                <mat-error
+                  *ngIf="
+                    requestListFormGroup.get('listMobileNo').errors &&
+                    requestListFormGroup.get('listMobileNo').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      requestListFormGroup.get('listMobileNo').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-lg-auto col-3">
+                <mat-label>Select Date</mat-label>
+                <input
+                  matInput
+                  class="pw-single-bordered-input"
+                  [matDatepicker]="datePicker"
+                  formControlName="date"
+                  [max]="bussinessDay"
+                  required
+                />
+                <mat-datepicker-toggle matSuffix [for]="datePicker">
+                  <mat-icon matDatepickerToggleIcon>
+                    <span class="pw-i-12 pw-calender-icon-12"></span>
+                  </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+              </mat-form-field>
+
+              <div class="col-auto pw-detail-card__right-container">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="search()"
+                  [disabled]="requestListFormGroup.invalid"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tab === 'history'">
+          <div class="pw-detail-card" [formGroup]="requestHistoryFormFroup">
+            <div class="pw-detail-card__heading">Search History</div>
+            <div class="row pw-detail-card__flex-end">
+              <mat-form-field class="col-lg-2 col-3">
+                <mat-label> Mobile Number</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="historyMobileNo"
+                  class="pw-single-bordered-input"
+                  name="mobileField"
+                  possWebMaxLengthValidator
+                />
+                <mat-error
+                  *ngIf="
+                    requestHistoryFormFroup.get('historyMobileNo').errors &&
+                    requestHistoryFormFroup.get('historyMobileNo').errors
+                      .errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      requestHistoryFormFroup.get('historyMobileNo').errors
+                        .errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+              <poss-web-fiscal-year
+                class="col-lg-2 col-3"
+                [control]="requestHistoryFormFroup.get('fiscalYear')"
+                [required]="false"
+                [currentFiscalYear]="currentFiscalYear"
+                [placeHolder]="
+                  'pw.creditNote.searchByFiscalYearLabel' | translate
+                "
+                [disabled]="false"
+              ></poss-web-fiscal-year>
+              <!-- <mat-form-field class="col-lg-2 col-3">
+              <mat-label>Fiscal Year</mat-label>
+              <input
+                matInput
+                formControlName="fiscalYear"
+                type="text"
+                class="pw-single-bordered-input"
+                name="fiscalYearField"
+                possWebMaxLengthValidator
+              />
+              <mat-error
+                *ngIf="
+                  requestHistoryFormFroup.get('fiscalYear').errors &&
+                  requestHistoryFormFroup.get('fiscalYear').errors.errorArray
+                "
+              >
+                <span
+                  *ngFor="
+                    let errorMesage of requestHistoryFormFroup.get('fiscalYear')
+                      .errors.errorArray;
+                    let i = index
+                  "
+                >
+                  <span *ngIf="i === 0"> {{ errorMesage }}</span>
+                  <poss-web-error-info-tooltip
+                    *ngIf="i > 0"
+                    [errorMessage]="errorMesage"
+                  ></poss-web-error-info-tooltip>
+                </span>
+              </mat-error>
+            </mat-form-field> -->
+              <mat-form-field class="col-lg-auto col-3">
+                <mat-label>Date Range</mat-label>
+                <mat-date-range-input
+                  [rangePicker]="picker"
+                  [max]="bussinessDay"
+                >
+                  <input
+                    matStartDate
+                    placeholder="From Date"
+                    formControlName="fromDate"
+                  />
+                  <input
+                    matEndDate
+                    placeholder="To Date"
+                    formControlName="toDate"
+                  />
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>
+                    <span class="pw-i-12 pw-calender-icon-12"></span>
+                  </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+
+                <mat-error
+                  *ngIf="
+                    requestHistoryFormFroup.get('fromDate').errors &&
+                    requestHistoryFormFroup.get('fromDate').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      requestHistoryFormFroup.get('fromDate').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    requestHistoryFormFroup.get('toDate').errors &&
+                    requestHistoryFormFroup.get('toDate').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      requestHistoryFormFroup.get('toDate').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+
+              <div class="col-auto pw-detail-card__right-container">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="search()"
+                  [disabled]="requestHistoryFormFroup.invalid"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="pw-tertiary-color pw-detail-card__heading">
+          Search Results
+        </h4>
+        <poss-web-razorpay-requests-list
+          [paymentsList]="paymentsList$ | async"
+          [listCount]="paymentListTotalCount$ | async"
+          [paymentsHistory]="paymentsHistory$ | async"
+          [historyCount]="paymentHistoryTotalCount$ | async"
+          [pageEvent]="listingPageEvent"
+          (paginator)="paginate($event)"
+          (verifyEmit)="verifyAirpayPayment($event)"
+          (generateCNEmit)="generateCN($event)"
+          [pageSizeOptions]="pageSizeOptions"
+          [minPageSize]="minPageSize"
+          [dateFormat]="dateFormat"
+          [tab]="tab"
+        >
+        </poss-web-razorpay-requests-list>
+      </div>
+    </div>
+  </div>
+  <poss-web-loader
+    *ngIf="(isSearchingCutsomer$ | async) || (isLoading$ | async)"
+  ></poss-web-loader>
+</ng-container>
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">Credit Note is generated successfully</h3>
+    <div class="pt-2"></div>
+    <h5 class="pw-success-color pt-2">
+      Credit Note Doc No:
+      {{ this.verificationResponse?.otherDetails?.data?.creditNoteDocNo }}
+    </h5>
+    <!-- <h4 class="pw-success-color" (click)="print()">
+    <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+  </h4> -->
+  </div>
+</ng-template>

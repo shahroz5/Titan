@@ -1,0 +1,7 @@
+{
+	"type": "EMAIL_VALIDATION",
+	"data": {
+		"relativeUrl": "email/emailvalidation/persistent/",
+		"httpMethod": "POST"
+	}
+}

@@ -1,0 +1,1729 @@
+{
+  "sidenav": [
+    {
+      "external": true,
+      "name": "User Management",
+      "icon": "pw-i-36 pw-master-icon-36",
+      "translatedName": "pw.navigation.userManagement",
+      "url": "eposs/uam/home",
+      "permission": {
+        "transactionCodes": ["U0", "U1", "U3", "U5", "U6", "U7", "U8", "U9"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "OFFLINE",
+      "children": [
+        {
+          "external": true,
+          "name": "User",
+          "translatedName": "pw.navigation.user",
+          "url": "eposs/uam/users",
+          "permission": {
+            "transactionCodes": ["U0", "U1"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "Role",
+          "translatedName": "pw.navigation.role",
+          "url": "eposs/uam",
+          "permission": {
+            "transactionCodes": ["U3", "U5", "U6", "U7"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "Access Control",
+          "translatedName": "pw.navigation.accessControl",
+          "url": "eposs/uam/access-control",
+          "permission": {
+            "transactionCodes": ["U8", "U9"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        }
+      ]
+    },
+    {
+      "external": true,
+      "name": "INVENTORY",
+      "icon": "pw-i-36 pw-inventory-icon-36",
+      "translatedName": "pw.navigation.inventory",
+      "url": "eposs/inventory/home",
+      "permission": {
+        "transactionCodes": [
+          "I0",
+          "I1",
+          "I2",
+          "I3",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8",
+          "I9",
+          "I10",
+          "I11",
+          "I12",
+          "I13",
+          "I14",
+          "I15",
+          "I16",
+          "I17",
+          "I18",
+          "I20",
+          "I21",
+          "I22",
+          "I23",
+          "I24",
+          "I26",
+          "I27",
+          "I28",
+          "I29",
+          "I30",
+          "I31",
+          "I32",
+          "I33",
+          "I39",
+          "I42",
+          "I43",
+          "I44",
+          "I45",
+          "I46",
+          "I47",
+          "I48",
+          "I49",
+          "I50",
+          "I51",
+          "I52",
+          "I53",
+          "I54",
+          "I55",
+          "I56",
+          "I57",
+          "I58",
+          "I59",
+          "I60",
+          "I61",
+          "I62",
+          "I63",
+          "I64",
+          "I65",
+          "I66",
+          "I67",
+          "I68",
+          "I70"
+        ],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "OFFLINE",
+      "children": [
+        {
+          "external": true,
+          "name": "Receive stock",
+          "translatedName": "pw.navigation.receiveStock",
+          "url": "eposs/inventory/stockreceive/allowedRoutes",
+          "permission": {
+            "transactionCodes": [
+              "I0",
+              "I1",
+              "I2",
+              "I27",
+              "I42",
+              "I43",
+              "I44",
+              "I45"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "icon": "pw-i-12 pw-receivestock-icon-12",
+          "children": [
+            {
+              "external": true,
+              "name": "Receive from Factory",
+              "translatedName": "pw.navigation.receiveFromFactory",
+              "url": "eposs/inventory/stockreceive/factory",
+              "permission": {
+                "transactionCodes": ["I0"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": true,
+              "name": "Receive from Other Boutiques",
+              "translatedName": "pw.navigation.receiveFromOtherBoutiques",
+              "url": "eposs/inventory/stockreceive/boutique",
+              "permission": {
+                "transactionCodes": ["I2"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": true,
+              "name": "Receive from Merchandise",
+              "translatedName": "pw.navigation.receiveFromMerchandise",
+              "url": "eposs/inventory/stockreceive/merchandise",
+              "permission": {
+                "transactionCodes": ["I27"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": true,
+              "name": "Receive from CFA",
+              "translatedName": "pw.navigation.receiveFromCFA",
+              "url": "eposs/inventory/stockreceive/cfa",
+              "permission": {
+                "transactionCodes": ["I1"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": true,
+              "name": "Receive Stock History",
+              "translatedName": "pw.navigation.receiveStockHistory",
+              "url": "eposs/inventory/stockreceive/history/allowedRoutes",
+              "permission": {
+                "transactionCodes": ["I42", "I43", "I44", "I45"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        },
+        {
+          "external": true,
+          "name": "Instock Management",
+          "translatedName": "pw.navigation.instockManagement",
+          "url": "eposs/inventory/instock/home",
+          "permission": {
+            "transactionCodes": [
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I7",
+              "I8",
+              "I9",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I14",
+              "I15",
+              "I16",
+              "I17",
+              "I26",
+              "I28",
+              "I29",
+              "I30",
+              "I31",
+              "I32",
+              "I33",
+              "I46",
+              "I47",
+              "I48",
+              "I49",
+              "I50",
+              "I51",
+              "I52",
+              "I53",
+              "I54",
+              "I55",
+              "I56",
+              "I57",
+              "I58",
+              "I59",
+              "I60",
+              "I61",
+              "I70"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "icon": "pw-i-12 pw-instock-icon-12",
+          "children": [
+            {
+              "external": true,
+              "name": "Bin to Bin Transfer",
+              "translatedName": "pw.navigation.binToBinTransfer",
+              "permission": {
+                "transactionCodes": ["I3", "I46"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "url": "eposs/inventory/instock/bintobinTransfer/type"
+            },
+            {
+              "external": true,
+              "name": "Request IBT (Ll/L2)",
+              "translatedName": "pw.navigation.requestIBTL1L2",
+              "permission": {
+                "transactionCodes": ["I4", "I5", "I47", "I48"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "url": "eposs/inventory/instock/inter-boutique-transfer/requestType"
+            },
+            {
+              "external": true,
+              "name": "Bin Details",
+              "translatedName": "pw.navigation.binDetails",
+              "permission": {
+                "transactionCodes": ["I61"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "url": "eposs/inventory/instock/binCreation/binHistory"
+            },
+            {
+              "external": true,
+              "name": "Conversion",
+              "translatedName": "pw.navigation.conversion",
+              "permission": {
+                "transactionCodes": ["I6", "I7", "I49", "I50"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "url": "eposs/inventory/instock/conversion/search"
+            },
+            {
+              "external": true,
+              "name": "Other Issues",
+              "translatedName": "pw.navigation.otherIssues",
+              "permission": {
+                "transactionCodes": ["I12", "I13", "I14", "I15", "I16", "I26"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "url": "eposs/inventory/instock/other-receipts-issues-list/list/type/issues",
+              "children": [
+                {
+                  "external": true,
+                  "name": "Exhibition",
+                  "translatedName": "pw.navigation.exhibition",
+                  "permission": {
+                    "transactionCodes": ["I15"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherissues/create/Exhibition/allProducts"
+                },
+                {
+                  "external": true,
+                  "name": "Loan",
+                  "translatedName": "pw.navigation.loan",
+                  "permission": {
+                    "transactionCodes": ["I13"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherissues/create/Loan/allProducts"
+                },
+                {
+                  "external": true,
+                  "name": "Adjustment",
+                  "translatedName": "pw.navigation.adjustment",
+                  "permission": {
+                    "transactionCodes": ["I12"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherissues/Adjustment"
+                },
+                {
+                  "external": true,
+                  "name": "PSV",
+                  "translatedName": "pw.navigation.psv",
+                  "permission": {
+                    "transactionCodes": ["I16"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherissues/PSV"
+                },
+                {
+                  "external": true,
+                  "name": "Loss",
+                  "translatedName": "pw.navigation.loss",
+                  "permission": {
+                    "transactionCodes": ["I14"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherissues/create/Loss/allProducts"
+                },
+                {
+                  "external": true,
+                  "name": "FOC",
+                  "translatedName": "pw.navigation.foc",
+                  "permission": {
+                    "transactionCodes": ["I26"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherissues/FOC"
+                }
+              ]
+            },
+            {
+              "external": true,
+              "name": "Other Receipts",
+              "translatedName": "pw.navigation.otherReceipts",
+              "permission": {
+                "transactionCodes": ["I8", "I9", "I10", "I11"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "url": "eposs/inventory/instock/other-receipts-issues-list/list/type/receipts",
+              "children": [
+                {
+                  "external": true,
+                  "name": "Adjustment",
+                  "translatedName": "pw.navigation.adjustment",
+                  "permission": {
+                    "transactionCodes": ["I8"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherreceipts/Adjustment"
+                },
+                {
+                  "external": true,
+                  "name": "PSV",
+                  "translatedName": "pw.navigation.psv",
+                  "permission": {
+                    "transactionCodes": ["I11"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  },
+                  "url": "eposs/inventory/instock/otherreceipts/PSV"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "external": true,
+          "name": "Issue Stock (L1/L2)",
+          "translatedName": "pw.navigation.issueStockL1L2",
+          "url": "eposs/inventory/stockissue/L1L2type",
+          "permission": {
+            "transactionCodes": [
+              "I18",
+              "I20",
+              "I21",
+              "I22",
+              "I23",
+              "I24",
+              "I62",
+              "I64",
+              "I65",
+              "I66",
+              "I67",
+              "I68"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "icon": "pw-i-12 pw-receivestock-icon-12"
+        },
+        {
+          "external": true,
+          "name": "Issue Stock (L3)",
+          "translatedName": "pw.navigation.issueStockL3",
+          "url": "eposs/inventory/stockissue/L3type",
+          "permission": {
+            "transactionCodes": [
+              "I39",
+              "I22",
+              "I23",
+              "I24",
+              "I63",
+              "I66",
+              "I67",
+              "I68"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "icon": "pw-i-12 pw-receivestock-icon-12"
+        }
+      ]
+    },
+    {
+      "external": false,
+      "name": "Configuration",
+      "icon": "pw-i-36 pw-configuration-icon-36",
+      "translatedName": "pw.navigation.configuration",
+      "url": "configuration/home",
+      "permission": {
+        "transactionCodes": ["C68", "C69"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "",
+      "children": [
+        {
+          "external": false,
+          "name": "Global Configuration",
+          "translatedName": "pw.navigation.globalconfiguration",
+          "url": "configuration/home",
+          "permission": {
+            "transactionCodes": ["C68", "C69"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "children": [
+            {
+              "external": false,
+              "name": "Printer configuration",
+              "translatedName": "pw.navigation.printerConfiguration",
+              "url": "configuration/printer-config",
+              "permission": {
+                "transactionCodes": ["C68", "C69"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "external": false,
+      "name": "Master",
+      "icon": "pw-i-36 pw-master-icon-36",
+      "translatedName": "pw.navigation.master",
+      "url": "master/home",
+      "permission": {
+        "transactionCodes": [
+          "S1",
+          "M51",
+          "M52",
+          "M97",
+          "M98",
+          "M131",
+          "M132",
+          "M135",
+          "M136"
+        ],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "",
+      "children": [
+        {
+          "external": false,
+          "name": "Boutique Masters",
+          "translatedName": "pw.navigation.boutiqueMasters",
+          "url": "master/home",
+          "permission": {
+            "transactionCodes": [
+              "M51",
+              "M52",
+              "M97",
+              "M98",
+              "M131",
+              "M132",
+              "M135",
+              "M136"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "children": [
+            {
+              "external": false,
+              "name": "Customer Town Master",
+              "translatedName": "pw.navigation.customerTownMaster",
+              "url": "master/boutique-masters/customer-town-list",
+              "permission": {
+                "transactionCodes": ["M51", "M52"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Catchment Master",
+              "translatedName": "pw.navigation.catchmentMaster",
+              "url": "master/boutique-masters/catchment-list",
+              "permission": {
+                "transactionCodes": ["M97", "M98"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Item Master",
+              "translatedName": "pw.navigation.itemMaster",
+              "url": "master/boutique-masters/item-list",
+              "permission": {
+                "transactionCodes": ["M131"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Stone Master",
+              "translatedName": "pw.navigation.stoneMaster",
+              "url": "master/boutique-masters/stone-list",
+              "permission": {
+                "transactionCodes": ["M132"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Metal Rate Update",
+              "translatedName": "pw.navigation.metalRateUpdate",
+              "url": "master/boutique-masters/update-metal-rates",
+              "permission": {
+                "transactionCodes": ["M135", "M136"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        },
+        {
+          "external": false,
+          "name": "Company Related",
+          "translatedName": "pw.navigation.companyRelated",
+          "url": "master/home",
+          "permission": {
+            "transactionCodes": ["S1"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "children": [
+            {
+              "external": false,
+              "name": "Bank Priority",
+              "translatedName": "pw.navigation.bankPriority",
+              "url": "master/company-related/bank-priority-list",
+              "permission": {
+                "transactionCodes": ["S1"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "external": false,
+      "name": "SALES",
+      "icon": "pw-i-36 pw-bank-deposit-icon-36",
+      "translatedName": "pw.navigation.sales",
+      "url": "sales/home",
+      "permission": {
+        "transactionCodes": [
+          "S",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S8",
+          "S9",
+          "S12",
+          "S13",
+          "S14",
+          "S15",
+          "S16",
+          "S27",
+          "S28",
+          "S29",
+          "S30",
+          "S31",
+          "S32",
+          "S33",
+          "S41",
+          "S42",
+          "S43",
+          "S44",
+          "S45",
+          "S46",
+          "S47",
+          "S48",
+          "S49",
+          "S51",
+          "S52",
+          "S61",
+          "S62",
+          "S63",
+          "S64",
+          "S65",
+          "S66",
+          "S67",
+          "S68",
+          "S69",
+          "S70",
+          "S71",
+          "S72",
+          "S73",
+          "S74",
+          "S79",
+          "S80",
+          "S81",
+          "S82",
+          "S83",
+          "S84",
+          "S85",
+          "S86",
+          "S90",
+          "S91",
+          "S92",
+          "S93"
+        ],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "",
+      "children": [
+        {
+          "external": false,
+          "name": "Customer Transaction",
+          "translatedName": "pw.navigation.customerTransaction",
+          "url": "sales/home",
+          "permission": {
+            "transactionCodes": [
+              "S",
+              "S2",
+              "S3",
+              "S4",
+              "S5",
+              "S6",
+              "S7",
+              "S8",
+              "S9",
+              "S12",
+              "S13",
+              "S14",
+              "S15",
+              "S16",
+              "S27",
+              "S28",
+              "S29",
+              "S30",
+              "S31",
+              "S32",
+              "S33",
+              "S41",
+              "S42",
+              "S43",
+              "S44",
+              "S45",
+              "S46",
+              "S47",
+              "S48",
+              "S52",
+              "S73",
+              "S74",
+              "S79",
+              "S80",
+              "S81",
+              "S82",
+              "S83",
+              "S84",
+              "S85",
+              "S86",
+              "S90",
+              "S91",
+              "S92",
+              "S93"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "children": [
+            {
+              "external": false,
+              "name": "Gift Cards",
+              "translatedName": "pw.navigation.giftCards",
+              "url": "sales/gift-cards/sale/new",
+              "permission": {
+                "transactionCodes": ["S13", "S14", "S15", "S16"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "Sale",
+                  "translatedName": "pw.navigation.sale",
+                  "url": "sales/gift-cards/sale/new",
+                  "permission": {
+                    "transactionCodes": ["S13"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Balance Inquiry",
+                  "translatedName": "pw.navigation.balanceInquiry",
+                  "url": "sales/gift-cards/balance-inquiry",
+                  "permission": {
+                    "transactionCodes": ["S15", "S16"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Cancellation",
+                  "translatedName": "pw.navigation.cancellation",
+                  "url": "sales/gift-cards/cancellation",
+                  "permission": {
+                    "transactionCodes": ["S14"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "Accept Advance",
+              "translatedName": "pw.navigation.acceptAdvance",
+              "url": "sales/ct-advance/accept-advance/new",
+              "permission": {
+                "transactionCodes": ["S79", "S80", "S81", "S82", "S91"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "Accept Advance",
+                  "translatedName": "pw.navigation.acceptAdvance",
+                  "url": "sales/ct-advance/accept-advance/new",
+                  "permission": {
+                    "transactionCodes": ["S79", "S80", "S81", "S82"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Manual Accept Advance",
+                  "translatedName": "pw.navigation.manualAcceptAdvance",
+                  "url": "sales/ct-advance/manual-accept-advance",
+                  "permission": {
+                    "transactionCodes": ["S79", "S80", "S81", "S82"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "History",
+                  "translatedName": "pw.navigation.acceptAdvanceHistory",
+                  "url": "sales/ct-advance/history",
+                  "permission": {
+                    "transactionCodes": ["S91"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "GRF",
+              "translatedName": "pw.navigation.grf",
+              "url": "sales/grf/new-grf",
+              "permission": {
+                "transactionCodes": ["S83", "S84", "S85", "S86", "S92", "S93"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "New GRF",
+                  "translatedName": "pw.navigation.newGrf",
+                  "url": "sales/grf/new-grf",
+                  "permission": {
+                    "transactionCodes": ["S83", "S84", "S85", "S86"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Merge GRF",
+                  "translatedName": "pw.navigation.mergeGrf",
+                  "url": "sales/grf/merge-grf",
+                  "permission": {
+                    "transactionCodes": ["S93"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "History",
+                  "translatedName": "pw.navigation.grfHistory",
+                  "url": "sales/grf/history",
+                  "permission": {
+                    "transactionCodes": ["S92"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "GEP",
+              "translatedName": "pw.navigation.gep",
+              "url": "sales/gep/new",
+              "permission": {
+                "transactionCodes": [
+                  "S8",
+                  "S27",
+                  "S28",
+                  "S29",
+                  "S30",
+                  "S31",
+                  "S32",
+                  "S33"
+                ],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "New Gep",
+                  "translatedName": "pw.navigation.newGep",
+                  "url": "sales/gep/new",
+                  "permission": {
+                    "transactionCodes": ["S27", "S28", "S29"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Manual Gep",
+                  "translatedName": "pw.navigation.manualGep",
+                  "url": "sales/gep/manual",
+                  "permission": {
+                    "transactionCodes": ["S30", "S31", "S32"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Cancel Gep",
+                  "translatedName": "pw.navigation.cancelGep",
+                  "url": "sales/gep/cancel",
+                  "permission": {
+                    "transactionCodes": ["S33"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Gep History",
+                  "translatedName": "pw.navigation.gepHistory",
+                  "url": "sales/gep/history",
+                  "permission": {
+                    "transactionCodes": ["S8"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "Cash Memo",
+              "translatedName": "pw.navigation.cashMemo",
+              "url": "sales/cash-memo/new",
+              "permission": {
+                "transactionCodes": [
+                  "S2",
+                  "S3",
+                  "S4",
+                  "S5",
+                  "S6",
+                  "S7",
+                  "S8",
+                  "S9",
+                  "S12"
+                ],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "New CM",
+                  "translatedName": "pw.navigation.newCM",
+                  "url": "sales/cash-memo/new",
+                  "permission": {
+                    "transactionCodes": [
+                      "S2",
+                      "S3",
+                      "S4",
+                      "S5",
+                      "S6",
+                      "S7",
+                      "S8"
+                    ],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Manual Bill",
+                  "translatedName": "pw.navigation.manualBill",
+                  "url": "sales/cash-memo/manual-bill/new",
+                  "permission": {
+                    "transactionCodes": ["S9"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "History",
+                  "translatedName": "pw.navigation.history",
+                  "url": "sales/cash-memo/history",
+                  "permission": {
+                    "transactionCodes": ["S12"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "Goods Return Note",
+              "translatedName": "pw.navigation.grnLabel",
+              "url": "sales/grn/status",
+              "permission": {
+                "transactionCodes": [
+                  "S2",
+                  "S3",
+                  "S4",
+                  "S5",
+                  "S6",
+                  "S7",
+                  "S8",
+                  "S9",
+                  "S12"
+                ],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "GRN and Status",
+                  "translatedName": "pw.navigation.grnStatusLabel",
+                  "url": "sales/grn/status",
+                  "permission": {
+                    "transactionCodes": ["S75", "S76", "S77", "S78"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "History",
+                  "translatedName": "pw.navigation.history",
+                  "url": "sales/grn/history",
+                  "permission": {
+                    "transactionCodes": ["S78"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "Advance Booking",
+              "translatedName": "pw.navigation.advanceBooking",
+              "url": "sales/advance-booking/new",
+              "permission": {
+                "transactionCodes": [
+                  "S41",
+                  "S42",
+                  "S43",
+                  "S44",
+                  "S45",
+                  "S46",
+                  "S47",
+                  "S52",
+                  "S48"
+                ],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "New AB",
+                  "translatedName": "pw.navigation.newAB",
+                  "url": "sales/advance-booking/new",
+                  "permission": {
+                    "transactionCodes": [
+                      "S41",
+                      "S42",
+                      "S43",
+                      "S44",
+                      "S45",
+                      "S46",
+                      "S47",
+                      "S52"
+                    ],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Search AB",
+                  "translatedName": "pw.navigation.searchAB",
+                  "url": "sales/advance-booking/search",
+                  "permission": {
+                    "transactionCodes": [
+                      "S41",
+                      "S42",
+                      "S43",
+                      "S44",
+                      "S45",
+                      "S46",
+                      "S47",
+                      "S52"
+                    ],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Manual AB",
+                  "translatedName": "pw.navigation.manualAB",
+                  "url": "sales/advance-booking/manual/new",
+                  "permission": {
+                    "transactionCodes": ["S48"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "Bill Cancellation",
+              "translatedName": "pw.navigation.billCancellation",
+              "url": "sales/bill-cancellation",
+              "permission": {
+                "transactionCodes": ["S73", "S74", "S90"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "Bill Cancel",
+                  "translatedName": "pw.navigation.billCancel",
+                  "url": "sales/bill-cancellation",
+                  "permission": {
+                    "transactionCodes": ["S73", "S74"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Requests Status",
+                  "translatedName": "pw.navigation.requestsStatus",
+                  "url": "sales/bill-cancellation/requests",
+                  "permission": {
+                    "transactionCodes": ["S73", "S74"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Bill Cancellation History",
+                  "translatedName": "pw.navigation.billCancellationHistory",
+                  "url": "sales/bill-cancellation/history",
+                  "permission": {
+                    "transactionCodes": ["S90"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "TEP",
+              "translatedName": "pw.navigation.tep",
+              "url": "sales/tep/create-tep/new",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              },
+              "children": [
+                {
+                  "external": false,
+                  "name": "Create TEP",
+                  "translatedName": "pw.navigation.createTep",
+                  "url": "sales/tep/create-tep/new",
+                  "permission": {
+                    "transactionCodes": ["S"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Cut Piece TEP",
+                  "translatedName": "pw.navigation.cutPieceTep",
+                  "url": "sales/tep/cut-piece-tep/new",
+                  "permission": {
+                    "transactionCodes": ["S"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Manual TEP",
+                  "translatedName": "pw.navigation.manualTep",
+                  "url": "sales/tep/manual-tep/new",
+                  "permission": {
+                    "transactionCodes": ["S"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "Cancel TEP",
+                  "translatedName": "pw.navigation.cancelTep",
+                  "url": "sales/tep/cancel-tep",
+                  "permission": {
+                    "transactionCodes": ["S"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                },
+                {
+                  "external": false,
+                  "name": "TEP History",
+                  "translatedName": "pw.navigation.tepHistory",
+                  "url": "sales/tep/tep-history",
+                  "permission": {
+                    "transactionCodes": ["S"],
+                    "authorisedStrategy": "",
+                    "unauthorisedStrategy": ""
+                  }
+                }
+              ]
+            },
+            {
+              "external": false,
+              "name": "Issue Pending FOC",
+              "translatedName": "pw.navigation.issuePendingFOC",
+              "url": "sales/pendingFoc",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        },
+        {
+          "external": false,
+          "name": "Credit Note",
+          "translatedName": "pw.navigation.creditNote",
+          "url": "sales/home",
+          "permission": {
+            "transactionCodes": [
+              "S61",
+              "S62",
+              "S63",
+              "S64",
+              "S65",
+              "S66",
+              "S67",
+              "S68",
+              "S69",
+              "S70",
+              "S71",
+              "S72"
+            ],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "children": [
+            {
+              "external": false,
+              "name": "Credit Note Transactions",
+              "translatedName": "pw.navigation.creditNoteTransactions",
+              "url": "sales/credit-notes/cn-activity",
+              "permission": {
+                "transactionCodes": [
+                  "S61",
+                  "S62",
+                  "S63",
+                  "S65",
+                  "S66",
+                  "S67",
+                  "S69",
+                  "S70",
+                  "S71",
+                  "S72"
+                ],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Credit Note IBT Transfer",
+              "translatedName": "pw.navigation.creditNoteIbtTransfer",
+              "url": "sales/credit-notes/transfer/search",
+              "permission": {
+                "transactionCodes": ["S64", "S68"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        },
+        {
+          "external": false,
+          "name": "Request Approvals Status",
+          "translatedName": "pw.navigation.requestApprovalsStatus",
+          "url": "sales/home",
+          "permission": {
+            "transactionCodes": ["S", "S49", "S51"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          },
+          "children": [
+            {
+              "external": false,
+              "name": "Manual bill Requests Status",
+              "translatedName": "pw.navigation.manualbillRequestsStatus",
+              "url": "sales/cm-requests/list",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "RO Requests Status",
+              "translatedName": "pw.navigation.roRequestsStatus",
+              "url": "sales/ro-request/list",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Airpay Requests Status",
+              "translatedName": "pw.navigation.airpayRequestsStatus",
+              "url": "sales/airpayRequests/list",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Airpay Requests History",
+              "translatedName": "pw.navigation.airpayRequestsHistory",
+              "url": "sales/airpayRequests/history",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Advance Booking Requests Status",
+              "translatedName": "pw.navigation.advanceBookingRequestsStatus",
+              "url": "sales/advance-booking/request-status",
+              "permission": {
+                "transactionCodes": ["S49", "S51"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "TEP Requests Status",
+              "translatedName": "pw.navigation.tepRequestsStatus",
+              "url": "sales/tep-request/refund-status",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Razorpay Requests Status",
+              "translatedName": "pw.navigation.razorpayRequestsStatus",
+              "url": "sales/razorpayRequests/list",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            },
+            {
+              "external": false,
+              "name": "Razorpay Requests History",
+              "translatedName": "pw.navigation.razorpayRequestsHistory",
+              "url": "sales/razorpayRequests/history",
+              "permission": {
+                "transactionCodes": ["S"],
+                "authorisedStrategy": "",
+                "unauthorisedStrategy": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "external": false,
+      "name": "Banking & Revenue",
+      "icon": "pw-i-36 pw-bank-revenue-icon-36",
+      "translatedName": "pw.navigation.bankingAndRevenue",
+      "url": "banking-revenue/home",
+      "permission": {
+        "transactionCodes": [
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "B10",
+          "S"
+        ],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "",
+      "children": [
+        {
+          "external": false,
+          "name": "View Todays Revenue",
+          "translatedName": "pw.navigation.viewTodaysRevenue",
+          "url": "banking-revenue/today",
+          "permission": {
+            "transactionCodes": ["B1"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "View Day Wise",
+          "translatedName": "pw.navigation.viewDayWiseRevenue",
+          "url": "banking-revenue/day-wise",
+          "permission": {
+            "transactionCodes": ["B2"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "PIF Series",
+          "translatedName": "pw.navigation.pifSeries",
+          "url": "home/banking-revenue/pif-series",
+          "permission": {
+            "transactionCodes": ["B3", "B4"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "Walk-ins",
+          "translatedName": "pw.navigation.walkIns",
+          "url": "banking-revenue/walk-ins-record",
+          "permission": {
+            "transactionCodes": ["B5", "B6"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "Bank Deposit At Boutique Level",
+          "translatedName": "pw.navigation.bankDepositAtBoutiqueLevel",
+          "url": "home/banking-revenue/bank-deposit",
+          "permission": {
+            "transactionCodes": ["B7", "B8"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "View Bank Deposit",
+          "translatedName": "pw.navigation.viewBankDepositLabel",
+          "url": "banking-revenue/view-bank-deposit",
+          "permission": {
+            "transactionCodes": ["B8"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "Bod Eod",
+          "translatedName": "pw.navigation.bodEod",
+          "url": "home/banking-revenue/bod-eod",
+          "permission": {
+            "transactionCodes": ["B9", "B10"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "GHS Offline BOD Password",
+          "translatedName": "pw.navigation.viewGenerateEghsOfflineBodPassword",
+          "url": "banking-revenue/eghs-offline-bod-list",
+          "permission": {
+            "transactionCodes": ["B9"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "eGHS Upload",
+          "translatedName": "pw.navigation.eGHSUpload",
+          "url": "home/banking/upload-eGHS",
+          "permission": {
+            "transactionCodes": ["S"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": false,
+          "name": "Service Poss Upload",
+          "translatedName": "pw.navigation.servicePossUpload",
+          "url": "home/banking/upload-service-poss",
+          "permission": {
+            "transactionCodes": ["S"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        }
+      ]
+    },
+    {
+      "external": false,
+      "name": "Digital Signature",
+      "icon": "pw-i-36 pw-master-icon-36",
+      "translatedName": "pw.navigation.digitalSignature",
+      "url": "digital-signature",
+      "permission": {
+        "transactionCodes": ["S95"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": ""
+    },
+    {
+      "external": false,
+      "name": "Update E-Invoice",
+      "icon": "pw-i-36 pw-master-icon-36",
+      "translatedName": "pw.navigation.updateEInvoice",
+      "url": "update-e-invoice",
+      "permission": {
+        "transactionCodes": ["S98", "S109"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "OFFLINE"
+    },
+    {
+      "external": true,
+      "name": "REPORTS",
+      "icon": "pw-i-36 pw-report-icon-36",
+      "translatedName": "pw.navigation.reports",
+      "url": "eposs/reports/home",
+      "permission": {
+        "transactionCodes": ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "OFFLINE",
+      "children": [
+        {
+          "external": true,
+          "name": "Generate Report",
+          "translatedName": "pw.navigation.generateReports",
+          "url": "eposs/reports/generate-report",
+          "permission": {
+            "transactionCodes": ["R2"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "Report List",
+          "translatedName": "pw.navigation.reportList",
+          "url": "eposs/reports/list",
+          "permission": {
+            "transactionCodes": ["R4"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "Report Settings",
+          "translatedName": "pw.navigation.reportSettings",
+          "url": "eposs/reports/settings/role",
+          "permission": {
+            "transactionCodes": ["R0", "R1"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "Report Auto Generation",
+          "translatedName": "pw.navigation.reportAutoGenearation",
+          "url": "eposs/reports/auto-generation",
+          "permission": {
+            "transactionCodes": ["R3", "R7"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "Report Role Mapping",
+          "translatedName": "pw.navigation.reportRoleMapping",
+          "url": "eposs/reports/role-mapping",
+          "permission": {
+            "transactionCodes": ["R5", "R6"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        }
+      ]
+    },
+    {
+      "external": true,
+      "name": "Files",
+      "icon": "pw-i-36 pw-file-icon-36",
+      "translatedName": "pw.navigation.files",
+      "url": "eposs/files/home",
+      "permission": {
+        "transactionCodes": ["F", "F9", "F10", "M"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "OFFLINE",
+      "children": [
+        {
+          "external": true,
+          "name": "File Uploads",
+          "translatedName": "pw.navigation.fileUploads",
+          "url": "eposs/files/data-upload",
+          "permission": {
+            "transactionCodes": ["F9", "F10"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        },
+        {
+          "external": true,
+          "name": "File Status",
+          "translatedName": "pw.navigation.fileStatus",
+          "url": "eposs/files/file-status-list",
+          "permission": {
+            "transactionCodes": ["F", "M"],
+            "authorisedStrategy": "",
+            "unauthorisedStrategy": ""
+          }
+        }
+      ]
+    },
+    {
+      "external": false,
+      "name": "Upgrade Version",
+      "icon": "pw-i-36 pw-master-icon-36",
+      "translatedName": "pw.navigation.upgradeVersion",
+      "url": "upgrade-version",
+      "permission": {
+        "transactionCodes": ["D1", "D2"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      },
+      "isOffline": "OFFLINE"
+    },
+    {
+      "external": false,
+      "name": "Help",
+      "icon": "pw-i-36 pw-master-icon-36",
+      "translatedName": "Help",
+      "url": "help/home",
+      "permission": {
+        "transactionCodes": ["M153", "M154"],
+        "authorisedStrategy": "",
+        "unauthorisedStrategy": ""
+      }
+    }
+  ]
+}

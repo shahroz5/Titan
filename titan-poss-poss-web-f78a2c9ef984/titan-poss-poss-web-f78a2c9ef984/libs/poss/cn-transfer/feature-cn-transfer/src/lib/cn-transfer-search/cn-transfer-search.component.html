@@ -1,0 +1,20 @@
+
+<poss-web-cn-search
+  [searchFormGroup]="searchFormGroup"
+  [selectedLocationDetails]="selectedLocationDetails"
+  [selectedDestiLocationDetails]="selectedDestiLocationDetails"
+  [loadPermission$]="permission$"
+  [currentFiscalYear]="currentFiscalYear"
+  (selectTransferMode)="onSelectTransferMode()"
+  (openSrcLocationPopup)="openLocationSelectionPopup()"
+  (openDestiLocationPopup)="openDestiLocationSelectionPopup()"
+  (searchForm)="search()"
+>
+</poss-web-cn-search>
+<poss-web-cn-transfer-search-list-grid
+  [searchResults]="cnSearchResults"
+  [searchResultsCount]="cnSearchResultsCount$ | async"
+  (cnDetails)="loadDetails($event)"
+  [destLocationCode]="selectedDestiLocationDetails?.id"
+></poss-web-cn-transfer-search-list-grid>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

@@ -1,0 +1,12 @@
+{
+	"type": "GRF_DETAILS",
+	"data": {
+		"minimumUtilization": "String",
+		"isGRFAllowed": true,
+		"isGRFAllowedInCM": true,
+		"isGRFAllowedInAdvanceBooking": true,
+		"isGRFAllowedInCustomerOrder": true,
+		"isMergeCNAllowed": true
+	}
+}
+

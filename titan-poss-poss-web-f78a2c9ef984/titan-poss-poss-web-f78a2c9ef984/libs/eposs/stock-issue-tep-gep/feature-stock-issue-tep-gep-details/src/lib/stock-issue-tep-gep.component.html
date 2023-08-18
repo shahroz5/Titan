@@ -1,0 +1,661 @@
+<div
+  class="container-fluid"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item justify-content-between">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-issue-stock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.stockIssueTepGep.title' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.stockIssueTepGep.factorySubTitle' | translate }}
+                  <span
+                    *ngIf="
+                      transferType === stockIssueTEPGEPTypesEnumRef.TEP_PLAIN
+                    "
+                    class="pw-seventh-color"
+                    >({{
+                      'pw.stockIssueTepGep.TEPSubTitle1' | translate
+                    }})</span
+                  >
+                  <span
+                    *ngIf="
+                      transferType === stockIssueTEPGEPTypesEnumRef.TEP_STUDDED
+                    "
+                    class="pw-seventh-color"
+                    >({{
+                      'pw.stockIssueTepGep.TEPSubTitle2' | translate
+                    }})</span
+                  >
+                  <span
+                    *ngIf="transferType === stockIssueTEPGEPTypesEnumRef.GEP"
+                    class="pw-seventh-color"
+                    >({{ 'pw.stockIssueTepGep.GEPSubTitle' | translate }})</span
+                  >
+                  <span
+                    *ngIf="
+                      transferType === stockIssueTEPGEPTypesEnumRef.BTQ_CFA
+                    "
+                    class="pw-seventh-color"
+                    >({{ 'pw.stockIssueTepGep.cfaSubTitle' | translate }})</span
+                  >
+                  <span
+                    *ngIf="
+                      transferType ===
+                      stockIssueTEPGEPTypesEnumRef.TEP_GOLD_COIN
+                    "
+                    class="pw-seventh-color"
+                    >({{
+                      'pw.stockIssueTepGep.TEPSubTitle3' | translate
+                    }})</span
+                  >
+                  <span
+                    *ngIf="
+                      transferType === stockIssueTEPGEPTypesEnumRef.DEFECTIVE
+                    "
+                    class="pw-seventh-color"
+                    >({{
+                      'pw.stockIssueTepGep.TEPSubTitle4' | translate
+                    }})</span
+                  >
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col-lg-3 col-md-4 col-6 pw-grid-card"
+            *ngIf="transferType !== stockIssueTEPGEPTypesEnumRef.BTQ_CFA"
+          >
+            <div class="pw-grid-card__item pw-is-active-bar">
+              <h4>{{ 'pw.stockIssueTepGep.toAddressText' | translate }}</h4>
+              <p>
+                {{ factoryAddress?.description }} ({{
+                  factoryAddress?.locationCode
+                }})
+              </p>
+              <p>{{ factoryAddress?.address }}</p>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-2 col-md-3 col-3"
+            *ngIf="transferType === stockIssueTEPGEPTypesEnumRef.BTQ_CFA"
+          >
+            <form [formGroup]="LocationCodeform">
+              <poss-web-select-dropdown
+                #typeDropdown
+                class="col-3"
+                [placeholder]="
+                  'pw.stockIssue.selectLocationCodeText' | translate
+                "
+                [control]="LocationCodeform.get('locationCodes')"
+                [options]="Locationcode"
+                [required]="true"
+                (selectionChange)="onLocationChanged($event)"
+              >
+              </poss-web-select-dropdown>
+            </form>
+          </div>
+          <div class="col-lg-2 col-md-3 col-3">
+            <div
+              *ngIf="
+                selectedProductsTabType ===
+                stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS
+              "
+            >
+              <div class="p-2">
+                <p>
+                  {{ 'pw.stockIssueTepGep.totalWeightLabelText' | translate }} :
+                  {{ totalMeasuredWeight | weightFormatter }}
+
+                  {{ weightUnit }}
+                </p>
+                <p class="pt-2">
+                  {{ 'pw.stockIssueTepGep.totalValueLabelText' | translate }} :
+                  {{ totalMeasuredValue | currencyFormatter: currencyCode }}
+                </p>
+                <p class="pt-2">
+                  {{ 'pw.stockIssueTepGep.totalQuantityLabelText' | translate }}
+                  :
+                  {{ totalQuantity }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- carrier details -->
+          <div class="col-lg-7 col-md-5 align-self-flex-end">
+            <div class="pb-2 pw-mont-semibold-14">
+              {{ 'pw.stockIssue.carrierDetailsText' | translate }}
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6 col-12">
+                <mat-radio-group
+                  aria-label="Select an option"
+                  required
+                  (change)="loadForm($event)"
+                >
+                  <mat-radio-button class="mr-3" value="3" checked>
+                    {{
+                      'pw.stockIssueTepGep.courierRadioButtonLabel' | translate
+                    }}</mat-radio-button
+                  >
+                  <mat-radio-button class="mr-3" value="4">
+                    {{
+                      'pw.stockIssueTepGep.handCarryRadioButtonLabel'
+                        | translate
+                    }}</mat-radio-button
+                  >
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="col-12">
+                  <div formArrayName="formCollection">
+                    <div *ngFor="let form of formList.controls; let i = index">
+                      <ng-container
+                        *ngIf="
+                          selectedFormName !==
+                            stockIssueTEPGEPCourierRBTypesEnumRef.HANDCARRY;
+                          else formTwoBlock
+                        "
+                        [formGroupName]="i"
+                      >
+                        <div class="row">
+                          <poss-web-select-dropdown
+                            #typeDropdown
+                            class="col-3"
+                            [placeholder]="
+                              'pw.stockIssue.selectCourierText' | translate
+                            "
+                            [control]="form.get('courierName')"
+                            [options]="courierDetails"
+                            [required]="true"
+                          >
+                          </poss-web-select-dropdown>
+                          <mat-form-field class="col-3">
+                            <input
+                              matInput
+                              placeholder="{{
+                                'pw.stockIssue.courierDocketNumberText'
+                                  | translate
+                              }}"
+                              formControlName="courierDocketNumber"
+                              required
+                              name="courierDocNoField"
+                              possWebMaxLengthValidator
+                            />
+
+                            <mat-error
+                              *ngIf="
+                                form.get('courierDocketNumber').errors &&
+                                form.get('courierDocketNumber').errors
+                                  .errorArray
+                              "
+                            >
+                              <poss-web-error-info-tooltip
+                                [errorMessage]="
+                                  form.get('courierDocketNumber').errors
+                                    .errorArray
+                                "
+                              ></poss-web-error-info-tooltip>
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="col-3">
+                            <input
+                              matInput
+                              class="pw-input-box"
+                              placeholder="{{
+                                'pw.stockIssue.courierPermitNumber' | translate
+                              }}"
+                              formControlName="courierRoadPermitNumber"
+                              name="courierRoadPermitNoField"
+                              possWebMaxLengthValidator
+                            />
+
+                            <mat-error
+                              *ngIf="
+                                form.get('courierRoadPermitNumber').errors &&
+                                form.get('courierRoadPermitNumber').errors
+                                  .errorArray
+                              "
+                            >
+                              <poss-web-error-info-tooltip
+                                [errorMessage]="
+                                  form.get('courierRoadPermitNumber').errors
+                                    .errorArray
+                                "
+                              ></poss-web-error-info-tooltip>
+                            </mat-error>
+                          </mat-form-field>
+                          <div class="col-3 align-self-center">
+                            <a
+                              class="pw-cta-button"
+                              (click)="boxDetailsPopup()"
+                            >
+                              <div
+                                class="pw-text-center"
+                                *ngIf="boxDetails_count == 0"
+                              >
+                                {{
+                                  'pw.stockIssue.boxDetailsLabelText'
+                                    | translate
+                                }}
+                              </div>
+                              <div
+                                class="pw-text-center"
+                                *ngIf="boxDetails_count == 1"
+                              >
+                                {{ boxDetails_count }}
+                                {{
+                                  'pw.stockIssue.boxAddedLabelText' | translate
+                                }}
+                              </div>
+                              <div
+                                class="pw-text-center"
+                                *ngIf="boxDetails_count > 1"
+                              >
+                                {{ boxDetails_count }}
+                                {{
+                                  'pw.stockIssue.boxesAddedLabelText'
+                                    | translate
+                                }}
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <ng-template #formTwoBlock [formGroupName]="i">
+                        <div class="row">
+                          <mat-form-field class="col-4">
+                            <input
+                              type="text"
+                              placeholder="Employee ID"
+                              aria-label="Number"
+                              matInput
+                              formControlName="employeeID"
+                              (input)="
+                                employeeIDChange(form.get('employeeID').value)
+                              "
+                              [matAutocomplete]="auto"
+                              required
+                              name="employeeCodeField"
+                              possWebMaxLengthValidator
+                            />
+                            <mat-autocomplete #auto="matAutocomplete">
+                              <mat-option
+                                *ngFor="let employeeCode of employeeCodes"
+                                [value]="employeeCode"
+                                (onSelectionChange)="
+                                  employeeIDSelected($event, employeeCode)
+                                "
+                              >
+                                {{ employeeCode }}
+                              </mat-option>
+                            </mat-autocomplete>
+
+                            <mat-error
+                              *ngIf="
+                                form.get('employeeID').errors &&
+                                form.get('employeeID').errors.errorArray
+                              "
+                            >
+                              <poss-web-error-info-tooltip
+                                [errorMessage]="
+                                  form.get('employeeID').errors.errorArray
+                                "
+                              ></poss-web-error-info-tooltip>
+                            </mat-error>
+                          </mat-form-field>
+
+                          <mat-form-field class="col-4">
+                            <input
+                              matInput
+                              class="pw-input-box"
+                              placeholder="{{
+                                'pw.stockIssue.employeeNameText' | translate
+                              }}"
+                              formControlName="employeeName"
+                              [readonly]="isReadOnly"
+                              required
+                              name="nameWithSpaceField"
+                              possWebMaxLengthValidator
+                            />
+
+                            <mat-error
+                              *ngIf="
+                                form.get('employeeName').errors &&
+                                form.get('employeeName').errors.errorArray
+                              "
+                            >
+                              <poss-web-error-info-tooltip
+                                [errorMessage]="
+                                  form.get('employeeName').errors.errorArray
+                                "
+                              ></poss-web-error-info-tooltip>
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="col-4">
+                            <input
+                              matInput
+                              class="pw-input-box"
+                              placeholder="{{
+                                'pw.stockIssue.mobileNoText' | translate
+                              }}"
+                              formControlName="employeeMobileNumber"
+                              [readonly]="isReadOnly"
+                              required
+                              name="mobileField"
+                              possWebMaxLengthValidator
+                            />
+
+                            <mat-error
+                              *ngIf="
+                                form.get('employeeMobileNumber').errors &&
+                                form.get('employeeMobileNumber').errors
+                                  .errorArray
+                              "
+                            >
+                              <poss-web-error-info-tooltip
+                                [errorMessage]="
+                                  form.get('employeeMobileNumber').errors
+                                    .errorArray
+                                "
+                              ></poss-web-error-info-tooltip>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- list-card-component -->
+        <div class="pw-filter-box">
+          <div class="row">
+            <div class="col-12">
+              <ul class="pw-filter-box__sub-head-lists">
+                <li class="pw-filter-box__list">
+                  <a
+                    [class.is-active]="
+                      selectedProductsTabType ===
+                      stockIssueTEPGEPTabTypesEnumRef.ALLPRODUCTS
+                    "
+                    (click)="
+                      changeProductsTab(
+                        stockIssueTEPGEPTabTypesEnumRef.ALLPRODUCTS
+                      )
+                    "
+                    class="pw-filter-box__heading"
+                  >
+                    {{ 'pw.stockIssue.listOfProductstabText' | translate }}
+                    <span class="pw-fourth-color"
+                      >({{ totalItemsCountDisplay }})</span
+                    >
+                  </a>
+                </li>
+                <li class="pw-filter-box__list">
+                  <a
+                    [class.is-active]="
+                      selectedProductsTabType ===
+                      stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS
+                    "
+                    (click)="
+                      changeProductsTab(
+                        stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS
+                      )
+                    "
+                    class="pw-filter-box__heading"
+                  >
+                    {{ 'pw.stockIssue.selectedProductsTabText' | translate }}
+                    <span class="pw-fourth-color"
+                      >({{ totalStockIssueItemsCountDisplay }})</span
+                    >
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-flex-end">
+          <div class="col-lg-7">
+            <!-- radio-buttons -->
+            <div class="row" [formGroup]="itemForm">
+              <mat-radio-group
+                class="col-auto"
+                aria-label="Select an option"
+                (change)="selectRadioButtonChange()"
+                formControlName="selectRadioButton"
+              >
+                <mat-radio-button
+                  *ngIf="
+                    selectedProductsTabType ===
+                    stockIssueTEPGEPTabTypesEnumRef.ALLPRODUCTS
+                  "
+                  class="mr-3"
+                  value="1"
+                  [disabled]="
+                    itemCode != null || filterDataItemsByMap.size != 0
+                  "
+                  ><p>
+                    {{ 'pw.stockIssue.selectAllRadioButtonText' | translate }}
+                  </p>
+                </mat-radio-button>
+                <mat-radio-button
+                  *ngIf="
+                    selectedProductsTabType ===
+                    stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS
+                  "
+                  class="mr-3"
+                  value="1"
+                  [disabled]="
+                    itemCode != null || filterDataStockIssueItemsByMap.size != 0
+                  "
+                  ><p>
+                    {{ 'pw.stockIssue.selectAllRadioButtonText' | translate }}
+                  </p>
+                </mat-radio-button>
+                <mat-radio-button value="2"
+                  ><p>
+                    {{
+                      'pw.stockIssue.selectCurrentPageRadioButtonText'
+                        | translate
+                    }}
+                  </p>
+                </mat-radio-button>
+              </mat-radio-group>
+              <div
+                *ngIf="selectedItemIds.length !== 0"
+                class="col-auto ml-auto ml-lg-0"
+              >
+                <a (click)="clearAll()">
+                  <p>
+                    <span class="pw-i-16 pw-clear-icon-16"></span>
+                    {{ 'pw.stockIssue.clearAllButtonText' | translate }}
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="row pw-filter-box__right-content">
+              <!-- filter -->
+              <div class="col-auto">
+                <a (click)="openFilter()">
+                  <p
+                    *ngIf="
+                      selectedProductsTabType ===
+                      stockIssueTEPGEPTabTypesEnumRef.ALLPRODUCTS
+                    "
+                  >
+                    <span
+                      *ngIf="filterDataItemsByMap.size === 0"
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="filterDataItemsByMap.size !== 0"
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockIssue.productFilterLable' | translate }}
+                  </p>
+                  <p
+                    *ngIf="
+                      selectedProductsTabType ===
+                      stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS
+                    "
+                  >
+                    <span
+                      *ngIf="filterDataStockIssueItemsByMap.size === 0"
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="filterDataStockIssueItemsByMap.size !== 0"
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockIssue.productFilterLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <!-- sort -->
+              <div class="col-auto">
+                <a (click)="openSort()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockIssue.sortLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <!-- search form -->
+              <poss-web-item-search
+                class="ml-auto ml-lg-0 col-lg-6 col-4"
+                placeholder="{{
+                  'pw.stockReceive.searchByVariantCodePlaceholderText'
+                    | translate
+                }}"
+                (search)="searchItems($event)"
+                (clear)="clearSearch()"
+              >
+              </poss-web-item-search>
+            </div>
+          </div>
+        </div>
+        <!-- loader -->
+        <poss-web-loader
+          *ngIf="
+            (isLoading$ | async) ||
+            (isCourierDetailsLoading$ | async) ||
+            (isFactoryAddressLoading$ | async) ||
+            (isEmployeeCodesLoading$ | async) ||
+            (isProductCategoriesLoading$ | async) ||
+            (isProductGroupsLoading$ | async) ||
+            (printingService.getPrinterIsLoading() | async) ||
+            (isLoadingImage$ | async)
+          "
+        >
+        </poss-web-loader>
+
+        <!-- no items -->
+        <div
+          *ngIf="
+            (isLoading$ | async) === false &&
+            (getStockIssueItems$ | async).length === 0 &&
+            selectedProductsTabType ===
+              stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS
+          "
+          class="pw-success-color pw-message pw-text-center mg-t-100"
+        >
+          {{ noDataFoundMessage }}
+        </div>
+        <div
+          *ngIf="
+            (isLoading$ | async) === false &&
+            (getItems$ | async).length === 0 &&
+            selectedProductsTabType ===
+              stockIssueTEPGEPTabTypesEnumRef.ALLPRODUCTS
+          "
+          class="pw-success-color pw-message pw-text-center mg-t-100"
+        >
+          {{ noDataFoundMessage }}
+        </div>
+
+        <!-- load items -->
+        <poss-web-stock-issue-tep-gep-item-list
+          *ngIf="
+            selectedProductsTabType ===
+            stockIssueTEPGEPTabTypesEnumRef.ALLPRODUCTS && loadTepGepItemList
+          "
+          [items]="getItems$"
+          [totalItemsCount]="totalItemsCount"
+          [pageEvent]="itemsPageEvent"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [dateFormat$]="dateFormat$"
+          [selectionEvents]="selectionAllObservable"
+          [isL3Store]="isL3Store"
+          (selection)="onSelectionEmit($event)"
+          (paginator)="itemsListPaginate($event)"
+          (loadImageEvent)="loadImageUrl($event, false)"
+        >
+        </poss-web-stock-issue-tep-gep-item-list>
+        <poss-web-stock-issue-tep-gep-item-list
+          *ngIf="
+            selectedProductsTabType ===
+            stockIssueTEPGEPTabTypesEnumRef.SELECTEDPRODUCTS && loadTepGepItemList
+          "
+          [items]="getStockIssueItems$"
+          [totalItemsCount]="totalStockIssueItemsCount"
+          [pageEvent]="stockIssueItemsPageEvent"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [dateFormat$]="dateFormat$"
+          [selectionEvents]="selectionAllSubject.asObservable()"
+          [isL3Store]="isL3Store"
+          (selection)="onSelectionEmit($event)"
+          (paginator)="stockIssueItemsListPaginate($event)"
+          (loadImageEvent)="loadImageUrl($event, true)"
+        >
+        </poss-web-stock-issue-tep-gep-item-list>
+
+        <ng-template #confirmSuccessNotificationTemplate>
+          <div class="pw-text-center">
+            <h3 class="pw-success-color">
+              {{ totalStockIssueItemsCount }}
+              {{
+                'pw.stockIssueNotificationMessages.confirmSuccessMessage1'
+                  | translate
+              }}
+            </h3>
+            <h5 class="pw-success-color pt-2">
+              {{
+                'pw.stockIssueNotificationMessages.confirmSuccessMessage3'
+                  | translate
+              }}
+              {{ srcDocNo }}
+            </h5>
+            <h4 class="pw-success-color pw-pointer" (click)="print()">
+              <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+            </h4>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-12 col-lg-1"></div>
+    </div>
+  </div>
+</div>

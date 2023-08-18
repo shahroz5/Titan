@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{
+                    'pw.abResidualToleranceDetails.customerTransactionLabel'
+                      | translate
+                  }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{
+                    'pw.abResidualToleranceDetails.configurationLabel'
+                      | translate
+                  }}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-auto pw-top-heading-container__right-content"
+            *possWebPermission="loadPermission(ADD_EDIT_PERMISSION)"
+          >
+            <button
+              class="pw-btn pw-accent-btn"
+              (click)="loadDetailPage('new')"
+            >
+              {{ 'pw.abResidualToleranceDetails.addNewLable' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <ng-container>
+        <div class="row pw-sub-header">
+          <div class="col-auto">
+            <div class="pw-sub-header__heading">
+              {{
+                'pw.abResidualToleranceDetails.abResidualWeightConifgLabel'
+                  | translate
+              }}
+            </div>
+          </div>
+
+          <poss-web-select-dropdown
+            class="col-lg-2 col-3 ml-auto pw-form-field-padding-bottom-0"
+            [control]="orderTypeFormControl"
+            [placeholder]="'Order Type'"
+            [options]="orderTypesArray"
+            [required]="true"
+          >
+          </poss-web-select-dropdown>
+
+          <mat-form-field
+            class="col-lg-3 col-4 pw-search-bar pw-form-field-padding-bottom-0"
+            [formGroup]="searchForm"
+          >
+            <input
+              #searchBox
+              matInput
+              type="text"
+              placeholder="Search"
+              class="single-bordered-input"
+              formControlName="searchValue"
+            />
+            <mat-icon matSuffix>
+              <span
+                *ngIf="!searchForm.value.searchValue"
+                class="pw-i-16 pw-search-icon-16"
+              ></span>
+            </mat-icon>
+            <mat-icon matSuffix (click)="clearSearch()">
+              <span
+                *ngIf="searchForm.value.searchValue"
+                class="pw-i-10 pw-close-icon-16"
+              ></span
+            ></mat-icon>
+          </mat-form-field>
+        </div>
+
+        <poss-web-redidual-weight-items-list
+          *ngIf="!invalidSearch"
+          [residualWeightItemList]="residualWeightConfigList$ | async"
+          [count]="totalElements$ | async"
+          [pageSizeOptions]="pageSizeOptions"
+          [permissions$]="permissions$"
+          [pageEvent]="initialPageEvent"
+          (configId)="loadDetailPage($event)"
+          (toggleValue)="updateToggle($event)"
+          (paginator)="loadPaginateData($event)"
+          (viewPage)="openViewPage($event)"
+        >
+        </poss-web-redidual-weight-items-list>
+      </ng-container>
+      <div
+        *ngIf="
+          ((isLoading$ | async) === false &&
+            !(residualWeightConfigList$ | async)?.length) ||
+          invalidSearch
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">
+          {{ noDataFoundMessage }}
+        </h3>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-location-icon-36"></span>
+
+              <div>
+                <h2>
+                  {{ 'pw.printerConfiguration.botiqueLabel' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.printerConfiguration.configurationLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3 mb-4 align-items-center">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.printerConfiguration.printerConfiguration' | translate }}
+          </div>
+        </div>
+        <div class="col-auto ml-auto">
+          <button
+            (click)="openAddPrinter()"
+            class="pw-btn pw-primary-btn pw-form-card__upload-btn"
+          >
+            {{ 'pw.printerConfiguration.addPrinter' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="pw-min-height">
+        <poss-web-printer-list
+          [PrinterList]="PrinterList"
+          [disable]="PrinterList.length == 0"
+          [printerNames]="printerNames"
+
+          [count]="count"
+          [pageEvent]="printerConfigPageEvent"
+          (paginator)="paginate($event)"
+          [pageSizeOptions]="pageSizeOptions"
+          [minPageSize]="minPageSize"
+          (sort)="sort($event)"
+          (deletePrinterEvent)="delete($event)"
+        ></poss-web-printer-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

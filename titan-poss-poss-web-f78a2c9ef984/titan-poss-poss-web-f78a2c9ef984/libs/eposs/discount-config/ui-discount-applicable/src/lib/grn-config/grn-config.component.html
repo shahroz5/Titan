@@ -1,0 +1,118 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="row">
+    <div class="col-6 col-lg-4" *ngIf="enableDaysOptionOfGRN">
+      <div>
+        {{ 'pw.discountApplicable.noDaysAfterOfferPeriodGRNLabel' | translate }}
+      </div>
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="col-auto pw-full-bordered-input-box"
+        >
+          <input matInput formControlName="daysAfterGRN" />
+
+          <mat-error
+            *ngIf="
+              form.get('daysAfterGRN').errors &&
+              form.get('daysAfterGRN').errors.errorArray
+            "
+            class="mt-2"
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('daysAfterGRN').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-6 col-lg-4" *ngIf="enableDaysOptionOfInvoice">
+      <div>
+        {{ 'pw.discountApplicable.noDaysAfterInvoiceLabel' | translate }}
+      </div>
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="col-auto pw-full-bordered-input-box"
+        >
+          <input matInput formControlName="daysAfterInvoice" />
+
+          <mat-error
+            *ngIf="
+              form.get('daysAfterInvoice').errors &&
+              form.get('daysAfterInvoice').errors.errorArray
+            "
+            class="mt-2"
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('daysAfterInvoice').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-5 col-lg-4" *ngIf="enableGrnPercentage">
+      <div>
+        {{ 'pw.discountApplicable.grnUtilizationPercentageLabel' | translate }}
+      </div>
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="col-auto pw-full-bordered-input-box"
+        >
+          <input matInput formControlName="grnUtilization" />
+
+          <mat-error
+            *ngIf="
+              form.get('grnUtilization').errors &&
+              form.get('grnUtilization').errors.errorArray
+            "
+            class="mt-2"
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('grnUtilization').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div
+      class="col-auto pt-3"
+      *ngIf="enableGRNApplicableOption"
+    >
+      <mat-checkbox formControlName="isGrnApplicable">
+        {{
+          'pw.discountApplicable.isGRNApplicable'
+            | translate
+        }}
+      </mat-checkbox>
+    </div>
+    <div
+      class="col-auto pt-3"
+      *ngIf="enableAllowedForGRNBeforeOfferPeriodOption"
+    >
+      <mat-checkbox formControlName="isAllowedForGRNBeforeOfferPeriod">
+        {{
+          'pw.discountApplicable.isAllowedForGRNBeforeOfferPeriodLabel'
+            | translate
+        }}
+      </mat-checkbox>
+    </div>
+
+    <div
+      class="col-auto pt-3"
+      *ngIf="
+        enableGRNSameCFAEligibleOption &&
+        this.form.value?.isAllowedForGRNBeforeOfferPeriod
+      "
+    >
+      <mat-checkbox formControlName="isSameCFAEligible">
+        {{ 'pw.discountApplicable.isSameCFAEligibleLabel' | translate }}
+      </mat-checkbox>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,31 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+package com.titan.poss.config.dto.request;
+
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+
+/**
+ * @author Mindtree Ltd.
+ * @version 1.0
+ */
+@Data
+public class DiscountLocationValidityDto {
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date offerStartDate;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date offerEndDate;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date previewStartDate;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date previewEndDate;
+}

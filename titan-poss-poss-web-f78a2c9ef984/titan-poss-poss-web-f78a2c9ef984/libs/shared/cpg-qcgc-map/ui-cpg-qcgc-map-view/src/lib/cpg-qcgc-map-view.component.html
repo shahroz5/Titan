@@ -1,0 +1,125 @@
+<form [formGroup]="cpgProductGroupConfigDetailsForm" (ngSubmit)="onSubmit()">
+  <div class="pw-min-height">
+    <div class="pw-form-card pw-form-card__margin-bottom-0">
+      <div class="row">
+        <div class="pw-form-card__margin-bottom col-5">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.cpgProductGroupConfig.cpgGroupName' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ cpgproductGroupConfigDetails.paymentCategoryName }}
+            </div>
+          </div>
+        </div>
+        <div class="pw-form-card__margin-bottom col-5">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.cpgProductGroupConfig.cpgGroupDescription' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ cpgproductGroupConfigDetails.description }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto pw-detail-card__right-container">
+          <poss-web-toggle-button
+            [isActive]="checked"
+            isDisabled="true"
+          ></poss-web-toggle-button>
+        </div>
+      </div>
+
+      <div class="row pw-form-card__margin-top pw-form-card__margin-bottom">
+        <div class="col-auto">
+          <div class="pw-form-card__margin-bottom col-12">
+            <div class="row">
+              <span class="pw-fourth-color">
+                {{
+                  'pw.cpgProductGroupConfig.isPartialRedumptionAllowed'
+                    | translate
+                }}
+              </span>
+              <div class="col-auto pw-form-card__padding-5">
+                <span> : </span>
+              </div>
+              <mat-checkbox
+                [checked]="partialRedemptionAllowed"
+                disabled="true"
+              >
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-12">
+          <div class="pw-grid-table">
+            <div class="pw-grid-table__background-header row">
+              <div class="pw-grid-table__header-item col-6">
+                {{ 'pw.cpgProductGroupConfig.cpgBinSeriesMapping' | translate }}
+              </div>
+              <div class="pw-grid-table__header-item col-6">
+                Is GHS eVoucher enabled?
+              </div>
+            </div>
+            <div formArrayName="cpgBinSeriesMapping">
+              <div
+                class="pw-grid-table__row"
+                *ngFor="
+                  let control of cpgBinSeriesMapping.controls;
+                  let rowIndex = index
+                "
+                [formGroupName]="rowIndex"
+              >
+                <div class="row m-0">
+                  <mat-form-field
+                    appearance="outline"
+                    class="col-6 pw-grid-table__header-item pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                  >
+                    <input
+                      matInput
+                      placeholder="000000000"
+                      formControlName="instrumentNo"
+                      readonly
+                    />
+                  </mat-form-field>
+                  <div class="pw-grid-table__item pw-text-center col-6">
+                    <mat-checkbox
+                      disabled="true"
+                      formControlName="isGhsVoucherEnabled"
+                    >
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-auto ml-auto">
+      <button
+        type="button"
+        [disabled]="disabledProductGroupMapping"
+        (click)="openProductGroupMapping()"
+        class="pw-btn pw-primary-btn"
+      >
+        {{ 'pw.cpgProductGroupConfig.productroupMapping' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

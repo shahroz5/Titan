@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.ibtConfiguration.inventoryManagement' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.ibtConfiguration.configuration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto pw-top-heading-container__right-content">
+            <button
+              (click)="loadDetailPage('new')"
+              class="pw-btn pw-accent-btn"
+            >
+              {{ 'pw.ibtConfiguration.addNewLabel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.ibtConfiguration.ibtconfigurationLable' | translate }}
+          </div>
+        </div>
+
+        <mat-form-field
+          [formGroup]="searchForm"
+          class="col-lg-3 col-sm-4 pw-form-field-padding-bottom-0 ml-auto pw-search-bar pw-form-field-border-top-0"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder=" {{
+              'pw.ibtConfiguration.searchByConfigName' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="searchValue"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!searchForm.value.searchValue"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchForm.value.searchValue"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <poss-web-ibt-configuration-items
+        *ngIf="!invalidSearch"
+        [ibtConfigurationList]="ibtConfigurationList$ | async"
+        [count]="totalElements$ | async"
+        [pageEvent]="initialPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        (paginator)="loadPaginateData($event)"
+        (viewConfigId)="loadViewDetailPage($event)"
+        (configId)="loadDetailPage($event)"
+        (toggleValue)="updateToggle($event)"
+      >
+      </poss-web-ibt-configuration-items>
+
+      <div
+        *ngIf="
+          ((isLoading$ | async) === false &&
+            !(ibtConfigurationList$ | async)?.length) ||
+          invalidSearch
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        <h3 class="m-auto">
+          {{ noDataFoundMessage }}
+        </h3>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

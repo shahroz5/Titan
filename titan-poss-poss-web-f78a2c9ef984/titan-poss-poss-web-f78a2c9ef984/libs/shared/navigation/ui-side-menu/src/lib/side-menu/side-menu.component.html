@@ -1,0 +1,56 @@
+<div class="pw-sidenav__header">
+  <div class="pw-sidenav__close-icon">
+    <button mat-icon-button (click)="sideNavToggle.emit()">
+      <span class="pw-i-10 pw-close-icon-16"></span>
+    </button>
+  </div>
+
+  <div class="pw-sidenav__profile">
+    <span class="pw-i-36 pw-user-icon-36"></span>
+    <span class="pw-sidenav__header-title">{{
+      'pw.sidemenu.greetingMessage' | translate: { username: username }
+    }}</span>
+  </div>
+  <p class="pw-sidenav__logout">
+    <a (click)="logout.emit(); sideNavToggle.emit()">
+      <span class="pw-i-14 pw-logout-icon-14"></span
+      >{{ 'pw.sidemenu.logoutButtonText' | translate }}</a
+    >
+  </p>
+</div>
+
+<mat-form-field
+  class="pw-search-bar pw-form-field-border-top-0"
+  floatLabel="never"
+>
+  <input
+    #searchBox
+    matInput
+    class="pw-input-box"
+    [placeholder]="'pw.sidemenu.search' | translate"
+    [formControl]="searchFormControl"
+  />
+  <mat-icon matSuffix>
+    <span
+      *ngIf="!searchFormControl.value"
+      class="pw-i-16 pw-search-icon-16"
+    ></span>
+    <span
+      (click)="searchFormControl.patchValue('')"
+      *ngIf="searchFormControl.value"
+      class="pw-i-10 pw-close-icon-16 pw-pointer"
+    ></span
+  ></mat-icon>
+</mat-form-field>
+
+<poss-web-side-menu-items
+  (sideNavToggle)="searchFormControl.patchValue(''); sideNavToggle.emit()"
+  [menuData]="searchFormControl.value ? sidenavSearch : sidenavData"
+  [searchValue]="searchFormControl.value"
+  [focusEvent]="focusEvent"
+  #queryItem
+></poss-web-side-menu-items>
+
+<div class="pw-text-center pw-error-color" *ngIf="noSearchResults">
+  {{ noDataFoundMessage }}
+</div>

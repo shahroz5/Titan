@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-lg-8">
+    <div class="pw-tab">
+      <ul class="pw-tab__list">
+
+
+        <li class="pw-tab__list-item">
+          <a
+            (click)="changeTab(discountProductGroupTabRef.PRODUCT_GROUP_UCP)"
+            [class.pw-is-active-bar]="
+              selectedTab === discountProductGroupTabRef.PRODUCT_GROUP_UCP
+            "
+          >
+            <h5 class="pw-tab__item">{{ 'pw.discountConfig.ucpPgMapLabel' | translate }}</h5></a
+          >
+        </li>
+        <li class="pw-tab__list-item">
+          <a
+            (click)="changeTab(discountProductGroupTabRef.PRODUCT_GROUP_MC)"
+            [class.pw-is-active-bar]="
+              selectedTab === discountProductGroupTabRef.PRODUCT_GROUP_MC
+            "
+          >
+            <h5 class="pw-tab__item">{{ 'pw.discountConfig.mcPgMapLabel' | translate }}</h5></a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row align-items-baseline">
+  <div class="col-auto ml-auto">
+    <a (click)="remove()" class="pw-filter-box">
+      <span
+        class="pw-i-24 pw-delete-black-icon-24 pw-filter-box__delete-icon"
+      ></span>
+      {{ 'pw.discountConfig.removeLabel' | translate }}
+    </a>
+  </div>
+  <div class="col-auto">
+    <button mat-button [matMenuTriggerFor]="filterby">
+      <span
+        class="pw-i-24 pw-filter-box__icon-top"
+        [ngClass]="
+          appliedFilter ? 'pw-filter-icon-color-24' : 'pw-filter-icon-24'
+        "
+      ></span
+      >{{ 'pw.discountConfig.filterLabel' | translate }}
+    </button>
+
+    <mat-menu #filterby="matMenu">
+      <ng-container *ngFor="let product of productTypeList">
+        <button mat-menu-item (click)="getValue(product.value)">
+          {{ product.description }}
+        </button>
+      </ng-container>
+    </mat-menu>
+  </div>
+
+  <div class="col-auto">
+    <button class="pw-btn pw-primary-btn" (click)="productGroupPopup()">
+      + {{ 'pw.discountConfig.addPgLabel' | translate }}
+    </button>
+  </div>
+</div>

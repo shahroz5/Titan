@@ -1,0 +1,59 @@
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+<div
+  class="container-fluid"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a [routerLink]="['../']">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-location-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.usermanagementform.addRemoveTiTle' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.usermanagementform.usermanagementTitle' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <poss-web-user-form
+        [statesList]="statesList"
+        [countriesList]="countriesList"
+        [roleTypesList]="roleTypesList"
+        [rolesList]="rolesList"
+        [regionsList]="regionsList"
+        [user]="user$ | async"
+        [isBTQUser]="isBTQUser"
+        [isRegUser]="isRegUser"
+        [userLocationCode]="userLocationCode"
+        [validLocation]="validLocation$ | async"
+        [validEmailLocation]="validEmailLocation$ | async"
+        [validContact]="validContact$ | async"
+        [mobilenomaxlength]="mobileMaxLength"
+        [permissions$]="permissions$"
+        [mappedLocationData]="mappedLocationData"
+        [roleDetails]="userManagementFacade.getRolesDetails() | async"
+        (validateLocation)="checkLocation($event)"
+        (validateEmailLocation)="checkEmailLocation($event)"
+        (addNewUser)="addNewUser($event)"
+        (updateUser)="updateUser($event)"
+        (loadRoles)="loadRoles($event.roleType, $event.locationCode)"
+        (validateEmailMobile)="checkUniqueEmailMobile($event)"
+        (loadStates)="loadStates($event)"
+        (resendOTP)="resendOTP($event)"
+        (addLocationMapping)="addLocationMapping($event)"
+      ></poss-web-user-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.pw-grid-table__row {
+  align-items: baseline;
+  padding-bottom: 10px;
+}
+pw-ag-grid-table-fixed {
+  height: 350px;
+  width: 100%;
+}
+
+.pw-ag-grid-table-auto {
+  min-height: unset;
+}
+
+.pw-checkbox-grid-error {
+  border: 2px solid var(--fourth-color);
+  padding: 10px;
+  text-align: center;
+}
+// .pw-max-height {
+//   max-height: 300px;
+// }

@@ -1,0 +1,32 @@
+<form  autocomplete="off" class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      Forex
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body"></div>
+  <div class="pw-confirmation-box__footer-box row">
+    <div class="col-auto ml-auto">
+      <button mat-flat-button class="pw-btn pw-accent-btn">
+        Add
+      </button>
+    </div>
+  </div>
+</form>

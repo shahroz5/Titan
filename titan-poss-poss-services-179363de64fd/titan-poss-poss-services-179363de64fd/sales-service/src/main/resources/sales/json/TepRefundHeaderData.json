@@ -1,0 +1,21 @@
+{
+	"type": "TEP_REFUND_HEADER",
+	"data": {
+		"customerName": "String",
+		"customerId": 172,
+		"remarks": "String",
+		"totalWeight": 20.091,
+		"totalValue": 124355,
+		"totalQuantity": 1,
+		"itemDetails": [
+			{
+				"itemCode": "550002FCANAA34",
+				"isCmAvailable": false,
+				"isSaleable": false,
+				"priceDetails": "Object",
+				"totalWeight": 10.001,
+				"totalValue": 124355
+			}
+		]
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"type": "GRF_CONFIGURATION",
+	"data": {
+		"mergeAllowed": true,
+		"currentOwner": true,
+		"thirdPerson": true,
+		"weightBased": [
+			{
+				"rowId": 1,
+				"fromRange": 5,
+				"toRange": 10,
+				"toleranceValue": 1
+			}
+		],
+		"valueBased": [
+			{
+				"rowId": 1,
+				"fromRange": 1000,
+				"toRange": 10000,
+				"tolerancePercent": 1
+			}
+		]
+	}
+}

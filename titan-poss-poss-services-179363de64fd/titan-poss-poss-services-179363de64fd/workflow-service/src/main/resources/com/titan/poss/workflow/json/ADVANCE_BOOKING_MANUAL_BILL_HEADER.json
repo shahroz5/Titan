@@ -1,0 +1,109 @@
+{
+	"type": "ADVANCE_BOOKING_MANUAL_BILL_HEADER",
+	"data": {
+		"txnType": "AB",
+		"subTxnType": "MANUAL_AB",
+		"status": "OPEN",
+		"docNo": 12,
+		"docDate": 1602527400000,
+		"fiscalYear": 2020,
+		"locationCode": "URB",
+		"employeeCode": "rso.urb.2",
+		"customerId": 624,
+		"firstHoldTime": null,
+		"lastHoldTime": null,
+		"lastInvokeTime": null,
+		"confirmedTime": null,
+		"remarks": null,
+		"totalQuantity": 2,
+		"totalWeight": 45.71,
+		"totalValue": 110170.24,
+		"totalTax": 12669.578,
+		"finalValue": 122840.0,
+		"totalDiscount": 0.0,
+		"paidValue": 122840.0,
+		"roundingVariance": 0.182,
+		"metalRateList": {
+			"metalRates": {
+				"J": {
+					"metalTypeCode": "J",
+					"purity": 92.0,
+					"ratePerUnit": 2142.4,
+					"currency": "INR",
+					"applicableDate": 1602095400000
+				}
+			}
+		},
+		"manualBillDetails": {
+			"manualBillDate": null,
+			"manualBillNo": null,
+			"manualBillValue": null,
+			"remarks": null,
+			"password": null,
+			"approvedBy": null,
+			"metalRates": null,
+			"isFrozenRate": null,
+			"frozenRateDate": null
+		},
+		"taxDetails": {
+			"taxes": [
+				{
+					"taxType": "ITEMCHARGES",
+					"taxClass": "TC71",
+					"data": [
+						{
+							"taxCode": "SGST",
+							"taxPercentage": 1.5,
+							"taxValue": 826.277
+						},
+						{
+							"taxCode": "CGST",
+							"taxPercentage": 10,
+							"taxValue": 5508.512
+						}
+					],
+					"cess": []
+				},
+				{
+					"taxType": "ITEMCHARGES",
+					"taxClass": "TC71",
+					"data": [
+						{
+							"taxCode": "SGST",
+							"taxPercentage": 1.5,
+							"taxValue": 826.277
+						},
+						{
+							"taxCode": "CGST",
+							"taxPercentage": 10,
+							"taxValue": 5508.512
+						}
+					],
+					"cess": []
+				}
+			]
+		},
+		"discountDetails": null,
+		"id": "B0A04497-2A4C-418D-8B19-4049AA790548",
+		"occasion": null,
+		"minValue": null,
+		"isFrozenRate": false,
+		"cancellationDetails": null,
+		"activationDetails": null,
+		"title": "Mr",
+		"customerName": "Pranith",
+		"customerType": "REGULAR",
+		"ulpId": "3732",
+		"mobileNumber": "9449275231",
+		"instiTaxNo": "29AADCB2230M1ZP",
+		"custTaxNo": "AAAPL1234C",
+		"passportId": null,
+		"pointBalance": null,
+		"currentTier": null,
+		"enrollmentDate": null,
+		"isMemberBlocked": null,
+		"isPulseCustomer": null,
+		"hallmarkCharges": 0,
+		"hallmarkDiscount": 0
+	}
+}

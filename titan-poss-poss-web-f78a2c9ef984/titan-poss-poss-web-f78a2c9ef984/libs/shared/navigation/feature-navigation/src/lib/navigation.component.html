@@ -1,0 +1,75 @@
+<ng-container *ngIf="!isSecondaryLayout; else secondaryLayout">
+  <mat-sidenav-container class="sidenav-container" role="main">
+    <mat-sidenav #sidenav (closed)="onClose()" class="pw-sidenav">
+      <poss-web-side-menu
+        *ngIf="isSideNavOpened"
+        (logout)="logOut()"
+        (sideNavToggle)="closeSideNav()"
+        [username]="username$ | async"
+        [sidenavData]="sidenav$ | async"
+      ></poss-web-side-menu>
+    </mat-sidenav>
+    <mat-sidenav-content (scroll)="scrollEvent()">
+      <poss-web-side-menu-content
+        class="pw-sidemenu-content"
+        (sideNavToggle)="sideNavToggle()"
+        (logOut)="logOut()"
+        [notificationsCount]="notificationsCount"
+        [userName]="username$ | async"
+        [sideNav]="sidenav$ | async"
+        [hostName]="hostName$ | async"
+        [permissions$]="permissions$"
+        [isBtqUser]="isBtqUser$ | async"
+        [fullName]="fullName$ | async"
+        [locationCode]="locationCode$ | async"
+        [businessDay]="businessDay"
+        [bodStatus]="bodStatus"
+        [metals]="metals"
+        [currencyCode]="currencyCode"
+        [hideToolbar]="hideToolbar"
+        [isCorpUser]="isCorpUser"
+      ></poss-web-side-menu-content>
+      <div class="container-fluid pw-footer-container">
+        <div class="row pw-footer">
+          <span class="col-8">
+            {{ 'pw.navigation.footerText' | translate }}
+          </span>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+<ng-template #secondaryLayout>
+  <mat-sidenav-container class="sidenav-container" role="main">
+    <mat-sidenav-content (scroll)="scrollEvent()">
+      <poss-web-side-menu-content-secondary
+        class="pw-sidemenu-content"
+        (logOut)="logOut()"
+        [notificationsCount]="notificationsCount"
+        [userName]="username$ | async"
+        [hostName]="hostName$ | async"
+        [locationCode]="locationCode$ | async"
+        [isBtqUser]="isBtqUser$ | async"
+        [fullName]="fullName$ | async"
+        [businessDay]="businessDay"
+        [bodStatus]="bodStatus"
+        [metals]="metals"
+        [currencyCode]="currencyCode"
+        [hideToolbar]="hideToolbar"
+        [isCorpUser]="isCorpUser"
+      ></poss-web-side-menu-content-secondary>
+      <div class="container-fluid">
+        <div class="row pw-footer">
+          <span class="col-8">
+            {{ 'pw.navigation.footerText' | translate }}
+          </span>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-template>
+
+<poss-web-loader
+  *ngIf="(isLoading$ | async) || (isAclLoading$ | async)"
+></poss-web-loader>

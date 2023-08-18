@@ -1,0 +1,76 @@
+.pw-panel-card {
+  border: 1px solid $twelth-color;
+  margin-bottom: 5px;
+  margin-right: 0;
+  border-radius: 5px;
+
+  &__box {
+    background: $primary-color;
+    padding: 10px;
+    text-align: center;
+    width: 58px;
+  }
+
+  &__input {
+    padding-left: 21px;
+    padding-right: 0;
+    margin-bottom: 0;
+  }
+
+  &__item {
+    align-self: center;
+  }
+
+  .pw-card-icon-24,
+  .pw-cash-icon-24 {
+    margin-right: 0;
+  }
+
+  .pw-btn {
+    min-width: auto;
+  }
+
+  &__right-container {
+    margin-bottom: 30px;
+    margin-top: 10px;
+  }
+
+  &__radio-label {
+    margin-bottom: 8px;
+    color: $tertiary-color;
+  }
+
+  &__input-container {
+    position: relative;
+  }
+
+  &__card-container {
+    position: relative;
+    top: 27%;
+  }
+
+  &__padding-5 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  &__margin-0 {
+    margin: 0;
+  }
+
+  &__plain-box {
+    border: 1px solid $fourth-color;
+    padding: 5px;
+    text-align: center;
+    color: $fourth-color;
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 998px) {
+  .pw-panel-card {
+    &__padding-5 {
+      padding: 0 15px;
+    }
+  }
+}

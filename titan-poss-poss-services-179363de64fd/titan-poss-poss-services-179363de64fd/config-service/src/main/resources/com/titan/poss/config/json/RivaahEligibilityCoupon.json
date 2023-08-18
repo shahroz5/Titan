@@ -1,0 +1,9 @@
+{
+	"type": "RIVAAH_CARD_ELIGIBILITY",
+	"data": {
+		"noOfDigits": 8,
+		"startingDigits": "1234",
+		"validityNoOfMonths": 5,
+		"NoOfTimesCouponCanBeUsed": 5
+	}
+}

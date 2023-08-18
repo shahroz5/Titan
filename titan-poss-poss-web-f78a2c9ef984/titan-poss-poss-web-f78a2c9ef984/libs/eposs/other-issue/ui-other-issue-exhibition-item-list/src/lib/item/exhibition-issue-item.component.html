@@ -1,0 +1,140 @@
+<div class="row no-gutters" [formGroup]="itemForm">
+  <poss-web-item-details [item]="itemData" [type]='issueType'> </poss-web-item-details>
+
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.RequestedQuantityLabelText' | translate }}
+        </div>
+        <input
+          type="number"
+          class="pw-bg-input-box "
+          placeholder="RequestedQty"
+          formControlName="issueQuantity"
+          [readonly]="true"
+          name='quantityField'
+          possWebMaxLengthValidator
+        />
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.IssuedQuantityLabelText' | translate }}
+        </div>
+        <input
+          type="number"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="Qty."
+          formControlName="issueQuantity"
+          [readonly]="true"
+          name='quantityField'
+          possWebMaxLengthValidator
+        />
+        <ng-template #nonEditable>
+          <input
+            type="number"
+            class="pw-bg-input-box pw-input-group__item-border-left"
+            placeholder="Qty."
+            formControlName="issueQuantity"
+            readonly
+            name='quantityField'
+            possWebMaxLengthValidator
+          />
+        </ng-template>
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.grossWeightText' | translate }}:
+        </div>
+        <div class="pw-input-group__item-label">
+          {{ weightToDisplay }}
+          ({{ item.weightUnit }})
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="Total Wt."
+          formControlName="weight"
+          readonly
+          name='weightField'
+          possWebMaxLengthValidator
+        />
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.BinLabelText' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          placeholder="binCode"
+          formControlName="binCode"
+          readonly
+          name='binCode'
+          possWebMaxLengthValidator
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="flex-fill"></div>
+  <div class="col-auto">
+    <span
+      *ngIf="
+        (itemForm.get('issueQuantity').dirty ||
+          itemForm.get('issueQuantity').touched) &&
+        itemForm.get('issueQuantity').hasError('required')
+      "
+      class="pw-list-card__error-label"
+    >
+      {{ 'pw.otherReceiptsIssues.requiredQuantityErrorMessage' | translate }}
+    </span>
+    <span
+      *ngIf="
+        (itemForm.get('issueQuantity').dirty ||
+          itemForm.get('issueQuantity').touched) &&
+        itemForm.get('issueQuantity').hasError('min')
+      "
+      class="pw-list-card__error-label"
+    >
+      {{ 'pw.otherReceiptsIssues.QuantityLessThanOneErrorMessage' | translate }}
+    </span>
+    <span
+      *ngIf="
+        (itemForm.get('issueQuantity').dirty ||
+          itemForm.get('issueQuantity').touched) &&
+        itemForm.get('issueQuantity').hasError('max')
+      "
+      class="pw-list-card__error-label"
+    >
+      {{
+        'pw.otherReceiptsIssues.QuantityGreaterThanAvailableQuantityErrorMessage'
+          | translate
+      }}
+    </span>
+    <div
+      class="col-auto pw-list-card__item pw-list-card__right-container pw-text-right"
+      *ngIf="item.availableQuantity === 0"
+    >
+      <div class="pw-list-card__error-label">
+        <span class="pw-i-16 pw-warning-icon-16"></span>
+        {{ 'pw.otherReceiptsIssues.outOfStockErrorMessage' | translate }}
+      </div>
+    </div>
+    <ng-container *ngIf="showUpdateStatus">
+      <span
+        class="pw-list-card__error-label"
+        *ngIf="item.isUpdatingSuccess == false"
+      >
+        {{ 'pw.otherReceiptsIssues.saveFailedText' | translate }}
+      </span>
+      <span class="pw-list-card__success-label" *ngIf="item.isUpdating">
+        {{ 'pw.otherReceiptsIssues.savingText' | translate }}...
+      </span>
+    </ng-container>
+  </div>
+</div>

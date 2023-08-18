@@ -1,0 +1,38 @@
+<div class="row pw-detail-card__list__body">
+  <div class="col-lg-3 col-3">
+    <span class="pw-font-weight-bold">{{ lovMasterItem.lovName }}</span>
+  </div>
+  <div class="col-lg-5 col-md-5 col-4">
+    <p>
+      <span class="pw-font-weight-bold">{{ lovMasterItem.description }}</span>
+    </p>
+  </div>
+  <div class="col-auto ml-auto align-self-center">
+    <a (click)="getLovCodeView()" class="mr-2">
+      <span class="pw-mont-semibold-14 pw-fourth-color pw-position-text">{{
+        'pw.lovmaster.viewLink' | translate
+      }}</span>
+    </a>
+
+      <a (click)="getLovCode()" class="mr-2" *ngIf="lovMasterItem?.isActive">
+          <span class="pw-mont-semibold-14 pw-fourth-color pw-position-text" *ngIf="refunPay">{{
+            'pw.lovmaster.editLink' | translate
+          }}</span>
+          <span class="pw-i-24 pw-edit-icon-24" *ngIf="refunPay"></span>
+      </a>
+  </div>
+  <div
+    class="col-auto align-self-center"
+    [ngClass]="
+      !lovMasterItem?.isActive ? 'pw-detail-card__right-container' : ''
+    "
+  >
+    <div class="col-auto align-self-center">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="toggleChange(lovMasterItem)"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>

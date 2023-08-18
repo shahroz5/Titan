@@ -1,0 +1,9 @@
+{
+	"type": "TAX_DETAILS",
+	"data": {
+		"isGST": true,
+		"gstRegisterationNo": "String",
+		"gstValidFrom": "Date",
+		"gstPrintValidFrom": "Date"
+	}
+}

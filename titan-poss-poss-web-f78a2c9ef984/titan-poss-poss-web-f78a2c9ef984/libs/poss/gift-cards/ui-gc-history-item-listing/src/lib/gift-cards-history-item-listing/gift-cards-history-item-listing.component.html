@@ -1,0 +1,40 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<form>
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [rowHeight]="rowHeight"
+    [rowData]="giftCardsHistoryItemList"
+    [animateRows]="animateRows"
+    [domLayout]="domLayout"
+    (gridReady)="gridReady($event)"
+    (cellClicked)="onCellClicked($event)"
+    (sortChanged)="printSortStateToConsole($event)"
+    (cellFocused)="onCellFocused($event)"
+    (focusout)="focusOut($event)"
+    (cellKeyDown)="onCellKeyPress($event)"
+  ></ag-grid-angular>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="
+      totalGiftCardsHistoryReq > minPageSize &&
+      giftCardsHistoryItemList.length > 0 &&
+      totalGiftCardsHistoryReq != 1
+    "
+    [length]="totalGiftCardsHistoryReq"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</form>

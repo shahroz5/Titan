@@ -1,0 +1,81 @@
+<div class="pw-detail-card">
+  <div class="row align-items-center">
+    <poss-web-select-dropdown
+      class="pw-selectable-dropdown col-lg-3 col-4"
+      placeholder="{{ 'pw.lovmaster.selectLovTypePlaceholder' | translate }}"
+      (selectionChange)="selectedDropdown($event)"
+      [options]="lovMasterTypesList"
+    >
+    </poss-web-select-dropdown>
+
+    <!--    <mat-form-field class="pw-selectable-dropdown col-lg-3 col-4">
+      <mat-select
+        class="pw-single-bordered-input"
+        disableOptionCentering
+        placeholder="{{ 'pw.lovmaster.selectLovTypePlaceholder' | translate }}"
+        (selectionChange)="selectedDropdown($event)"
+      >
+        <mat-option
+          *ngFor="let lovMasterType of lovMasterTypes"
+          [value]="lovMasterType.value"
+        >
+          {{ lovMasterType.name | translate }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field> -->
+    <mat-form-field
+      *ngIf="searchBox ? true : lovMasterList"
+      class="col-lg-3 col-4 ml-auto pw-search-bar pw-form-field-padding-bottom-0"
+      (keyup)="lovSearch(searchBox)"
+    >
+      <input
+        [(ngModel)]="searchBox"
+        matInput
+        type="text"
+        placeholder="{{ 'pw.lovmaster.lovSearch' | translate }}"
+        class="single-bordered-input"
+      />
+      <mat-icon matSuffix>
+        <span class="pw-i-16 pw-search-icon-16" *ngIf="!searchBox"></span>
+      </mat-icon>
+      <mat-icon matSuffix (click)="clearSearch()">
+        <span *ngIf="searchBox" class="pw-i-10 pw-close-icon-16"></span
+      ></mat-icon>
+    </mat-form-field>
+  </div>
+  <div
+    class="pw-detail-card__list"
+    *ngIf="lovMasterList ? lovMasterList.length : 0"
+  >
+    <div class="row pw-fourth-color">
+      <div class="col-3">
+        <p>{{ 'pw.lovmaster.lovName' | translate }}</p>
+      </div>
+      <div class="col-7">
+        <p>{{ 'pw.lovmaster.description' | translate }}</p>
+      </div>
+    </div>
+    <div class="pw-detail-card__fixed-hight">
+      <poss-web-lovmaster-listing-item
+        *ngFor="let lovMasterItem of lovMasterList"
+        [lovMasterItem]="lovMasterItem"
+        (lovMasterCodeView)="getLovMasterCodeView($event)"
+        (lovMasterCode)="getLovMasterCode($event)"
+        (lovMasterSwitch)="toggleChange($event)"
+      >
+      </poss-web-lovmaster-listing-item>
+    </div>
+  </div>
+  <div
+    class="pw-detail-card__list"
+    *ngIf="
+      !(lovMasterList ? lovMasterList.length : 0) &&
+      lovSelectedType &&
+      !isLoading
+    "
+  >
+    <div class="pw-message pw-text-center">
+      {{ noDataFoundMessageNonVerifiedItems }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table max-height"
+  [columnDefs]="columnDefs"
+  [rowData]="bankDepositDetails"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  [animateRows]="animateRows"
+  (gridReady)="gridReady($event)"
+  [defaultColDef]="defaultColDef"
+  (cellFocused)="onCellFocused($event)"
+	(focusout)="focusOut($event)"
+>
+</ag-grid-angular>

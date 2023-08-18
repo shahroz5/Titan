@@ -1,0 +1,53 @@
+<div class="row align-items-center pw-location-button">
+  <button
+    mat-flat-button
+    class="pw-btn pw-cta-btn col-2 ml-auto mr-3"
+    (click)="openLocationSelectionPopup()"
+    *possWebPermission="
+      loadPermission(ROLELIMIT_CUSTOMIZE_SELECT_LOCATION_CODE)
+    "
+  >
+    <div class="row no-gutters pw-text-left">
+      <div class="col pw-text-overflow-ellipisis">
+        <p class="pw-text-overflow-ellipisis">
+          {{
+            selectedLocation
+              ? selectedLocation
+              : ('pw.roleCountForm.locationSelectorButtonText' | translate)
+          }}
+        </p>
+      </div>
+      <div class="col-auto ml-auto">
+        <ng-container *ngIf="!selectedLocation; else closeIcon">
+          <span class="pw-i-16 pw-location-icon-16"></span>
+        </ng-container>
+        <ng-template #closeIcon>
+          <span
+            class="pw-i-10 pw-close-icon-16"
+            (click)="clearLocationSelection(); $event.stopPropagation()"
+          ></span>
+        </ng-template>
+      </div>
+    </div>
+  </button>
+</div>
+
+<ng-container *ngIf="!!selectedLocation; else showMessage">
+  <poss-web-role-config-list
+    [rolesList]="rolesList$ | async"
+    (rolesRequested)="roleCountChange($event)"
+    [permissions$]="permissions$"
+  ></poss-web-role-config-list>
+</ng-container>
+<ng-template #showMessage>
+  <h3 class="pw-text-center m-5">
+    {{
+      (selectedLocation
+        ? 'pw.roleCountForm.emptyrolesMessageLocationCode'
+        : 'pw.roleCountForm.noLocationCodeMessage'
+      ) | translate
+    }}
+  </h3>
+</ng-template>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

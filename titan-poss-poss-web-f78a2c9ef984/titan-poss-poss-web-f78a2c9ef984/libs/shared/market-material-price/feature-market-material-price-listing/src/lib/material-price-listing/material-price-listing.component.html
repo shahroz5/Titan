@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-product-master-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.materialPrice.productLable' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.materialPrice.pricingLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-center mb-4">
+          <div class="col-auto pw-mont-semibold-14">
+            {{ label }}
+          </div>
+          <div class="col-auto pw-top-heading-container__right-content">
+            <div class="row">
+              <div class="col-auto">
+                <button
+                  class="pw-btn pw-accent-btn pw-btn-style"
+                  (click)="valueResetToZero()"
+                >
+                  Delete 'Amount to be added' &amp; 'Amount to be deducted' for
+                  the market codes
+                </button>
+              </div>
+              <div class="col-auto align-self-center">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="addNewPrice('daily', 'new')"
+                  [disabled]="isDisableDaily"
+                >
+                  {{ 'pw.materialPrice.addDailyPriceLable' | translate }}
+                </button>
+              </div>
+              <div class="col-auto align-self-center">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="addNewPrice('forced', 'new')"
+                  [disabled]="isDisableForced"
+                >
+                  {{ 'pw.materialPrice.addForcedPriceLable' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pw-tab">
+          <ul class="pw-tab__list">
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="
+                  materialTypeUrlParam === metalTypeEnumRef.GOLD
+                "
+                (click)="changeMaterialType('gold')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.materialPrice.goldTabLabel' | translate }}
+                  <span class="pw-fourth-color"></span>
+                </h5>
+              </a>
+            </li>
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="
+                  materialTypeUrlParam === metalTypeEnumRef.SILVER
+                "
+                (click)="changeMaterialType('silver')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.materialPrice.silverTabLabel' | translate }}
+                  <span class="pw-fourth-color"></span>
+                </h5>
+              </a>
+            </li>
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="
+                  materialTypeUrlParam === metalTypeEnumRef.PLATINUM
+                "
+                (click)="changeMaterialType('platinum')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.materialPrice.platinumTabLabel' | translate }}
+                  <span class="pw-fourth-color"></span>
+                </h5>
+              </a>
+            </li>
+            <mat-form-field
+              [formGroup]="dateForm"
+              class="ml-auto pw-form-field-padding-bottom-0"
+              (click)="$event.stopPropagation()"
+            >
+              <mat-label>Applicable date</mat-label>
+              <input
+                matInput
+                [max]="currentDate"
+                [matDatepicker]="applicableDatePicker"
+                formControlName="applicableDate"
+                (click)="applicableDatePicker.open()"
+                required
+                readonly
+              />
+              <mat-datepicker-toggle matSuffix [for]="applicableDatePicker">
+                <mat-icon matDatepickerToggleIcon>
+                  <span class="pw-i-12 pw-calender-icon-12"></span>
+                </mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #applicableDatePicker></mat-datepicker>
+            </mat-form-field>
+          </ul>
+        </div>
+
+        <poss-web-material-price-list-items
+          [materialPrice]="materialPrice$ | async"
+          (id)="view($event)"
+          [count]="totalMaterialPriceCount$ | async"
+          [pageEvent]="marketCodePageEvent"
+          (paginator)="paginate($event)"
+          [pageSizeOptions]="pageSizeOptions"
+          [minPageSize]="minPageSize"
+        >
+        </poss-web-material-price-list-items>
+      </div>
+
+      <div
+        *ngIf="
+          (isLoading$ | async) === false &&
+          (materialPrice$ | async)?.length === 0
+        "
+        class="pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+    </div>
+  </div>
+</div>

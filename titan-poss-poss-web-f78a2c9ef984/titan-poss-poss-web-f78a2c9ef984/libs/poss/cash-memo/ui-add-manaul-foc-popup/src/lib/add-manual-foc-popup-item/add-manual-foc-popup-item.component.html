@@ -1,0 +1,180 @@
+<div class="">
+  <form [formGroup]="manualFocItemForm" autocomplete="off">
+    <ng-container formArrayName="inventoryManualFocItemList">
+      <mat-table
+        [dataSource]="getManualFocItemDetails.controls"
+        class="pw-mat-table pw-foc-table"
+      >
+        <ng-container matColumnDef="isSelected">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="pw-mat-table__item pw-cell-width-5"
+          >
+          </mat-header-cell>
+          <mat-cell
+            class="pw-mat-table__item pw-cell-width-5"
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <mat-checkbox [checked]="true" formControlName="isSelected">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <!--VariantCodeColumn -->
+        <ng-container matColumnDef="itemCode">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="pw-mat-table__item pw-cell-width-27"
+          >
+            {{ 'pw.manualFoc.variantCodeLabel' | translate }}
+          </mat-header-cell>
+          <mat-cell
+            class="pw-mat-table__item pw-cell-width-27"
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <div>
+              <div>
+                <input matInput formControlName="itemCode" readonly />
+              </div>
+
+              <div class="pw-tertiary-color">
+                ({{ 'pw.manualFoc.qtyLabel' | translate }} :
+                {{
+                  manualFocItemForm.controls.inventoryManualFocItemList.value[
+                    index
+                  ].availableQuantity
+                }})
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Qty Column -->
+        <ng-container matColumnDef="quantity">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="pw-mat-table__item pw-cell-width-15"
+          >
+            {{ 'pw.manualFoc.qtyLabel' | translate }}
+          </mat-header-cell>
+          <mat-cell
+            class="pw-mat-table__item pw-cell-width-15"
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <div
+              [ngClass]="{
+                'pw-fourth-color':
+                  manualFocScheme.schemeName !== 'FOC_BLOCKING_FOR_CUSTOMER'
+              }"
+            >
+              <input
+                matInput
+                type="number"
+                formControlName="quantity"
+                [readonly]="
+                  manualFocScheme.schemeName === 'FOC_BLOCKING_FOR_CUSTOMER'
+                "
+              />
+
+              <span
+                *ngIf="
+                  element.get('quantity').errors &&
+                  element.get('quantity').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [isOnlyTooltip]="true"
+                  [errorMessage]="element.get('quantity').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </span>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Lot No Column -->
+        <ng-container matColumnDef="lotNumber">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="pw-mat-table__item pw-cell-width-20"
+          >
+            {{ 'pw.manualFoc.lotNumberLabel' | translate }}
+          </mat-header-cell>
+          <mat-cell
+            class="pw-mat-table__item pw-cell-width-20"
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <input matInput formControlName="lotNumber" readonly />
+          </mat-cell>
+        </ng-container>
+
+        <!-- Unit Wt Column -->
+        <ng-container matColumnDef="unitWeight">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="pw-mat-table__item pw-cell-width-15"
+          >
+            {{ 'pw.manualFoc.unitWeightLabel' | translate }}
+          </mat-header-cell>
+          <mat-cell
+            class="pw-mat-table__item pw-cell-width-15"
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <input
+              matInput
+              formControlName="unitWeight"
+              type="number"
+              possWebWeightInput
+              readonly
+            />
+          </mat-cell>
+        </ng-container>
+
+        <!--Selected Wt Column -->
+        <ng-container matColumnDef="selectedWt">
+          <mat-header-cell
+            *matHeaderCellDef
+            class="pw-mat-table__item pw-cell-width-18"
+          >
+            {{ 'pw.manualFoc.totalIssueWtLabel' | translate }}
+          </mat-header-cell>
+          <mat-cell
+            class="pw-mat-table__item pw-cell-width-18"
+            *matCellDef="let element; let index = index"
+            [formGroupName]="index"
+          >
+            <input
+              matInput
+              formControlName="actualWeight"
+              type="number"
+              possWebWeightInput
+              readonly
+            />
+          </mat-cell>
+        </ng-container>
+        <!-- -->
+        <mat-header-row
+          class="pw-mat-table__header"
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="pw-mat-table__body-row"
+        ></mat-row>
+      </mat-table>
+    </ng-container>
+  </form>
+
+  <div
+    class="d-flex justify-content-end pw-mat-table__header align-items-center px-2 pw-mat-table_footer"
+  >
+    <p class="pw-tertiary-color mr-2">
+      {{ 'pw.manualFoc.totalFocWtLabel' | translate }}
+    </p>
+    <p>{{ weightFormatter.format(totalIssueFocWt) }} ({{ unitWeight }})</p>
+  </div>
+</div>

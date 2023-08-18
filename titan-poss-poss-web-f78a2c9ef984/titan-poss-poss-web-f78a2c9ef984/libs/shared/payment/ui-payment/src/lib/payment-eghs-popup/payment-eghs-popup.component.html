@@ -1,0 +1,451 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.GHRedemption.GHTitle' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="pw-confirmation-box__body pw-confirmation-box__padding-bottom-0 pw-padding-bottom-0"
+  >
+    <mat-tab-group
+      dynamicHeight
+      mat-stretch-tabs
+      class="pw-mat-tab pw-confirmation-box__margin-top-0 pw-margin-bottom-0"
+      (selectedTabChange)="onTabChange($event)"
+      [(selectedIndex)]="activeTab"
+    >
+      <ng-container>
+        <mat-tab class="pw-mat-tab__item" label="GHS ACCOUNT DETAILS">
+          <div
+            class="pw-confirmation-box__body pw-confirmation-box__scrollable-body"
+          >
+            <div class="row align-items-center">
+              <mat-form-field class="col-lg-4 col-6">
+                <mat-label>
+                  {{ 'pw.GHRedemption.enterAccountNumber' | translate }}
+                </mat-label>
+
+                <input
+                  matInput
+                  [formControl]="searchAccountFormControl"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                    searchAccountFormControl.errors &&
+                    searchAccountFormControl.errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="searchAccountFormControl.errors.errorArray"
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+
+              <div class="col-lg-4 col-6 pw-text-center">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="getAccountDetails()"
+                  [disabled]="!searchAccountFormControl.valid"
+                >
+                  {{ 'pw.GHRedemption.getDetails' | translate }}
+                </button>
+              </div>
+              <div
+                class="col-lg-4 col-12"
+                *ngIf="accountDetails && ghsCustomer"
+              >
+                <div class="pw-shadow-card">
+                  <div>
+                    <span class="pw-shadow-card__badge"> G </span>
+                    <span class="pw-shadow-card__circle"></span
+                    >{{ ghsCustomer.customerName }}
+                  </div>
+                  <div class="pw-shadow-card__item">
+                    <span class="pw-i-16 pw-mobile-icon-16"></span>
+                    {{ ghsCustomer.mobileNumber }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row pw-border-grid" *ngIf="accountDetails">
+              <div class="col-lg-4 pw-border-grid__item">
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.GHLocationCode' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{ accountDetails?.enrolledLocationCode }}
+                  </div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.GHScheme' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">{{ accountDetails?.schemeCode }}</div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.estimatedDiscount' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{
+                      accountDetails?.scheme ===
+                      paymentModeEnumRef.RIVAAH_SCHEME
+                        ? mcLabel +
+                          ': ' +
+                          accountDetails?.discountMcPct +
+                          '%, ' +
+                          ucpLabel +
+                          ': ' +
+                          accountDetails?.discountUcpPct +
+                          '% '
+                        : (accountDetails?.discount | currencyFormatter)
+                    }}
+                  </div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.totalGHAdvance' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">{{ accountDetails?.totalGhsAdvance }}</div>
+                </div>
+              </div>
+              <div class="col-lg-4 pw-border-grid__item">
+                <!-- <div class="row pw-border-grid__item-content no-gutters">
+                <div class="col-lg-6 col-4">
+                  {{ 'pw.GHRedemption.redeemdAmount' | translate }}
+                </div>
+                <div class="col-auto pw-border-grid__padding-5">:</div>
+                <div class="col">{{ redeemedAmt }}</div>
+              </div> -->
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.noOfInstallment' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{ accountDetails?.noOfInstallmentPaid }}
+                  </div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.goldRate' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{
+                      accountDetails?.goldRate !== 0
+                        ? accountDetails?.goldRate
+                        : 'NA'
+                    }}
+                  </div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.accumulatedGoldWt' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{
+                      accountDetails?.accumulatedGoldWeight !== 0
+                        ? accountDetails?.accumulatedGoldWeight
+                        : 'NA'
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 pw-border-grid__item">
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.accountOpeningDate' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{ accountDetails?.enrolledDate | dateFormatter }}
+                  </div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.accountMaturityYear' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">
+                    {{ accountDetails?.maturityDate | dateFormatter }}
+                  </div>
+                </div>
+                <div class="row pw-border-grid__item-content no-gutters">
+                  <div class="col-lg-6 col-4">
+                    {{ 'pw.GHRedemption.fiscalYear' | translate }}
+                  </div>
+                  <div class="col-auto pw-border-grid__padding-5">:</div>
+                  <div class="col">{{ accountDetails?.fiscalYear }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="pw-confirmation-box__item">
+              <div class="row">
+                <mat-form-field class="col-lg-4 col-6">
+                  <mat-label>
+                    {{ 'pw.GHRedemption.passBookNo' | translate }}
+                  </mat-label>
+
+                  <input matInput [formControl]="GHSpassBookNumber" required />
+                  <mat-error
+                    *ngIf="
+                      GHSpassBookNumber.errors &&
+                      GHSpassBookNumber.errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [errorMessage]="GHSpassBookNumber.errors.errorArray"
+                    ></poss-web-error-info-tooltip>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row pw-confirmation-box__body-item-without-padding">
+              <div class="col-auto">
+                <button
+                  class="pw-btn pw-primary-btn mt-2"
+                  (click)="generateOTP()"
+                  [disabled]="
+                    data.isOtpRequired
+                      ? lostPassBook
+                        ? !lostPassBook
+                        : !GHSpassBookNumber.valid
+                      : true
+                  "
+                >
+                  <span
+                    *ngIf="!isOtpGenerated || isOtpGenerated === false || isOtpGenerated === null"
+                  >
+                    {{ 'pw.GHRedemption.generateOTP' | translate }}</span
+                  >
+                  <span *ngIf="isOtpGenerated === true">Re-send OTP</span>
+                </button>
+              </div>
+
+              <div *ngIf="isOtpGenerated" class="col-auto">
+                <button
+                  class="pw-btn pw-primary-btn mt-2"
+                  (click)="withoutOTP()"
+                >
+                  <span>{{ 'pw.GHRedemption.withoutOTPLabel' | translate }}</span>
+                </button>
+              </div>
+
+              <div *ngIf="enablePhotoIDProofUpload" class="col-auto">
+                <poss-web-file-upload
+                  [uploadLabel]="
+                    'pw.GHRedemption.photoIDUploadLabel' | translate
+                  "
+                  [imageUrl]="photoIDProofUrl"
+                  [previewHeader]="
+                    'pw.GHRedemption.photoIDPreviewLabel' | translate
+                  "
+                  [fileName]="'pw.GHRedemption.viewPhotoIDLabel' | translate"
+                  [isViewLabelWithoutHeading]="true"
+                  (fileEmitter)="uploadSuccess($event)"
+                  (errorEmitter)="uploadError($event)"
+                  (clearEmitter)="clear()"
+                ></poss-web-file-upload>
+              </div>
+
+              <mat-form-field class="col-auto">
+                <mat-label> Enter Otp </mat-label>
+
+                <input
+                  matInput
+                  [formControl]="OTPFiledFormControl"
+                  [required]="data.isOtpRequired"
+                />
+                <mat-error
+                  *ngIf="
+                    OTPFiledFormControl.errors &&
+                    OTPFiledFormControl.errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="OTPFiledFormControl.errors.errorArray"
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-auto">
+                <p class="pw-success-color" *ngIf="isOtpGenerated">
+                  OTP sent succesfully to the registered mobile number and mail
+                  ID
+                </p>
+              </div>
+              <!-- <div class="col-auto ml-auto">
+                  <a (click)="onSelected()">
+                    <span class="pw-fourth-color pw-anchor-underline-color">
+                      {{ 'pw.GHRedemption.viewAttachements' | translate }}
+                    </span>
+                  </a>
+                </div> -->
+            </div>
+            <div class="row pw-confirmation-box__body-item-without-padding">
+              <div
+                *ngIf="isOtpGenerated"
+                class="col-auto pw-check-box-proof"
+              >
+                <mat-checkbox
+                  class="pw-check-box-proof"
+                  [formControl]="isPhotoIDProofCollected"
+                  >{{ 'pw.GHRedemption.photoIDProofCollectedLabel' | translate }}</mat-checkbox
+                >
+              </div>
+              <div class="col-auto">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="AddPayment()"
+                  [disabled]="addAccountValidation()"
+                >
+                  {{ 'pw.GHRedemption.addAccount' | translate }}
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-auto">
+                <p
+                  class="pw-error-color"
+                  *ngIf="
+                    enablePhotoIDProofUpload &&
+                    !idProofUploadedForWithoutOTP
+                  "
+                >
+                {{ 'pw.GHRedemption.photoIDProofUploadWarningMsg' | translate }}
+                </p>
+              </div>
+            </div>
+
+            <ag-grid-angular
+              class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table mt-2"
+              domLayout="autoHeight"
+              animateRows="true"
+              rowSelection="single"
+              [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef"
+              (cellKeyPress)="onCellKeyPress($event)"
+              (cellClicked)="onCellClicked($event)"
+              [rowData]="rowData"
+              [context]="getContext()"
+              (gridReady)="gridReady($event)"
+            ></ag-grid-angular>
+          </div>
+          <div class="pw-confirmation-box__footer">
+            <div class="row pw-confirmation-box__footer-border">
+              <div class="col-auto">
+                <span class="pw-font-weight-bold pw-error-color">
+                  {{ errorMsg }}</span
+                >
+              </div>
+
+              <div class="col-auto ml-auto">
+                <span class="pw-font-weight-bold pw-error-color">
+                  {{ warningMsg | translate }}</span
+                >
+                <!-- <button class="pw-btn pw-accent-btn">
+                  {{ 'pw.GHRedemption.addButtonText' | translate }}
+                </button> -->
+              </div>
+              <div class="col-auto ml-auto">
+                <button
+                  class="pw-btn pw-accent-btn"
+                  (click)="close()"
+                  [disabled]="rowData.length === 0"
+                >
+                  {{ 'pw.cnPayment.submitButtonLabel' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-tab></ng-container
+      >
+      <ng-container>
+        <mat-tab class="pw-mat-tab__item" label="Attachments">
+          <div class="pw-confirmation-box__body-item-without-padding">
+            <div class="pw-scrollable-table">
+              <table
+                class="pw-grid-table pw-grid-table__scrollable"
+                aria-describedby="table"
+              >
+                <thead>
+                  <tr class="pw-mat-table__header">
+                    <th scope="col" class="pw-mat-table__item">
+                      <p>
+                        <!-- {{ 'pw.paymentModeGV.ProductCode' | translate }} -->
+                        Attachments
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="!attachments">
+                  <tr class="pw-mat-table__body-row">
+                    <td class="pw-mat-table__item"></td>
+                  </tr>
+                </tbody>
+
+                <tbody *ngIf="attachments">
+                  <tr
+                    *ngFor="let attachment of attachments"
+                    class="pw-mat-table__body-row pw-text-center"
+                  >
+                    <td class="pw-mat-table__item">
+                      <a (click)="openPopup(attachment.docUrl)">{{
+                        attachment.docName
+                      }}</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div
+            class="pw-confirmation-box__footer"
+            *ngIf="attachments?.length === 0"
+          >
+            <div class="row pw-confirmation-box__footer-border">
+              <div class="col-auto">
+                <span class="pw-font-weight-bold pw-error-color">
+                  {{ attachmenterrorMsg }}</span
+                >
+              </div>
+              <div class="col-auto ml-auto">
+                <!-- <button class="pw-btn pw-accent-btn">
+                  {{ 'pw.GHRedemption.addButtonText' | translate }}
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </mat-tab></ng-container
+      ></mat-tab-group
+    >
+  </div>
+</div>

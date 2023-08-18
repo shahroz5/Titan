@@ -1,0 +1,15 @@
+<poss-web-rivaah-location-mapping
+    [allSelectedLocations]="selectedLocations"
+    [mappedLocation]="invalidSearch ? [] : (mappedLocations$ | async)"
+    [totalElements]="totalLocations$ | async"
+    [pageEvent]="locationPageEvent"
+    [minPageSize]="minPageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (paginator)="paginate($event)"
+    (loadData)="loadLocationList($event)"
+    (clear)="clearLocationList($event)"
+    (add)="mapLocations($event)"
+    (edit)="updateLocationDateRange($event)"
+    (activate)="editLocations($event)"
+    (delete)="deleteLocations($event)"
+></poss-web-rivaah-location-mapping>

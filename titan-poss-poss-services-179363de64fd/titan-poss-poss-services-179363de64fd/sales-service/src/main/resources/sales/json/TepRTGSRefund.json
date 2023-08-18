@@ -1,0 +1,11 @@
+{
+	"type": "TEP_RTGS_REFUND",
+	"data": {
+		"refundMode": "RTGS",
+		"customerName": "Arnab Layek",
+		"bankAccountNo": "563453443453",
+		"bankName": "SBI",
+		"branchName": "Koramangala",
+		"ifscCode": "SBI0004557"
+	}
+}

@@ -1,0 +1,20 @@
+<poss-web-co-tolerance-config-item
+  *ngFor="let item of coToleranceItemList; trackBy: trackBy"
+  [coTolerancConfigItem]="item"
+  (configId)="edit($event)"
+  (toggleValue)="change($event)"
+  (viewPage)="openViewPage($event)"
+>
+</poss-web-co-tolerance-config-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && coToleranceItemList.length > 0 && count != 1"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

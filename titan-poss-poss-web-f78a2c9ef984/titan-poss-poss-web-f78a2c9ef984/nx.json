@@ -1,0 +1,3247 @@
+{
+  "npmScope": "poss-web",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
+  },
+  "projects": {
+    "eposs-e2e": {
+      "tags": [],
+      "implicitDependencies": ["eposs"]
+    },
+    "eposs": {
+      "tags": ["scope:eposs", "type:app"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "poss-e2e": {
+      "tags": [],
+      "implicitDependencies": ["poss"]
+    },
+    "poss": {
+      "tags": ["scope:poss", "type:app"],
+      "implicitDependencies": ["shared-assets", "shared-styles"]
+    },
+    "common-custom-material": {
+      "tags": ["scope:common", "type:ui"]
+    },
+    "shared-assets": {
+      "tags": ["scope:shared", "type:assets"]
+    },
+    "shared-styles": {
+      "tags": ["scope:shared", "type:styles"]
+    },
+    "eposs-home-feature-home": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-navigation-data-access-navigation": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-navigation-feature-navigation": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-navigation-ui-side-menu": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-navigation-ui-top-menu": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-appsetting-data-access-appsetting": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-appsetting-feature-appsetting": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-components-ui-loader": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-util-error": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-config": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-auth-data-access-auth": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-util-acl-encoder": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-api-service": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-adaptors": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-notification": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-meta-reducer": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-auth-feature-auth": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-login-ui-login-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-ngrx-router-data-access-router": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-ngrx-router-feature-router": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-location-mapping-data-access-location-mapping": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-location-mapping-feature-location-mapping": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-masters-data-access-masters": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-util-barcode-reader": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-site-routes": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-components-ui-card-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-dynamic-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-expansion-panel": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-filter-dialog": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-formatters": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-selection-dialog": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-sort-dialog": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-thumbnail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-inventory-home-data-access-inventory-home": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-inventory-home-feature-inventory-home": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-data-upload-data-access-data-upload": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-shared-ui-courier-details-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-shared-ui-out-of-stock-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-stock-return-data-access-stock-return": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-stock-issue-data-access-stock-issue": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-stock-issue-feature-stock-issue-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-feature-stock-issue-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-ui-stock-issue-item-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-home-feature-home": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-models": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-util-logger": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "eposs-stock-receive-data-access-stock-receive": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-stock-receive-ui-stock-receive-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-stock-receive-feature-stock-receive-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-receive-feature-stock-receive-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-bin-bin-transfer-data-access-bin-bin-transfer": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-bin-bin-transfer-ui-bin-bin-transfer-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-bin-bin-transfer-feature-bin-bin-transfer-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-bin-bin-transfer-feature-bin-bin-transfer-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ibt-data-access-ibt": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-ibt-ui-ibt-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ibt-feature-ibt-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ibt-feature-ibt-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ibt-feature-ibt-create-request": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-data-access-conversion": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-conversion-ui-conversion-item": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-conversion-feature-conversion-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-feature-conversion": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-receipt-data-access-other-receipt": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-other-receipt-ui-other-receipt-adjustment-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-receipt-ui-other-receipt-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-receipt-ui-other-receipt-psv-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-receipt-feature-other-receipt-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-receipt-issue-feature-other-receipt-issue-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-issue-data-access-other-issue": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-other-issue-ui-other-issue-adjustment-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-issue-ui-other-issue-exhibition-create-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-issue-ui-other-issue-exhibition-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-issue-ui-other-issue-foc-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-issue-ui-other-issue-psv-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-issue-feature-other-issue-adj-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-issue-feature-other-issue-exh-create-request": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-issue-feature-other-issue-foc-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-issue-feature-other-issue-psv-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-issue-feature-other-issue-exh-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-new-bin-request-data-access-bin-request": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-new-bin-request-ui-bin-request-bin-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-new-bin-request-feature-bin-request": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-stock-issue-tep-gep-data-access-stock-issue-tep-gep": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-stock-issue-tep-gep-ui-stock-issue-tep-gep-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-stock-issue-tep-gep-feature-stock-issue-tep-gep-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-return-ui-stock-return-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-stock-return-feature-stock-return-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-data-upload-feature-data-upload": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-uam-home-feature-uam-home": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-activate-user-data-access-activate-user": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-activate-user-ui-activate-user-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-activate-user-feature-activate-user": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-forgot-password-ui-forgot-password": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-forgot-password-feature-forgot-password": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-user-mgmt-data-access-user": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-user-mgmt-ui-user-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-user-mgmt-ui-user-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-user-mgmt-feature-user-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-user-mgmt-feature-user-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-user-mgmt-util-user-mgmt": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-role-config-ui-role-config-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-config-ui-request-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-config-ui-request-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-config-feature-role-config-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-role-config-feature-request-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-role-config-feature-request-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-role-mgmt-data-access-role-mgmt": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-role-mgmt-ui-role-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-mgmt-ui-role-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-mgmt-ui-role-create-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-mgmt-ui-role-edit-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-mgmt-feature-role-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-access-control-mgmt-data-access-access-control-mgmt": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-access-control-mgmt-ui-access-control-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-access-control-mgmt-feature-access-control": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-master-home-feature-master-home": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-brand-data-access-brand": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-brand-ui-brand-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-brand-ui-brand-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-brand-feature-brand-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-brand-feature-brand-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-sub-brand-data-access-sub-brand": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-sub-brand-ui-sub-brand-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-sub-brand-ui-sub-brand-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-sub-brand-feature-sub-brand": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-bin-data-access-bin": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-bin-feature-bin-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-bin-ui-bin-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bin-group-data-access-bin-group": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-bin-group-ui-bin-group-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bin-group-ui-bin-group-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bin-group-feature-bin-group": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-courier-data-access-courier": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-courier-ui-courier-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-courier-ui-courier-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-courier-feature-courier-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-courier-feature-courier-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-list-of-values-data-access-lov": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-list-of-values-ui-lov-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-list-of-values-ui-lov-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-list-of-values-feature-lov-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-corporate-town-data-access-corporate-town": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-corporate-town-ui-corporate-town-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-corporate-town-ui-corporate-town-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-corporate-town-feature-corporate-town-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-cfa-product-data-access-cfa-product": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-cfa-product-ui-cfa-product-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-cfa-product-ui-cfa-product-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-cfa-product-feature-cfa-product-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-cfa-product-feature-cfa-product-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-item-master-data-access-item-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-item-master-ui-item-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-master-ui-item-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-master-feature-item-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-item-master-feature-item-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-product-category-data-access-product-category": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-product-category-ui-product-category-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-product-category-ui-product-category-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-product-category-feature-product-category-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-stone-type-data-access-stone-type": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-stone-type-ui-stone-type-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-stone-type-ui-stone-type-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-stone-type-feature-stone-type-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-ui-master-form-models": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-config-data-access-role-config": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-stone-data-access-stone": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-stone-ui-stone-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-stone-feature-stone-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-region-data-access-region": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-region-ui-region-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-region-ui-region-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-region-feature-region-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-sub-region-data-access-sub-region": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-sub-region-ui-sub-region-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-sub-region-ui-sub-region-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-sub-region-feature-sub-region-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-metal-type-data-access-metal-type": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-metal-type-ui-metal-type-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-metal-type-ui-metal-type-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-metal-type-feature-metal-type-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-purity-data-access-purity": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-purity-ui-purity-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-purity-ui-purity-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-purity-feature-purity-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-instock-home-feature-instock-home": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-request-approvals-feature-ibt-cancel-request-approval-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-request-approvals-feature-ibt-request-approval-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-request-approvals-feature-other-issues-approval-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-request-approvals-feature-request-approval-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-request-approvals-data-access-request-approvals": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-request-approvals-ui-bin-request-approvals-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-request-approvals-ui-bin-request-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-request-approvals-ui-ibt-cancel-request-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-request-approvals-ui-request-approvals-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-request-approvals-ui-other-issue-approvals-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-other-receipt-feature-other-receipt-adj-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-receipt-feature-other-receipt-psv-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-ui-conversion-request-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-one-time-password-data-access-one-time-password": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-role-mgmt-shell-feature-shell-role-mgmt": {
+      "tags": ["scope:shared", "type:feature-shell"]
+    },
+    "shared-profile-ui-profile": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-mgmt-shell-feature-role-mgmt-menu": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-profile-ui-change-password": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-profile-ui-verify-mobile": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-overlay-notification-feature-overlay-notification": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-components-ui-form-field-controls": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-request-approvals-ui-ibt-request-approvals-item-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-login-feature-login": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-profile-data-access-profile": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-profile-feature-profile": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-price-group-feature-price-group": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-price-group-data-access-price-group": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-price-group-ui-price-group-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-price-group-ui-price-group-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-complexity-pricegroup-map-data-access-complexity-pricegroup-map": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-complexity-pricegroup-map-ui-complexity-pricegroup-map-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-complexity-pricegroup-map-ui-complexity-pricegroup-map-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-complexity-pricegroup-map-feature-complexity-pricegroup-map-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-market-material-price-data-access-market-material-price": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-market-material-price-feature-market-material-price-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-market-material-price-feature-market-material-price-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-market-material-price-ui-market-material-price-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-market-material-price-ui-market-material-price-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-market-code-data-access-market-code": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-market-code-feature-market-code-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-market-code-ui-market-code-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-market-code-ui-market-code-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-paginated-selection-dialog": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-permission-data-access-permission": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-permission-ui-permission": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-stock-receive-ui-stock-receive-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-stock-receive-feature-stock-receive-history-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-tax-master-data-access-tax-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-tax-master-ui-tax-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-master-ui-tax-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-master-feature-tax-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-state-data-access-state": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-state-ui-state-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-state-ui-state-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-state-feature-state-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-country-master-data-access-country-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-country-master-ui-country-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-country-master-ui-country-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-country-master-feature-country-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-instock-home-feature-instock-home-shell": {
+      "tags": ["scope:shared", "type:feature-shell"]
+    },
+    "shared-components-ui-focusable-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-class-data-access-tax-class": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-tax-class-ui-tax-class-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-class-ui-tax-class-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-class-feature-tax-class-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-customer-data-access-customer": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-customer-feature-customer-create": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-customer-ui-customer-create": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-customer-ui-customer-search": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-customer-feature-customer-search": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-components-ui-address-panel": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-data-access-item-details-popup": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-item-feature-item-details-popup": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-item-ui-item-search": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-ui-stone-details": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-ui-item-details-header": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-currency-master-data-access-currency-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-currency-master-ui-currency-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-currency-master-ui-currency-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-currency-master-feature-currency-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-cash-memo-ui-order-search": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-cash-memo-feature-regular-cash-memo": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-cash-memo-ui-occasion-selection": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-stock-issue-feature-stock-issue-history-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-receipt-issue-feature-other-receipt-issue-history-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-other-receipt-issue-ui-other-receipt-issue-history-item-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-bin-bin-transfer-ui-bin-bin-transfer-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-cash-memo-feature-manual-cash-memo": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-cash-memo-feature-cash-memo-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-complexity-code-data-access-complexity-code": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-complexity-code-feature-complexity-code": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-complexity-code-ui-complexity-code-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-complexity-code-ui-complexity-code-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-transaction-type-master-data-access-transaction-type-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-transaction-type-master-ui-transaction-type-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-transaction-type-master-ui-transaction-type-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-transaction-type-master-feature-transaction-type-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-stock-return-feature-stock-return-history-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-return-ui-stock-return-history-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-item-ui-item-details": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-ui-price-details": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-item-master-ui-product-search-autocomplete": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-ibt-ui-ibt-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-configuration-home-feature-configuration-home": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-util-field-validators": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-customer-feature-customer-summary": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-shared-feature-summary-bar": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-payment-master-ui-payment-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-payment-master-ui-payment-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-payment-master-feature-payment-master": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-payment-master-data-access-payment-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-new-bin-request-feature-bin-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-new-bin-request-ui-bin-details-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-approvals-home-feature-approvals-home": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-approvals-feature-request-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-approvals-feature-request-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-permission-util-element-permissions": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "eposs-conversion-feature-conversion-history-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-util-cacheable-api-service": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-bank-priority-master-data-access-bank-priority-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-bank-priority-master-ui-bank-priority-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bank-priority-master-feature-bank-priority-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-item-ui-error-item-list-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-ag-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-conversion-config-data-access-conversion-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-conversion-config-ui-conversion-config-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-conversion-config-feature-conversion-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-config-feature-conversion-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-config-ui-conversion-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-components-ui-checkbox-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-location-settings-data-access-location-settings": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-payment-configuration-ui-payment-configuration-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-payment-configuration-data-access-payment-configuration": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-payment-configuration-feature-payment-configuration-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-payment-configuration-ui-payment-configuration-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-payment-configuration-feature-payment-configuration-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-components-ui-toggle-button": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-location-settings-feature-location-settings": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-product-group-mapping-data-access-product-group-mapping": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-product-group-mapping-feature-product-group-mapping": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-unipay-config-feature-unipay-access-mapping": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-unipay-config-data-access-unipay-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-encircle-product-group-mapping-data-access-encircle-product-group-mapping": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-encircle-product-group-mapping-ui-encircle-product-group-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-encircle-product-group-mapping-feature-encircle-product-group-mapping": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-payer-bank-config-data-access-payer-bank-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-payer-bank-config-feature-payer-bank-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-payer-bank-config-ui-payer-bank-config-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-payer-bank-config-feature-payer-bank-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-payer-bank-config-ui-payer-bank-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-payment-feature-payment": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-payment-data-access-payment": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-payment-ui-payment": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-common-data-access-common": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-payee-bank-data-access-payee-bank": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-payee-bank-ui-payee-bank-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-payee-bank-ui-payee-bank-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-payee-bank-feature-payee-bank-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-payee-bank-feature-payee-bank-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-payee-bank-ui-payee-bank-gl-code-pop-up": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-payer-bank-data-access-payer-bank": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-payer-bank-feature-payer-bank-list": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-payer-bank-ui-payer-bank-item-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-fileupload-confirmation-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-user-agent-data-access-user-agent": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-manual-cm-request-ui-discount-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-manual-cm-request-ui-cm-header-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-manual-cm-request-ui-customer-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-manual-cm-request-feature-cm-request-details": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-manual-cm-request-feature-cm-request-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-manual-cm-request-ui-request-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-manual-cm-request-feature-cm-request-shell": {
+      "tags": ["scope:shared", "type:feature-shell"]
+    },
+    "shared-manual-cm-request-ui-request-history": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-manual-cm-request-ui-bill-history": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-cash-memo-feature-cm-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "eposs-unipay-config-ui-unipay-config-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-cpg-qcgc-map-data-access-cpg-qcgc-map": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-cpg-qcgc-map-feature-cpg-qcgc-map-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-cpg-qcgc-map-feature-cpg-qcgc-map-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-cpg-qcgc-map-ui-cpg-qcgc-map-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-cpg-qcgc-map-ui-cpg-qcgc-map-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-customer-transaction-config-data-access-customer-transaction-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-customer-transaction-config-feature-customer-transaction-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-customer-transaction-config-ui-customer-transaction-config-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-customer-transaction-config-feature-customer-transaction-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-reports-feature-reports": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-reports-feature-report-settings": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-reports-data-access-reports": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-reports-ui-reports": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-reports-feature-reports-home": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-weight-tolerance-data-access-weight-tolerance": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-weight-tolerance-feature-weight-tolerance-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-weight-tolerance-ui-weight-tolerance-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-weight-tolerance-ui-weight-tolerance-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-weight-tolerance-feature-weight-tolerance-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-gift-cards-feature-gc-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-gift-cards-data-access-gift-cards": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-gift-cards-feature-gift-cards-sale": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gift-cards-feature-gift-cards-balance-inquiry": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gift-cards-ui-rso-name": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gift-cards-ui-gift-cards-grid": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gep-ui-gep-product-grid": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gep-feature-new-gep": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-feature-manual-gep": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-feature-cancel-gep": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-data-access-gep": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-gep-feature-gep-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "eposs-gep-purity-config-data-access-gep-purity-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-gep-purity-config-feature-gep-purity-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-gep-purity-config-ui-gep-purity-config-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gep-purity-config-feature-gep-purity-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-gep-purity-config-ui-gep-purity-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gep-purity-config-ui-gep-purity-config-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-gep-ui-manual-gep": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-util-common": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "poss-gep-feature-gep-on-hold": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-components-ui-item-preview-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-card-menu": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-gift-cards-ui-gift-cards-cm-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gift-cards-ui-gift-cards-cm-payment-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gift-cards-ui-gift-cards-cancellation-reasons": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gift-cards-feature-gift-cards-cancellation": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-ui-cancel-gep": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-components-ui-file-upload": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-gv-status-update-data-access-gv-status-update": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-gv-status-update-ui-gv-status-update": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gv-status-update-feature-gv-status-update": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-shared-gift-cards-ui-gift-card-number-input": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-shared-feature-common": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-manual-cm-request-data-access-cm-request": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "poss-shared-ui-manual-form-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gift-cards-ui-cm-list-grid-pop-up": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-gl-location-payment-data-access-gl-location-payment": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-gl-location-payment-feature-gl-location-payment-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-gl-location-payment-ui-gl-location-payment-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gl-boutique-location-data-access-gl-boutique-location": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-gl-boutique-location-feature-gl-boutique-location-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-gl-boutique-location-feature-gl-boutique-location-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-gl-boutique-location-ui-gl-boutique-location-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gl-boutique-location-ui-gl-boutique-location-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gst-mapping-data-access-gst-mapping": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-gst-mapping-ui-gst-mapping-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gst-mapping-ui-gst-mapping-form": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gst-mapping-feature-gst-mapping": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-foc-data-access-foc": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-foc-feature-foc-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-foc-feature-issue-pending-foc": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-cash-memo-ui-add-foc-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-foc-ui-pending-foc-product-grid": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-item-master-ui-item-filter-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-stone-ui-stone-filter-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-ct-advance-feature-ct-advance-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-ct-advance-feature-accept-advance": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-ct-advance-feature-manual-accept-advance": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-ct-advance-feature-accept-advance-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-ct-advance-data-access-ct-accept-advance": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-ct-advance-ui-rso-names-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-order-confirmation-data-access-order-confirmation": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-manual-cm-request-ui-summary-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-gl-location-payment-ui-gl-location-payment-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-revenue-feature-revenue-home": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-revenue-feature-day-wise-revenue": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-revenue-data-access-revenue": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-revenue-ui-revenue": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-revenue-feature-today-revenue": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-boutique-bank-deposit-data-access-boutique-bank-deposit": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-boutique-bank-deposit-ui-boutique-bank-deposit-items": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-boutique-bank-deposit-feature-boutique-bank-deposit-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-ro-request-approvals-data-access-ro-request-approvals": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-ro-request-approvals-feature-ro-request-approvals": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-ro-request-approvals-feature-ro-request-approvals-status": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-ro-request-approvals-ui-ro-request-approvals-status": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-pif-series-data-access-pif-series": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-pif-series-feature-pif-series-list": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-pif-series-ui-pif-series-items": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-sales-home-feature-sales-home": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-components-ui-product-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-ab-activation-requests-ab-activation-requests-shell": {
+      "tags": ["scope:eposs", "type:feature-shell"]
+    },
+    "poss-grf-feature-grf-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-grf-data-access-grf": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-grf-feature-grf": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-feature-merge-grf": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-feature-grf-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-ui-rso-names-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-grf-ui-gold-price-change-confirmation-pop-up": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-components-ui-payment-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-airpay-requests-feature-airpay-requests": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-airpay-requests-ui-airpay-requests-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-airpay-requests-data-access-airpay-requests": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "shared-bank-deposit-feature-bank-deposit": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-bank-deposit-ui-bank-deposit": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bank-deposit-data-access-bank-deposit": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-airpay-config-data-access-airpay-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-airpay-config-feature-airpay-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-airpay-config-ui-airpay-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-airpay-host-config-data-access-airpay-host-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-airpay-host-config-feature-airpay-host-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-airpay-host-config-ui-airpay-host-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-location-master-data-access-location-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-location-master-feature-location-master-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-location-master-feature-location-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-location-master-ui-location-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-location-master-ui-location-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-shared-ab-requests-data-access-ab-requests": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-shared-ab-requests-ui-ab-requests": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-shared-ab-requests-feature-ab-requests": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ab-cancellation-requests-ab-cancellation-requests-shell": {
+      "tags": ["scope:eposs", "type:feature-shell"]
+    },
+    "poss-advance-booking-data-access-advance-booking": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-advance-booking-feature-advance-booking": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-advance-booking-feature-search-advance-booking": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-advance-booking-feature-manual-advance-booking": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-advance-booking-feature-advance-booking-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-customer-town-data-access-customer-town": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-customer-town-feature-customer-town-listing": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-customer-town-ui-customer-town-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-customer-town-ui-customer-town-detail": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-advance-booking-ui-advance-booking": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-foc-config-feature-foc-variant-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-foc-config-feature-foc-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-foc-config-feature-foc-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-foc-config-data-access-foc-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-foc-config-ui-foc-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-foc-config-ui-foc-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-foc-config-ui-foc-variant-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-catchment-master-data-access-catchment-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-catchment-master-feature-catchment-master-listing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-catchment-master-ui-catchment-master-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-catchment-master-ui-catchment-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-shared-product-data-access-product": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "poss-shared-product-feature-product": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-shared-product-ui-product": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-foc-blocking-location-level-data-access-foc-bll": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-foc-blocking-location-level-feature-foc-bll-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-foc-blocking-location-level-ui-foc-bll-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-foc-blocking-customer-level-data-access-foc-bcl": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-foc-blocking-customer-level-feature-foc-bcl-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-foc-blocking-customer-level-ui-foc-bcl-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-advance-booking-feature-cancel-advance-booking": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-advance-booking-feature-view-advance-booking-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-advance-booking-feature-view-advance-booking": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-feature-bc-list": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-ui-bc-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-bc-feature-bc-detail": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-data-access-bc": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "shared-bc-feature-bc": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-bod-eod-feature-bod-eod": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bod-eod-data-access-bod-eod": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-bod-eod-ui-bod-process": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-bod-eod-ui-eod-process": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-bc-feature-bc-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-advance-booking-feature-request-status-advance-booking": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-advance-booking-feature-ab-requesting": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-ui-bc-detail": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-foc-ui-foc-popups": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-reports-feature-report-list": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-printer-config-feature-printer-config": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-printer-config-ui-printer-config": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-printer-config-data-access-printer-config": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "eposs-residual-weight-config-data-access-residual-weight-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-residual-weight-config-feature-residual-weight-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-residual-weight-config-feature-residual-weight-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-residual-weight-config-ui-residual-weight-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-residual-weight-config-ui-residual-weight-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-order-payment-config-feature-order-payment-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-order-payment-config-ui-order-payment-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-order-payment-config-data-access-order-payment-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-order-payment-config-feature-order-payment-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-order-payment-config-ui-order-payment-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-upload-eghs-bank-deposit-data-access-upload-eghs": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-upload-eghs-bank-deposit-feature-upload-eghs": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-ab-manual-requests-ab-manual-requests-shell": {
+      "tags": ["scope:eposs", "type:feature-shell"]
+    },
+    "eposs-ab-manual-requests-ab-manual-requests-feature": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ab-manual-requests-data-access-ab-manual-requests": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-ab-manual-requests-ui-ab-manual-requests": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ab-manual-requests-ab-manual-requests-detail-feature": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-notifications-feature-notifications": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-notifications-data-access-notifications": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-foc-config-ui-foc-item-mapping-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-state-tax-config-data-access-state-tax-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-state-tax-config-feature-state-tax-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-state-tax-config-ui-state-tax-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-state-tax-config-ui-state-tax-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-state-tax-config-feature-state-tax-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-clubbing-discount-config-data-access-clubbing-discount-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-clubbing-discount-config-feature-clubbing-discount-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-clubbing-discount-config-ui-clubbing-discount-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-clubbing-discount-config-ui-clubbing-discount-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cash-payment-config-data-access-cash-payment-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cash-payment-config-feature-cash-payment-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cash-payment-config-ui-cash-payment-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grf-tolerance-config-data-access-grf-tolerance-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-grf-tolerance-config-feature-grf-tolerance-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-tolerance-config-feature-grf-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-tolerance-config-ui-grf-tolerance-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grf-tolerance-config-ui-grf-tolerance-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cn-validation-data-access-cn-validation": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cn-validation-feature-cn-validation-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-validation-feature-cn-validation-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-validation-ui-cn-validation-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cn-validation-ui-cn-validation-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-password-config-data-access-password-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-password-config-ui-generate-password": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-password-config-feature-generate-password": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-interboutique-config-data-access-grn-interboutique-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-grn-interboutique-config-feature-grn-interboutique-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-interboutique-config-ui-grn-interboutique-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-metal-rates-data-access-metal-rates": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-metal-rates-feature-metal-rates": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-metal-rates-ui-update-metal-rates": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-walk-ins-feature-walk-ins-record": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-walk-ins-data-access-walk-ins-record": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-bod-eod-ui-eghs-offline-bod-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-bod-eod-ui-eghs-offline-eod-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-components-ui-error-grid-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-cn-master-feature-cn-master-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-master-feature-cn-master-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-master-ui-cn-master-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cn-master-ui-cn-master-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cn-master-data-access-cn-master": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cn-priority-config-data-access-cn-priority-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cn-priority-config-feature-cn-priority-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-priority-config-feature-cn-priority-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-priority-config-ui-cn-priority-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cn-priority-config-ui-cn-priority-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-configuration-home-feature-configuration-home": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "eposs-range-data-access-range": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-range-feature-range-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-range-ui-range-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-data-access-discount-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-discount-config-feature-discount-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-discount-config-feature-discount-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-discount-config-feature-discount-config-request": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-discount-config-ui-discount-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-config-request-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-applicable": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-product-group-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-product-category-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-exchange-offer-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-location-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-category-discount-product-group-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-exclude-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-config-header": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ab-tolerance-config-ui-ab-tolerance-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ab-tolerance-config-ui-ab-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ab-tolerance-config-feature-ab-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ab-tolerance-config-feature-ab-tolerance-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ab-tolerance-config-data-access-ab-tolerance-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-grn-approval-config-data-access-grn-approval-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-grn-approval-config-feature-grn-approval-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-approval-config-feature-grn-approval-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-approval-config-ui-grn-approval-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grn-approval-config-ui-grn-approval-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ibt-config-data-access-ibt-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-ibt-config-feature-ibt-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ibt-config-feature-ibt-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ibt-config-ui-ibt-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ibt-config-ui-ibt-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-inventory-global-config-data-access-inv-global-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-inventory-global-config-feature-inv-global-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-inventory-global-config-ui-inv-global-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cashback-offer-config-data-access-cashback-offer-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cashback-offer-config-feature-cashback-offer-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cashback-offer-config-ui-cashback-offer-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cashback-offer-config-ui-cashback-offer-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cashback-offer-config-feature-cashback-offer-config-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-payment-feature-credit-note": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-product-category-mapping-data-access-pc-mapping": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-product-category-mapping-feature-pc-mapping": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-credit-note-data-access-cn": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "poss-credit-note-feature-cn-search": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-credit-note-ui-cn-search-result-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-credit-note-feature-cn-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-credit-note-feature-cn-details": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-credit-note-ui-cn-details-views": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-components-ui-approvals-template": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-shortcut-feature-shortcut": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-tep-exception-config-data-access-tep-exception-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-tep-exception-config-feature-tep-exception-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-exception-config-feature-tep-exception-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-exception-config-ui-tep-exception-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-exception-config-ui-tep-exception-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-exchange-offer-pg-map": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-config-ab-co-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-refer-best-deal": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-file-upload-data-access-file-upload": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-discount-config-ui-discount-lot-bin-age-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-max-allowed-value": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-shared-gift-voucher-ui-gift-voucher": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-tep-product-group-data-access-tep-product-group": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-tep-product-group-feature-tep-product-group-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-product-group-feature-tep-product-group-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-product-group-ui-tep-product-group-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-product-group-ui-tep-product-group-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-file-upload-feature-file-home": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-bc-feature-bc-detail-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "eposs-grn-request-approvals-ui-grn-request-approvals": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grn-request-approvals-feature-grn-request-approvals": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-request-approvals-data-access-grn-request-approvals": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-discount-config-ui-emp-discount-location": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grn-tolerance-config-feature-grn-tolerance-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-tolerance-config-feature-grn-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grn-tolerance-config-ui-grn-tolerance-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grn-tolerance-config-ui-grn-tolerance-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grn-tolerance-config-data-access-grn-tolerance-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "poss-grn-data-access-grn": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-grn-feature-grn-status": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grn-ui-create-grn": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-grn-feature-create-grn": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grn-ui-grn-history": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-grn-ui-grn-status": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-grn-feature-view-grn": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grn-feature-grn-details-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-cn-transfer-feature-cn-transfer-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-cn-transfer-feature-cn-transfer-request-listing": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-cn-transfer-ui-cn-transfer-search-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-cn-transfer-data-access-cn-transfer": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-cn-transfer-feature-cn-transfer-details-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-cn-transfer-feature-cn-transfer-details": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-cn-transfer-ui-cn-transfer-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-applicable-theme": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-bc-requests-ui-bc": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bc-requests-data-access-bc": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-bc-requests-feature-bc-shell": {
+      "tags": ["scope:shared", "type:feature-shell"]
+    },
+    "shared-bc-requests-feature-bc-status": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-bc-requests-feature-bc-status-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-bc-requests-feature-bc": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-max-flat-tep-config-data-access-max-flat-tep-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-max-flat-tep-config-feature-max-flat-tep-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-max-flat-tep-config-ui-max-flat-tep-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-bgr-config-data-access-bgr-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-bgr-config-feature-bgr-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-bgr-config-feature-bgr-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-bgr-config-ui-bgr-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-bgr-config-ui-bgr-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-components-ui-selection-dialog-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-tep-feature-tep-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-tep-data-access-tep": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-tep-feature-create-tep": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-feature-cut-piece-tep": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-feature-manual-tep": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-ui-rso-names-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-tep-ui-tep-items-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-bgr-tolerance-config-data-access-bgr-tolerance-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-bgr-tolerance-config-feature-bgr-tolerance-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-bgr-tolerance-config-feature-bgr-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-bgr-tolerance-config-ui-bgr-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-bgr-tolerance-config-ui-bgr-tolerance-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-cn-approvals-data-access-cn-approvals": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cn-approvals-feature-cn-approvals": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-approvals-ui-cn-approvals": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-tep-feature-tep-item-pop-up": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-tep-data-access-direct-tep": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-tep-ui-cm-tep-item-list-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tep-ui-tep-stone-details-list-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-tep-feature-tep-request-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-tep-feature-tep-refund-request": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-feature-tep-request": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-feature-tep-search": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bod-eod-feature-view-eghs-offline-bod": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bod-eod-ui-eghs-offline-bod-password-grid": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-tep-validation-config-data-access-tep-validation-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-tep-validation-config-feature-tep-validation-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-validation-config-feature-tep-validation-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-validation-config-ui-tep-validation-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-validation-config-ui-tep-validation-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-tsss-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-tep-feature-tep-view-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-tep-feature-tep-view": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-ui-refund-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-tep-ui-tep-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-cut-piece-config-data-access-cut-piece-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cut-piece-config-feature-cut-piece-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cut-piece-config-ui-cut-piece-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-stone-config-data-access-tep-stone-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-tep-stone-config-feature-tep-stone-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-stone-config-feature-tep-stone-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-stone-config-ui-tep-stone-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-stone-config-ui-tep-stone-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-slab-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-value-percentage-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-tep-ui-cut-piece-tep-item-grid": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-grn-approval-config-feature-grn-approval-config-view-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ftep-approval-config-data-access-ftep-approval-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-ftep-approval-config-feature-ftep-approval-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ftep-approval-config-feature-ftep-approval-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-ftep-approval-config-ui-ftep-approval-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ftep-approval-config-ui-ftep-approval-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ftep-approval-config-feature-ftep-approval-config-view-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-priority-config-feature-cn-priority-config-view-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-validation-feature-cn-validation-view-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cn-master-feature-cn-master-view-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-grf-ui-merge-grf-list": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-printing-data-access-printing": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-printing-feature-printing": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-monitoring-dashboard-ui-scheduled-jobs-listing": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-monitoring-dashboard-data-access-monitoring-dashboard": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-monitoring-dashboard-feature-monitoring-dashboard": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-monitoring-dashboard-ui-update-scheduler-time": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-monitoring-dashboard-ui-manual-trigger-data-sync": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-monitoring-dashboard-ui-data-sync-statistics": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-tep-ui-refund-payment-mode-fields": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-components-ui-password": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-tep-approval-ui-stone-details-popup": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-approval-feature-regular-tep-approval": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-approval-ui-tep-approval": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-approval-data-access-tep-approval": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "shared-reports-feature-report-role-maping": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-reports-feature-report-auto": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-alert-popup-feature-alert-popup": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-ct-advance-ui-advance-history-item-listing": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-ct-advance-ui-advance-history-list-pop-up": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-ct-advance-feature-advance-history-detail": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-ct-advance-feature-advance-history-detail-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-grf-ui-grf-history-item-listing": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-grf-feature-grf-history-detail-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-grf-feature-grf-history-detail": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-bod-eod-feature-bod-eod": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-bod-eod-data-access-bod-eod": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-location-master-ui-location-master-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-brand-ui-brand-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-bod-eod-ui-users-active-sessions": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-sub-brand-ui-sub-brand-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-cash-memo-feature-tolerance-details": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-f2-margin-data-access-f2-margin": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-f2-margin-feature-f2-margin": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-f2-margin-ui-f2-margin": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-cfa-product-ui-cfa-product-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-courier-ui-courier-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-market-code-ui-market-code-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-corporate-town-ui-corporate-town-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-region-ui-region-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-master-ui-tax-master-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-country-master-ui-country-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-complexity-code-ui-complexity-code-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-sub-region-ui-sub-region-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-price-group-mapping-data-access-price-group-mapping": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-price-group-mapping-feature-price-group-mapping": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-price-group-mapping-ui-price-group-mapping": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-tax-class-ui-tax-class-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-stone-type-ui-stone-type-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-metal-type-ui-metal-type-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-price-group-ui-price-group-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-currency-master-ui-currency-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-payee-bank-ui-payee-bank-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-foc-config-ui-foc-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-foc-config-feature-foc-config-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-components-ui-table-view-dialog": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-tep-approval-feature-refund-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-approval-ui-refund-list-grid": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-tep-feature-tep-request-view": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-tep-feature-tep-cancel": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "eposs-customer-transaction-config-ui-customer-transaction-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-grf-tolerance-config-ui-grf-tolerance-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-residual-weight-config-ui-residual-weight-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-order-payment-config-ui-order-payment-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-ab-tolerance-config-ui-ab-tolerance-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-bgr-tolerance-config-ui-bgr-tolerance-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-bgr-config-ui-bgr-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gl-boutique-location-ui-gl-boutique-location-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-approval-feature-full-value-tep-approval": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-approval-ui-full-value-tep-request-list-grid": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-tep-feature-tep-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "eposs-discount-config-ui-discount-empowerment-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-cash-memo-ui-cash-memo-history": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-grn-tolerance-config-ui-grn-tolerance-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-razorpay-hostname-config-data-access-razorpay-hostname-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-razorpay-hostname-config-feature-razorpay-hostname-config-mapping": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-razorpay-hostname-config-ui-razorpay-hostname-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-cash-memo-feature-cash-memo-history-details": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-cash-memo-feature-cash-memo-history-details-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-shared-discount-feature-discount": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-shared-discount-data-access-discount": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-shared-discount-feature-discount-details-popup": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-shared-discount-ui-discount": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-ftep-approval-config-ui-ftep-approval-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-stone-config-ui-tep-stone-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-payment-configuration-ui-payment-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-razorpay-vendor-config-data-access-razorpay-vendor-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-razorpay-vendor-config-feature-razorpay-vendor-config-mapping": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-razorpay-vendor-config-ui-razorpay-vendor-config-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-digital-signature-feature-digital-signature": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-components-ui-signature-pad": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-cashback-offer-config-ui-cashback-offer-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-tep-exception-config-ui-tep-exception-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-tep-validation-config-ui-tep-validation-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-feature-discount-config-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-gep-purity-config-ui-gep-purity-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-gep-purity-config-feature-gep-purity-config-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-product-group-ui-tep-product-group-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-ibt-config-ui-ibt-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-payer-bank-config-ui-payer-bank-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-weight-tolerance-ui-weight-tolerance-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-cpg-qcgc-map-ui-cpg-qcgc-map-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-state-tax-config-ui-state-tax-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-product-category-ui-product-category-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bin-group-ui-bin-group-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-bin-ui-bin-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-conversion-config-ui-conversion-config-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-util-price": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "shared-toolbar-data-access-toolbar": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-toolbar-feature-toolbar": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-toolbar-ui-toolbar": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-grf-ui-grf-history-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-cut-piece-tot-data-access-cut-piece-tot": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-cut-piece-tot-feature-cut-piece-tot-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-cut-piece-tot-ui-cut-piece-tot-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-razorpay-status-check-feature-razorpay-requests": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-razorpay-status-check-data-access-razorpay-status-check": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-razorpay-status-check-ui-razorpay-requests-lists": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-app-version-dashboard-feature-app-version-dashboard": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-app-version-dashboard-data-access-app-version-dashboard": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-app-version-dashboard-ui-app-version-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-ucp-market-code-factor-data-access-ucp-market-code-factor": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-ucp-market-code-factor-feature-ucp-market-code-factor": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-ucp-market-code-factor-ui-ucp-market-code-factor": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-ucp-market-code-factor-ui-ucp-market-code-factor-detail": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-shared-view-tcs-ui-view-tcs": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-shared-view-tcs-feature-view-tcs": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-shared-view-tcs-data-access-view-tcs": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "eposs-gl-location-payment-ui-gl-location-form": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-item-master-ui-item-header-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-stone-ui-stone-header-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-bc-feature-bc-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-feature-bc-history-details": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-feature-bc-history-details-shell": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-ui-bc-history": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-bc-feature-bc-history-list": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-bc-ui-bc-history-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-riva-pg-map": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-gep-feature-gep-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-ui-gep-details": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gep-feature-gep-view-shell": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-feature-gep-view": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gep-ui-gep-search": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-cn-transfer-feature-cn-transfer": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-state-ui-state-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-list-of-values-ui-lovmaster-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-vendor-master-data-access-vendor-master": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-vendor-master-feature-vendor-master": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-vendor-master-ui-vendor-master-details": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-vendor-master-ui-vendor-master-list": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-stock-receive-feature-stock-receive-shell": {
+      "tags": ["scope:eposs", "type:feature-shell"]
+    },
+    "eposs-stock-receive-feature-stock-receive-factory": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-receive-feature-stock-receive-boutique": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-receive-feature-stock-receive-merchandise": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-receive-feature-stock-receive-history": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-receive-feature-stock-receive-cfa": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-file-upload-ui-file-status": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-file-upload-feature-file-status": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-file-upload-feature-file-multi-upload": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "shared-file-upload-ui-file-multi-upload": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-stock-issue-feature-stock-issue-shell": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-feature-stock-issue-factory": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-feature-stock-issue-boutiques": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-feature-stock-issue-merchandise": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-feature-stock-issue-history": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-grn-ui-initiate-grn-form": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-reports-util-reports": {
+      "tags": ["scope:shared", "type:util"]
+    },
+    "poss-digital-signature-data-access-digital-signature": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-shared-other-charges-feature-other-charges": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-shared-other-charges-data-access-other-charges": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-shared-other-charges-ui-other-charges": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-profile-ui-cashier-signature": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-digitization-documents-search-feature-digitization-documents-search": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-digitization-documents-search-ui-documents-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-digitization-documents-search-data-access-documents-search": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "shared-printing-feature-post-transaction-confirmation-actions": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-cn-transfer-feature-cn-transfer-menu": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "shared-discounts-selection-feature-discounts-selection-pop-up": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-conversion-approvals-data-access-conversion-approvals": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-conversion-approvals-feature-conversion-approvals": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-approvals-ui-conversion-requests-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-conversion-approvals-feature-conversion-approval-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-conversion-approvals-ui-conversion-approvals-filters": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-discounts-selection-ui-discounts-selection-grid": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-stock-issue-feature-stock-issue-cancel": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-issue-feature-stock-issue-cancel-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-return-feature-stock-cfa-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-stock-return-ui-stock-cfa-item-list": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-rivaah-eligibility-config-feature-rivaah-eligibility-config-shell": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-rivaah-eligibility-config-feature-rivaah-tabs": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-rivaah-eligibility-config-feature-eligibility-criteria": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-rivaah-eligibility-config-feature-coupon-configuration": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-rivaah-eligibility-config-data-access-rivaah-configuration": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "eposs-rivaah-eligibility-config-ui-coupon-configuration": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-rivaah-eligibility-config-ui-rivaah-eligibility-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "shared-order-detail-feature-order-detail": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-e-invoice-feature-update-invoice": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-e-invoice-ui-update-invoice": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-rivaah-ashirwaad-pg-map": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-discount-config-ui-discount-scheme-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-cash-memo-data-access-cash-memo": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-shared-ui-add-coin-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-shared-ui-add-cn-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-cash-memo-ui-add-manaul-foc-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-ucp-market-code-factor-ui-ucp-market-code-factor-view": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-credit-note-ui-refund-payment-modes": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-credit-note-direct-data-access-credit-note-direct": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-credit-note-direct-feature-credit-note-direct": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-credit-note-direct-ui-credit-note-direct": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-amendment-config-ui-amendment-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-amendment-config-feature-amendment-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-amendment-config-data-access-amendment-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "poss-grf-feature-manual-grf": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "eposs-employee-loan-config-feature-employee-loan-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-employee-loan-config-data-access-employee-loan-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-employee-loan-config-ui-employee-loan-config": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "poss-cash-memo-ui-coe-popup": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-rivaah-eligibility-config-ui-rivaah-location-mapping": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-rivaah-eligibility-config-feature-rivaah-location-mapping": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "shared-file-upload-ui-file-download-popup": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-shortcut-ui-shortcut": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "poss-gift-cards-feature-gift-cards-history": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gift-cards-ui-gc-history-item-listing": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-gift-cards-feature-gift-cards-history-details": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-gift-cards-feature-gift-cards-history-details-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "eposs-grf-manual-request-feature-grf-request-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-feature-grf-request-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-feature-grf-request-shell": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-ui-bill-history": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-ui-cm-header-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-ui-customer-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-ui-discount-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-ui-request-list": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-ui-summary-view": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-grf-manual-request-data-access-grf-request": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "poss-grf-request-status-feature-grf-status-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-grf-request-status-feature-grf-status-details": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-request-status-feature-grf-status-shell": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-request-status-ui-summary-view": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-request-status-ui-header-view": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-grf-request-status-data-access-grf-request": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-grf-request-status-ui-request-list": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-credit-note-refund-payment-view-ui-refund-payment-view": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-credit-note-ui-refund-payment-view": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-credit-note-ui-refund-payment-mode-view": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "shared-complexity-pricegroup-map-ui-complexity-pricegroup-filter": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "shared-role-mgmt-ui-role-view-form": {
+      "tags": ["scope:shared", "type:ui"]
+    },
+    "eposs-tep-approval-ui-tep-exception-approval": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-tep-approval-feature-tep-exception-approval": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "poss-tep-ui-tep-exception": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "eposs-co-order-payment-config-feature-co-order-payment-config": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-co-order-payment-config-feature-co-order-payment-config-detail": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-co-order-payment-config-ui-co-order-payment-config-detail": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-order-payment-config-ui-co-order-payment-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-order-payment-config-ui-co-order-payment-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-order-payment-config-data-access-co-order-payment-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-co-residual-weight-config-data-access-co-residual-weight-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "eposs-co-residual-weight-config-feature-co-residual-weight-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-co-residual-weight-config-feature-co-residual-weight-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-co-residual-weight-config-ui-co-residual-weight-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-residual-weight-config-ui-co-residual-weight-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-residual-weight-config-ui-co-residual-weight-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-tolerance-config-ui-co-tolerance-config-view": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-tolerance-config-ui-co-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-tolerance-config-ui-co-tolerance-config-details": {
+      "tags": ["scope:eposs", "type:ui"]
+    },
+    "eposs-co-tolerance-config-feature-co-tolerance-config-listing": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-co-tolerance-config-feature-co-tolerance-config-details": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-co-tolerance-config-data-access-co-tolerance-config": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "shared-pan-form-verify-feature-pan-form-verify-popup": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "poss-customer-order-data-access-co": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-customer-order-feature-co-shell": {
+      "tags": ["scope:poss", "type:feature-shell"]
+    },
+    "poss-customer-order-feature-fetch-co": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-customer-order-feature-new-co": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-customer-order-feature-search-co": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-customer-order-ui-co": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-shared-product-feature-co-product": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-find-price-feature-find-price": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-find-price-ui-find-price": {
+      "tags": ["scope:poss", "type:ui"]
+    },
+    "poss-find-price-data-access-find-price": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "shared-upload-service-poss-bank-deposit-data-access-upload-service-poss": {
+      "tags": ["scope:shared", "type:data-access"]
+    },
+    "shared-upload-service-poss-bank-deposit-feature-upload-service-poss": {
+      "tags": ["scope:shared", "type:feature"]
+    },
+    "eposs-update-hallmark-feature-update-hallmark": {
+      "tags": ["scope:eposs", "type:feature"]
+    },
+    "eposs-update-hallmark-data-access-update-hallmark": {
+      "tags": ["scope:eposs", "type:data-access"]
+    },
+    "poss-upgrade-version-data-access-upgrade-version": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-upgrade-version-feature-upgrade-version": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-product-master-update-data-access-product-master-update": {
+      "tags": ["scope:poss", "type:data-access"]
+    },
+    "poss-product-master-update-feature-product-master-update": {
+      "tags": ["scope:poss", "type:feature"]
+    },
+    "poss-help-menu-feature-help-menu": {
+      "tags": ["scope:poss", "type:data-access"]
+    }
+  },
+  "default": {
+    "runner": "@nrwl/workspace/tasks-runners/default",
+    "options": {
+      "cacheableOperations": ["build", "lint", "test", "e2e"]
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

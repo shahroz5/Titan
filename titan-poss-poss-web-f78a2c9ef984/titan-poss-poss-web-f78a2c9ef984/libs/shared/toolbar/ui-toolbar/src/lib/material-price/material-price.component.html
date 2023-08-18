@@ -1,0 +1,50 @@
+<span *ngIf="metalPrice && metalPrice.length > 0">
+  <button
+    mat-button
+    [matMenuTriggerFor]="menu"
+    #menuStatus="matMenuTrigger"
+    class="pw-menu-bar__button"
+  >
+    <ng-container *ngFor="let metal of withDefaultGold">
+      <span class="pw-fourth-color">
+        {{ metal.metalName }} ({{ metal.karatage }}K)
+      </span>
+      <span class="pw-fourth-color"> : </span>
+      <span class="pw-secondary-color">
+        {{ metal.ratePerUnit | currencyFormatter: currencyCode:true }}</span
+      >
+
+      <span class="pw-fourth-color"> per {{ metal.unit }}</span>
+      <span
+        *ngIf="menuStatus.menuOpen"
+        class="pw-i-14 pw-up-arrow-gold-icon-14 pw-arrow-allign"
+      ></span>
+      <span
+        *ngIf="!menuStatus.menuOpen"
+        class="pw-i-14 pw-down-arrow-gold-icon-14 pw-arrow-allign"
+      ></span>
+    </ng-container>
+  </button>
+
+  <mat-menu #menu="matMenu" yPosition="below">
+    <div *ngFor="let metal of withoutDefaultGold; index as i">
+      <button mat-menu-item class="pw-mat-menu-list__size row no-guuters">
+        <div class="col-4">
+          <span class="pw-fourth-color"
+            >{{ metal.metalName }}
+            <span *ngIf="metal && metal.karatage">({{ metal.karatage }}K)</span>
+          </span>
+        </div>
+        <div class="col-auto px-1">
+          <span class="pw-fourth-color"> : </span>
+        </div>
+        <div class="col px-1">
+          <span class="pw-secondary-color">
+            {{ metal.ratePerUnit | currencyFormatter: currencyCode:true }}</span
+          >
+          <span class="pw-fourth-color"> per {{ metal.unit }}</span>
+        </div>
+      </button>
+    </div>
+  </mat-menu>
+</span>

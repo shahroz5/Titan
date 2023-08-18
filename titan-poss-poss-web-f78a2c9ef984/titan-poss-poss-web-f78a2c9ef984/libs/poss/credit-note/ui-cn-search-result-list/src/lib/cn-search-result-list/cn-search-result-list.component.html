@@ -1,0 +1,232 @@
+<div class="pw-form-card" [formGroup]="CNSearchFormGroup">
+  <div class="row">
+    <mat-form-field class="col-lg-2 col-3">
+      <mat-label> {{ 'pw.creditNote.cnNumberLabel' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="cnNumber"
+        class="pw-single-bordered-input"
+        [required]="CNSearchFormGroup.get('fiscalYear').value !== ''"
+        autocomplete="off"
+        (change)="onSearchChange.emit()"
+      />
+      <mat-error
+        *ngIf="
+          CNSearchFormGroup.get('cnNumber').errors &&
+          CNSearchFormGroup.get('cnNumber').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="CNSearchFormGroup.get('cnNumber').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+      <mat-error
+        class="pw-error-color"
+        *ngIf="CNSearchFormGroup.get('cnNumber').hasError('required')"
+        class="pw-error-color"
+      >
+        {{ 'pw.creditNote.mandatoryFieldLabel' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <poss-web-fiscal-year
+      class="col-lg-2 col-3"
+      [control]="CNSearchFormGroup.get('fiscalYear')"
+      [required]="
+        CNSearchFormGroup.get('cnNumber').value !== '' &&
+        CNSearchFormGroup.get('cnNumber').value !== null
+          ? true
+          : false
+      "
+      [currentFiscalYear]="currentFiscalYear"
+      [placeHolder]="'pw.creditNote.searchByFiscalYearLabel' | translate"
+      [disabled]="false"
+      [data]="searchData?.fiscalYear"
+    ></poss-web-fiscal-year>
+    <mat-form-field class="col-lg-3 col-3">
+      <mat-label>
+        {{ 'pw.creditNote.mobileNumberLabel' | translate }}</mat-label
+      >
+      <input
+        matInput
+        formControlName="mobileNumber"
+        class="pw-single-bordered-input"
+        autocomplete="off"
+        possWebMaxLengthValidator
+        name="mobileField"
+        (change)="onSearchChange.emit()"
+      />
+      <mat-error
+        *ngIf="
+          CNSearchFormGroup.get('mobileNumber').errors &&
+          CNSearchFormGroup.get('mobileNumber').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            CNSearchFormGroup.get('mobileNumber').errors.errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-lg-4 col-3">
+      <mat-label>{{ 'pw.creditNote.docDateRangeLabel' | translate }}</mat-label>
+      <mat-date-range-input
+        [rangePicker]="picker"
+        [max]="businessDay"
+      >
+        <input
+          matStartDate
+          [formControl]="CNSearchFormGroup.controls['startDate']"
+          placeholder="{{ 'pw.creditNote.fromDocDateLabel' | translate }}"
+        />
+        <input
+          matEndDate
+          [formControl]="CNSearchFormGroup.controls['endDate']"
+          placeholder="{{ 'pw.creditNote.toDocDateLabel' | translate }}"
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>
+          <span class="pw-i-12 pw-calender-icon-12"></span>
+        </mat-icon>
+      </mat-datepicker-toggle>
+
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-icon
+        *ngIf="
+          CNSearchFormGroup?.get('startDate')?.value !== null &&
+          CNSearchFormGroup?.get('endDate')?.value !== null
+        "
+        class="pw-pointer"
+        matSuffix
+        (click)="clearDocRange()"
+      >
+        <span class="pw-i-10 pw-close-icon-16"></span
+      ></mat-icon>
+
+      <mat-error
+        *ngIf="
+          CNSearchFormGroup?.get('startDate')?.errors &&
+          CNSearchFormGroup?.get('startDate')?.errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            CNSearchFormGroup?.get('startDate')?.errors.errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+      <mat-error
+        *ngIf="
+          CNSearchFormGroup?.get('endDate')?.errors &&
+          CNSearchFormGroup?.get('endDate')?.errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            CNSearchFormGroup.get('endDate').errors.errorArray
+          "
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="col-auto pw-list-card__checkbox">
+      <mat-checkbox formControlName="isUnipayCN">{{
+        'pw.creditNote.isUnipayLabel' | translate
+      }}</mat-checkbox>
+    </div>
+
+    <div class="col-auto pw-form-card__right-container">
+      <button
+        class="pw-btn pw-accent-btn"
+        [disabled]="
+          !CNSearchFormGroup.dirty ||
+          CNSearchFormGroup.invalid ||
+          (CNSearchFormGroup.get('cnNumber').value === '' &&
+            CNSearchFormGroup.get('fiscalYear').value === '' &&
+            CNSearchFormGroup.get('mobileNumber').value === '' &&
+            CNSearchFormGroup.get('startDate').value === null &&
+            CNSearchFormGroup.get('endDate').value === null )
+        "
+        (click)="search()"
+      >
+        {{ 'pw.creditNote.searchLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="pw-form-card">
+  <h4 class="pw-tertiary-color">
+    {{ 'pw.creditNote.searchResultsLabel' | translate }}
+  </h4>
+  <form class="mt-2">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [columnDefs]="columnDefs"
+      [rowData]="searchResult"
+      [domLayout]="domLayout"
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+      (gridReady)="gridReady($event)"
+      [context]="getContext()"
+      (gridSizeChanged)="onGridSizeChanged()"
+      [frameworkComponents]="getComponents()"
+      [defaultColDef]="defaultColDef"
+      (cellClicked)="onCellClicked($event)"
+    >
+    </ag-grid-angular>
+  </form>
+  <div class="row pw-form-card__margin-top">
+    <div class="col-auto ml-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="cnDetailsType(cnSearchEnumRef.ACTIVATE_CN)"
+        [disabled]="disbaleActiveCN"
+      >
+        {{ 'pw.creditNote.activateCNLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="cnDetailsType(cnSearchEnumRef.CANCEL_CN)"
+        [disabled]="disableCancelCN"
+      >
+        {{ 'pw.creditNote.cancelCNLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        [disabled]="disableRemoveGoldRateButton"
+        (click)="cnDetailsType(cnSearchEnumRef.REMOVE_GOLD_RATE)"
+      >
+        {{ 'pw.creditNote.removeGoldRateLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        [disabled]="disableButton"
+        (click)="cnDetailsType(cnSearchEnumRef.EGHS_TRANSFER)"
+      >
+        {{ 'pw.creditNote.transfetToeghsLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && searchResult.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="emitPagination($event)"
+>
+</mat-paginator>

@@ -1,0 +1,87 @@
+<div *ngIf="config">
+  <poss-web-basic-discount-category-view
+    *ngIf="config"
+    [selectedDiscount]="selectedDiscount"
+    [config]="config.basicCriteria.data"
+    [currencyCode]="currencyCode"
+    [enableStoreEditOption]="enableStoreEditOption()"
+    [enableMultipleTransactionPerDayOption]="
+      enableMultipleTransactionPerDayOption()
+    "
+    [enableUCPValue]="enableUCPValue()"
+    [enableAccuralOption]="enableAccuralOption()"
+    [enableNarrationOption]="enableNarrationOption()"
+    [enableMaxCapOption]="enableMaxCapOption()"
+    [enableSerialNoOption]="enableSerialNoOption()"
+    [enableTataEmployeeConfig]="enableTataEmployeeConfig()"
+    [enableConiConfig]="enableConiConfig()"
+    [enableApplicableForAutomatedDiscountOption]="
+      enableApplicableForAutomatedDiscountOption()
+    "
+    [enableFullValueTEPDiscountRecoveryOption]="
+      enableFullValueTEPDiscountRecoveryOption()
+    "
+  ></poss-web-basic-discount-category-view>
+
+  <poss-web-clubbing-offer-view
+    *ngIf="enableClubbingOffersOption()"
+    [isSystemDiscount]="isSystemDiscount()"
+    [isEmpowermentDiscount]="isEmpowermentDiscount()"
+    [isCoinOfferDiscount]="isCoinOfferDiscount()"
+    [enableClubbingBillLevelDiscountOption]="
+      !enableClubbingBillLevelDiscountOption()
+    "
+    class="col-lg-4 col-12"
+    [selectedDiscount]="selectedDiscount"
+    [config]="config.clubOtherOffersConfig.data"
+    [isRiva]="isRiva"
+  ></poss-web-clubbing-offer-view>
+
+  <poss-web-clubbing-discounts-view
+    *ngIf="enableClubbingDiscountOption()"
+    [enableClubbingBillLevelDiscountOption]="
+      enableClubbingBillLevelDiscountOption()
+    "
+    [enableClubbingDiscountOption]="enableClubbingDiscountOption()"
+    class="col-lg-4 col-12"
+    [selectedDiscount]="selectedDiscount"
+    [discountTypes]="discountTypes"
+    [clubbingDiscountTypes]="clubbingDiscountTypes"
+    [config]="config.clubDiscountType.data"
+  ></poss-web-clubbing-discounts-view>
+
+  <poss-web-cumulative-discounts-view
+    *ngIf="enableCumulativeDiscountConfig()"
+    class="col-lg-4 col-12"
+    [selectedDiscount]="selectedDiscount"
+    [config]="config.cumulativeDetails.data"
+  ></poss-web-cumulative-discounts-view>
+</div>
+
+<poss-web-grn-config-view
+  *ngIf="config && enableGrnConfig()"
+  [selectedDiscount]="selectedDiscount"
+  [enableDaysOptionOfGRN]="enableDaysOptionOfGRN()"
+  [enableDaysOptionOfInvoice]="enableDaysOptionOfInvoice()"
+  [enableAllowedForGRNBeforeOfferPeriodOption]="
+    enableAllowedForGRNBeforeOfferPeriodOption()
+  "
+  [enableGRNSameCFAEligibleOption]="enableGRNSameCFAEligibleOption()"
+  [config]="config.grnDetails.data"
+  [enableIsGRNApplicable]="enableIsGRNApplicable()"
+></poss-web-grn-config-view>
+
+<poss-web-tep-recovery-config-view
+  *ngIf="config && enableTepDiscountRecovery"
+  [selectedDiscount]="selectedDiscount"
+  [durations]="durations | async"
+  [tepConfig]="config.tepDetails.data"
+></poss-web-tep-recovery-config-view>
+
+<poss-web-ab-co-config-view
+  *ngIf="config && enableAbCoConfig()"
+  [selectedDiscount]="selectedDiscount"
+  [config]="config.orderDetails.data"
+  [isABOfferApplicable]="enableAbCoConfig()"
+  [isCOOfferApplicable]="enableAbCoConfig()"
+></poss-web-ab-co-config-view>

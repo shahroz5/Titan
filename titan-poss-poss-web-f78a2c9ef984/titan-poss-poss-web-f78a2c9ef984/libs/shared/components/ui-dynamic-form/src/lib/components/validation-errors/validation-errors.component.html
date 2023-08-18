@@ -1,0 +1,12 @@
+<!-- <ng-container *ngFor="let error of control.errors | objIterator">
+  <poss-web-error-message *ngIf="control.touched" [formId]="formId" [controlName]="controlName" [error]="error"
+    [validationErrorMessages]="validationErrorMessages">
+  </poss-web-error-message>
+</ng-container> -->
+<span *ngIf="control.touched">
+  <span *ngIf="control.errors">
+    <poss-web-error-info-tooltip
+      [errorMessage]="control.errors.errorArray"
+    ></poss-web-error-info-tooltip>
+  </span>
+</span>

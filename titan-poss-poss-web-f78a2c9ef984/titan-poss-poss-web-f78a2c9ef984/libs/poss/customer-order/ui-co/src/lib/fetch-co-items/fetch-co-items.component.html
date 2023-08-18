@@ -1,0 +1,65 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [rowData]="fetchedCOItems"
+  [rowSelection]="rowSelection"
+  [frameworkComponents]="getComponents()"
+  [context]="getContext()"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  [getRowNodeId]="getRowNodeId"
+  [defaultColDef]="defaultColumnDefs"
+  [suppressRowClickSelection]="suppressRowClickSelection"
+  [pagination]="pagination"
+  [tooltipShowDelay]="tooltipShowDelay"
+  (gridReady)="gridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged()"
+  (selectionChanged)="onSelectionChanged($event)"
+  (cellFocused)="onCellFocused($event)"
+  (focusout)="focusOut($event)"
+>
+</ag-grid-angular>
+<div class="row mt-2">
+  <poss-web-select-dropdown
+    *ngIf="fetchedCOItems.length >= 5"
+    class="col-auto ml-auto"
+    [placeholder]="'pw.fetchCustomerOrder.pageSizeLabel' | translate"
+    [options]="pageSizeOptions"
+    [control]="pageSizeControl"
+    [required]="true"
+    (selectionChange)="onPageSizeChanged($event)"
+  >
+  </poss-web-select-dropdown>
+
+  <div
+    [ngClass]="
+      fetchedCOItems.length < 5 ? 'col-auto mt-2 ml-auto' : 'col-auto mt-2'
+    "
+  >
+    <button
+      class="pw-btn pw-accent-btn"
+      [disabled]="fetchedCOItems.length === 0"
+      (click)="createCO()"
+    >
+      {{ 'pw.fetchCustomerOrder.createCOButtonTxt' | translate }}
+    </button>
+  </div>
+
+  <div class="col-auto mt-2">
+    <button
+      class="pw-btn pw-accent-btn"
+      [disabled]="fetchedCOItems.length === 0"
+      (click)="clearSelection()"
+    >
+      {{ 'pw.fetchCustomerOrder.clearButtonTxt' | translate }}
+    </button>
+  </div>
+</div>

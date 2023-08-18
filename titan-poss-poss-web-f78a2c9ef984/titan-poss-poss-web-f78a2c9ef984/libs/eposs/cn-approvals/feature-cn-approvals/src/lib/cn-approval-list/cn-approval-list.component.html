@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.cnRequestApproval.customerTransaction' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.cnRequestApproval.approval' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pw-tab">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a class="pw-is-active-bar">
+              <h5 class="pw-tab__item">
+                {{ 'pw.cnRequestApproval.cnApprovalRequestLabel' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="row" [formGroup]="filterForm">
+        <poss-web-select-dropdown
+          class="col-3"
+          [placeholder]="'pw.cnRequestApproval.requestTypelabel' | translate"
+          [options]="requestTypeArray"
+          [required]="false"
+          (selectionChange)="onDropDownValueChange($event)"
+        >
+        </poss-web-select-dropdown>
+        <poss-web-fiscal-year
+          class="col-3"
+          [control]="filterForm.get('fiscalYear')"
+          [required]="false"
+          [currentFiscalYear]="currentFiscalYear"
+          [placeHolder]="'pw.grf.fiscalYearLabel' | translate"
+          [disabled]="false"
+        ></poss-web-fiscal-year>
+
+        <mat-form-field
+          class="col-3 align-self-center pw-form-field-padding-bottom-0 pw-search-bar"
+        >
+          <input
+            matInput
+            placeholder="{{
+              'pw.cnRequestApproval.searchByCnNumberLable' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="cnNumber"
+            (keypress)="numberCheck($event)"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!filterForm.value.cnNumber"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearCnNumberSearch()">
+            <span
+              *ngIf="filterForm.value.cnNumber"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field
+          class="col-3 col-auto align-self-center pw-form-field-padding-bottom-0 pw-search-bar"
+        >
+          <input
+            matInput
+            type="text"
+            placeholder="{{
+              'pw.cnRequestApproval.searchByLocationCodeLabel' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="locationCode"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!filterForm.value.locationCode"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearLocationSearch()">
+            <span
+              *ngIf="filterForm.value.locationCode"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <poss-web-cn-approval-list-items
+            [cnRequestList]="
+              inValidSearch === false ? (cnRequestList$ | async) : []
+            "
+            [disableButton]="disableButton"
+            [pageEvent]="initialPageEvent"
+            [pageSizeOptions]="pageSizeOptions"
+            [requestType]="filterForm.get('requestType').value"
+            (paginator)="paginate($event)"
+            (saveStatus)="save($event)"
+          >
+          </poss-web-cn-approval-list-items>
+        </div>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

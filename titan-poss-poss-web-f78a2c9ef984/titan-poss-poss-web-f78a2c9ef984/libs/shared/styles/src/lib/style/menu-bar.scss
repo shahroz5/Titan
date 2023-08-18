@@ -1,0 +1,51 @@
+.pw-menu-bar {
+  height: 30px;
+  margin-bottom: 10px;
+  text-align: right;
+  // z-index: 9;
+  position: relative;
+
+  &__list {
+    margin: 0;
+    justify-content: flex-end;
+
+    width: auto;
+    display: inline-block;
+    margin-left: auto;
+  }
+
+  &__ul {
+    margin: 0;
+    justify-content: flex-end;
+    background: $tenth-color;
+    border-radius: 14px 0 0 14px;
+    padding-left: 10px;
+    font-family: $ibm-plex-condensed;
+  }
+
+  &__width-350 {
+    width: 350px;
+  }
+
+  &__content-1 {
+    font-weight: bold;
+  }
+
+  &__content-2 {
+    font-weight: 600;
+    font-size: em(14);
+  }
+
+  &__item {
+    padding: 3px 6px 3px 0;
+  }
+
+  &__button {
+    padding: 0 5px;
+    font-family: $ibm-plex-condensed;
+
+    span {
+      font-family: $ibm-plex-condensed;
+    }
+  }
+}

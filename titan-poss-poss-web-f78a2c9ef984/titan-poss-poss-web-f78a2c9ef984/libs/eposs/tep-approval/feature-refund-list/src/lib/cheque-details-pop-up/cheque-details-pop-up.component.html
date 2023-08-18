@@ -1,0 +1,122 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.regularTepApproval.addChequeDetailsHeadingLabel' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="closeDialog()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="row" [formGroup]="chequeDetailsFormGroup">
+      <mat-form-field class="col-lg-12 col-12" [floatLabel]="'auto'">
+        <mat-label>{{
+          'pw.regularTepApproval.chequeNumberPlaceholderLabel' | translate
+        }}</mat-label>
+        <input
+          #focusPin
+          matInput
+          formControlName="chequeNumber"
+          type="number"
+        />
+        <mat-error
+          *ngIf="
+            chequeDetailsFormGroup.get('chequeNumber').errors &&
+            chequeDetailsFormGroup.get('chequeNumber').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              chequeDetailsFormGroup.get('chequeNumber').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-lg-12 col-12" [floatLabel]="'auto'">
+        <mat-label>{{
+          'pw.regularTepApproval.payeeNamePlaceholderLabel' | translate
+        }}</mat-label>
+        <input #focusPin matInput formControlName="payeeName" type="text" />
+        <mat-error
+          *ngIf="
+            chequeDetailsFormGroup.get('payeeName').errors &&
+            chequeDetailsFormGroup.get('payeeName').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              chequeDetailsFormGroup.get('payeeName').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-lg-12 col-12" [floatLabel]="'auto'">
+        <mat-label>{{
+          'pw.regularTepApproval.bankNamePlaceholderLabel' | translate
+        }}</mat-label>
+        <input #focusPin matInput formControlName="bankName" type="text" />
+        <mat-error
+          *ngIf="
+            chequeDetailsFormGroup.get('bankName').errors &&
+            chequeDetailsFormGroup.get('bankName').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              chequeDetailsFormGroup.get('bankName').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-lg-12 col-12" [floatLabel]="'auto'">
+        <mat-label>{{
+          'pw.regularTepApproval.micrCodePlaceholderLabel' | translate
+        }}</mat-label>
+        <input #focusPin matInput formControlName="micrCode" type="text" />
+        <mat-error
+          *ngIf="
+            chequeDetailsFormGroup.get('micrCode').errors &&
+            chequeDetailsFormGroup.get('micrCode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              chequeDetailsFormGroup.get('micrCode').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <br />
+  </div>
+  <div class="pw-confirmation-box__footer">
+    <div class="row pw-confirmation-box__footer-border">
+      <div class="col-auto ml-auto">
+        <button class="pw-btn pw-accent-btn" (click)="onClear()">
+          {{ 'pw.regularTepApproval.clear' | translate }}
+        </button>
+      </div>
+      <div class="col-auto ml-auto">
+        <button
+          class="pw-btn pw-accent-btn"
+          (click)="onOkClick()"
+          [disabled]="chequeDetailsFormGroup?.invalid"
+        >
+          {{ 'pw.regularTepApproval.ok' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

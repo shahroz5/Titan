@@ -1,0 +1,82 @@
+<div *ngIf="cnMasterDetail$ | async">
+  <form [formGroup]="cnMasterForm" novalidate>
+    <div class="pw-form-card">
+      <div class="row">
+        <mat-form-field class="col-4">
+          <mat-label>{{
+            'pw.cnMaster.creditNoteTypeLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="creditNoteType"
+          />
+          <mat-error
+            *ngIf="
+              cnMasterForm.get('creditNoteType').errors &&
+              cnMasterForm.get('creditNoteType').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                cnMasterForm.get('creditNoteType').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-4">
+          <mat-label>{{
+            'pw.cnMaster.descriptionLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="description"
+            required
+            name="descriptionField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              cnMasterForm.get('description').errors &&
+              cnMasterForm.get('description').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="cnMasterForm.get('description').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <div
+          class="col-auto pw-form-card__right-container pw-form-card__align-center"
+        >
+          <poss-web-toggle-button formControlName="isActive">
+          </poss-web-toggle-button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <div class="pw-form-card">
+          <div class="pw-font-weight-bold pw-form-card__item">Add Details</div>
+          <div class="pw-form-card__item">
+            <mat-checkbox formControlName="allowedForGHS"></mat-checkbox>
+            {{ 'pw.cnMaster.allowedForGHSLabel' | translate }}
+          </div>
+          <div class="pw-form-card__item">
+            <mat-checkbox formControlName="allowedForeGHS"></mat-checkbox>
+            {{ 'pw.cnMaster.allowedForeGHSLabel' | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto ml-auto">
+        <button class="pw-btn pw-accent-btn" (click)="saveDetail()">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

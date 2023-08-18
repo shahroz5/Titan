@@ -1,0 +1,121 @@
+<div class="pw-form-card pw-form-card__margin-bottom">
+  <div class="row pw-form-card__margin-bottom">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.cnPriorityConfig.configName' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{ selectedConfigDetails?.description }}
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.coOrderPaymentConfig.isActive' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+
+        <poss-web-toggle-button
+          class="col-6 pw-form-card__padding-5"
+          [isActive]="selectedConfigDetails?.isActive"
+          [isDisabled]="true"
+        >
+        </poss-web-toggle-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    {{ 'pw.coOrderPaymentConfig.orderPaymentPercentageDetails' | translate }}
+  </div>
+  <div
+    class="row align-items-center"
+    *ngIf="coOrderPaymentConfigDetails.length > 0"
+  >
+    <div class="col-auto ml-auto">
+      <a id="sort" (click)="openSortDailog()" *ngIf="totalCount > 0">
+        <p>
+          <span class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"></span>
+          {{ 'pw.coOrderPaymentConfig.sortLable' | translate }}
+        </p>
+      </a>
+      <mat-form-field
+        [formGroup]="searchForm"
+        class="col-auto pw-search-bar mt-3"
+      >
+        <input
+          type="text"
+          matInput
+          #searchBox
+          formControlName="searchValue"
+          placeholder="Search Product Group"
+          class="pw-single-bordered-input"
+        />
+        <mat-icon matSuffix>
+          <span
+            class="pw-i-16 pw-search-icon-16"
+            *ngIf="!searchForm.value.searchValue"
+          ></span>
+        </mat-icon>
+        <mat-icon matSuffix (click)="clearSearch()">
+          <span
+            *ngIf="searchForm.value.searchValue"
+            class="pw-i-10 pw-close-icon-16"
+          ></span
+        ></mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <ng-container
+    *ngIf="coOrderPaymentConfigDetails.length > 0; else errorMesage"
+  >
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table pw-order-payment-grid"
+      [columnDefs]="columnDefs"
+      domLayout="autoHeight"
+      [rowData]="coOrderPaymentConfigDetails"
+      [suppressRowClickSelection]="true"
+      (gridReady)="gridReady($event)"
+      [defaultColDef]="defaultColDef"
+      (gridSizeChanged)="onGridSizeChanged()"
+      [animateRows]="animateRows"
+      [rowHeight]="rowHeight"
+    >
+    </ag-grid-angular>
+    <mat-paginator
+      class="pw-paginator"
+      *ngIf="
+        totalCount > minPageSize &&
+        orderPaymentConfigDetails.length > 0 &&
+        totalCount != 1
+      "
+      [length]="totalCount"
+      [pageSize]="pageEvent.pageSize"
+      [pageIndex]="pageEvent.pageIndex"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="paginator.emit($event)"
+    >
+    </mat-paginator>
+  </ng-container>
+  <ng-template #errorMesage>
+    <div class="pw-sub-heading pw-message pw-text-center">
+      {{ 'pw.coOrderPaymentConfig.noRecords' | translate }}
+    </div>
+  </ng-template>
+</div>

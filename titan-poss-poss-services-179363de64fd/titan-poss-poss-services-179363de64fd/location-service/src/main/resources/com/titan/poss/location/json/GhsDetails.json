@@ -1,0 +1,19 @@
+{
+	"type": "GHS_DETAILS",
+	"data": {
+		"isEghsMandatory": true,
+		"isConsentLetterUploadMandatory": true,
+		"isClubbingGHSAccRestricted ": true,
+		"grammageCNTransfer": true,
+		"isOtpRequired": true,
+		"noOfDaysForSuspendingGhs": 12,
+		"consolidateAttempts": 12,
+		"gracePeriodAfterSuspenededGhs": 12,
+		"noOfDaysToBlockCustomerConfig": 30,
+		"noOfDaysToBlockAdvanceBooking": 31,
+		"isAllowedToClubRivahGhsAndGhs": false,
+		"isAllowedToClubAccountsOfSameScheme": false,
+		"isAlowedToClubAccountsOfDiffCategory": false
+	}
+}
+

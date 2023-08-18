@@ -1,0 +1,14 @@
+{
+	"type": "GRN_DETAILS",
+	"data": {
+		"noOfDaysGRNAllowed": 3,
+		"maximumNoOfDaysForApprovedGRN": 3,
+		"noOfDaysToProtectGoldRateForGRN": 3,
+		"minUtilizationPercentForGRN": 3,
+		"isInterBoutiqueGRNAllowed": true,
+		"isGrnAllowedInCm": true,
+		"isGrnAllowedInAdvanceBooking": true,
+		"isGrnAllowedInCustomerOrder": true
+	}
+}
+

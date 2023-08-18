@@ -1,0 +1,52 @@
+<table class="pw-grid-table" aria-describedby="table" description="Table">
+  <thead>
+    <tr class="pw-grid-table__background-header">
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.slabFrom' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.slabTo' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.multiplyingValue' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.karatage' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.totalFocWt' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item" scope="col">
+        {{ 'pw.focConfiguration.isActive' | translate }}
+      </th>
+    </tr>
+  </thead>
+  <tbody class="pw-grid-table__body">
+    <tr
+      *ngFor="let item of weightBasedVariantDetailsGoldSlab"
+      class="pw-grid-table__row"
+    >
+      <td class="pw-grid-table__item">{{ item.slabFrom }}</td>
+      <td class="pw-grid-table__item">{{ item.slabTo }}</td>
+      <td class="pw-grid-table__item">{{ item.multiplyingValue }}</td>
+      <td class="pw-grid-table__item">{{ item.karatage }}</td>
+      <td class="pw-grid-table__item">
+        {{ item.totalFocWt | weightFormatter }}
+      </td>
+      <td class="pw-grid-table__item">
+        <mat-checkbox
+          class="pw-form-card__checkbox-pl-t-pos-0"
+          [checked]="item.isActive"
+          [disabled]="true"
+        ></mat-checkbox>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="row">
+  <div class="col-auto ml-auto">
+    <button class="pw-btn pw-primary-btn" (click)="productGroupMapping()">
+      {{ 'pw.focConfiguration.productGroupMappingLable' | translate }}
+    </button>
+  </div>
+</div>

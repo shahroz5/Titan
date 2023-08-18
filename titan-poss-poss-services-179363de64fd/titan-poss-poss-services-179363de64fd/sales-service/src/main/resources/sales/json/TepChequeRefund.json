@@ -1,0 +1,7 @@
+{
+	"type": "TEP_CHEQUE_REFUND",
+	"data": {
+		"refundMode": "CHEQUE",
+		"customerName": "Arnab Layek"
+	}
+}

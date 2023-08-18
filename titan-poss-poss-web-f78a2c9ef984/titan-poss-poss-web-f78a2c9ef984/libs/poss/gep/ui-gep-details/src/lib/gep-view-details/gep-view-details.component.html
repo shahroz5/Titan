@@ -1,0 +1,140 @@
+<div class="pw-detail-card" *ngIf="selectedHistoryItem">
+  <div class="pw-detail-card__heading">
+    {{ 'pw.gepHistory.gepDetailsLabel' | translate }}
+  </div>
+  <div class="row pw-detail-card__flex-end">
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.docNumberLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.docNo ? selectedHistoryItem?.docNo : '-' }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.cnDocNoLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.cnDocNo ? selectedHistoryItem?.cnDocNo : '-' }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.fiscalYearLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.fiscalYear ? selectedHistoryItem?.fiscalYear : '-' }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.docDateRangeLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.docDate ?
+            (dateFormat(
+              selectedHistoryItem?.docDate
+            ) | dateFormatter)
+            : '-'
+        }}
+      </div>
+    </div>
+
+    <!-- <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.gepValueLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.totalValue ? selectedHistoryItem?.totalValue : '-'
+        }}
+      </div>
+    </div> -->
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.statusLabel' | translate }}
+      </div>
+      <div
+          [ngClass]="
+          getRequestStatusColor(
+            selectedHistoryItem.status ? selectedHistoryItem.status : ''
+          )
+        ">
+        {{
+            selectedHistoryItem?.status ? selectedHistoryItem?.status : '-'
+        }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.createdByLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+            selectedHistoryItem?.createdBy ? selectedHistoryItem?.createdBy : '-'
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="row pw-detail-card__row pw-detail-card__secondary-section">
+    <div class="col-lg-2 col-2" *ngIf="subTxnType === 'MANUAL_GEP' ">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.approvedByLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem.manualBillDetails.manualBillDetails?.approvedBy
+          ? selectedHistoryItem.manualBillDetails.manualBillDetails?.approvedBy
+          : '-'}}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-2">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.rsoNameLabel' | translate }}
+      </div>
+      <div matTooltip="{{selectedHistoryItem?.employeeCode}}" class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.employeeCode ? getRsoNameFromCode(selectedHistoryItem?.employeeCode) : '-'
+        }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-2">
+      <div class="pw-detail-card__label">
+        {{ 'pw.gepHistory.remarksLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.remarks ? selectedHistoryItem?.remarks : '-' }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-2" *ngIf='selectedHistoryItem?.custTaxNoOld'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.cashMemoHistory.oldPanCardLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.custTaxNoOld
+        }}
+      </div>
+    </div>
+    <div class="col-lg-2 col-2" *ngIf='selectedHistoryItem?.custTaxNo'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.cashMemoHistory.panCardLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.custTaxNo
+        }}
+      </div>
+    </div>
+  </div>
+</div>
+

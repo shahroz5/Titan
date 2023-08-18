@@ -1,0 +1,90 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__heading">
+        {{ 'pw.creditNote.refundPayment' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="refundFormGroup">
+    <div class="row pw-detail-card__margin-top">
+      <div class="col-auto">
+        <div class="pw-detail-card__label">
+          {{ 'pw.creditNote.refundDeductionAmount' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            (refundFormGroup.get('refundTypeSelected').value ===
+            refundOptionTypes.VOID_UNIPAY
+              ? 0
+              : refundDeductionAmount
+            ) | currencyFormatter
+          }}
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="pw-detail-card__label">
+          {{ 'pw.creditNote.netRefundAmount' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            (refundFormGroup.get('refundTypeSelected').value ===
+            refundOptionTypes.VOID_UNIPAY
+              ? amount
+              : netRefundAmount
+            ) | currencyFormatter
+          }}
+        </div>
+      </div>
+      <div class="col-auto" *ngIf="refundPaymentMode">
+        <div class="pw-detail-card__label">
+          {{ 'pw.creditNote.refundModeLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ refundPaymentMode }}
+        </div>
+      </div>
+
+      <!-- To Select refund type -->
+
+      <poss-web-select-dropdown
+        disableOptionCentering
+        class="col-auto ml-auto"
+        [placeholder]="'pw.creditNote.selectRefundType' | translate"
+        [control]="refundFormGroup.get('refundTypeSelected')"
+        [options]="refundPaymentModes"
+        (selectionChange)="onRefundTypeChanged($event)"
+        required
+      >
+      </poss-web-select-dropdown>
+    </div>
+  </form>
+
+  <!-- Below to show selected refund types -->
+  <poss-web-cheque-refund-mode
+    *ngIf="selectedRefundType === refundOptionTypes?.CHEQUE"
+    [selectedRefundModeDetails]="parentForm"
+    [refundDetails]="refundAmountDetails"
+  ></poss-web-cheque-refund-mode>
+  <poss-web-rtgs-refund-mode
+    *ngIf="
+      selectedRefundType === refundOptionTypes?.RTGS ||
+      selectedRefundType === refundOptionTypes?.RO_RTGS
+    "
+    [selectedRefundModeDetails]="parentForm"
+  ></poss-web-rtgs-refund-mode>
+  <poss-web-airpay-refund-mode
+    *ngIf="selectedRefundType === refundOptionTypes?.AIRPAY"
+    [selectedRefundModeDetails]="parentForm"
+  ></poss-web-airpay-refund-mode>
+  <poss-web-cc-refund-mode
+    *ngIf="selectedRefundType === refundOptionTypes?.CARD"
+    [selectedRefundModeDetails]="parentForm"
+    [refundDetails]="refundAmountDetails"
+  ></poss-web-cc-refund-mode>
+  <poss-web-razorpay-refund-mode
+    *ngIf="selectedRefundType === refundOptionTypes?.RAZORPAY"
+    [selectedRefundModeDetails]="parentForm"
+  ></poss-web-razorpay-refund-mode>
+</div>

@@ -1,0 +1,222 @@
+<div class="pw-confirmation-box">
+        <div
+          class="row pw-confirmation-box__header pw-cursor-grab"
+          cdkDragBoundary=".cdk-overlay-container"
+          cdkDragRootElement=".cdk-overlay-pane"
+          cdkDrag
+          cdkDragHandle
+        >
+          <div class="col-auto">
+            {{ 'pw.vendorMaster.panKhosla' | translate }}
+          </div>
+          <div class="col pw-text-right">
+            <button
+              mat-icon-button
+              (click)="onClose()"
+              class="pw-confirmation-box__icon-button"
+            >
+              <mat-icon>
+                <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="pw-confirmation-box__body">
+          <div class="pw-form-card">
+            <div class="row pw-form-card__margin-bottom">
+              <div class="col-12 pw-form-card__margin-bottom">
+                <div class="row">
+                  <div class="col-4">
+                    <span class="pw-fourth-color">
+                      {{ 'pw.vendorMaster.clientCode' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-auto pw-form-card__padding-5">
+                    <span> : </span>
+                  </div>
+                  <div class="col-6 pw-form-card__padding-5">
+                    {{ dialogData?.vendorDetail?.clientCode }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 pw-form-card__margin-bottom">
+                <div class="row">
+                  <div class="col-4">
+                    <span class="pw-fourth-color">
+                      {{ 'pw.vendorMaster.subClientCode' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-auto pw-form-card__padding-5">
+                    <span> : </span>
+                  </div>
+                  <div class="col-6 pw-form-card__padding-5">
+                    {{ dialogData?.vendorDetail?.subClientCode }}
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-12 pw-form-card__margin-bottom">
+                <div class="row">
+                  <div class="col-4">
+                    <span class="pw-fourth-color">
+                      {{ 'pw.vendorMaster.channelCode' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-auto pw-form-card__padding-5">
+                    <span> : </span>
+                  </div>
+                  <div class="col-6 pw-form-card__padding-5">
+                    {{ dialogData?.vendorDetail?.channelCode }}
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-12 pw-form-card__margin-bottom">
+                <div class="row">
+                  <div class="col-4">
+                    <span class="pw-fourth-color">
+                      {{ 'pw.vendorMaster.channelVersion' | translate }}
+                    </span>
+                  </div>
+                  <div class="col-auto pw-form-card__padding-5">
+                    <span> : </span>
+                  </div>
+                  <div class="col-6 pw-form-card__padding-5">
+                    {{ dialogData?.vendorDetail?.channelVersion }}
+                  </div>
+                </div>
+              </div>
+      
+
+              <div class="col-12 pw-form-card__margin-bottom">
+                    <div class="row">
+                      <div class="col-4">
+                        <span class="pw-fourth-color">
+                          {{ 'pw.vendorMaster.clientIp' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-auto pw-form-card__padding-5">
+                        <span> : </span>
+                      </div>
+                      <div class="col-6 pw-form-card__padding-5">
+                        {{ dialogData?.vendorDetail?.clientIp }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 pw-form-card__margin-bottom">
+                        <div class="row">
+                          <div class="col-4">
+                            <span class="pw-fourth-color">
+                              {{ 'pw.vendorMaster.operationMode' | translate }}
+                            </span>
+                          </div>
+                          <div class="col-auto pw-form-card__padding-5">
+                            <span> : </span>
+                          </div>
+                          <div class="col-6 pw-form-card__padding-5">
+                            {{ dialogData?.vendorDetail?.operationMode }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 pw-form-card__margin-bottom">
+                            <div class="row">
+                              <div class="col-4">
+                                <span class="pw-fourth-color">
+                                  {{ 'pw.vendorMaster.runMode' | translate }}
+                                </span>
+                              </div>
+                              <div class="col-auto pw-form-card__padding-5">
+                                <span> : </span>
+                              </div>
+                              <div class="col-6 pw-form-card__padding-5">
+                                {{ dialogData?.vendorDetail?.runMode }}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 pw-form-card__margin-bottom">
+                                <div class="row">
+                                  <div class="col-4">
+                                    <span class="pw-fourth-color">
+                                      {{ 'pw.vendorMaster.actorType' | translate }}
+                                    </span>
+                                  </div>
+                                  <div class="col-auto pw-form-card__padding-5">
+                                    <span> : </span>
+                                  </div>
+                                  <div class="col-6 pw-form-card__padding-5">
+                                    {{ dialogData?.vendorDetail?.actorType }}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-12 pw-form-card__margin-bottom">
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <span class="pw-fourth-color">
+                                          {{ 'pw.vendorMaster.userHandleType' | translate }}
+                                        </span>
+                                      </div>
+                                      <div class="col-auto pw-form-card__padding-5">
+                                        <span> : </span>
+                                      </div>
+                                      <div class="col-6 pw-form-card__padding-5">
+                                        {{ dialogData?.vendorDetail?.userHandleType }}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-12 pw-form-card__margin-bottom">
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <span class="pw-fourth-color">
+                                              {{ 'pw.vendorMaster.userHandleValue' | translate }}
+                                            </span>
+                                          </div>
+                                          <div class="col-auto pw-form-card__padding-5">
+                                            <span> : </span>
+                                          </div>
+                                          <div class="col-6 pw-form-card__padding-5">
+                                            {{ dialogData?.vendorDetail?.userHandleValue }}
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-12 pw-form-card__margin-bottom">
+                                            <div class="row">
+                                              <div class="col-4">
+                                                <span class="pw-fourth-color">
+                                                  {{ 'pw.vendorMaster.location' | translate }}
+                                                </span>
+                                              </div>
+                                              <div class="col-auto pw-form-card__padding-5">
+                                                <span> : </span>
+                                              </div>
+                                              <div class="col-6 pw-form-card__padding-5">
+                                                {{ dialogData?.vendorDetail?.location }}
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="col-12 pw-form-card__margin-bottom">
+                                                <div class="row">
+                                                  <div class="col-4">
+                                                    <span class="pw-fourth-color">
+                                                      {{ 'pw.vendorMaster.functionCode' | translate }}
+                                                    </span>
+                                                  </div>
+                                                  <div class="col-auto pw-form-card__padding-5">
+                                                    <span> : </span>
+                                                  </div>
+                                                  <div class="col-6 pw-form-card__padding-5">
+                                                    {{ dialogData?.vendorDetail?.functionCode }}
+                                                  </div>
+                                                </div>
+                                              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      

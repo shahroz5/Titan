@@ -1,0 +1,50 @@
+<div class="row no-gutters">
+  <div class="col-auto">
+    <span class="pw-i-24 pw-bell-black-icon-24"></span>
+  </div>
+  <div class="col-auto">
+    <h3>{{ 'pw.notifications.notifications' | translate }}</h3>
+    <p class="pw-fourth-color">
+      {{ notificationsCount | shortNumber }}
+      {{ 'pw.notifications.messages' | translate }}
+    </p>
+  </div>
+  <div
+    class="col-auto ml-auto"
+    *ngIf="notificationsCount > 0 && !hasConnectionError"
+  >
+    <a (click)="removeAllNotifications()">
+      <span class="pw-anchor-underline-color pw-fourth-color">{{
+        'pw.notifications.removeAll' | translate
+      }}</span>
+    </a>
+  </div>
+</div>
+<div class="row align-items-center no-gutters" *ngIf="hasConnectionError">
+  <span>Connecting...</span>
+</div>
+<ul class="pw-menu-notification__list" *ngIf="!hasConnectionError">
+  <li
+    class="pw-menu-notification__list-item row"
+    *ngFor="let notification of notificationsList; let i = index"
+  >
+    <div class="col-auto">
+      <span class="pw-menu-notification__ball"></span>
+    </div>
+    <div class="col-auto">
+      <div>
+        <span class="pw-fourth-color">{{ notification?.eventData?.link }}</span>
+        <span> {{ notification?.eventData?.msg }}</span>
+        <div class="pw-font-10">
+          {{ notification?.eventData?.age }}
+          {{ 'pw.notifications.hoursAgo' | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="col-auto ml-auto">
+      <a (click)="removeNotification(i)">
+        <span class="pw-i-24 pw-delete-black-icon-24"></span>
+      </a>
+    </div>
+  </li>
+</ul>

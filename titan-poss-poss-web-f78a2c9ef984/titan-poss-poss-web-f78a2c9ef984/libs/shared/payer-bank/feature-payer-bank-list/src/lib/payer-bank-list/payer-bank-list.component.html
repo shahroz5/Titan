@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-company-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.payerBankMaster.paymentLabel' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.payerBankMaster.mastersLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.payerBankMaster.payerBankListLabel' | translate }}
+          </div>
+        </div>
+
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-primary-btn pw-form-card__upload-btn"
+            (click)="downloadFile()"
+          >
+            <span class="pw-i-24 pw-download-icon-24"> </span>
+            {{ 'pw.payerBankMaster.downloadFormatLabel' | translate }}
+          </button>
+        </div>
+        <div class="col-auto">
+          <a (click)="fileInput.click()">
+            <input
+              [hidden]="true"
+              #fileInput
+              class="pw-hidden"
+              type="file"
+              (change)="uploadFile($event)"
+            />
+            <button class="pw-btn pw-primary-btn pw-form-card__upload-btn">
+              <span class="pw-i-24 pw-upload-icon-24"> </span>
+              {{ 'pw.payerBankMaster.uploadFile' | translate }}
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <poss-web-payer-banks
+        *ngIf="!invalidSearch"
+        [bankDetails]="banksDetails"
+        [count]="totalElements$ | async"
+        [pageEvent]="payerBankPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        (paginator)="paginate($event)"
+        (emitSearchValue)="search($event)"
+        (loadBankDetails)="loadPayerBanks()"
+      ></poss-web-payer-banks>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+    <ng-template #confirmSuccessNotificationTemplate>
+      <div class="pw-text-center">
+        <h3 class="pw-success-color">
+          {{ 'pw.fileStatus.fileUploadStatusMessage' | translate }}
+          <u class="pw-pointer" (click)="fileStatus()">
+            {{ 'pw.fileStatus.fileStatus' | translate }}</u
+          >
+        </h3>
+      </div>
+    </ng-template>
+  </div>
+</div>

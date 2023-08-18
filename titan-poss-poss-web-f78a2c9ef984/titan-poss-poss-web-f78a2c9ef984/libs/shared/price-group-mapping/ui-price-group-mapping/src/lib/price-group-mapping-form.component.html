@@ -1,0 +1,168 @@
+<div>
+  <button
+    *ngIf="!locationCode"
+    mat-flat-button
+    class="pw-btn pw-primary-btn max-content"
+    (click)="openLocationSelection()"
+  >
+    <div class="row">
+      <div class="col-auto">
+        <p>
+          {{ 'pw.priceGroupMapping.selectLocationCode' | translate }}
+        </p>
+      </div>
+      <div class="col-auto ml-auto">
+        <span class="pw-i-16 pw-location-icon-16"></span>
+      </div>
+    </div>
+  </button>
+
+  <button
+    *ngIf="locationCode"
+    mat-flat-button
+    class="pw-btn pw-cta-btn max-content"
+  >
+    <div class="row">
+      <div class="col-auto">
+        <p>
+          {{ 'pw.priceGroupMapping.locationCode' | translate }}:
+          {{ locationCode }}
+        </p>
+      </div>
+      <div class="col-auto ml-auto">
+        <a>
+          <span
+            class="pw-i-10 pw-close-icon-16"
+            (click)="clearLocation()"
+          ></span>
+        </a>
+      </div>
+    </div>
+  </button>
+</div>
+<div class="pw-form-card pw-form-card__margin-top">
+  <div class="row">
+    <div class="col-lg-3 col-3">
+      <button
+        *ngIf="!priceGroupCode"
+        mat-button
+        class="pw-btn pw-primary-btn max-content"
+        (click)="openPriceGroupCodeSelection()"
+      >
+        <div class="row">
+          <div class="col-auto">
+            <p>
+              {{ 'pw.priceGroupMapping.selectPriceGroupCode' | translate }}
+            </p>
+          </div>
+        </div>
+      </button>
+
+      <button
+        *ngIf="priceGroupCode"
+        mat-flat-button
+        class="pw-btn pw-cta-btn max-content"
+      >
+        <div class="row">
+          <div class="col-auto">
+            <p>
+              {{ 'pw.priceGroupMapping.priceGroupCode' | translate }}:
+              {{ priceGroupCode }}
+            </p>
+          </div>
+          <div class="col-auto ml-auto">
+            <a>
+              <span
+                class="pw-i-10 pw-close-icon-16"
+                (click)="clearProductGroupCode()"
+              ></span>
+            </a>
+          </div>
+        </div>
+      </button>
+    </div>
+    <div class="col-lg-3 col-3">
+      <button
+        *ngIf="!priceGroupTypeCode"
+        mat-button
+        class="pw-btn pw-primary-btn max-content"
+        (click)="openPriceGroupTypeCodeSelection()"
+      >
+        <div class="row">
+          <div class="col-auto">
+            <p>
+              {{ 'pw.priceGroupMapping.selectPriceGroupTypeCode' | translate }}
+            </p>
+          </div>
+        </div>
+      </button>
+
+      <button
+        *ngIf="priceGroupTypeCode"
+        mat-flat-button
+        class="pw-btn pw-cta-btn max-content"
+      >
+        <div class="row">
+          <div class="col-auto">
+            <p>
+              {{ 'pw.priceGroupMapping.priceGroupTypeCode' | translate }}:
+              {{ priceGroupTypeCode }}
+            </p>
+          </div>
+          <div class="col-auto ml-auto">
+            <a>
+              <span
+                class="pw-i-10 pw-close-icon-16"
+                (click)="clearProductGroupTypeCode()"
+              ></span>
+            </a>
+          </div>
+        </div>
+      </button>
+    </div>
+    <div class="col-auto pw-detail-card__item pw-form-card__right-container">
+      <button
+        mat-button
+        class="pw-btn pw-accent-btn max-content"
+        (click)="addPriceGroupMapping()"
+        [disabled]="
+          locationCode === '' ||
+          priceGroupCode === '' ||
+          priceGroupTypeCode === ''
+        "
+      >
+        {{ 'pw.priceGroupMapping.save' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+<div class="pw-form-card">
+  <div class="row">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [defaultColDef]="defaultColDef"
+      [columnDefs]="themeCodesColumnDefs"
+      [rowData]="locationPriceGroupMappingGridData"
+      [context]="getContext()"
+      [domLayout]="domLayout"
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+      [frameworkComponents]="getComponents()"
+      (cellClicked)="onCellClicked($event)"
+      (gridReady)="gridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged($event)"
+      (cellFocused)="onCellFocused($event)"
+	    (focusout)="focusOut($event)"
+    >
+    </ag-grid-angular>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<a
+  *ngIf="
+    params.data?.productType === productTypesEnumRef.REGULAR ||
+    params.data?.productType === productTypesEnumRef.COINS
+  "
+>
+  <div>{{ discountName }} ...</div>
+  <div class="pw-fourth-color">{{ discountCount }} Selected</div>
+  <div>({{ discountValue | currencyFormatter }} )</div>
+</a>
+<div *ngIf="params.data?.productType === productTypesEnumRef.FOC">
+  {{ params?.value | currencyFormatter: currencyCode:false }}
+</div>

@@ -1,0 +1,114 @@
+<ng-container *ngIf="isLoggedIn">
+  <div class="pw-menu-bar">
+    <div class="pw-menu-bar__list">
+      <poss-web-toolbar
+        (selectedIdEmit)="onSelected($event)"
+      ></poss-web-toolbar>
+    </div>
+  </div>
+  <div
+    class="container-fluid"
+    [class.pw-overlay-notification-gutter]="hasNotification"
+  >
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="possHomeUrl()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div class="pw-top-heading-container__heading">
+                  {{ 'pw.customerOrderShell.customerOrderHeading' | translate }}
+                </div>
+              </div>
+            </div>
+            <poss-web-customer-search-container
+              *ngIf="
+                !router.url.includes('fetch') && !router.url.includes('search')
+              "
+              class="col-auto ml-auto"
+              [hideCustomerSearch]="true"
+            ></poss-web-customer-search-container>
+          </div>
+        </div>
+
+        <div class="pw-tab row no-gutters">
+          <ul class="pw-tab__list col">
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./fetch']"
+                [class.pw-is-active-bar]="router.url.includes('fetch')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.customerOrderShell.fetchCOTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./new']"
+                [class.pw-is-active-bar]="router.url.includes('new')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.customerOrderShell.newCOTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./search']"
+                [class.pw-is-active-bar]="router.url.includes('search')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.customerOrderShell.searchCOTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+          </ul>
+
+          <poss-web-order-detail
+            [transactionType]="commomStateAttributeTypeEnum?.CUSTOMER_ORDER"
+          ></poss-web-order-detail>
+        </div>
+
+        <router-outlet></router-outlet>
+
+        <poss-web-co-product
+          *ngIf="
+            !router.url.includes('fetch') && !router.url.includes('search')
+          "
+        ></poss-web-co-product>
+
+        <poss-web-discount
+          [transactionMode]="transactionType.CO"
+          *ngIf="
+            !router.url.includes('fetch') && !router.url.includes('search')
+          "
+        ></poss-web-discount>
+
+        <poss-web-payment
+          *ngIf="
+            !router.url.includes('fetch') && !router.url.includes('search')
+          "
+        ></poss-web-payment>
+
+        <button
+          mat-mini-fab
+          color="primary"
+          class="pw-up-arrow-btn"
+          *ngIf="(scrollService.scrollTop | async) > 50"
+          (click)="scrollUp()"
+        >
+          <span class="pw-i-32 pw-up-arrow-icon-32"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

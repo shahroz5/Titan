@@ -1,0 +1,9 @@
+{
+	"type": "IBT_CONFIGURATIONS",
+	"data": {
+		"maxProductsPerStn": "3",
+		"maxReqPerMonth": "3",
+		"maxValPerStn": "1000000",
+		"validRequestTime": "4"
+	}
+}

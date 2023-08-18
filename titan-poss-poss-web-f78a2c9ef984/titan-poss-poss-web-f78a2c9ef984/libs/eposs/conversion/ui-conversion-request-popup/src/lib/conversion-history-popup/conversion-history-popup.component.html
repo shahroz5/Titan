@@ -1,0 +1,167 @@
+<div class="pw-dialog-popup">
+  <div
+    class="row pw-dialog-popup__header align-items-center pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto pw-message">
+      {{ 'pw.conversion.advancedFilter' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <a class="pw-sub-heading" (click)="close()">
+        <span class="pw-i-10 pw-close-icon-16"></span>
+      </a>
+    </div>
+  </div>
+  <div class="pw-dialog-popup__body" [formGroup]="historyFilter">
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <mat-label>{{ 'pw.conversion.dateRange' | translate }}</mat-label>
+        <mat-date-range-input
+          formGroupName="rangeFormGroup"
+          [rangePicker]="picker"
+          [max]="currentDate"
+        >
+          <input
+            matStartDate
+            formControlName="requestFromDate"
+            placeholder="{{ 'pw.conversion.fromDate' | translate }}"
+            required
+          />
+          <input
+            matEndDate
+            formControlName="requestToDate"
+            placeholder="{{ 'pw.conversion.toDate' | translate }}"
+            required
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>
+            <span class="pw-i-12 pw-calender-icon-12"></span>
+          </mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error
+          *ngIf="
+            historyFilter.get('rangeFormGroup').get('requestFromDate').errors &&
+            historyFilter.get('rangeFormGroup').get('requestFromDate').errors
+              .errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              historyFilter.get('rangeFormGroup').get('requestFromDate').errors
+                .errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            historyFilter.get('rangeFormGroup').get('requestToDate').errors &&
+            historyFilter.get('rangeFormGroup').get('requestToDate').errors
+              .errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              historyFilter.get('rangeFormGroup').get('requestToDate').errors
+                .errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="{{ 'pw.conversion.fiscalYear' | translate }}"
+          class="pw-single-bordered-input"
+          formControlName="fiscalYear"
+          name="fiscalYearField"
+          [required]="historyFilter.get('fiscalYear').hasError('required')"
+          possWebMaxLengthValidator
+        />
+        <mat-error
+          *ngIf="
+            historyFilter.get('fiscalYear').errors &&
+            historyFilter.get('fiscalYear').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('fiscalYear').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          class="pw-error-color"
+          *ngIf="historyFilter.get('fiscalYear').hasError('required')"
+          >{{ 'pw.conversion.mandatoryField' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="{{
+            data.requestType === inStockConversionTypesEnumRef.REQUEST_SENT
+              ? ('pw.conversion.requestDocNo' | translate)
+              : ('pw.conversion.docNo' | translate)
+          }}"
+          class="pw-single-bordered-input"
+          formControlName="docNo"
+        />
+        <mat-error
+          *ngIf="
+            historyFilter.get('docNo').errors &&
+            historyFilter.get('docNo').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('docNo').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div
+      class="pw-dialog-popup__item"
+      *ngIf="data.requestType === inStockConversionTypesEnumRef.REQUEST_SENT"
+    >
+      <mat-form-field class="pw-single-bordered-input">
+        <mat-select
+          disableOptionCentering
+          placeholder="{{ 'pw.conversion.status' | translate }}"
+          floatLabel="never"
+          formControlName="statuses"
+          multiple
+        >
+          <mat-option *ngFor="let status of statusesList" [value]="status.id">{{
+            status.value
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="pw-text-right pw-dialog-popup__footer">
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <button class="pw-btn pw-primary-btn" (click)="clear()">
+            {{ 'pw.conversion.clearButtonText' | translate }}
+          </button>
+        </div>
+        <div class="col-auto">
+          <button
+            class="pw-btn pw-accent-btn"
+            [disabled]="historyFilter.invalid"
+            (click)="apply()"
+          >
+            {{ 'pw.conversion.applyButtonText' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

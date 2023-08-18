@@ -1,0 +1,106 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-lg-3 col-5">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-5 col-7">
+          <p class="pw-fourth-color">{{ 'pw.instock.reqNo' | translate }}</p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-auto px-1">
+          <p>
+            <span class="pw-font-weight-bold"> {{ item.reqDocNo }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-5 col-7">
+          <p class="pw-fourth-color">
+            {{ 'pw.instock.approvalContent2' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-auto px-1">
+          <p>
+            <span class="pw-font-weight-bold">{{ item.reqLocationCode }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-5 col-7">
+          <p class="pw-fourth-color">
+            {{ 'pw.instock.approvalContent4' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-auto px-1">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              item.reqDocDate | dateFormatter
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5 col-7">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.instock.approvalContent1' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col px-2">
+          <p>
+            <span class="pw-font-weight-bold">{{ item.binName }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.instock.approvalContent3' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col px-2">
+          <p>
+            <span class="pw-font-weight-bold">{{ item.requestedRemarks }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-auto ml-auto align-self-center">
+      <div class="row">
+        <div class="col-auto">
+          <button
+            mat-button
+            (click)="binRequestApprovalsPopup('reject')"
+            class="pw-btn pw-primary-btn"
+          >
+            {{ 'pw.instock.Reject' | translate }}
+          </button>
+        </div>
+        <div class="col-auto">
+          <button
+            mat-button
+            class="pw-btn pw-accent-btn"
+            (click)="binRequestApprovalsPopup('accept')"
+          >
+            {{ 'pw.instock.accept' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

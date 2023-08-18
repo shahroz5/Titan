@@ -1,0 +1,71 @@
+{
+	"type": "TCS_DETAILS",
+	"data": {
+		"b2c": {
+			"tcsBasedOnUlpNumber": false,
+			"tcsBasedOnMobileNumber": true,
+			"tcsApplicableRates": [
+				{
+					"type": "REGULAR",
+					"isPanAvailable": true,
+					"isForm60Available": false,
+					"percent": "0.10"
+				},
+				{
+					"type": "REGULAR",
+					"isPanAvailable": false,
+					"isForm60Available": true,
+					"percent": "0.2"
+				},
+				{
+					"type": "INSTITUTIONAL",
+					"isPanAvailable": false,
+					"isForm60Available": false,
+					"percent": "1"
+				},
+				{
+					"type": "INTERNATIONAL",
+					"isPanAvailable": false,
+					"isForm60Available": false,
+					"percent": "1"
+				},
+				{
+					"type": "ONETIME",
+					"isPanAvailable": false,
+					"isForm60Available": false,
+					"percent": "2"
+				}
+			],
+			"tcsApplicableAmount": "50000",
+			"grnConfig": {
+				"tcsReverseInCaseOfGRN": true,
+				"tcsReverseForInterboutiqueGRN": true,
+				"tcsReverseForGRnDate": {
+					"sameMonth": true,
+					"afterCalanderMonth": false
+				}
+			}
+		},
+		"b2b": {
+			"tcsApplicableRates": [
+				{
+					"type": "TEP",
+					"percent": "0.10"
+				},
+				{
+					"type": "GEP",
+					"percent": "0.10"
+				},
+				{
+					"type": "InvoiceReturn",
+					"percent": "0.10"
+				},
+				{
+					"type": "returnsTofactory",
+					"percent": "0.10"
+				}
+			],
+			"tcsApplicableAmount": "50000"
+		}
+	}
+}

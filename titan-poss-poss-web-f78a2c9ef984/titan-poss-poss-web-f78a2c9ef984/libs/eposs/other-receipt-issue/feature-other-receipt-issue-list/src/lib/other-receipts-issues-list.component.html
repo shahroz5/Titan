@@ -1,0 +1,772 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-instock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.otherReceiptsIssues.title' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.otherReceiptsIssues.subTitle' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-lg-3 col-auto pw-top-heading-container__right-content pw-text-right"
+            *ngIf="listType === 'list'"
+          >
+            <ng-container
+              *ngIf="
+                listType === 'list' &&
+                type == otherIssuesTabEnumRef.OTHER_RECEIPTS
+              "
+            >
+              <mat-form-field
+                *possWebPermission="loadPermission(OTHER_RECEIPT_NEW_ISSUES)"
+                appearance="outline"
+                floatLabel="never"
+                class="pw-selectable-dropdown"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-select
+                  disableOptionCentering
+                  panelClass="pw-panel-primary"
+                  (selectionChange)="createNewOtherReceipts($event.value)"
+                  placeholder="New Other Receipts"
+                  #OtherReceiptPrimaryDropDown
+                >
+                  <mat-option
+                    *possWebPermission="
+                      loadPermission(OTHER_RECEIPTS_NEW_ADJUSTMENT)
+                    "
+                    value="{{ otherIssuesTabEnumRef.ADJUSTMENT }}"
+                    >{{
+                      otherIssuesTabEnumRef.ADJUSTMENT | uppercase
+                    }}</mat-option
+                  >
+                  <mat-option
+                    *possWebPermission="loadPermission(OTHER_RECEIPTS_NEW_PSV)"
+                    value="{{ otherIssuesTabEnumRef.PSV }}"
+                    >{{ otherIssuesTabEnumRef.PSV }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="listType === 'list' && type == 'otherissues'">
+              <mat-form-field
+                *possWebPermission="loadPermission(OTHER_ISSUES_NEW_ISSUES)"
+                appearance="outline"
+                floatLabel="never"
+                class="pw-selectable-dropdown"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-select
+                  #OtherIssuesPrimaryDropDown
+                  panelClass="pw-panel-primary"
+                  (selectionChange)="createNewOtherIssue($event.value)"
+                  placeholder="New Other Issues"
+                >
+                  <mat-option
+                    *possWebPermission="loadPermission(EXH)"
+                    value="{{ otherIssuesTabEnumRef.EXHIBITION }}"
+                    >{{
+                      otherIssuesTabEnumRef.EXHIBITION | uppercase
+                    }}</mat-option
+                  >
+                  <mat-option
+                    *possWebPermission="loadPermission(LOAN)"
+                    value="{{ otherIssuesTabEnumRef.LOAN_TYPE }}"
+                    >{{ otherIssuesTabEnumRef.LOAN }}</mat-option
+                  >
+                  <mat-option
+                    *possWebPermission="loadPermission(ADJ)"
+                    value="{{ otherIssuesTabEnumRef.ADJUSTMENT }}"
+                    >{{
+                      otherIssuesTabEnumRef.ADJUSTMENT | uppercase
+                    }}</mat-option
+                  >
+                  <mat-option
+                    *possWebPermission="loadPermission(PSV)"
+                    value="{{ otherIssuesTabEnumRef.PSV }}"
+                    >{{ otherIssuesTabEnumRef.PSV }}</mat-option
+                  >
+                  <mat-option
+                    *possWebPermission="loadPermission(LOSS)"
+                    value="{{ otherIssuesTabEnumRef.LOSS }}"
+                    >{{ otherIssuesTabEnumRef.LOSS_TYPE }}</mat-option
+                  >
+                  <mat-option
+                    *possWebPermission="loadPermission(FOC)"
+                    value="{{ otherIssuesTabEnumRef.FOC }}"
+                    >{{ otherIssuesTabEnumRef.FOC }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="pw-tab">
+        <ul #tabRef class="pw-tab__list align-items-flex-end mb-0">
+          <ng-container>
+            <li
+              id="otherIssues"
+              class="pw-tab__list-item"
+              *possWebPermission="loadPermission(OTHER_ISSUES_TAB)"
+            >
+              <a
+                [class.pw-is-active-bar]="
+                  type == 'otherissues' && listType == 'list'
+                "
+                (click)="tabselected('list', 'otherissues')"
+              >
+                <h5 class="pw-tab__item pb-1">
+                  {{ 'pw.otherReceiptsIssues.otherIssues' | translate }}
+                  <span class="pw-fourth-color"
+                    >({{ otherIssuesCount$ | async }})</span
+                  >
+                </h5></a
+              >
+            </li>
+
+            <li
+              id="otherReceipts"
+              class="pw-tab__list-item"
+              *possWebPermission="loadPermission(OTHER_RECEIPT_TAB)"
+            >
+              <a
+                [class.pw-is-active-bar]="
+                  type == 'otherreceipts' && listType == 'list'
+                "
+                (click)="tabselected('list', 'otherreceipts')"
+              >
+                <h5 class="pw-tab__item pb-1">
+                  {{ 'pw.otherReceiptsIssues.otherReceipts' | translate }}
+                  <span class="pw-fourth-color"
+                    >({{ otherReceiptsCount$ | async }})</span
+                  >
+                </h5>
+              </a>
+            </li>
+
+            <li
+              id="history"
+              class="pw-tab__list-item"
+              *possWebPermission="loadPermission(HISTORY_TAB)"
+            >
+              <a
+                [class.pw-is-active-bar]="listType === 'history'"
+                (click)="tabSelectionChange('history', 'otherissues')"
+              >
+                <h5 class="pw-tab__item pb-1">
+                  {{ 'pw.otherReceiptsIssues.historyTab' | translate }}
+                </h5>
+              </a>
+            </li>
+          </ng-container>
+          <mat-form-field
+            class="ml-auto pt-1 pw-width-150 pw-form-field-padding-bottom-0"
+          >
+            <mat-select
+              [formControl]="transferTypeDropDown"
+              placeholder="Select Type"
+              (selectionChange)="
+                listType == 'list'
+                  ? onFilterSelect($event.value)
+                  : onHistoryTabSelection
+              "
+              #otherReceiptIssuesSecondaryDropDown
+            >
+              <ng-container
+                *ngIf="listType == 'list' && type == 'otherreceipts'"
+              >
+                <span *ngFor="let dropdowndata of otherReceiptsDropDown">
+                  <mat-option
+                    *possWebPermission="
+                      loadPermission(
+                        getDynamicValueForReceiptsACL(dropdowndata.type)
+                      )
+                    "
+                    [value]="dropdowndata.type"
+                  >
+                    {{ dropdowndata.type }}
+                  </mat-option>
+                </span>
+              </ng-container>
+              <ng-container *ngIf="listType == 'list' && type == 'otherissues'">
+                <span *ngFor="let dropdowndata of otherIssueDropDown">
+                  <mat-option
+                    *possWebPermission="
+                      loadPermission(
+                        getDynamicValueForIssuesACL(dropdowndata.type)
+                      )
+                    "
+                    [value]="dropdowndata.type"
+                  >
+                    {{ dropdowndata.type }}
+                  </mat-option>
+                </span>
+              </ng-container>
+              <ng-container
+                *ngIf="listType == 'history' && historyType === 'otherissues'"
+                ><ng-container
+                  *ngFor="let dropdowndata of historyOtherIssueTypes"
+                >
+                  <mat-option
+                    [value]="dropdowndata.value"
+                    *possWebPermission="
+                      loadPermission(dropdowndata.elementPermission)
+                    "
+                  >
+                    {{ dropdowndata.translateKey | translate }}
+                  </mat-option>
+                </ng-container>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  listType == 'history' &&
+                  historyType === 'otherissues-requests'
+                "
+              >
+                <ng-container
+                  *ngFor="
+                    let dropdowndata of historyOtherIssueRaisedRequestsTypes
+                  "
+                >
+                  <mat-option
+                    [value]="dropdowndata.value"
+                    *possWebPermission="
+                      loadPermission(dropdowndata.elementPermission)
+                    "
+                  >
+                    {{ dropdowndata.translateKey | translate }}
+                  </mat-option>
+                </ng-container>
+              </ng-container>
+              <ng-container
+                *ngIf="listType == 'history' && historyType === 'otherreceipts'"
+              >
+                <ng-container
+                  *ngFor="let dropdowndata of historOtherReceiptsTypes"
+                >
+                  <mat-option
+                    [value]="dropdowndata.value"
+                    *possWebPermission="
+                      loadPermission(dropdowndata.elementPermission)
+                    "
+                  >
+                    {{ dropdowndata.translateKey | translate }}
+                  </mat-option>
+                </ng-container>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </ul>
+      </div>
+      <div class="row align-items-center mt-1">
+        <ng-container [formGroup]="historyForm" *ngIf="listType === 'history'">
+          <mat-radio-group
+            aria-label="Select an option"
+            class="col-lg-auto col-auto row"
+            formControlName="selectRadioButton"
+          >
+            <mat-radio-button
+              value="{{ otherIssuesTabEnumRef.OTHER_ISSUES }}"
+              class="col-auto"
+              *possWebPermission="loadPermission(HISTORY_ISSUES_RADIO_BUTTON)"
+            >
+              <p>
+                {{ 'pw.otherReceiptsIssues.otherIssueHistory' | translate }}
+              </p>
+            </mat-radio-button>
+            <mat-radio-button
+              value="{{ otherIssuesTabEnumRef.OTHER_RECEIPTS }}"
+              class="col-auto"
+              *possWebPermission="loadPermission(HISTORY_RECEIPTS_RADIO_BUTTON)"
+            >
+              <p>
+                {{ 'pw.otherReceiptsIssues.otherReceiptsHistory' | translate }}
+              </p>
+            </mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+        <div class="col-auto ml-auto" *ngIf="listType == 'history'">
+          <a (click)="openHistoryFilter($event)">
+            <p>
+              <span
+                class="pw-i-24 pw-filter-icon-24 pw-filter-box__icon"
+                [ngClass]="
+                  !(
+                    (advanceFilter?.stnNumber == null ||
+                      advanceFilter?.stnNumber == '') &&
+                    (advanceFilter?.docFromDate == null ||
+                      advanceFilter?.docFromDate == '') &&
+                    (advanceFilter?.docToDate == null ||
+                      advanceFilter?.docToDate == '') &&
+                    (advanceFilter?.fiscalYear == null ||
+                      advanceFilter?.fiscalYear == '') &&
+                    (advanceFilter?.locationCode == null ||
+                      advanceFilter?.locationCode == '')
+                  )
+                    ? 'pw-filter-icon-color-24'
+                    : ''
+                "
+              ></span>
+              {{ 'pw.stockReceive.advancedFilterText' | translate }}
+            </p>
+          </a>
+        </div>
+
+        <div
+          *ngIf="
+            listType === 'history' &&
+            (historyType == 'otherissues' ||
+              historyType == 'otherissues-requests')
+          "
+        >
+          <mat-form-field class="pw-width-150 pw-form-field-padding-bottom-0">
+            <mat-select
+              placeholder="Issue Type"
+              [(value)]="historyType"
+              (selectionChange)="otherIssuesTypeChange($event.value)"
+              #HistoryPrimaryDropDown
+            >
+              <mat-option
+                [value]="'otherissues'"
+                *possWebPermission="
+                  loadPermission(HISTORY_ISSUE_SELECT_TYPE_DROPDOWN_ISSUE)
+                "
+              >
+                {{ 'pw.otherReceiptsIssues.otherIssues' | translate }}
+              </mat-option>
+              <mat-option
+                [value]="'otherissues-requests'"
+                *possWebPermission="
+                  loadPermission(
+                    HISTORY_ISSUE_SELECT_TYPE_DROPDOWN_RAISED_REQUESTS
+                  )
+                "
+              >
+                {{ 'pw.otherReceiptsIssues.raisedRequests' | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field
+          class="pw-search-bar col-lg-3 col-3"
+          floatLabel="never"
+          [hidden]="listType !== 'history'"
+        >
+          <input
+            #historySearch
+            matInput
+            class="pw-input-box"
+            [placeholder]="'pw.stockReceive.docNumberSearch' | translate"
+            [formControl]="historySearchControl"
+            (keypress)="numberCheck($event)"
+          />
+          <mat-icon matSuffix>
+            <span
+              *ngIf="!historySearchControl.value"
+              class="pw-i-16 pw-search-icon-16"
+            ></span
+          ></mat-icon>
+          <mat-icon matSuffix (click)="clearHistorySearch()">
+            <span
+              *ngIf="historySearchControl.value"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="row" [ngClass]="{ hidden: listType == 'history' }">
+        <mat-form-field
+          class="col-lg-3 col-4 ml-auto pw-form-field-border-top-0"
+          floatLabel="never"
+        >
+          <input
+            #searchBox
+            matInput
+            class="pw-input-box"
+            [placeholder]="'pw.otherReceiptsIssues.searchByReqNo' | translate"
+            [formControl]="searchFormControl"
+            (keypress)="numberCheck($event)"
+          />
+
+          <mat-icon matSuffix>
+            <span
+              *ngIf="!searchFormControl.value"
+              class="pw-i-16 pw-search-icon-16"
+            ></span
+          ></mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchFormControl.value"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <ng-container>
+        <poss-web-card-list
+          #otherReceiptsCardList
+          *ngIf="
+            listType == 'list' && type == 'otherreceipts' && otherReceiptsList$
+          "
+          [count]="
+            (isSearchingStocks$ | async) === false &&
+            (hasSearchStockResults$ | async) === (false || null)
+              ? (totalReceiptsElementCount$ | async)
+              : 0
+          "
+          [dataList]="
+            (isSearchingStocks$ | async) === false &&
+            (hasSearchStockResults$ | async) === (false || null)
+              ? (otherReceiptsList$ | async)
+              : (searchStockResults$ | async)
+          "
+          [pageSize]="pageSize"
+          (loadMore)="loadStockList($event)"
+          (selected)="onReceiptCardSelected($event)"
+        >
+          <ng-template let-item="data">
+            <poss-web-card-title
+              >{{ 'pw.otherReceiptsIssues.requestNoLabelText' | translate }}
+              {{ item.srcDocNo }}</poss-web-card-title
+            >
+            <poss-web-card-subtitle>{{ transferType }}</poss-web-card-subtitle>
+            <poss-web-card-content>
+              <p>
+                {{ item.totalAvailableQuantity }}
+                {{ 'pw.stockReceive.quantityLableText' | translate }} |
+                {{
+                  item.totalAvailableValue
+                    | currencyFormatter: item.currencyCode
+                }}
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.dateLableText' | translate }}:
+                {{ item.srcDocDate | dateFormatter }}
+              </p>
+              <div class="row">
+                <div class="col-auto pw-text-right"></div>
+              </div>
+            </poss-web-card-content>
+          </ng-template>
+        </poss-web-card-list>
+        <poss-web-card-list
+          #otherIssuesCardList
+          *ngIf="
+            listType == 'list' && type == 'otherissues' && otherIssuesList$
+          "
+          [count]="
+            (isSearchingStocks$ | async) === false &&
+            (hasSearchStockResults$ | async) === (false || null)
+              ? (totalIssueElementCount$ | async)
+              : 0
+          "
+          [dataList]="
+            (isSearchingStocks$ | async) === false &&
+            (hasSearchStockResults$ | async) === (false || null)
+              ? (otherIssuesList$ | async)
+              : (searchOtherissueStockResults$ | async)
+          "
+          [pageSize]="pageSize"
+          (loadMore)="loadStockList($event)"
+          (selected)="onIssueCardSelected($event)"
+        >
+          <ng-template let-item="data">
+            <poss-web-card-title
+              >{{ 'pw.otherReceiptsIssues.requestNoLabelText' | translate }}
+              {{ item.reqDocNo }}</poss-web-card-title
+            >
+            <poss-web-card-subtitle>
+              {{ transferType }}
+            </poss-web-card-subtitle>
+            <poss-web-card-content>
+              <p>
+                {{ item.totalAvailableQuantity }}
+                {{ 'pw.stockReceive.quantityLableText' | translate }}
+                <span *ngIf='transferType !== otherReceiptsIssuesEnumRef.FOC'>
+                  |
+                  {{
+                    item.totalAvailableValue
+                      | currencyFormatter: item.currencyCode
+                  }}
+                </span>
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.dateLableText' | translate }}:
+                {{ item.reqDocDate | dateFormatter }}
+              </p>
+              <div class="row">
+                <div
+                  class="col-auto mr-auto"
+                  *ngIf="
+                    item.status == otherIssuesTabEnumRef.APVL_PENDING_STATUS
+                  "
+                >
+                  <p
+                    [ngClass]="
+                      getStatusColor(item.status) === true
+                        ? 'pw-success-color'
+                        : 'pw-error-color'
+                    "
+                  >
+                    {{ 'pw.otherReceiptsIssues.status' | translate }} :
+                    {{
+                      'pw.otherReceiptsIssues.approvalPendingStatus' | translate
+                    }}
+                  </p>
+                </div>
+                <div
+                  class="col-auto mr-auto"
+                  *ngIf="item.status == otherIssuesTabEnumRef.APPROVED_STATUS"
+                >
+                  <p
+                    [ngClass]="
+                      getStatusColor(item.status) === true
+                        ? 'pw-success-color'
+                        : 'pw-error-color'
+                    "
+                  >
+                    {{ 'pw.otherReceiptsIssues.status' | translate }} :
+                    {{ 'pw.otherReceiptsIssues.approvedStatus' | translate }}
+                  </p>
+                </div>
+                <div class="col-auto pw-text-right"></div>
+              </div>
+            </poss-web-card-content>
+          </ng-template>
+        </poss-web-card-list>
+        <!-- HISTORY ITEM LISTING -->
+        <poss-web-card-list
+          #historyRequestCardList
+          *ngIf="listType == 'history' && historyType == 'otherissues-requests'"
+          [count]="otherIssueHistoryCount$ | async"
+          [dataList]="otherIssueHistory$ | async"
+          [pageSize]="pageSize"
+          (loadMore)="loadHistoryList($event)"
+          (selected)="onHistoryCardSelected($event)"
+        >
+          <ng-template let-item="data">
+            <poss-web-card-title
+              >{{ 'pw.otherReceiptsIssues.reqDocNo' | translate }}:
+              {{ item.reqDocNo }}</poss-web-card-title
+            >
+            <poss-web-card-subtitle>
+              {{ reqType }}
+            </poss-web-card-subtitle>
+            <poss-web-card-content>
+              <p>
+                {{ item.totalMeasuredQuantity }}
+                {{ 'pw.stockReceive.quantityLableText' | translate }}
+                <span *ngIf='reqType !== otherReceiptsIssuesEnumRef.FOC'>
+                  |
+                  {{
+                    item.totalMeasuredValue | currencyFormatter: item.currencyCode
+                  }}
+                </span>
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.totalWeight' | translate }}:
+                {{ item.totalMeasuredWeight | weightFormatter }}
+                {{ item.weightUnit }}
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.reqDocDate' | translate }}:
+                {{ item.reqDocDate | dateFormatter }}
+              </p>
+              <p [ngClass]="getStatus(item.status)">
+                {{ 'pw.otherReceiptsIssues.status' | translate }}: {{ status }}
+              </p>
+            </poss-web-card-content>
+          </ng-template>
+        </poss-web-card-list>
+        <poss-web-card-list
+          #otherIssuesHistoryCardList
+          *ngIf="listType == 'history' && historyType == 'otherissues'"
+          [count]="otherIssueHistoryCount$ | async"
+          [dataList]="otherIssueHistory$ | async"
+          [pageSize]="pageSize"
+          (loadMore)="loadHistoryList($event)"
+          (selected)="onHistoryCardSelected($event)"
+        >
+          <ng-template let-item="data">
+            <poss-web-card-title
+              >{{ 'pw.otherReceiptsIssues.docNo' | translate }}:
+              {{ item.srcDocNo }}</poss-web-card-title
+            >
+            <poss-web-card-subtitle>
+              {{ 'pw.otherReceiptsIssues.reqNo' | translate }}:
+              {{ item.reqDocNo }} | {{ reqType }}
+            </poss-web-card-subtitle>
+            <poss-web-card-content>
+              <p>
+                {{ item.totalMeasuredQuantity }}
+                {{ 'pw.stockReceive.quantityLableText' | translate }}
+                <span *ngIf='reqType !== otherReceiptsIssuesEnumRef.FOC'>
+                  |
+                  {{
+                    item.totalMeasuredValue
+                      | currencyFormatter: item?.currencyCode
+                  }}
+                </span>
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.totalWeight' | translate }}:
+                {{ item.totalMeasuredWeight | weightFormatter }}
+                {{ item.weightUnit }}
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.docDate' | translate }}:
+                {{ item.srcDocDate | dateFormatter }}
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.reqDate' | translate }}:
+                {{ item.reqDocDate | dateFormatter }}
+              </p>
+              <p [ngClass]="getStatus(item.status)">Status: {{ status }}</p>
+            </poss-web-card-content>
+          </ng-template>
+        </poss-web-card-list>
+        <poss-web-card-list
+          #otherReceiptsHistoryCardList
+          *ngIf="listType == 'history' && historyType == 'otherreceipts'"
+          [count]="otherReceiptsHistoryCount$ | async"
+          [dataList]="otherReceiptsHistory$ | async"
+          [pageSize]="pageSize"
+          (loadMore)="loadHistoryList($event)"
+          (selected)="onHistoryCardSelected($event)"
+        >
+          <ng-template let-item="data">
+            <poss-web-card-title>
+              {{ 'pw.otherReceiptsIssues.docNo' | translate }}:
+              {{ item.destDocNo }}</poss-web-card-title
+            >
+            <poss-web-card-subtitle>
+              {{ reqType }}
+            </poss-web-card-subtitle>
+            <poss-web-card-content>
+              <p>
+                {{ item.totalMeasuredQuantity }}
+                {{ 'pw.stockReceive.quantityLableText' | translate }} |
+                {{
+                  item.totalMeasuredValue | currencyFormatter: item.currencyCode
+                }}
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.totalWeight' | translate }}:
+                {{ item.totalMeasuredWeight }}
+                {{ item.weightUnit }}
+              </p>
+              <p>
+                {{ 'pw.otherReceiptsIssues.dateLableText' | translate }}:
+                {{ item.destDocDate | dateFormatter }}
+              </p>
+              <p [ngClass]="getStatus(item.status)">
+                {{ 'pw.otherReceiptsIssues.status' | translate }}: {{ status }}
+              </p>
+            </poss-web-card-content>
+          </ng-template>
+        </poss-web-card-list>
+
+        <h3
+          class="pw-text-center m-5"
+          *ngIf="
+            listType == 'list' &&
+            type == 'otherissues' &&
+            (otherIssuesList$ | async).length === 0
+          "
+        >
+          {{ noDataFoundMessageForOtherissue }}
+        </h3>
+
+        <h3
+          class="pw-text-center m-5"
+          *ngIf="
+            listType == 'list' &&
+            type == 'otherreceipts' &&
+            (otherReceiptsList$ | async).length === 0
+          "
+        >
+          {{ noDataFoundMessageForOtherReceipt }}
+        </h3>
+        <h3
+          class="pw-success-color pw-message pw-text-center mg-t-100"
+          *ngIf="
+            listType == 'history' &&
+            (isLoadingOtherIssueHistory$ | async) === false &&
+            (isLoadingOtherReceiptsHistory$ | async) === false &&
+            ((historyType == 'otherreceipts' &&
+              (otherReceiptsHistory$ | async) &&
+              (otherReceiptsHistory$ | async).length === 0) ||
+              ((historyType == 'otherissues' ||
+                historyType == 'otherissues-requests') &&
+                (otherIssueHistory$ | async) &&
+                (otherIssueHistory$ | async).length === 0)) &&
+            (advanceFilter?.docFromDate === null ||
+              advanceFilter?.docFromDate == '') &&
+            (advanceFilter?.docToDate === null ||
+              advanceFilter?.docToDate == '') &&
+            (advanceFilter?.locationCode == null ||
+              advanceFilter?.locationCode == '') &&
+            (advanceFilter?.fiscalYear == null ||
+              advanceFilter?.fiscalYear == '') &&
+            (advanceFilter?.docNo == null || advanceFilter?.docNo == '')
+          "
+        >
+          {{ 'pw.global.noDataFoundMessage' | translate }}
+        </h3>
+        <h3
+          class="pw-success-color pw-message pw-text-center mg-t-100"
+          *ngIf="
+            listType == 'history' &&
+            (isLoadingOtherIssueHistory$ | async) === false &&
+            (isLoadingOtherReceiptsHistory$ | async) === false &&
+            ((historyType == 'otherreceipts' &&
+              (otherReceiptsHistory$ | async) &&
+              (otherReceiptsHistory$ | async).length === 0) ||
+              ((historyType == 'otherissues' ||
+                historyType == 'otherissues-requests') &&
+                (otherIssueHistory$ | async) &&
+                (otherIssueHistory$ | async).length === 0)) &&
+            !(
+              (advanceFilter?.docFromDate === null ||
+                advanceFilter?.docFromDate == '') &&
+              (advanceFilter?.docToDate === null ||
+                advanceFilter?.docToDate == '') &&
+              (advanceFilter?.locationCode == null ||
+                advanceFilter?.locationCode == '') &&
+              (advanceFilter?.fiscalYear == null ||
+                advanceFilter?.fiscalYear == '') &&
+              (advanceFilter?.docNo == null || advanceFilter?.docNo == '')
+            )
+          "
+        >
+          {{ 'pw.otherReceiptsIssues.noMatchingDataText' | translate }}
+        </h3>
+      </ng-container>
+
+      <poss-web-loader
+        *ngIf="
+          (isLoadingOtherReceiptsSTN$ | async) ||
+          (isLoadingOtherIssuesSTN$ | async) ||
+          (isSearchingStocks$ | async) ||
+          (isLoadingOtherIssueHistory$ | async) ||
+          (isLoadingOtherReceiptsHistory$ | async)
+        "
+      >
+      </poss-web-loader>
+      <poss-web-loader *ngIf="isSearchingStocks$ | async"> </poss-web-loader>
+    </div>
+  </div>
+</div>

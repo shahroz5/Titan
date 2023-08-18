@@ -1,0 +1,157 @@
+<div class="pw-form-card mt-3" [formGroup]="filterForm">
+  <div class="row no-gutters">
+    <mat-form-field class="col-3 px-2">
+      <mat-label>{{ 'pw.itemMaster.itemPriceFrom' | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Price From"
+        formControlName="fromStdValue"
+        possWebAmountInput
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('fromStdValue').errors &&
+          filterForm.get('fromStdValue').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('fromStdValue').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label>{{ 'pw.itemMaster.itemPriceTo' | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Price To"
+        formControlName="toStdValue"
+        possWebAmountInput
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('toStdValue').errors &&
+          filterForm.get('toStdValue').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('toStdValue').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label>Color</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Color"
+        formControlName="color"
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('color').errors &&
+          filterForm.get('color').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('color').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-3 px-2">
+      <mat-label>Stone type Code</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Stone type Code"
+        formControlName="stoneTypeCode"
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('stoneTypeCode').errors &&
+          filterForm.get('stoneTypeCode').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('stoneTypeCode').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-3 px-2">
+      <mat-label>Quality</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Quality"
+        formControlName="quality"
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('quality').errors &&
+          filterForm.get('quality').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('quality').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-3 px-2">
+      <mat-label>Rate per Karat</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Rate per Karat"
+        formControlName="ratePerCarat"
+        possWebAmountInput
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('ratePerCarat').errors &&
+          filterForm.get('ratePerCarat').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('ratePerCarat').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-3 px-2">
+      <mat-label>Stone Code</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        placeholder="Stone Code"
+        formControlName="stoneCode"
+      />
+      <mat-error
+        *ngIf="
+          filterForm.get('stoneCode').errors &&
+          filterForm.get('stoneCode').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('stoneCode').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-12 px-2">
+    <div class="row no-gutters d-flex justify-content-end">
+      <button class="pw-btn pw-primary-btn mr-3" (click)="clear()">
+        Clear
+      </button>
+      <button
+        class="pw-btn pw-accent-btn"
+        [disabled]="!filterForm.valid"
+        (click)="applyFilter()"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+</div>

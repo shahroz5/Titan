@@ -1,0 +1,356 @@
+<form
+  novalidate
+  (ngSubmit)="validateForm()"
+  [formGroup]="onetimeCustomerForm"
+  #onetimeFormDirective="ngForm"
+  autocomplete="off"
+>
+  <div class="pw-confirmation-box__body pw-confirmation-box__fixed-body">
+    <div class="row">
+      <div class="col-6">
+        <h4 class="pw-confirmation-box__body-item">
+          {{ 'pw.customerCreation.customerInfoHeading' | translate }}
+        </h4>
+        <div class="row">
+          <poss-web-select-dropdown
+            disableOptionCentering
+            #titleInput
+            class="col-4"
+            [placeholder]="'pw.customerCreation.titleLabel' | translate"
+            [control]="onetimeCustomerForm.get('title')"
+            [options]="data.salutations"
+            [required]="true"
+          >
+          </poss-web-select-dropdown>
+
+          <mat-form-field class="col-8">
+            <mat-label>{{
+              'pw.customerCreation.customerNameLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="text"
+              class="pw-uppercase"
+              autocomplete="off"
+              required
+              formControlName="customerName"
+              possWebMaxLengthValidator
+              name="customerNameField"
+            />
+            <mat-error
+              *ngIf="
+                onetimeCustomerForm.get('customerName').errors &&
+                onetimeCustomerForm.get('customerName').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  onetimeCustomerForm.get('customerName').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <mat-radio-group class="col-auto" formControlName="mobilenumberType">
+            <mat-radio-button class="pw-filter-box__radio-btn" value="false">
+              {{ 'pw.customerCreation.refusedMobileNumberLabel' | translate }}
+            </mat-radio-button>
+            <mat-radio-button value="true">
+              {{ 'pw.customerCreation.realMobileNumberLabel' | translate }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <br />
+        <div
+          class="row"
+          *ngIf="onetimeCustomerForm.get('mobilenumberType').value === 'false'"
+        >
+          <mat-form-field class="col-12">
+            <mat-label>{{
+              'pw.customerCreation.refusedMobileNumberLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="refusedmobile"
+              autocomplete="off"
+              possWebMaxLengthValidator
+              name="mobileField"
+              readonly
+            />
+            <mat-error
+              *ngIf="
+                onetimeCustomerForm.get('refusedmobile').errors &&
+                onetimeCustomerForm.get('refusedmobile').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  onetimeCustomerForm.get('refusedmobile').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div
+          class="row"
+          *ngIf="onetimeCustomerForm.get('mobilenumberType').value === 'true'"
+        >
+          <mat-form-field class="col-12">
+            <mat-label>{{
+              'pw.customerCreation.mobileNoLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="mobile"
+              autocomplete="off"
+              possWebMaxLengthValidator
+              [required]="
+                isMobileRequiredForOneTime === 'true' &&
+                onetimeCustomerForm.get('mobilenumberType').value === 'true'
+              "
+              name="mobileField"
+              (blur)="
+                onetimeCustomerForm.get('mobile').valid || validMobile === false
+                  ? loadIsUniqueCustomer.emit({
+                      searchType: 'MOBILE_NO',
+                      value: $event.target.value
+                    })
+                  : ''
+              "
+            />
+            <mat-error
+              *ngIf="
+                onetimeCustomerForm.get('mobile').errors &&
+                onetimeCustomerForm.get('mobile').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  onetimeCustomerForm.get('mobile').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <h4 class="pw-confirmation-box__body-item">
+          {{ 'pw.customerCreation.commercialInfoHeading' | translate }}
+        </h4>
+        <div class="row">
+          <mat-form-field class="col-12">
+            <mat-label
+              >{{ 'pw.customerCreation.pancardNumberLabel' | translate }}
+              {{ 'pw.customerCreation.pancardFormat' | translate }}
+            </mat-label>
+            <input
+              class="pw-uppercase"
+              matInput
+              type="text"
+              possWebMaxLengthValidator
+              name="pancardField"
+              autocomplete="off"
+              formControlName="pancard"
+              (blur)="onPancardValueChange($event)"
+              [readonly]="
+                onetimeCustomerForm.get('pancard').valid &&
+                panVerificationStatus?.verificationStatus === true
+              "
+            />
+            <mat-icon matSuffix (click)="clearPanNumber()">
+              <a
+                *ngIf="
+                  !data.customer &&
+                  onetimeCustomerForm.get('pancard').valid &&
+                  panVerificationStatus?.verificationStatus === true
+                "
+                class="pw-i-10 pw-close-icon-16"
+              ></a
+            ></mat-icon>
+            <span
+              *ngIf='data.customer && data.customer?.isCustTaxMatched'
+              matSuffix
+              class="pw-success-color"
+              >
+              {{ 'pw.customerCreation.profileMatchedLabel' | translate }}
+            </span>
+            <span
+              *ngIf="
+              !(data.customer && data.customer?.isCustTaxMatched) &&
+                ((onetimeCustomerForm.get('pancard').valid &&
+                  panVerificationStatus?.verificationStatus === true) ||
+                (data.customer && data.customer.iscustTaxNoVerified))
+              "
+              matSuffix
+              class="pw-success-color"
+            >
+              Verified
+            </span>
+            <mat-error
+              *ngIf="
+                onetimeCustomerForm.get('pancard').errors &&
+                onetimeCustomerForm.get('pancard').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  onetimeCustomerForm.get('pancard').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+            <!-- <mat-error>
+              {{ panVerificationStatus?.message }}
+            </mat-error> -->
+            <mat-hint class="pw-error-color pw-font-14"
+              *ngIf="panVerificationStatus?.verificationStatus === false"
+            >
+              {{ panVerificationStatus.message }}
+            </mat-hint>
+            <mat-hint
+              class="pw-font-14"
+              *ngIf="
+                onetimeCustomerForm?.get('pancard').valid &&
+                panVerificationStatus?.verificationStatus === true &&
+                panVerificationStatus?.ownerName
+              "
+            >
+              <span class="pw-fourth-color"> PAN Holder Name</span> :
+              {{ panVerificationStatus.ownerName }}</mat-hint
+            >
+            <mat-hint
+              class="pw-font-14"
+              *ngIf="
+                data.customer && data.customer.panHolderName
+              "
+            >
+              <span class="pw-fourth-color"> PAN Holder Name</span> :
+              {{data.customer.panHolderName}}
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="pw-confirmation-box__item">
+          <mat-checkbox formControlName="form60AndIdProofSubmitted">
+            Form 60</mat-checkbox
+          >
+        </div>
+      </div>
+      <div class="col-6">
+        <h4 class="pw-confirmation-box__body-item">Address Info</h4>
+        <poss-web-address-panel
+          #addressFormRef
+          [submitted$]="submitted$"
+          [getStateData$]="getStateData$"
+          [resetForm$]="resetForm$"
+          (loadCountryId)="loadCountryId($event)"
+          (loadStateId)="loadStateId($event)"
+          (loadAddressForm)="loadAddressForm($event)"
+          (loadPincodes)="loadPincodes($event)"
+          [pincodeSummary]="pincodeSummary"
+          [countryCode]="data.countryCode"
+          [countryList]="data.countries"
+          [stateList]="data.states"
+          [townList]="data.towns"
+          [addressDetail]="
+            data.customer ? data.customer.customerDetails.data : ''
+          "
+          [viewMode]="false"
+        ></poss-web-address-panel>
+        <div class="row">
+          <mat-form-field class="col-12">
+            <mat-label>{{
+              'pw.customerCreation.emailIdLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="emailId"
+              name="emailField"
+              autocomplete="off"
+              [required]="isEmailRequiredForOneTime === 'true'"
+              possWebMaxLengthValidator
+              (blur)="onEmailValueChange($event)"
+              [readonly]="
+                onetimeCustomerForm.get('emailId').valid &&
+                emailValidationStatus?.validationstatus === true
+              "
+            />
+            <mat-icon matSuffix (click)="clearEmailValue()">
+              <a
+                *ngIf="
+                  !data.customer &&
+                  onetimeCustomerForm.get('emailId').valid &&
+                  emailValidationStatus?.validationstatus === true
+                "
+                class="pw-i-10 pw-close-icon-16"
+              ></a
+            ></mat-icon>
+            <span
+              *ngIf="
+                (onetimeCustomerForm.get('emailId').valid &&
+                  emailValidationStatus?.validationstatus === true) ||
+                (data.customer && data.customer.isEmailIdValidated)
+              "
+              matSuffix
+              class="pw-success-color"
+            >
+              Validated</span
+            >
+            <mat-error
+              *ngIf="
+                onetimeCustomerForm.get('emailId').errors &&
+                onetimeCustomerForm.get('emailId').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  onetimeCustomerForm.get('emailId').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+            <mat-hint
+              class="pw-font-14"
+              *ngIf="emailValidationStatus?.invalidationreason"
+            >
+              <span class="pw-error-color">
+                {{ emailValidationStatus?.invalidationreason }}
+              </span>
+            </mat-hint>
+            <!-- <mat-error
+              *ngIf="
+                emailValidationStatus?.validationstatus === false &&
+                onetimeCustomerForm.get('emailId').errors?.incorrect === true
+              "
+            >
+              {{ emailValidationStatus.invalidationreason }}
+            </mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pw-text-right pw-confirmation-box__footer">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button
+          *ngIf="!data.customer"
+          class="pw-btn pw-primary-btn"
+          type="button"
+          (click)="clearOnetimeForm(onetimeFormDirective)"
+        >
+          {{ 'pw.customerCreation.clearButton' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="pw-btn pw-accent-btn">
+          <span *ngIf="!data.customer">
+            {{ 'pw.customerCreation.createButton' | translate }}</span
+          >
+          <span *ngIf="data.customer">{{
+            'pw.customerCreation.save' | translate
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

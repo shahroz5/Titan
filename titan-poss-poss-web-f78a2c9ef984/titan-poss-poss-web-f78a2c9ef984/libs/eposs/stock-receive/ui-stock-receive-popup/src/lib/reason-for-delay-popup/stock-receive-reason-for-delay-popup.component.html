@@ -1,0 +1,61 @@
+<div
+  class="row pw-cursor-grab"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="col-auto pw-message my-auto">
+    {{ 'pw.stockReceive.reasonForDelayPopupTitle' | translate }}
+  </div>
+  <button class="ml-auto" mat-icon-button (click)="close()">
+    <mat-icon>
+      <span class="pw-i-10 pw-close-icon-16"></span>
+    </mat-icon>
+  </button>
+</div>
+<div class="d-flex">
+  {{ 'pw.stockReceive.reasonForDelayPopupStnDateLable' | translate }} :
+  {{ data.date | dateFormatter }}
+</div>
+<div class="d-flex">
+  <mat-form-field
+    floatLabel="never"
+    class="flex-fill"
+    [formGroup]="reasonForDelayForm"
+  >
+    <textarea
+      #textareaRef
+      matInput
+      possWebTextarea
+      rows="4"
+      placeholder="{{
+        'pw.stockReceive.reasonForDelayPopupPlaceholder' | translate
+      }}
+      "
+      formControlName="reason"
+      name="reasonField"
+      possWebMaxLengthValidator
+    ></textarea>
+    <mat-error
+      *ngIf="
+        reasonForDelayForm.get('reason').errors &&
+        reasonForDelayForm.get('reason').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="reasonForDelayForm.get('reason').errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div class="d-flex">
+  <button
+    class="pw-btn pw-accent-btn ml-auto"
+    (click)="confirm()"
+    [disabled]="reasonForDelayForm.invalid"
+  >
+    {{ 'pw.stockReceive.reasonForDelayPopupConfirmButton' | translate }}
+  </button>
+</div>

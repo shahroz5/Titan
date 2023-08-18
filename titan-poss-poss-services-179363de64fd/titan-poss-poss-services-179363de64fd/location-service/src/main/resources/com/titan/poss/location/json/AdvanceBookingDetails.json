@@ -1,0 +1,15 @@
+{
+	"type": "ADVANCE_BOOKING_DETAILS",
+	"data": {
+		"cancellationAllowedforAdvanceBooking": "true",
+		"activateAllowedforAdvanceBooking": "true",
+		"validityDaysforAutoClosureInAdvanceBooking": 12,
+		"validityDaysforActivateInAdvanceBooking": 12,
+		"validityDaysforReleaseInvInAdvancebooking": 12,
+		"minPercentToBePaidForFrozenOrder": 12,
+		"minPercentToBePaidForNonFrozenOrder": 12,
+		"requestApprovalForNonFrozenOrderCancel": true,
+		"noOfHoursForOpenTaskDeletion": 12,
+		"abHoldTime": 2
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"type": "TEP_CUT_PIECE_TOT_CONFIG",
+	"data": {
+		"l3DeductionPercent": 50
+	}
+}

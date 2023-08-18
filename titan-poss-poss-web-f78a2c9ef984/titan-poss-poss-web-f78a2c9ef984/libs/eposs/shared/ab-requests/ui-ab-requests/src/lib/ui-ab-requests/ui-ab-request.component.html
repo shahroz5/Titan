@@ -1,0 +1,59 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<form>
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table"
+    [columnDefs]="colDef"
+    [rowData]="productGrid"
+    [defaultColDef]="defaultColDef"
+    [domLayout]="domLayout"
+    [rowHeight]="rowHeight"
+    [animateRows]="animateRows"
+    (gridReady)="gridReady($event)"
+    [paginationPageSize]="pageSize"
+    [suppressPaginationPanel]="true"
+    [rowSelection]="rowSelection"
+    (rowSelected)="onRowSelected($event)"
+    [pagination]="true"
+    (cellClicked)="onCellClicked($event)"
+    (gridSizeChanged)="onGridSizeChanged()"
+    (cellFocused)="onCellFocused($event)"
+    (focusout)="focusOut($event)"
+  >
+  </ag-grid-angular>
+</form>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && productGrid?.length > 0"
+  [length]="count"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="change($event)"
+  showFirstLastButtons
+>
+</mat-paginator>
+<div class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button
+      class="pw-btn pw-accent-btn"
+      (click)="remarks(false)"
+      [disabled]="!enable"
+    >
+      {{ 'pw.abRequests.reject' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-primary-btn"
+      (click)="remarks(true)"
+      [disabled]="!enable"
+    >
+      {{ 'pw.abRequests.approve' | translate }}
+    </button>
+  </div>
+</div>

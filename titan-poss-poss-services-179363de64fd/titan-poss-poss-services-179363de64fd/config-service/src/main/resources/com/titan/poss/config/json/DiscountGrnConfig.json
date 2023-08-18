@@ -1,0 +1,10 @@
+{
+	"type": "DISCOUNT_GRN_CONFIG",
+	"data": {
+		"noOfDaysBeforeOfferPeriod": 8,
+		"noOfDaysAfterOfferPeriod": 8,
+		"utilizationPercent": 8,
+		"isAllowedBeforeOffer": true,
+		"isSameCfaEligible": true
+	}
+}

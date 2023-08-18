@@ -1,0 +1,22 @@
+<ng-container *ngIf="count != 0">
+  <ng-container *ngFor="let item of itemList; let i = index">
+    <poss-web-bin-request-item
+      [item]="item"
+      [count]="count"
+      (approvalsValue)="approvals($event)"
+    >
+    </poss-web-bin-request-item>
+  </ng-container>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > getMinPageSize() && itemList.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+</ng-container>

@@ -1,0 +1,118 @@
+<div class="pw-confirmation-box">
+  <div class="row pw-confirmation-box__header">
+    <div class="col-auto">
+      {{ 'pw.productGrid.actualWeightPlaceHolder' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <a class="sub-heading">
+        <span (click)="closePopup()" class="pw-i-10 pw-close-icon-16"></span>
+      </a>
+    </div>
+  </div>
+  <form *ngIf="formGroup" (keydown)="onKeyDown($event)">
+    <div class="pw-confirmation-box__body">
+      <div class="row pw-confirmation-box__item">
+        <div class="col-5">
+          <mat-form-field class="pw-single-bordered-input">
+            <input
+              #input
+              possWebWeightInput
+              matInput
+              [formControl]="actualWeightControl"
+              [placeholder]="
+                'pw.productGrid.actualWeightHeaderText' | translate
+              "
+              (change)="addValidation()"
+              (focus)="weightFocused()"
+              (blur)="weightUnFocused()"
+            />
+
+            <mat-error
+              *ngIf="
+                actualWeightControl.dirty &&
+                actualWeightControl.hasError('required')
+              "
+              >{{
+                'pw.productGrid.requiredErrorMessage' | translate
+              }}</mat-error
+            >
+            <mat-error
+              *ngIf="
+                actualWeightControl.dirty &&
+                !actualWeightControl.hasError('required') &&
+                actualWeightControl.hasError('minZero')
+              "
+            >
+              {{
+                actualWeightControl.getError('minZero') | translate
+              }}</mat-error
+            >
+          </mat-form-field>
+          <mat-error
+            class="align-top"
+            *ngIf="
+              isValid === false && !actualWeightControl.hasError('minZero')
+            "
+            >{{ 'pw.productGrid.toleranceLimitErrorMessage' | translate }}({{
+              toleranceLimit
+            }})</mat-error
+          >
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-7">
+          <poss-web-select-dropdown
+            #input
+            class="pw-single-bordered-input"
+            [placeholder]="'pw.productGrid.reasonPlaceHolder' | translate"
+            [control]="reasonControl"
+            [options]="reasonOptions"
+          >
+          </poss-web-select-dropdown>
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-12">
+          <mat-form-field class="pw-single-bordered-input">
+            <input
+              #input
+              matInput
+              [formControl]="remarksControl"
+              [placeholder]="'pw.productGrid.remarksPlaceHolder' | translate"
+            />
+            <mat-error
+              *ngIf="remarksControl.errors && remarksControl.errors.errorArray"
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="remarksControl.errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__footer">
+      <div class="row pw-confirmation-box__footer-border no-gutters">
+        <div class="col-auto pw-confirmation-box__footer-item">
+          <button #input class="pw-btn pw-primary-btn" (click)="resetValue()">
+            {{ 'pw.productGrid.resetButtonText' | translate }}
+          </button>
+        </div>
+        <div class="col-auto pw-confirmation-box__footer-item">
+          <button
+            #input
+            [disabled]="formGroup[rowIndex].invalid"
+            (click)="stopEditing()"
+            [ngClass]="
+              formGroup[rowIndex].invalid
+                ? 'pw-disabled pw-btn pw-accent-btn'
+                : 'pw-btn pw-accent-btn'
+            "
+          >
+            {{ 'pw.productGrid.applyButtonText' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

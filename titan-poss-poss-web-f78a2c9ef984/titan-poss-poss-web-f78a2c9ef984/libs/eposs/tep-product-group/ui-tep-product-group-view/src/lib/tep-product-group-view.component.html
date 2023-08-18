@@ -1,0 +1,17 @@
+<div class="pw-form-card pw-form-card__margin-bottom">
+  <poss-web-tep-product-group-name-view
+    [tepProductGroupConfigDetails]="tepProductGroupConfigDetails"
+  ></poss-web-tep-product-group-name-view>
+</div>
+<div class="pw-form-card pw-form-card__margin-bottom">
+  <poss-web-tep-product-group-details-view
+    [tepProductGroupMappingList$]="tepProductGroupMappingList$"
+    [totalElements]="totalElements"
+    (productGroupCodeGridSearch)="productGroupSearchEmitter($event)"
+    (clearGridSearch)="clearSearchEmitter($event)"
+    [pageEvent]="pageEvent"
+    [pageSize]="pageSize"
+    (paginator)="paginatorEvent($event)"
+    (sortEmitter)="sortEvent($event)"
+  ></poss-web-tep-product-group-details-view>
+</div>

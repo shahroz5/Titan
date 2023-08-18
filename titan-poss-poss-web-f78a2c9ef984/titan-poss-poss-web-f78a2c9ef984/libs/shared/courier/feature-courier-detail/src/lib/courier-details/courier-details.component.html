@@ -1,0 +1,60 @@
+<div class="container-fluid mb-4">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-location-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.courierDetails.headerLabel' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.courierDetails.subHeadingLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!showViewOnly; else viewOnly">
+        <poss-web-courier-details-stepone
+          *ngIf="(country$ | async) && (courierDetails$ | async)"
+          [countryData$]="country$"
+          [states$]="states$"
+          [courierDetails$]="courierDetails$"
+          (courierDetails)="saveCourierDetails($event)"
+          (formGroupCreated2)="formGroupCreated2($event)"
+          [mode]="courierName"
+          [permissions$]="permissions$"
+        ></poss-web-courier-details-stepone>
+        <div *possWebPermission="loadPermission(ADD_EDIT_COURIER_PERMISSIONS)">
+          <button
+            *ngIf="
+              (country$ | async) &&
+              (courierDetails$ | async) &&
+              courierName !== ''
+            "
+            (click)="locationMapping()"
+            class="pw-btn pw-primary-btn pw-location-mapping-btn"
+          >
+            {{ 'pw.courierDetails.locationMappingButtonLabel' | translate }}
+          </button>
+        </div>
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+      <ng-template #viewOnly>
+        <poss-web-courier-view
+          *ngIf="(country$ | async) && (courierDetails$ | async)"
+          [courierDetails$]="courierDetails$"
+          [countryData$]="country$"
+          (isOpenLocationMapping)="openViewLocationMapping()"
+        ></poss-web-courier-view>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{
+	"type": "FTEP_APPROVAL_ACCESS_REGULAR",
+	"data": {
+		"config": [
+			{
+				"roleCode": "ABM",
+				"processType": "EMAIL",
+				"fromDays": 31,
+				"tillDays": 40,
+				"upperLimit": 100000
+			},
+			{
+				"roleCode": "RBM",
+				"processType": "EMAIL",
+				"fromDays": 41,
+				"tillDays": 45,
+				"upperLimit": 100000
+			},
+			{
+				"roleCode": "AFSS",
+				"processType": "CODE",
+				"fromDays": 46,
+				"tillDays": 50,
+				"upperLimit": 100000
+			}
+		]
+	}
+}

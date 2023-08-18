@@ -1,0 +1,13 @@
+{
+	"type": "OFFER_DETAILS",
+	"data": {
+		"maxWeightforFOC": 0,
+		"maxValueforFOC": 0,
+		"bintobintransferallowedforFOCitems": true,
+		"isTEPsaleableitemsallowedforFOC": true,
+		"isTEPallowedforFOCitems": true,
+		"isFOCitemssaleable": true,
+		"isEmployeeDiscount": true
+	}
+}
+

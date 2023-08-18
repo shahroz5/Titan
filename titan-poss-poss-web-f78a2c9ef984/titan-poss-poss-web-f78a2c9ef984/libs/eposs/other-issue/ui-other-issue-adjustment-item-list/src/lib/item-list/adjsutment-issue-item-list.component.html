@@ -1,0 +1,15 @@
+<div possWebFocusableList>
+  <poss-web-adjsutment-issue-item
+    possWebFocusableListItem
+    *ngFor="let item of itemList; trackBy: trackBy"
+    class="pw-list-card d-block"
+    [tab]="tab"
+    [item]="item"
+    (updateItem)="updateItems($event)"
+    (remove)="remove($event)"
+    (selection)="selectionEmit($event)"
+    [selectionEvents]="selectionEvents"
+    [dateFormat]="dateFormat"
+  >
+  </poss-web-adjsutment-issue-item>
+</div>

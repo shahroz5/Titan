@@ -1,0 +1,113 @@
+<poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+<div class="row m-0" [formGroup]="formData">
+  <div class="col-12 col-lg-10 m-auto">
+    <div class="pw-top-heading-container">
+      <div class="row pw-top-heading-container__item">
+        <div class="col-auto">
+          <div class="pw-top-heading-container__main-head">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+            <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+            <div>
+              <h2>
+                {{ 'pw.bgrConfigurations.bestGoldRateLabel' | translate }}
+              </h2>
+              <h5 class="pw-top-heading-container__sub-heading">
+                {{ 'pw.configurations.configuration' | translate }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 mb-3">
+      <div class="col-auto">
+        <div class="pw-mont-semibold-14">
+          {{ 'pw.bgrConfigurations.newBestGoldRateConfiguration' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <span *ngIf="!showViewOnly; else viewOnly">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="pw-form-card">
+            <div class="row">
+              <mat-form-field class="col-lg-5 col-5">
+                <mat-label>
+                  {{ 'pw.weightValueConfig.configName' | translate }}</mat-label
+                >
+                <input
+                  required
+                  matInput
+                  formControlName="configName"
+                  (blur)="loadCheckConfigName()"
+                  class="pw-single-bordered-input"
+                />
+
+                <mat-error
+                  *ngIf="
+                    formData.get('configName').errors &&
+                    formData.get('configName').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      formData.get('configName').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+
+              <poss-web-select-dropdown
+                [placeholder]="'pw.bgrConfigurations.orderType' | translate"
+                [control]="formData.get('orderType')"
+                [options]="orderTypes"
+                [required]="true"
+                (selectionChange)="onOrderTypeChanged($event)"
+              ></poss-web-select-dropdown>
+
+              <div class="col-auto pw-detail-card__item ml-auto">
+                <poss-web-toggle-button
+                  [isActive]="isActive ? true : false"
+                  (changeEvent)="changeEvent($event)"
+                >
+                </poss-web-toggle-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <poss-web-ui-bgr-config-detail
+        *ngIf="bgrConfigDetails$ | async"
+        [isConfigNameInValid]="formData.invalid"
+        [bgrConfigDetails]="bgrConfigDetails$ | async"
+        [routeParam]="routeParam"
+        [configDetails]="configDetails"
+        (formOutput)="formOutput($event)"
+        (openLocationMappingEvent)="openLocationMapping($event)"
+      >
+      </poss-web-ui-bgr-config-detail>
+    </span>
+    <ng-template #viewOnly>
+      <poss-web-bgr-config-view
+        [configDetails]="configDetails"
+      ></poss-web-bgr-config-view>
+      <div class="row mb-3">
+        <div class="col-auto ml-auto">
+          <button
+            class="pw-btn pw-primary-btn"
+            (click)="openViewLocationMapping()"
+          >
+            {{
+              'pw.customerTransactionConfig.locationMappingLabel' | translate
+            }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

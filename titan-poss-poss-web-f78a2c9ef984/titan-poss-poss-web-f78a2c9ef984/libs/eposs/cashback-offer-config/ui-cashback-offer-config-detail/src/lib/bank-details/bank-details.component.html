@@ -1,0 +1,12 @@
+<poss-web-dynamic-form
+  *ngIf="formFields"
+  [style]="currentStyle"
+  [formFields]="formFields"
+  [disabled]="false"
+  [enableSubmitOnInvalid]="true"
+  [commandButtons]="commandButtons"
+  (commandButtonsOutput)="commandButtonsOutput($event)"
+  (formGroupCreated)="formGroupCreated($event)"
+  (buttonClick)="buttonClick($event)"
+  (onFormSubmit)="addButton($event)"
+></poss-web-dynamic-form>

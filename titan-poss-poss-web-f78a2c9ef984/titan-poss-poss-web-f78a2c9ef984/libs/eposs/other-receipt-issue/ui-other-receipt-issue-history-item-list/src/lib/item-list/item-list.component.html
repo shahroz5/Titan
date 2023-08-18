@@ -1,0 +1,25 @@
+<ng-container *ngIf="count != 0">
+  <div possWebFocusableList>
+    <poss-web-history-item
+      possWebFocusableListItem
+      *ngFor="let item of itemList; trackBy: trackBy"
+      [item]="item"
+      [tabType]="tabType"
+      class="pw-list-card d-block"
+      [type]="type"
+      (loadImageEvent)="loadImageUrl($event)"
+    >
+    </poss-web-history-item>
+  </div>
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > getMinPageSize() && itemList.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+</ng-container>

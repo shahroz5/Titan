@@ -1,0 +1,99 @@
+
+<div class="pw-min-height">
+  <div class="row align-items-center pw-tab-non-scroll">
+    <div class="col-auto">
+      <h4>
+        {{ 'pw.statetaxconfiguration.enterTaxDetails' | translate }}
+        {{ 'pw.statetaxconfiguration.for' | translate }}
+        {{ stateTaxConfigurationStateDetails.stateName }}
+      </h4>
+    </div>
+    <div class="col-auto ml-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="editTaxClass(true)"
+        [disabled]="!atleastOneSelected"
+      >
+        {{ 'pw.statetaxconfiguration.editTaxClasses' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="pw-btn pw-primary-btn" (click)="editTaxClass(false)">
+        {{ 'pw.statetaxconfiguration.addTaxClasses' | translate }}
+      </button>
+    </div>
+  </div>
+  <poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+  currentRowInfo
+  "
+>
+  </poss-web-top-info-panel>
+  <table  aria-describedby="table" class="pw-grid-table">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">
+          <div class="row">
+            <div class="col-3">
+              <mat-checkbox (change)="taxListCheckAll($event)"> </mat-checkbox>
+            </div>
+            <div class="col-9">
+              {{ 'pw.statetaxconfiguration.addTaxClasses' | translate }}
+            </div>
+          </div>
+        </th>
+        <th
+          class="pw-grid-table__header-item" scope="col"
+          *ngFor="let item of taxComponentDetails | async"
+        >
+          {{ item }}(%)
+        </th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let item of stateTaxDetailsList | async"
+      >
+        <td class="pw-grid-table__item">
+          <div class="row">
+            <div class="col-3">
+              <mat-checkbox
+                (change)="taxListCheck($event, item.id)"
+                [checked]="item.isSelected"
+              ></mat-checkbox>
+            </div>
+            <mat-form-field
+              class="col-9 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+            >
+              <input matInput [value]="item.taxClassCode" readonly
+              (focus)="onfocus('pw.statetaxconfiguration.addTaxClasses', item.taxClassCode)"
+              (focusout)="isFocusing = false"
+              />
+            </mat-form-field>
+          </div>
+        </td>
+        <td
+          class="pw-grid-table__item"
+          *ngFor="let item2 of taxComponentDetails | async"
+        >
+          <mat-form-field
+            appearance="outline"
+            class="pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+          >
+            <input
+              matInput
+              [value]="getTaxComponentValue(item.taxDetails?.data, item2)"
+              readonly
+              (focus)="onfocus(item2 + '(%)',getTaxComponentValue(item.taxDetails?.data, item2))"
+              (focusout)="isFocusing = false"
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

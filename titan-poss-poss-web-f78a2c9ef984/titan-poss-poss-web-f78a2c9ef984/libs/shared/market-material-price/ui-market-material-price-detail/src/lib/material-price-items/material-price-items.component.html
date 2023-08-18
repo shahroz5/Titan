@@ -1,0 +1,27 @@
+<poss-web-material-price-item
+  [marketCodeListing]="marketCodeListing"
+  [locationDetails]="locationDetails"
+  [headerDetails]="headerDetails"
+  [materialPriceTypeCode]="materialPriceTypeCode"
+  [mode]="mode"
+  [hasNewViewLocationSuccess]="hasNewViewLocationSuccess"
+  [isAllSelected]="isAllSelected"
+  (computePrice)="sendComputePriceEvent($event)"
+  (updateChecked)="sendUpdateCheckedEvent($event)"
+  (computePriceForAll)="sendComputePriceForAllEvent($event)"
+></poss-web-material-price-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="
+    (marketCodescount > minPageSize && marketCodeListing.length > 0) ||
+    (locationDetailsCount > minPageSize && locationDetails.length > 0)
+  "
+  [length]="marketCodescount ? marketCodescount : locationDetailsCount"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

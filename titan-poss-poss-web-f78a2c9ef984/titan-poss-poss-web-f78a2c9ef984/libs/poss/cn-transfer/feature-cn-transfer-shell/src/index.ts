@@ -1,0 +1,1 @@
+export * from './lib/poss-cn-transfer-feature-cn-transfer-shell.module';

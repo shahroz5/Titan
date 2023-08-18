@@ -1,0 +1,143 @@
+<div class="pw-form-card pw-form-card__flex-row pw-form-card__margin-bottom">
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.statetaxconfiguration.stateName' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ stateTaxConfigurationStateDetails.stateName }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.statetaxconfiguration.stateCode' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ stateTaxConfigurationStateDetails.stateCode }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.statetaxconfiguration.gstStateCode' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ stateTaxConfigurationStateDetails.stateTaxCode }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.statetaxconfiguration.taxSystem' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ stateTaxConfigurationStateDetails.taxComponent.taxSystem }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'Is Active' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        <mat-slide-toggle
+          [checked]="stateTaxConfigurationStateDetails.isActive"
+          disabled
+          >{{
+            stateTaxConfigurationStateDetails.isActive ? 'Active' : 'In active'
+          }}</mat-slide-toggle
+        >
+      </div>
+    </div>
+  </div>
+  <div>
+    <table class="pw-grid-table"  aria-describedby="table" description="Table">
+      <thead>
+        <tr class="pw-grid-table__background-header">
+          <th class="pw-grid-table__header-item" scope="col">CESS Name</th>
+          <th class="pw-grid-table__header-item" scope="col">
+            Is CESS on Tax?
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="pw-grid-table__body">
+        <tr
+          *ngFor="
+            let item of stateTaxConfigurationStateDetails.taxComponent.cess
+          "
+          class="pw-grid-table__row"
+        >
+          <td class="pw-grid-table__item">{{ item.cessCode }}</td>
+          <td class="pw-grid-table__item">
+            <mat-slide-toggle
+              [checked]="item.cessOnTax"
+              disabled
+            ></mat-slide-toggle>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="pw-form-card pw-form-card__margin-bottom">
+  <table class="pw-grid-table"  aria-describedby="table" description="Table">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">Tax Classes</th>
+        <th
+          class="pw-grid-table__header-item"
+          scope="col"
+          *ngFor="let item of taxComponentDetails$ | async"
+        >
+          {{ item }}(%)
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="pw-grid-table__body">
+      <tr
+        *ngFor="let item of stateTaxDetailsList$ | async"
+        class="pw-grid-table__row"
+      >
+        <td class="pw-grid-table__item">{{ item.taxClassCode }}</td>
+        <td
+          class="pw-grid-table__item"
+          *ngFor="let item2 of taxComponentDetails$ | async"
+        >
+          {{ getTaxComponentValue(item.taxDetails?.data, item2) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

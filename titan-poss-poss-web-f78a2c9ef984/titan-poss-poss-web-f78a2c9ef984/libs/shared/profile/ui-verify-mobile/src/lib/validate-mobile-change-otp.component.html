@@ -1,0 +1,66 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.userProfile.verifyOTPTitleText' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        mat-dialog-close="close"
+        class="pw-confirmation-box__icon-btn"
+      >
+        <mat-icon class="pw-sub-heading">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-confirmation-box__body-item">
+      <span class="pw-font-weight-bold">
+        {{
+          'pw.userProfile.verifyOTPMessageText' | translate: { mobileNo: data }
+        }}
+      </span>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-lg-8 pw-login__input" floatLabel="never">
+        <input
+          matInput
+          maxlength="6"
+          type="text"
+          placeholder="{{ 'pw.login.verifyotpPlaceholderText' | translate }}"
+          [formControl]="otp"
+          required
+        />
+
+        <mat-error *ngIf="otp.errors && otp.errors.errorArray">
+          <poss-web-error-info-tooltip
+            [errorMessage]="otp.errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="pw-text-right">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button
+          class="pw-btn pw-accent-btn"
+          mat-raised-button
+          [disabled]="otp.invalid"
+          (click)="verifyOTPDialog.close(otp.value)"
+        >
+          {{ 'pw.userProfile.verifyNowButtonText' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

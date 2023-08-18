@@ -1,0 +1,235 @@
+<ng-container *ngIf="isLoggedIn">
+  <div
+    class="container-fluid"
+    [class.pw-overlay-notification-gutter]="hasNotification"
+  >
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="back()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div class="pw-top-heading-container__heading">
+                  {{ 'pw.advanceBooking.advanceBookingLabel' | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pw-tab row no-gutters">
+          <ul class="pw-tab__list col">
+            <li class="pw-tab__list-item">
+              <a [class.pw-is-active-bar]="true">
+                <h5 class="pw-tab__item">
+                  {{
+                    'pw.advanceBooking.requestStatusSubHeaderLabel' | translate
+                  }}
+                </h5>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="row align-items-end mb-3">
+          <div class="col-auto align-self-baseline">
+            <!-- <ng-container
+              *possWebPermission="loadPermission(AB_ADD_EDIT_SUBMENU)"
+            > -->
+              <button (click)="possNewABUrl()" class="pw-btn pw-accent-btn">
+                {{ 'pw.advanceBooking.createAB' | translate }}
+              </button>
+            <!-- </ng-container> -->
+          </div>
+
+          <mat-form-field class="col-lg-3 col-4 ml-auto" floatLabel="never">
+            <input
+              #searchBox
+              matInput
+              class="pw-input-box"
+              placeholder="Search by AB Req Number"
+              [formControl]="searchFormControl"
+            />
+            <mat-icon matSuffix>
+              <span
+                *ngIf="!searchFormControl.value"
+                class="pw-i-16 pw-search-icon-16"
+              ></span
+            ></mat-icon>
+            <mat-icon matSuffix (click)="clearSearch()">
+              <span
+                *ngIf="searchFormControl.value"
+                class="pw-i-10 pw-close-icon-16"
+              ></span
+            ></mat-icon>
+            <mat-error
+              *ngIf="
+                searchFormControl.errors && searchFormControl.errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="searchFormControl.errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <!-- <poss-web-select-dropdown
+            placeholder="Request Type"
+            [control]="status"
+            [options]="dropDownvalues"
+            [required]="true"
+            (selectionChange)="onSelectionStatusChange($event)"
+            class="col-lg-2 col-3"
+          >
+          </poss-web-select-dropdown> -->
+          <mat-form-field
+            class="col-lg-2 col-3"
+            (click)="$event.stopPropagation()"
+          >
+            <mat-select
+              (selectionChange)="onSelectionTypeChange($event)"
+              placeholder="Request Type"
+              [formControl]="status"
+            >
+            <!-- *possWebPermission="
+            loadPermission(AB_REQUEST_VIEW_CANCELLATION_BILL_SUBMENU)
+          " -->
+              <mat-option
+                value="{{ dropDownEnum.CANCEL_AB }}"
+              >
+                Cancellation
+              </mat-option>
+              <!-- *possWebPermission="
+              loadPermission(AB_REQUEST_VIEW_ACTIVATION_BILL_SUBMENU)
+            " -->
+              <mat-option              
+                value="{{ dropDownEnum.ACTIVATE_AB }}"
+                >Activation</mat-option
+              >
+              <!-- *possWebPermission="
+              loadPermission(AB_REQUEST_VIEW_MANUAL_BILL_SUBMENU)
+            " -->
+              <mat-option
+               
+                value="{{ dropDownEnum.MANUAL_BILL_AB }}"
+              >
+                Manual Bill
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <poss-web-select-dropdown
+            placeholder="Request Status"
+            [control]="types"
+            [options]="statusesList"
+            [required]="true"
+            (selectionChange)="onSelectionStatusChange($event)"
+            class="col-lg-2 col-3"
+          >
+          </poss-web-select-dropdown>
+        </div>
+
+        <poss-web-card-list
+          *ngIf="billCancelList"
+          [count]="count"
+          [dataList]="billCancelList"
+          [pageSize]="pageSize"
+          (loadMore)="loadmore($event)"
+          (selected)="onSelected($event)"
+        >
+          <ng-template let-item="data">
+            <poss-web-card-title>
+              <div class="row">
+                <div class="col-auto">
+                  <h4>{{ item.docNo }}</h4>
+                </div>
+              </div>
+
+              <div class="col-auto ml-auto"></div>
+            </poss-web-card-title>
+
+            <poss-web-card-content>
+              <div class="row pw-grid-card__content">
+                <p class="col-5 pw-grid-card__label">
+                  {{ 'pw.advanceBooking.doNoHeaderLabel' | translate }}
+                </p>
+                <p class="col-auto pw-grid-card__label pw-grid-card__padding-5">
+                  :
+                </p>
+                <p class="col">{{ item.headerData.data.docNo }}</p>
+              </div>
+              <div class="row pw-grid-card__content">
+                <p class="col-5 pw-grid-card__label">
+                  {{ 'pw.advanceBooking.requestDateCol' | translate }}
+                </p>
+                <p class="col-auto pw-grid-card__label pw-grid-card__padding-5">
+                  :
+                </p>
+                <p class="col">{{ item?.requestedDate | dateFormatter }}</p>
+              </div>
+              <div class="row pw-grid-card__content">
+                <p class="col-5 pw-grid-card__label">
+                  {{ 'pw.advanceBooking.customerNameCol' | translate }}
+                </p>
+                <p class="col-auto pw-grid-card__label pw-grid-card__padding-5">
+                  :
+                </p>
+                <p class="col">
+                  {{ item.headerData.data.title }}.{{
+                    item.headerData.data.customerName
+                  }}
+                </p>
+              </div>
+              <div class="row pw-grid-card__content">
+                <p class="col-5 pw-grid-card__label">
+                  {{ 'pw.advanceBooking.qtyHeaderText' | translate }}
+                </p>
+                <p class="col-auto pw-grid-card__label pw-grid-card__padding-5">
+                  :
+                </p>
+                <p class="col">
+                  {{ item.headerData.data.totalQuantity }}(
+                  {{
+                    item.headerData.data.finalValue | currencyFormatter: 'INR'
+                  }})
+                </p>
+              </div>
+
+              <div class="row pw-grid-card__content">
+                <p class="col-5 pw-grid-card__label">
+                  {{ 'pw.advanceBooking.statusHeaderLabel' | translate }}
+                </p>
+                <p class="col-auto pw-grid-card__label pw-grid-card__padding-5">
+                  :
+                </p>
+                <p
+                  class="col"
+                  [ngClass]="
+                    getStatusColor(
+                      item.approvalStatus ? item.approvalStatus : ''
+                    )
+                  "
+                >
+                  {{ item.approvalStatus }}
+                </p>
+              </div>
+            </poss-web-card-content>
+          </ng-template>
+        </poss-web-card-list>
+
+        <h3
+          class="pw-text-center m-5"
+          *ngIf="(isLoading$ | async) === false && count === 0"
+        >
+          {{ noDataFoundMessage }}
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <poss-web-loader *ngIf="(isLoading$ | async) === true"> </poss-web-loader>
+</ng-container>

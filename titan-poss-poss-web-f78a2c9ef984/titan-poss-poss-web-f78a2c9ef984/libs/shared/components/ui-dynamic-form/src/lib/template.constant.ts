@@ -1,0 +1,12 @@
+export const TEMPLATE5 = 'TEMPLATE5';
+export const TEMPLATE6 = 'TEMPLATE6';
+export const TEMPLATE7 = 'TEMPLATE7';
+export const TEMPLATE8 = 'TEMPLATE8';
+export const TEMPLATE9 = 'TEMPLATE9';
+export const TEMPLATE10 = 'TEMPLATE10';
+export const TEMPLATE12 = 'TEMPLATE12';
+export const TEMPLATE15 = 'TEMPLATE15';
+export const TEMPLATE16 = 'TEMPLATE16';
+export const TEMPLATE17 = 'TEMPLATE17';
+export const TEMPLATE18 = 'TEMPLATE18';
+export const TEMPLATE19 = 'TEMPLATE19';

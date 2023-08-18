@@ -1,0 +1,32 @@
+<form
+  [formGroup]="form"
+  class="pw-grid-table__padding-5 d-flex justify-content-between"
+>
+  <ng-container *ngIf="!params.value.isPercent">
+    <input
+      #input1
+      class="pw-input-width-auto"
+      matInput
+      formControlName="value"
+      autocomplete="off"
+      possWebAmountInput
+      [allowEnterEscape]="true"
+      (blur)="unFocusedEvent()"
+    />
+    {{ currencyCode | currencySymbol }} &nbsp;
+  </ng-container>
+
+  <ng-container *ngIf="!!params.value.isPercent">
+    <input #input2 matInput formControlName="value" autocomplete="off"  (blur)="unFocusedEvent()"/>
+    % &nbsp;
+  </ng-container>
+  <mat-error
+    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+    *ngIf="form.get('value').errors && form.get('value').errors.errorArray"
+  >
+    <poss-web-error-info-tooltip
+      [isOnlyTooltip]="true"
+      [errorMessage]="form.get('value').errors.errorArray"
+    ></poss-web-error-info-tooltip>
+  </mat-error>
+</form>

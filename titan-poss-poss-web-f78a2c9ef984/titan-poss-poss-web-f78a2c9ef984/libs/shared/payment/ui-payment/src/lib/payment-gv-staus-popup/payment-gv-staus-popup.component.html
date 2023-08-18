@@ -1,0 +1,94 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentModeGV.giftVoucher' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-confirmation-box__detail">
+      <div class="row ml-2 mr-2">
+        <div class="pw-confirmation-box__item">
+          <span *ngIf="data" class="pw-confirmation-box__sub-heading"
+            >{{ 'pw.paymentModeGV.failedRedeemMsg' | translate }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="pw-scrollable-table">
+      <table class="pw-grid-table pw-grid-table__scrollable"  aria-describedby="table">
+        <thead>
+          <tr class="pw-mat-table__header">
+            <th scope="col" class="pw-mat-table__item">
+              <p>{{ 'pw.paymentModeGV.serialNoHeaderName' | translate }}</p>
+            </th>
+            <th scope="col" class="pw-mat-table__item">
+              <p>
+                {{ 'pw.paymentModeGV.totalValue' | translate }} ({{
+                  data.currencyCode | currencySymbol
+                }})
+              </p>
+            </th>
+            <th scope="col" class="pw-mat-table__item">
+              <p>Reason</p>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="failedPayment">
+          <tr
+            *ngFor="let payment of failedPayment"
+            class="pw-mat-table__body-row pw-text-center"
+          >
+            <td class="pw-mat-table__item">
+              {{ payment.paymentDetails.payload.instrumentNo }}
+            </td>
+            <td class="pw-mat-table__item">
+              {{ payment.paymentDetails.payload.amount | currencyFormatter }}
+            </td>
+            <td class="pw-mat-table__item">
+              {{ payment.PaymentFailureMsg }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer mt-0">
+    <div class="pw-confirmation-box__footer pw-text-right">
+      <div class="row justify-content-end">
+        <div class="col-auto" (click)="close()">
+          <button mat-flat-button class="pw-btn pw-primary-btn">
+            {{ 'pw.paymentModeGV.cancel' | translate }}
+          </button>
+        </div>
+
+        <div class="col-auto">
+          <button
+            mat-flat-button
+            class="pw-btn pw-accent-btn"
+            (click)="retry()"
+          >
+            {{ 'pw.paymentModeGV.retry' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

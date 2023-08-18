@@ -1,0 +1,184 @@
+$poss-typography1: mat-typography-config(
+  $font-family: '"IBM Plex Sans Condensed", sans-serif',
+  $body-1: mat-typography-level(1em, 1.3, 400),
+  $body-2: mat-typography-level(1em, 24px, 600),
+  $subheading-1: mat-typography-level(1.06em, 1.3, 600),
+  $caption: mat-typography-level(0.8em, 1.3, 300),
+  $input: mat-typography-level(1em, 1.3, 400)
+);
+
+$poss-typography2: mat-typography-config(
+  $font-family: 'Montserrat',
+  $headline: mat-typography-level(3em, 1.3, 900)
+);
+
+@include angular-material-typography($poss-typography1);
+
+$custom-palette: (
+  50: #f6f4ee,
+  100: #b0a16e,
+  200: #7e6e38,
+  300: #ed5b6b,
+  400: #1eb496,
+  500: #000,
+  600: #ffff,
+  700: #5e5d56,
+  800: #ede9de,
+  900: #f8f8f8,
+  A100: #efebe1,
+  A200: #770ef2,
+  A300: #e8e8e8,
+  contrast: (
+    100: #000,
+    700: #000
+  )
+);
+
+$poss-primary: mat-palette($custom-palette, 100, 50);
+
+$poss-accent: mat-palette($custom-palette, 400);
+
+$poss-warn: mat-palette($custom-palette, 300);
+
+$poss-background: mat-palette($custom-palette, 50);
+
+$poss-foreground: mat-palette($custom-palette, 500);
+
+$poss-light-theme-background: (
+  status-bar: map-get($poss-background, default),
+  app-bar: black,
+  background: map-get($poss-background, default),
+  hover: rgba(black, 0.04),
+  card: map-get($custom-palette, 600),
+  dialog: map-get($custom-palette, 600),
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-grey, 300),
+  selected-disabled-button: map_get($mat-grey, 400),
+  disabled-button-toggle: map_get($mat-grey, 200),
+  unselected-chip: map-get($custom-palette, 100),
+  disabled-list-option: map_get($mat-grey, 200)
+);
+
+$poss-light-theme-foreground: (
+  base: map-get($poss-foreground, default),
+  divider: $dark-dividers,
+  dividers: $dark-dividers,
+  disabled: $dark-disabled-text,
+  disabled-button: rgba(black, 0.26),
+  disabled-text: $dark-disabled-text,
+  elevation: black,
+  hint-text: $dark-disabled-text,
+  secondary-text: default,
+  icon: rgba(black, 0.54),
+  icons: rgba(black, 0.54),
+  text: rgba(black, 0.87),
+  slider-min: rgba(black, 0.87),
+  slider-off: rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38)
+);
+
+@function mat-poss-light-theme($poss-primary, $poss-accent, $poss-warn) {
+  @return (
+    primary: $poss-primary,
+    accent: $poss-accent,
+    warn: $poss-warn,
+    background: $poss-light-theme-background,
+    foreground: $poss-light-theme-foreground
+  );
+}
+$poss-theme: mat-poss-light-theme($poss-primary, $poss-accent, $poss-warn);
+
+@include angular-material-theme($poss-theme);
+
+$primary-color: #f6f4ee;
+$secondary-color: #000;
+$tertiary-color: #707070;
+$fourth-color: #b0a16e;
+$fifth-color: #5e5d56;
+$sixth-color: #fff;
+$seventh-color: #7e6e38;
+$eigth-color: #ede9de;
+$ninth-color: #f8f8f8;
+$tenth-color: #efebe1;
+$success-color: #1eb496;
+$error-color: #ed5b6b;
+$warning-color: #e89418;
+$eleventh-color: #770ef2;
+$twelth-color: #e8e8e8;
+$thirteen-color: #3b3b3b;
+$fourteen-color: #cb0808;
+.mat-toolbar {
+  font-size: em(12.5);
+}
+
+.mat-card.mat-elevation-z2 {
+  box-shadow: none;
+}
+
+.mat-list-base .mat-list-option {
+  font-size: em(14);
+}
+
+.mat-list-base .mat-list-location-saved.mat-list-option {
+  color: $sixth-color;
+}
+.mat-badge-small .mat-badge-content {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+}
+
+.pw-badge-container {
+  .mat-badge-small.mat-badge-above.mat-badge-content {
+    right: -5px;
+    bottom: 0;
+    color: $sixth-color;
+    top: -3px;
+  }
+}
+
+.pw-badge-container-for-bigger-number {
+  .mat-badge-small.mat-badge-above.mat-badge-content {
+    right: -5px;
+    bottom: 0;
+    color: $sixth-color;
+    top: -3px;
+  }
+}
+
+.mat-form-field-suffix .mat-icon.selection-icon {
+  width: 0.7em;
+}
+
+.mat-expansion-panel-header.pw-location-mapping__column-header:hover,
+.mat-expansion-panel-header.pw-location-mapping__column-header.mat-expanded:hover {
+  background-color: rgba(var(--rgba-color), 0.3);
+}
+
+.pw-sidenav__body
+  .pw-sidenav__expansion-header.pw-search-match-background.mat-expanded,
+.pw-sidenav__body
+  .pw-sidenav__expansion-header.pw-search-match-background.mat-expanded:hover,
+.pw-sidenav__body
+  .pw-sidenav__expansion-header.pw-search-match-background:hover {
+  background: $tenth-color;
+}
+
+.mat-mini-fab.mat-accent.pw-error-mini-btn {
+  background-color: $error-color;
+}
+
+.mat-button.pw-menu-bar__button,
+.mat-button.pw-menu-bar__button span {
+  font-family: $ibm-plex-condensed;
+}
+
+.mat-expansion-panel.pw-sidenav__expansion-panel {
+  box-shadow: none;
+}
+
+.pw-expansion-panel.mat-expansion-panel-spacing:first-child {
+  margin-top: 10px;
+}

@@ -1,0 +1,137 @@
+<div class="pw-body-bg-img">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="back()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div>
+                  <h2>
+                    {{
+                      'pw.boutiqueBankDeposit.bankingRevenueLabel' | translate
+                    }}
+                  </h2>
+                  <h5 class="pw-top-heading-container__sub-heading">
+                    {{ 'pw.boutiqueBankDeposit.bankDepositLabel' | translate }}
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-lg-7">
+            <div class="row" [formGroup]="checkBoxesFormGroup">
+              <mat-checkbox
+                class="col-auto"
+                value="All"
+                formControlName="all"
+                (change)="onCheckChange($event)"
+              >
+                {{
+                  'pw.boutiqueBankDeposit.allLabel' | translate
+                }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="col-auto"
+                value="CASH"
+                formControlName="cash"
+                (change)="onCheckChange($event)"
+              >
+                {{
+                  'pw.boutiqueBankDeposit.cashLabel' | translate
+                }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="col-auto"
+                value="CHEQUE"
+                formControlName="cheque"
+                (change)="onCheckChange($event)"
+              >
+                {{
+                  'pw.boutiqueBankDeposit.ChequeLabel' | translate
+                }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="col-auto"
+                value="DD"
+                formControlName="dd"
+                (change)="onCheckChange($event)"
+              >
+                {{ 'pw.boutiqueBankDeposit.DDLabel' | translate }}</mat-checkbox
+              >
+              <mat-checkbox
+                class="col-auto"
+                value="CARD"
+                formControlName="card"
+                (change)="onCheckChange($event)"
+              >
+                {{ 'pw.boutiqueBankDeposit.CCLabel' | translate }}</mat-checkbox
+              >
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="row pw-filter-box__right-content">
+              <div class="col-auto">
+                <a (click)="openSort()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockIssue.sortLable' | translate }}
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <poss-web-loader
+          *ngIf="(isLoading$ | async) || (isPrintLoading$ | async)"
+        ></poss-web-loader>
+        <poss-web-boutique-bank-deposit-items
+          *ngIf="!isPendingDatesAvailable"
+          [bankDepositDetails]="bankDepositDetails"
+          (emitBankDepositDetails)="emitBankDepositDetails($event)"
+          (cashDenominationDetails)="cashDenominationDetails($event)"
+          [cashDetails]="cashDetails"
+          [depositedAmount]="depositedAmount"
+          [showPopup]="openPopup"
+          [disableButton]="disableSaveButton"
+          [disableCashDenomitionButton]="disableCashDenomitionButton"
+          (emitPrintChequeDepsoit)="printChequeDeposit()"
+          (emitPrintCashDepsoit)="printCashDeposit()"
+          [transactionId]="transactionId"
+          [isPasswordMandatory]="isPasswordMandatory"
+          [enableCheckBox]="enableCheckBox"
+          [cashDepositVariationLimit]="cashDepositVariationLimit"
+          [bussinessDay]="bussinessDay"
+          [isCashPrintEnabled]="isCashPrintEnabled"
+          [isChequePrintEnabled]="isChequePrintEnabled"
+          (emitChequePrintIds)="emitChequePrintIds($event)"
+          (emitPifNo)="emitPifNo($event)"
+          [pifNoResponse]="pifNoResponse"
+          [saveResponse]="saveResponse"
+          [dateFormat]="dateFormat"
+          [totalCount]="totalElements$ | async"
+          [pageEvent]="listingPageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          (paginator)="paginate($event)"
+          [minPageSize]="minPageSize"
+          (emitSelectedRowsId)="getSelectedRowsId($event)"
+        ></poss-web-boutique-bank-deposit-items>
+        <poss-web-boutique-bank-deposit-view
+          *ngIf="isPendingDatesAvailable"
+          [bankDepositDetails]="bankDepositDetails"
+        ></poss-web-boutique-bank-deposit-view>
+      </div>
+    </div>
+  </div>
+</div>

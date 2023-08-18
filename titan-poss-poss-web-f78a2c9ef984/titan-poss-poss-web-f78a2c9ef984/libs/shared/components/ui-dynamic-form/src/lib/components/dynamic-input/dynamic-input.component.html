@@ -1,0 +1,489 @@
+<ng-container [formGroup]="form" [ngSwitch]="field.controlType">
+  <div *ngSwitchCase="'selection'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        matInput
+        [name]="field.fieldName"
+        readonly
+        possWebMaxLengthValidator
+        autocomplete="off"
+        #selectionInput
+      />
+      <mat-icon
+        matSuffix
+        (click)="onSelectionClicked(field.options)"
+        class="selection-icon"
+        *ngIf="!selectionInput.value"
+      >
+        <span class="pw-i-14 pw-up-arrow-icon-14"></span>
+      </mat-icon>
+      <mat-icon
+        matSuffix
+        (click)="clearSelectionClicked()"
+        class="selection-icon"
+        *ngIf="selectionInput.value"
+      >
+        <span class="pw-i-10 pw-close-icon-16"></span>
+      </mat-icon>
+
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngSwitchCase="'datepicker'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <mat-label>{{ field.label | translate }}</mat-label>
+
+      <input
+        matInput
+        [min]="getMinDate()"
+        [matDatepicker]="picker"
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        readonly
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'datepicker2'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        matInput
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        #dateInput
+      />
+
+      <poss-web-mat-date-picker
+        matSuffix
+        [field]="field"
+        [datetime]="dateInput.value"
+        (dateTimeSelectChange)="onDateSelectChange($event)"
+      >
+      </poss-web-mat-date-picker>
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'datetimepicker'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        matInput
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        #dateTimeInput
+      />
+
+      <poss-web-mat-datetime-picker
+        matSuffix
+        [field]="field"
+        [datetime]="dateTimeInput.value"
+        (dateTimeSelectChange)="onDateTimeSelectChange($event)"
+      >
+      </poss-web-mat-datetime-picker>
+    </mat-form-field>
+
+    <mat-error>
+      <poss-web-validation-errors
+        [formId]="field.formId"
+        [controlName]="field.name"
+        [validationErrorMessages]="field.validationErrorMessages"
+        [form]="form"
+      >
+      </poss-web-validation-errors>
+    </mat-error>
+  </div>
+  <div *ngSwitchCase="'amount'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        matInput
+        possWebAmountInput
+        [name]="field.fieldName"
+        possWebMaxLengthValidator
+        autocomplete="off"
+      />
+
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'text'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        matInput
+        [name]="field.fieldName"
+        possWebMaxLengthValidator
+        autocomplete="off"
+      />
+
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'textWeightInput'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        [name]="field.fieldName"
+        possWebMaxLengthValidator
+        possWebWeightInput
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        matInput
+        autocomplete="off"
+      />
+
+      <mat-error *ngIf="field.invalid">
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'outlineinput'" [class]="field.label">
+    <div class="row align-items-center">
+      <div class="col-8">
+        <label
+          >{{ field.label | translate }}
+          <span class="pw-error-color">{{
+            isRequired(field) ? '*' : ''
+          }}</span></label
+        >
+        <p>
+          <mat-error>
+            <poss-web-validation-errors
+              [formId]="field.formId"
+              [controlName]="field.name"
+              [validationErrorMessages]="field.validationErrorMessages"
+              [form]="form"
+            >
+            </poss-web-validation-errors>
+          </mat-error>
+        </p>
+      </div>
+      <mat-form-field
+        appearance="outline"
+        class="col-4 ml-auto pw-full-bordered-input-box pw-mat-form-field mt-3"
+      >
+        <input
+          [name]="field.fieldName"
+          possWebMaxLengthValidator
+          [required]="isRequired(field)"
+          [formControlName]="field.name"
+          [id]="field.name"
+          matInput
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'textlabel'" [class]="field.label">
+    <div class="row" *ngIf="field.value">
+      <div class="col-7">
+        <label
+          >{{ field.label | translate }}
+          <span class="pw-error-color">{{
+            isRequired(field) ? '*' : ''
+          }}</span></label
+        >
+        <p>
+          <mat-error>
+            <poss-web-validation-errors
+              [formId]="field.formId"
+              [controlName]="field.name"
+              [validationErrorMessages]="field.validationErrorMessages"
+              [form]="form"
+            >
+            </poss-web-validation-errors>
+          </mat-error>
+        </p>
+      </div>
+
+      <div class="col-5">
+        <div class="pw-bordered-text-label">
+          {{ field.value }}
+        </div>
+      </div>
+    </div>
+
+    <label
+      >{{ field.label | translate }}
+      <span class="pw-error-color">{{
+        isRequired(field) ? '*' : ''
+      }}</span></label
+    >
+  </div>
+
+  <div *ngSwitchCase="'textarea'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <textarea
+        [name]="field.fieldName"
+        possWebMaxLengthValidator
+        [required]="isRequired(field)"
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        matInput
+      >
+      </textarea>
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'select'" [class]="field.label">
+    <poss-web-select-dropdown
+      class="pw-mat-form-field"
+      placeholder="{{ field.label | translate }}"
+      [control]="form.get(field.name)"
+      [options]="field.options"
+      (selectionChange)="onChange($event, field.name)"
+      [required]="isRequired(field)"
+    >
+    </poss-web-select-dropdown>
+  </div>
+
+  <div *ngSwitchCase="'refreshSelect'" [class]="field.label">
+    <poss-web-refresh-dropdown
+      class="pw-mat-form-field"
+      placeholder="{{ field.label | translate }}"
+      [control]="form.get(field.name)"
+      [options]="field.options"
+      (selectionChange)="onChange($event, field.name)"
+      (refreshClick)="selectRefreshClickEvent(field.name)"
+      [required]="isRequired(field)"
+    >
+    </poss-web-refresh-dropdown>
+  </div>
+
+  <div *ngSwitchCase="'multiselect'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <mat-label>{{ field.label | translate }}</mat-label>
+
+      <mat-select
+        disableOptionCentering
+        [required]="isRequired(field)"
+        multiple
+        [formControlName]="field.name"
+        (selectionChange)="onChange($event, field.name)"
+        (valueChange)="onChange($event, field.name)"
+      >
+        <mat-option *ngFor="let opt of field.options" [value]="opt.value">
+          {{ opt.label | translate }}
+        </mat-option>
+      </mat-select>
+
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'checkbox'" [class]="field.label">
+    <div *ngIf="field.label">
+      <label class="pw-font-weight-bold"> {{ field.label | translate }}</label>
+    </div>
+    <mat-label
+      [formArrayName]="field.name"
+      *ngFor="let opt of field.options; let i = index"
+      class="mr-3 pb-2 {{ field.classNames.join(' ') }} pw-w-100 "
+    >
+      <mat-checkbox
+        [required]="isRequired(field)"
+        class="pl-3 pr-1"
+        [formControlName]="i"
+        [value]="field.options[i].value"
+        (click)="
+          checkboxClick(field.name, field.options[i].value, field.options, i)
+        "
+      >
+        {{ opt.label | translate }}
+      </mat-checkbox>
+    </mat-label>
+  </div>
+
+  <div *ngSwitchCase="'radio'" [class]="field.label">
+    <div *ngIf="field.label">
+      <label class="pw-font-weight-bold"> {{ field.label | translate }} </label>
+    </div>
+    <mat-radio-group [formControlName]="field.name">
+      <mat-radio-button
+        class="mr-2"
+        [required]="isRequired(field)"
+        *ngFor="let opt of field.options"
+        [value]="opt.value"
+        (click)="radioClick(field.name, opt.label)"
+      >
+        {{ opt.label | translate }}
+      </mat-radio-button>
+      <mat-error>
+        <poss-web-validation-errors
+          [formId]="field.formId"
+          [controlName]="field.name"
+          [validationErrorMessages]="field.validationErrorMessages"
+          [form]="form"
+        >
+        </poss-web-validation-errors>
+      </mat-error>
+    </mat-radio-group>
+  </div>
+
+  <div *ngSwitchCase="'toggle'" [class]="field.label">
+    <div *ngIf="field.label">
+      <label> {{ field.label | translate }}</label>
+    </div>
+
+    <mat-label
+      [formArrayName]="field.name"
+      *ngFor="let opt of field.options; let i = index"
+      class="pw-w-100 mr-3 pb-2 {{ field.classNames.join(' ') }}"
+    >
+      <poss-web-toggle-button
+        class="pl-3 pr-1"
+        [formControlName]="i"
+        [isActive]="statusOfToggle"
+        [toggleCaption]="opt.label"
+        (changeEvent)="
+          checkboxClick(field.name, field.options[i].value, field.options, i)
+        "
+      >
+      </poss-web-toggle-button>
+    </mat-label>
+  </div>
+
+  <div *ngSwitchCase="'textOutline'" [class]="field.label">
+    <mat-form-field class="pw-mat-form-field">
+      <input
+        readonly
+        [formControlName]="field.name"
+        placeholder="{{ field.label | translate }}"
+        [id]="field.name"
+        matInput
+        [name]="field.fieldName"
+      />
+    </mat-form-field>
+  </div>
+
+  <div *ngSwitchCase="'toggleOld'" [class]="field.label">
+    <div *ngIf="field.label">
+      <label> {{ field.label | translate }}</label>
+    </div>
+
+    <mat-label
+      [formArrayName]="field.name"
+      *ngFor="let opt of field.options; let i = index"
+      class="pw-w-100 mr-3 pb-2 {{ field.classNames.join(' ') }}"
+    >
+      <mat-slide-toggle
+        class="pl-3 pr-1"
+        [formControlName]="i"
+        [required]="isRequired(field)"
+        (click)="
+          checkboxClick(field.name, field.options[i].value, field.options, i)
+        "
+      >
+        {{ opt.label | translate }}
+      </mat-slide-toggle>
+    </mat-label>
+  </div>
+
+  <div *ngSwitchCase="'subForm'" [class]="field.label">
+    <div *ngIf="!field.hide" [formGroupName]="field.name">
+      <div *ngIf="field.label !== ''" class="pw-form-card__header">
+        {{ field.label | translate }}
+      </div>
+
+      <div class="row">
+        <poss-web-dynamic-input
+          *ngFor="let input of field.fields"
+          class="{{ input?.classNames?.join(' ') }}"
+          [field]="input"
+          [form]="form.get(field.name)"
+          (selectChange)="innerSelectChange($event)"
+          (radioChange)="innerRadioChange($event)"
+          (checkboxChange)="innerCheckboxChanged($event, field.name)"
+        >
+        </poss-web-dynamic-input>
+      </div>
+    </div>
+  </div>
+</ng-container>

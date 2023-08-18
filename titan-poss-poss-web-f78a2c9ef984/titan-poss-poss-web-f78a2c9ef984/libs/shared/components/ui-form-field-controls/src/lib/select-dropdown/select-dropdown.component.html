@@ -1,0 +1,40 @@
+<mat-form-field class="pw-select-dropdown">
+  <mat-select
+    #dropdown
+    [formControl]="control"
+    [placeholder]="placeholder"
+    [required]="required"
+    (selectionChange)="selectionChange.emit($event)"
+    (openedChange)="openedChange.emit($event)"
+    disableOptionCentering
+    matTooltip="{{ isTooltip ? getTooltipDescription(control.value) : null }}"
+  >
+    <mat-option
+      *ngIf="!required && placeholder"
+      matTooltip="{{ isTooltip ? placeholder : null }}"
+    >
+      {{ placeholder }}
+    </mat-option>
+    <mat-option
+      *ngIf="!required && !placeholder"
+      matTooltip="{{
+        (isTooltip ? 'pw.selectDropdown.noneOption' : null) | translate
+      }}"
+    >
+      {{ 'pw.selectDropdown.noneOption' | translate }}
+    </mat-option>
+    <mat-option
+      *ngFor="let option of options"
+      [value]="option.value"
+      [ngClass]="option.status ? option.status : ''"
+      matTooltip="{{ isTooltip ? option.description : null }}"
+    >
+      {{ option.description }}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="control.errors && control.errors.errorArray">
+    <poss-web-error-info-tooltip
+      [errorMessage]="control.errors.errorArray"
+    ></poss-web-error-info-tooltip>
+  </mat-error>
+</mat-form-field>

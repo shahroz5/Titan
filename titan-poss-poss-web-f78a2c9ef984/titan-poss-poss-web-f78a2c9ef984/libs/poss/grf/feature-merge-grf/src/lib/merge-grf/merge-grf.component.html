@@ -1,0 +1,123 @@
+<mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.grf.grfDetailsLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="row align-items-center">
+    <mat-form-field class="col-lg-2 col-3">
+      <mat-label class="pw-fourth-color">{{
+        'pw.grf.selectGRFCNLabel' | translate
+      }}</mat-label>
+      <mat-select
+        disableOptionCentering
+        floatLabel="never"
+        (selectionChange)="selectionChange($event.value)"
+      >
+        <mat-option *ngFor="let frozenCn of frozenCNs" [value]="frozenCn">{{
+          frozenCn.cnDocNo
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="col-auto pw-border-change">
+      <button
+        class="pw-btn pw-accent-btn"
+        [disabled]="docNo === null || fiscalYear === null"
+        (click)="add()"
+      >
+        {{ 'pw.grf.addLabel' | translate }}
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <button class="pw-btn pw-primary-btn" (click)="addAnotherGRF()">
+        {{ 'pw.grf.addAnotherGRFLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</mat-expansion-panel>
+<poss-web-merge-grf-list
+  [grfCNs]="grfCNs"
+  (deleteGRFCN)="deleteGRFCN($event)"
+  (mergeGRFCNs)="mergeGRFCNs($event)"
+></poss-web-merge-grf-list>
+<poss-web-loader
+  *ngIf="(isLoading$ | async) || (printIsLoading$ | async)"
+></poss-web-loader>
+<!-- <mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      Verification Details
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="row">
+    <div class="col-auto">
+      <div>
+        <a>
+          <input
+            [hidden]="true"
+            #fileInput
+            class="pw-hidden"
+            type="file"
+            (change)="uploadConsentForm($event)"
+          />
+          <p class="pw-detail-card__upload-item">
+            <span class="pw-i-24 pw-upload-icon-24"></span>
+            Consent form.jpg
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-auto">
+      <div>
+        <a>
+          <input
+            [hidden]="true"
+            #fileInput
+            class="pw-hidden"
+            type="file"
+            (change)="uploadConsentForm($event)"
+          />
+          <p class="pw-detail-card__upload-item">
+            <span class="pw-i-24 pw-upload-icon-24"></span>
+            Photo ID.jpg
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel> -->
+
+<ng-template #confirmMergedCNNotificationTemplate>
+  <div class="pw-text-center">
+    <h5 class="pw-success-color">
+      {{ 'pw.grf.successMsg' | translate }}
+    </h5>
+    <div class="pt-2">
+      {{ 'pw.grf.grfNumber' | translate }}:
+      {{ mergedCNResponse.docNo }}
+    </div>
+    <div class="pt-2">
+      {{ 'pw.grf.grfCNLabel' | translate }}:
+      {{ mergedCNResponse.cnDocNo }}
+    </div>
+    <div class="pt-2">
+      {{ 'pw.grf.amountLabel' | translate }}:
+      {{ mergedCNResponse.amount | currencyFormatter }}
+    </div>
+    <h4 class="pw-success-color pw-pointer" (click)="print()">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>
+      {{ 'pw.advanceBooking.print' | translate }}
+    </h4>
+  </div>
+</ng-template>

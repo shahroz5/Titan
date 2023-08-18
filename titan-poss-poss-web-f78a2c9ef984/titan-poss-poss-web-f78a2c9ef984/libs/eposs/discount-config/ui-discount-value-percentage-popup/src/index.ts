@@ -1,0 +1,2 @@
+export * from './lib/eposs-discount-config-ui-discount-value-percentage-popup.module';
+export {DiscountValuePercentagePopupComponent} from './lib/discount-value-percentage-popup/discount-value-percentage-popup.component'

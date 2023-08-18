@@ -1,0 +1,258 @@
+<div *ngIf="advanceBookingDetails" class="pw-detail-card">
+  <div class="row">
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.ABDocNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetails.docNo }}
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.rateOption' | translate }}
+      </div>
+      <div *ngIf="advanceBookingDetails.isBestRate" class="pw-font-weight-bold">
+        <span> {{ 'pw.advanceBooking.bestGoldRate' | translate }}</span>
+      </div>
+      <div
+        *ngIf="!advanceBookingDetails.isBestRate"
+        class="pw-font-weight-bold"
+      >
+        <span *ngIf="advanceBookingDetails.isFrozenRate">
+          {{ 'pw.advanceBooking.frozen' | translate }}</span
+        >
+        <span *ngIf="!advanceBookingDetails.isFrozenRate">
+          {{ 'pw.advanceBooking.nonFrozen' | translate }}</span
+        >
+      </div>
+    </div>
+
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.status' | translate }}
+      </div>
+      <div
+        [ngClass]="
+          getStatusColor(
+            advanceBookingDetails.status ? advanceBookingDetails.status : ''
+          )
+        "
+      >
+        {{ advanceBookingDetails.status }}
+      </div>
+    </div>
+    <div class="col-lg-2 col-3">
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.performedBy' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetails.employeeCode }}
+      </div>
+    </div>
+    <div
+      *ngIf="advanceBookingDetails.totalDeliveredWeight > 0"
+      class="col-lg-2 col-3"
+    >
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.deliveredWeight' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ advanceBookingDetails.totalDeliveredWeight }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        advanceBookingDetails.totalDeliveredWeight > 0 &&
+        advanceBookingDetails.totalDeliveredWeight !==
+          advanceBookingDetails.totalWeight
+      "
+      class="col-lg-2 col-3"
+    >
+      <div class="pw-detail-card__label">
+        {{ 'pw.advanceBooking.balanceWeight' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          advanceBookingDetails.totalWeight -
+            advanceBookingDetails.totalDeliveredWeight | weightFormatter
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-detail-card__secondary-section">
+    <div class="row">
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.collectedBy' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetails.collectedBy ? advanceBookingDetails.collectedBy : '-' | translate }}
+        </div>
+      </div>
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.docDate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ dateFormat(advanceBookingDetails.docDate) | dateFormatter }}
+        </div>
+      </div>
+
+      <div
+        class="col-lg-2 col-3"
+        *ngIf="
+          (advanceBookingDetails.isFrozenRate ||
+            advanceBookingDetails.isBestRate) &&
+          advanceBookingDetails.metalRateList?.metalRates?.J?.metalTypeCode ===
+            metalTypeEnum.GOLD
+        "
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.frozenGoldRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetails.metalRateList?.metalRates?.J.ratePerUnit
+              | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+
+      <div
+        class="col-lg-2 col-3"
+        *ngIf="
+          advanceBookingDetails.isFrozenRate &&
+          advanceBookingDetails.metalRateList?.metalRates?.P?.metalTypeCode ===
+            metalTypeEnum.SILVER
+        "
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.frozenSiverRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetails.metalRateList?.metalRates.P.ratePerUnit
+              | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+      <div
+        class="col-lg-2 col-3"
+        *ngIf="
+          advanceBookingDetails.isFrozenRate &&
+          advanceBookingDetails.metalRateList?.metalRates?.L?.metalTypeCode ===
+            metalTypeEnum.PLATINUM
+        "
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.frozenPlatinumRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetails.metalRateList?.metalRates.L.ratePerUnit
+              | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="advanceBookingDetails.status === 'CANCELLED'"
+        class="col-lg-2 col-3"
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.reasonMsg' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetails.cancellationDetails?.remarks }}
+        </div>
+      </div>
+      <div
+        *ngIf="advanceBookingDetails.status === 'CANCELLED'"
+        class="col-lg-2 col-3"
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.cancelledDate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            dateFormat(advanceBookingDetails.cancellationDetails?.actionDate)
+              | dateFormatter
+          }}
+        </div>
+      </div>
+      <div
+        *ngIf="advanceBookingDetails?.oldPanCardNumber"
+        class="col-lg-2 col-3"
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.cashMemoHistory.oldPanCardLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetails.oldPanCardNumber }}
+        </div>
+      </div>
+      <div
+        *ngIf="advanceBookingDetails?.panCardNumber"
+        class="col-lg-2 col-3"
+      >
+        <div class="pw-detail-card__label">
+          {{ 'pw.cashMemoHistory.panCardLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetails.panCardNumber }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="advanceBookingDetails.subTxnType === 'MANUAL_AB'"
+    class="pw-detail-card__secondary-section"
+  >
+    <div class="row">
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.cmRequestApproval.billNumberLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetails.manualBillDetails?.manualBillNo }}
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.manualBillAmount' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetails.manualBillDetails?.manualBillValue
+              | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.manualBillReason' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ advanceBookingDetails.manualBillDetails?.remarks }}
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-3">
+        <div class="pw-detail-card__label">
+          {{ 'pw.advanceBooking.manualBillGoldRate' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{
+            advanceBookingDetails.manualBillDetails?.metalRates?.J?.ratePerUnit
+              | currencyFormatter: currencyCode
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

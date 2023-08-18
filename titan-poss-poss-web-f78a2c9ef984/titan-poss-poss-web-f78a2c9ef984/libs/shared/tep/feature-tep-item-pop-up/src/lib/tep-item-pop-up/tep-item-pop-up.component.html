@@ -1,0 +1,1072 @@
+<div
+  class="pw-confirmation-box pw-confirmation-box__fixed-width pw-confirmation-box__no-padding"
+  [formGroup]="tepItemDetailsFormGroup"
+>
+  <div
+    [ngClass]="
+      isShowValuationDetails &&
+      isCmMandatory &&
+      tepItemDetailsFormGroup.get('isCashMemoAvailable').value === 'no'
+        ? 'row pw-confirmation-box__header pw-confirmation-box__header-background'
+        : 'row pw-confirmation-box__header pw-tep-pop-up-margin-top'
+    "
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div
+      class="col-auto"
+      *ngIf="
+        !isShowValuationDetails &&
+        !itemData?.viewSelectedTepItem &&
+        (isCmMandatory ||
+          itemData?.coinOfferEnabled ||
+          itemData?.tepType === createTepTypesEnum.FULL_VALUE_TEP ||
+          itemData?.tepType === createTepTypesEnum.MANUAL_FULL_VALUE_TEP)
+      "
+    >
+      {{ 'pw.tep.cmDetails' | translate }}
+    </div>
+    <div
+      class="col-auto"
+      *ngIf="
+        ((tepItemDetailsFormGroup.get('isCashMemoAvailable').value === 'yes' ||
+          !tepItemDetailsFormGroup.get('isCashMemoAvailable').value) &&
+          isShowValuationDetails) ||
+        (!isCmMandatory &&
+          !itemData?.coinOfferEnabled &&
+          itemData?.tepType !== createTepTypesEnum.FULL_VALUE_TEP &&
+          itemData?.tepType !== createTepTypesEnum.MANUAL_FULL_VALUE_TEP)
+      "
+    >
+      {{ 'pw.tep.tepValuationLabel' | translate }}
+    </div>
+    <div
+      class="col-auto pw-primary-color"
+      *ngIf="
+        tepItemDetailsFormGroup.get('isCashMemoAvailable').value === 'no' &&
+        isShowValuationDetails &&
+        isCmMandatory
+      "
+    >
+      {{ 'TEP Valuation - Cash Memo Not Available' }}
+    </div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="cancelAddingTepItem()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <div
+    class="pw-confirmation-box__body pw-confirmation-box__min-height"
+    *ngIf="
+      (!isShowValuationDetails ||
+        itemData?.productGroupCode === '73' ||
+        itemData?.productGroupCode === '74') &&
+      !itemData?.viewSelectedTepItem
+    "
+  >
+    <div
+      class="pw-confirmation-box__item"
+      *ngIf="isCmMandatory && !isShowValuationDetails"
+    >
+      <div class="row">
+        <div class="col-3 col-lg-3 pw-confirmation-box__label">
+          {{ 'pw.tep.enteredItemCode' | translate }}
+        </div>
+        <div class="col-auto">:</div>
+        <div class="col pw-font-weight-bold">
+          {{ itemData?.itemCode }}
+        </div>
+      </div>
+    </div>
+    <div
+      class="pw-confirmation-box__item"
+      *ngIf="
+        isCmMandatory &&
+        !isShowValuationDetails &&
+        itemData?.tepType !== createTepTypesEnum.FULL_VALUE_TEP &&
+        itemData?.tepType !== createTepTypesEnum.MANUAL_FULL_VALUE_TEP &&
+        itemData?.productGroupCode === '73'
+      "
+    >
+      <div class="row">
+        <div class="col-3 col-lg-3 pw-confirmation-box__label">
+          {{ 'pw.tep.coinOfferDiscount' | translate }}
+        </div>
+        <div class="col-auto">:</div>
+        <div class="col pw-font-weight-bold">
+          <mat-checkbox
+            (change)="coinOfferDiscountSelectionChanged($event)"
+            formControlName="coinOfferDiscount"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div
+      class="row"
+      *ngIf="
+        isCmMandatory &&
+        !itemData?.coinOfferEnabled &&
+        itemData?.tepType !== createTepTypesEnum.FULL_VALUE_TEP &&
+        itemData?.tepType !== createTepTypesEnum.MANUAL_FULL_VALUE_TEP &&
+        !isShowValuationDetails &&
+        !tepItemDetailsFormGroup.get('coinOfferDiscount').value
+      "
+    >
+      <div class="col-auto">
+        {{ 'pw.tep.isCashMemoAvailable' | translate }}
+      </div>
+      <mat-radio-group
+        class="col-auto"
+        aria-labelledby="example-radio-group-label"
+        aria-label="Select an option"
+        formControlName="isCashMemoAvailable"
+        (change)="getIsCashMemoAvailableOrNot($event)"
+      >
+        <mat-radio-button class="pw-radio-btn mr-3" [value]="'yes'">
+          {{ 'pw.tep.yes' | translate }}
+        </mat-radio-button>
+        <mat-radio-button
+          class="pw-radio-btn"
+          [value]="'no'"
+          [disabled]="
+            itemData?.tepType === createTepTypesEnum.INTER_BRAND_TEP ||
+            itemData?.tepType === createTepTypesEnum.MANUAL_INTER_BRAND_TEP
+          "
+        >
+          {{ 'pw.tep.no' | translate }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div
+      class="row"
+      *ngIf="
+        ((isCmMandatory &&
+          tepItemDetailsFormGroup?.get('isCashMemoAvailable').value ===
+            'yes') ||
+          itemData?.tepType === createTepTypesEnum.FULL_VALUE_TEP ||
+          itemData?.tepType === createTepTypesEnum.MANUAL_FULL_VALUE_TEP ||
+          itemData?.coinOfferEnabled ||
+          tepItemDetailsFormGroup.get('coinOfferDiscount').value) &&
+        !itemPriceDetails
+      "
+    >
+      <mat-form-field
+        class="col-lg-3 col-3"
+        *ngIf="
+          itemData?.tepType !== createTepTypesEnum.INTER_BRAND_TEP &&
+          itemData?.tepType !== createTepTypesEnum.MANUAL_INTER_BRAND_TEP
+        "
+      >
+        <mat-label>
+          {{ 'pw.tep.locationCodeLabel' | translate }}
+        </mat-label>
+        <input
+          matInput
+          formControlName="locationCode"
+          type="text"
+          autocomplete="off"
+          class="pw-single-bordered-input pw-uppercase"
+        />
+        <mat-error
+          *ngIf="
+            tepItemDetailsFormGroup.get('locationCode').errors &&
+            tepItemDetailsFormGroup.get('locationCode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              tepItemDetailsFormGroup.get('locationCode').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <poss-web-select-dropdown
+        *ngIf="
+          itemData?.tepType === createTepTypesEnum.INTER_BRAND_TEP ||
+          itemData?.tepType === createTepTypesEnum.MANUAL_INTER_BRAND_TEP
+        "
+        class="col-lg-3 col-3"
+        [placeholder]="'pw.tep.locationCodeLabel' | translate"
+        [control]="tepItemDetailsFormGroup.get('locationCode')"
+        [options]="goldPlusLocations"
+        [required]="true"
+      ></poss-web-select-dropdown>
+      <mat-form-field class="col-lg-3 col-3">
+        <mat-label>{{ 'pw.tep.cmNoLabel' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="cmNumber"
+          type="text"
+          autocomplete="off"
+          class="pw-single-bordered-input"
+        />
+        <mat-error
+          *ngIf="
+            tepItemDetailsFormGroup.get('cmNumber').errors &&
+            tepItemDetailsFormGroup.get('cmNumber').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              tepItemDetailsFormGroup.get('cmNumber').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+
+      <poss-web-fiscal-year
+        class="col-lg-3 col-3"
+        [control]="tepItemDetailsFormGroup.get('fiscalYear')"
+        [required]="false"
+        [currentFiscalYear]="currentFiscalYear"
+        [placeHolder]="'pw.creditNote.searchByFiscalYearLabel' | translate"
+        [disabled]="false"
+      ></poss-web-fiscal-year>
+      <div class="pl-0 col-lg-3 col-3 mt-1">
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn"
+          [disabled]="
+            tepItemDetailsFormGroup?.get('cmNumber').errors ||
+            tepItemDetailsFormGroup?.get('locationCode').errors ||
+            tepItemDetailsFormGroup?.get('fiscalYear').errors
+          "
+          (click)="getCmDetails()"
+        >
+          {{ 'pw.tep.getCmDetailsBtnLabel' | translate }}
+        </button>
+      </div>
+    </div>
+    <div
+      class="row"
+      *ngIf="
+        isCmMandatory &&
+        (itemData?.tepType !== createTepTypesEnum.INTER_BRAND_TEP ||
+          itemData?.tepType !== createTepTypesEnum.MANUAL_INTER_BRAND_TEP) &&
+        tepItemDetailsFormGroup?.get('isCashMemoAvailable').value === 'no' &&
+        !itemPriceDetails
+      "
+    >
+      <div class="col-12">
+        <p class="pw-error-color">
+          <span class="pw-i-14 pw-info-icon-14"></span
+          >{{ 'pw.tep.cashMemoNotAvailableSelectionErrorMessage' | translate }}
+        </p>
+      </div>
+    </div>
+    <poss-web-cm-tep-item-list-grid
+      *ngIf="cmItemsList?.length > 0 && !itemPriceDetails"
+      [cmItemsList]="cmItemsList"
+      (selectedItemCodeObject)="selectedItemFromCmList($event)"
+    ></poss-web-cm-tep-item-list-grid>
+    <div
+      class="row"
+      *ngIf="
+        isItemCodeMisMatched && cmItemsList?.length > 0 && !itemPriceDetails
+      "
+    >
+      <div class="col-12">
+        <p>
+          <span class="pw-i-14 pw-info-icon-14"></span>
+          <span
+            >{{ 'pw.tep.userEnteredItemCode' | translate }}
+            {{ itemData?.itemCode }}
+            {{ 'pw.tep.isNotMatchingWithSelectedCmId' | translate }}
+            {{ selectedDataFromCmList?.variantCode }}.
+            {{ 'pw.tep.onClickOnConfirm' | translate }}</span
+          >.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="pw-confirmation-box__body pw-confirmation-box__fixed-body"
+    *ngIf="isShowValuationDetails && itemPriceDetails"
+  >
+    <div class="pw-confirmation-box__detail">
+      <div class="row">
+        <div class="col-lg-8 col-12">
+          <div
+            class="pw-confirmation-box__grid-content pw-confirmation-box__border-right"
+          >
+            <div class="pw-confirmation-box__sub-heading">
+              {{ 'pw.tep.itemDetailsLabel' | translate }}
+            </div>
+            <div class="pw-confirmation-box__detail">
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div
+                    class="col-5 col-lg-4 pw-confirmation-box__label"
+                    *ngIf="
+                      (itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode === 'J') ||
+                      (itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode !== 'P' &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode !== 'L')
+                    "
+                  >
+                    {{ 'pw.tep.goldRateLabel' | translate }}
+                  </div>
+                  <div
+                    class="col-5 col-lg-4 pw-confirmation-box__label"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'L'
+                    "
+                  >
+                    {{ 'pw.tep.platinumRateLabel' | translate }}
+                  </div>
+                  <div
+                    class="col-5 col-lg-4 pw-confirmation-box__label"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'P'
+                    "
+                  >
+                    {{ 'pw.tep.silverRateLabel' | translate }}
+                  </div>
+                  <div
+                    class="col-auto"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      (itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'J' ||
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode === 'L' ||
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode === 'P' ||
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode)
+                    "
+                  >
+                    :
+                  </div>
+                  <div
+                    class="col pw-font-weight-bold"
+                    *ngIf="
+                      (itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode === 'J') ||
+                      (itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode !== 'P' &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                        itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                          ?.metalTypeCode !== 'L')
+                    "
+                  >
+                    {{
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.ratePerUnit
+                        | currencyFormatter: itemPriceDetails?.currencyCode
+                    }}
+                    / {{ 'pw.tep.gm' | translate }}
+                  </div>
+                  <div
+                    class="col pw-font-weight-bold"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'L'
+                    "
+                  >
+                    {{
+                      standardPlatinumRate
+                        | currencyFormatter: itemPriceDetails?.currencyCode
+                    }}
+                    / {{ 'pw.tep.gm' | translate }}
+                  </div>
+                  <div
+                    class="col pw-font-weight-bold"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'P'
+                    "
+                  >
+                    {{
+                      standardSilverRate
+                        | currencyFormatter: itemPriceDetails?.currencyCode
+                    }}
+                    / {{ 'pw.tep.gm' | translate }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="
+                  itemPriceDetails?.metalPriceDetails?.metalPrices[0]?.karat
+                "
+              >
+                <div class="row">
+                  <div
+                    class="col-5 col-lg-4 pw-confirmation-box__label"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'J'
+                    "
+                  >
+                    {{ 'pw.tep.exchangeKt' | translate }}
+                  </div>
+                  <div
+                    class="col-5 col-lg-4 pw-confirmation-box__label"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                        ?.metalTypeCode === 'L'
+                    "
+                  >
+                    {{ 'pw.tep.platinumExchangePurity' | translate }}
+                  </div>
+                  <div
+                    class="col-auto"
+                    *ngIf="
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]?.karat
+                    "
+                  >
+                    :
+                  </div>
+                  <div class="col pw-font-weight-bold">
+                    {{
+                      itemPriceDetails?.metalPriceDetails?.metalPrices &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0] &&
+                      itemPriceDetails?.metalPriceDetails?.metalPrices[0]?.karat
+                        ? itemPriceDetails?.metalPriceDetails?.metalPrices[0]
+                            ?.karat
+                        : null
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-5 col-lg-4 pw-confirmation-box__label">
+                    {{ 'pw.tep.prodGroup' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col pw-font-weight-bold">
+                    {{ itemPriceDetails?.productGroupDesc }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-5 col-lg-4 pw-confirmation-box__label">
+                    {{ 'pw.tep.itemCodeLotNo' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col pw-font-weight-bold">
+                    {{ itemPriceDetails?.itemCode }} -
+                    {{ itemPriceDetails?.lotNumber }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-5 col-lg-4 pw-confirmation-box__label">
+                    {{ 'CM Doc Number' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col pw-font-weight-bold">
+                    {{
+                      itemPriceDetails?.cmDocNo
+                        ? itemPriceDetails?.cmDocNo
+                        : '-'
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-5 col-lg-4 pw-confirmation-box__label">
+                    {{ 'CM Location Code' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col pw-font-weight-bold">
+                    {{
+                      itemPriceDetails?.cmLocationCode
+                        ? itemPriceDetails?.cmLocationCode
+                        : '-'
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-5 col-lg-4 pw-confirmation-box__label">
+                    {{ 'CM Fiscal Year' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col pw-font-weight-bold">
+                    {{
+                      itemPriceDetails?.cmFiscalYear
+                        ? itemPriceDetails?.cmFiscalYear
+                        : '-'
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-5 col-lg-4 pw-confirmation-box__label">
+                    {{ 'pw.tep.billedGrossWt' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col pw-font-weight-bold">
+                    {{
+                      (isCmMandatory &&
+                        !itemData.viewSelectedTepItem &&
+                        tepItemDetailsFormGroup?.get('isCashMemoAvailable')
+                          .value === 'yes') ||
+                      (itemData.viewSelectedTepItem &&
+                        itemData.viewSelectedTepItem.cashMemoDetailsId)
+                        ? (itemPriceDetails?.billedWeight | weightFormatter)
+                        : (itemData?.tepType ===
+                            createTepTypesEnum.INTER_BRAND_TEP ||
+                            itemData?.tepType ===
+                              createTepTypesEnum.MANUAL_INTER_BRAND_TEP) &&
+                          !isCmMandatory
+                        ? '-'
+                        : (itemPriceDetails?.stdWeight | weightFormatter)
+                    }}
+                    {{
+                      (itemData?.tepType ===
+                        createTepTypesEnum.INTER_BRAND_TEP ||
+                        itemData?.tepType ===
+                          createTepTypesEnum.MANUAL_INTER_BRAND_TEP) &&
+                      !isCmMandatory
+                        ? ''
+                        : ('pw.tep.gms' | translate)
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pw-confirmation-box__sub-heading">
+              {{ 'pw.tep.exchangeProductDetails' | translate }}
+            </div>
+            <div class="row">
+              <mat-form-field class="col-lg-3 col-3" [floatLabel]="'always'">
+                <mat-label>
+                  {{ 'pw.tep.valuationQuantity' | translate }}
+                </mat-label>
+                <input
+                  matInput
+                  formControlName="valuationQuantity"
+                  type="number"
+                  min="1"
+                  (change)="onChangingQuantity()"
+                  autocomplete="off"
+                  class="pw-single-bordered-input"
+                />
+                <mat-error
+                  *ngIf="
+                    tepItemDetailsFormGroup.get('valuationQuantity').errors &&
+                    tepItemDetailsFormGroup.get('valuationQuantity').errors
+                      .errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepItemDetailsFormGroup.get('valuationQuantity').errors
+                        .errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-lg-3 col-3" [floatLabel]="'always'">
+                <mat-label>
+                  {{ 'pw.tep.valuationGrossWt' | translate }}({{
+                    'pw.tep.gms' | translate
+                  }})
+                </mat-label>
+                <input
+                  matInput
+                  formControlName="grossWt"
+                  type="text"
+                  (change)="onGrossWeightChanged()"
+                  autocomplete="off"
+                  class="pw-single-bordered-input"
+                  possWebWeightInput
+                />
+                <mat-error
+                  *ngIf="
+                    tepItemDetailsFormGroup.get('grossWt').errors &&
+                    tepItemDetailsFormGroup.get('grossWt').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepItemDetailsFormGroup.get('grossWt').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+              <div class="col-lg-3 col-3">
+                <div class="pw-tertiary-color">
+                  {{ 'pw.tep.stoneWt' | translate }}({{
+                    'pw.tep.gms' | translate
+                  }})
+                </div>
+                <div class="pw-font-weight-bold">
+                  {{
+                    (itemPriceDetails?.stonePriceDetails?.stoneWeight
+                      ? itemPriceDetails?.stonePriceDetails?.stoneWeight * 0.2
+                      : 0.0
+                    ) | weightFormatter
+                  }}
+                </div>
+              </div>
+              <div class="col-lg-3 col-3">
+                <div class="pw-tertiary-color">
+                  {{ 'pw.tep.netWt' | translate }}({{
+                    'pw.tep.gms' | translate
+                  }})
+                </div>
+                <div class="pw-font-weight-bold">
+                  {{
+                    itemData?.productGroupCode !== 'B3'
+                      ? (tepItemDetailsFormGroup.get('grossWt').value -
+                          itemPriceDetails?.stonePriceDetails?.stoneWeight * 0.2
+                        | weightFormatter)
+                      : (0 | weightFormatter)
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-12">
+          <div class="pw-confirmation-box__grid-content">
+            <div
+              class="pw-confirmation-box__detail pw-confirmation-box__border-top"
+            >
+              <div class="pw-confirmation-box__item">
+                <div class="row" *ngIf="!itemPriceDetails?.isUCPproduct">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.goldValue' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      showMetalPriceDetail(metalTypeEnumRef.GOLD)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="!itemPriceDetails?.isUCPproduct"
+              >
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.silverValue' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      showMetalPriceDetail(metalTypeEnumRef.SILVER)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="!itemPriceDetails?.isUCPproduct"
+              >
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.platinumValue' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      showMetalPriceDetail(metalTypeEnumRef.PLATINUM)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="!itemPriceDetails?.isUCPproduct"
+              >
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.stoneValue' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      getTotalStoneFinalValue()
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="itemPriceDetails?.isUCPproduct"
+              >
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.ucpValue' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div
+                    class="col-4 pw-font-weight-bold"
+                    *ngIf="itemPriceDetails?.isUCPproduct && (itemPriceDetails?.tepType === createTepTypesEnum.REGULAR_TEP && selectedCustomer?.customerType !==
+                    customerTypesEnum.INSTITUTIONAL)"
+                  >
+                    {{
+                      itemPriceDetails?.ucpvalue
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                  <div
+                    class="col-4 pw-font-weight-bold"
+                    *ngIf="(itemPriceDetails?.isUCPproduct &&
+                    itemPriceDetails?.tepType === createTepTypesEnum.FULL_VALUE_TEP) ||
+                    (itemPriceDetails?.tepType === createTepTypesEnum.REGULAR_TEP &&
+                    selectedCustomer?.customerType ===
+                    customerTypesEnum.INSTITUTIONAL && itemPriceDetails?.isUCPproduct)"
+                  >
+                    {{
+                      itemPriceDetails?.finalValue +
+                      itemPriceDetails?.discountRecovered +
+                      itemPriceDetails?.deductionAmount
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item">
+                <!-- *ngIf="!itemPriceDetails?.isUCPproduct" -->
+
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.deductionAmount' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (itemPriceDetails?.deductionAmount
+                        ? itemPriceDetails?.deductionAmount
+                        : 0.0
+                      ) | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.discountRecovered' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (itemPriceDetails?.discountRecovered
+                        ? itemPriceDetails?.discountRecovered
+                        : 0.0
+                      ) | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="
+                  itemData?.tepType === createTepTypesEnum.FULL_VALUE_TEP ||
+                  itemData?.tepType === createTepTypesEnum.MANUAL_FULL_VALUE_TEP
+                "
+              >
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.makingCharges' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (itemPriceDetails?.makingChargeDetails &&
+                      itemPriceDetails?.makingChargeDetails?.preDiscountValue
+                        ? itemPriceDetails?.makingChargeDetails
+                            ?.preDiscountValue
+                        : 0.0
+                      ) | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="pw-confirmation-box__item"
+                *ngIf="
+                  exchangeValueWithoutTaxComponent &&
+                  !itemPriceDetails?.isUCPproduct
+                "
+              >
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'Exchange Value' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (itemData?.isViewTepItemPriceDetails
+                        ? exchangeValueWithoutTaxComponent
+                          ? exchangeValueWithoutTaxComponent
+                          : 0.0
+                        : itemPriceDetails?.finalValue
+                      ) | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item" *ngIf="cgstTaxComponent">
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'CGST' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (cgstTaxComponent ? cgstTaxComponent : 0.0)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item" *ngIf="utgstTaxComponent">
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'UTGST' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (utgstTaxComponent ? utgstTaxComponent : 0.0)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item" *ngIf="sgstTaxComponent">
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'SGST' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (sgstTaxComponent ? sgstTaxComponent : 0.0)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item" *ngIf="igstTaxComponent">
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'IGST' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (igstTaxComponent ? igstTaxComponent : 0.0)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div class="pw-confirmation-box__item">
+                <div class="row">
+                  <div class="col-6 pw-confirmation-box__label">
+                    {{ 'pw.tep.totalTax' | translate }}
+                  </div>
+                  <div class="col-auto">:</div>
+                  <div class="col-4 pw-font-weight-bold">
+                    {{
+                      (totalTax ? totalTax : 0.0)
+                        | currencyFormatter: itemGroup?.currencyCode
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pw-confirmation-box__item">
+              <div class="row">
+                <div
+                  class="col-6 pw-confirmation-box__label"
+                  *ngIf="!itemData?.viewSelectedTepItem?.workflowDetails"
+                >
+                  {{ 'pw.tep.totalExchangeValue' | translate }}
+                </div>
+                <div
+                  class="col-6 pw-confirmation-box__label"
+                  *ngIf="
+                    itemData?.viewSelectedTepItem?.workflowDetails?.toUpperCase() ===
+                    'OVERIDING VALUE'
+                  "
+                >
+                  {{ overridingExchangeValueLabel }}
+                </div>
+                <div
+                  class="col-6 pw-confirmation-box__label"
+                  *ngIf="
+                    itemData?.viewSelectedTepItem?.workflowDetails?.toUpperCase() ===
+                    'FULL VALUE'
+                  "
+                >
+                  {{ fullValueExchangeValueLabel }}
+                </div>
+                <div
+                  class="col-6 pw-confirmation-box__label"
+                  *ngIf="
+                    itemData?.viewSelectedTepItem?.workflowDetails?.toUpperCase() ===
+                    'PROPORTIONED VALUE'
+                  "
+                >
+                  {{ proportionedExchangeValueLabel }}
+                </div>
+                <div class="col-auto">:</div>
+                <div
+                  class="col-4 pw-font-weight-bold"
+                  *ngIf="!itemPriceDetails?.isUCPproduct"
+                >
+                  {{
+                    itemData?.viewSelectedTepItem?.workflowDetails
+                      ? ((itemData?.tepType ===
+                          createTepTypesEnum.FULL_VALUE_TEP ||
+                        itemData?.tepType ===
+                          createTepTypesEnum.MANUAL_FULL_VALUE_TEP
+                          ? itemData?.viewSelectedTepItem?.exchangeValue
+                          : itemData?.viewSelectedTepItem?.exchangeValue
+                        ) | currencyFormatter: itemGroup?.currencyCode)
+                      : ((itemData?.tepType
+                          ? !itemData?.isViewTepItemPriceDetails
+                            ? itemPriceDetails?.finalValue + totalTax
+                            : itemPriceDetails?.finalValue + totalTax
+                          : itemPriceDetails?.finalValue + totalTax
+                        ) | currencyFormatter: itemGroup?.currencyCode)
+                  }}
+                </div>
+                <div
+                  class="col-4 pw-font-weight-bold"
+                  *ngIf="itemPriceDetails?.isUCPproduct"
+                >
+                  <!-- {{
+                    itemPriceDetails?.ucpvalue
+                      | currencyFormatter: itemGroup?.currencyCode
+                  }} -->
+                  {{
+                    itemPriceDetails?.finalValue + totalTax
+                      | currencyFormatter: itemGroup?.currencyCode
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="stonesDetailList.length > 0">
+        <div class="col-lg-12 col-12">
+          <poss-web-tep-stone-details-list-grid
+            [stonesDetailList]="stonesDetailList"
+            [isRequestApproval]="false"
+            [isTepRequestApprovedScenario]="
+              itemData?.isTepRequestApprovedScenario
+            "
+            (updatedRowData)="getUpdatedStoneDetailsListFromGrid($event)"
+          ></poss-web-tep-stone-details-list-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer">
+    <div class="row pw-confirmation-box__footer-border no-gutters">
+      <div
+        class="col-auto pw-confirmation-box__footer-item"
+        *ngIf="
+          !isShowValuationDetails &&
+          !itemData?.viewSelectedTepItem &&
+          (isCmMandatory ||
+            itemData?.coinOfferEnabled ||
+            itemData?.tepType === createTepTypesEnum.FULL_VALUE_TEP ||
+            itemData?.tepType === createTepTypesEnum.MANUAL_FULL_VALUE_TEP)
+        "
+      >
+        <button class="pw-btn pw-primary-btn" (click)="cancelAddingTepItem()">
+          {{ 'pw.tep.cancel' | translate }}
+        </button>
+      </div>
+      <div
+        class="col-auto pw-confirmation-box__footer-item"
+        *ngIf="
+          !isShowValuationDetails &&
+          !itemData?.viewSelectedTepItem &&
+          (isCmMandatory ||
+            itemData?.coinOfferEnabled ||
+            itemData?.tepType === createTepTypesEnum.FULL_VALUE_TEP ||
+            itemData?.tepType === createTepTypesEnum.MANUAL_FULL_VALUE_TEP)
+        "
+      >
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="disableConfirm()"
+          (click)="onConfirmClicked()"
+        >
+          {{ 'pw.tep.confirm' | translate }}
+        </button>
+      </div>
+      <div
+        class="col-auto pw-confirmation-box__footer-item"
+        *ngIf="isShowValuationDetails"
+      >
+        <button class="pw-btn pw-primary-btn" (click)="cancelAddingTepItem()">
+          {{ 'pw.tep.valuationCancelBtnLabel' | translate }}
+        </button>
+      </div>
+      <div
+        class="col-auto pw-confirmation-box__footer-item"
+        *ngIf="isShowValuationDetails"
+      >
+        <button
+          class="pw-btn pw-accent-btn"
+          (click)="saveTepItem()"
+          [disabled]="
+            !itemPriceDetails ||
+            !convertToNumber(tepItemDetailsFormGroup.get('grossWt').value) ||
+            !tepItemDetailsFormGroup.get('valuationQuantity').value ||
+            convertToNumber(tepItemDetailsFormGroup.get('grossWt').value) ===
+              0 ||
+            isNoOfStonesReturnedGreaterThanMeasuredNoOfStones
+          "
+          *ngIf="!itemData?.isTepRequestApprovedScenario"
+        >
+          {{ 'pw.tep.saveBtnLabel' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

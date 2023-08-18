@@ -1,0 +1,120 @@
+<div class="pw-grid-card">
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-6">
+      <div class="pw-grid-card__item pw-is-active-bar">
+        <h4
+          *possWebPermission="
+            loadPermission(ROLELIMIT_REQUEST_NUMBER_LABEL_TEXT)
+          "
+        >
+          {{ 'pw.roleCountList.requestNoLabeltext' | translate }}
+          {{ item?.reqDocNo }}
+        </h4>
+        <h4
+          *possWebPermission="
+            loadPermission(ROLELIMIT_LOCATION_CODE_LABEL_TEXT)
+          "
+        >
+          {{ 'pw.roleCountList.locationCodeLabeltext' | translate }}
+          {{ item?.locationCode }}
+        </h4>
+
+        <div>
+          {{ item?.requesterName }}
+          <span *ngIf="item?.roleName">({{ item.roleName }})</span>
+        </div>
+        <div class="mt-1">
+          <p>{{ item?.ownerType }} Store</p>
+          <p>{{ item?.address }}</p>
+          <p>{{ item?.requestRemarks }}</p>
+        </div>
+        <div class="mt-1">
+          <p [ngClass]="item ? getStatusColor(item.status) : ''">
+            {{ 'pw.roleCountRequestDetail.statusLabeltext' | translate }}
+            {{ item?.status }}
+          </p>
+          <p *ngIf="item?.status == 'PENDING'">
+            {{ item?.reqDocDate.fromNow() }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pw-mont-semibold-14 mb-3">
+  {{ 'pw.roleCountRequestDetail.totalEmployeesRequestedLabeltext' | translate }}
+</div>
+<div class="pw-vertical-list">
+  <div class="pw-vertical-list__header">
+    <div class="row">
+      <div class="col-4">
+        <h4>
+          {{ 'pw.roleCountRequestDetail.roleColumnTitle' | translate }}
+        </h4>
+      </div>
+      <div class="col-3 pw-text-center">
+        <h4>
+          {{ 'pw.roleCountRequestDetail.existingNoColumnTitle' | translate }}
+        </h4>
+      </div>
+      <div class="col-3 pw-text-center">
+        <h4>
+          {{ 'pw.roleCountRequestDetail.defaultNoColumnTitle' | translate }}
+        </h4>
+      </div>
+      <div class="col-2 pw-text-center">
+        <h4 class="pw-fourth-color">
+          {{ 'pw.roleCountRequestDetail.requestedNoColumnTitle' | translate }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="pw-vertical-list__body">
+    <div
+      *ngFor="let role of requestedRoles"
+      class="row pw-vertical-list__body-item"
+    >
+      <div class="col-4">
+        <ng-container *ngIf="isBTQuser || !checkStatus(); else checkbox">
+          {{ role.roleName }} ({{ role.roleCode }})
+        </ng-container>
+        <ng-template #checkbox>
+          <mat-checkbox
+            [disabled]="
+              checkStatus()
+                ? this.rolesRequest.size === 1 &&
+                  rolesRequest.has(role.roleCode)
+                : true
+            "
+            [id]="role.roleCode"
+            checked="true"
+            (change)="updateRolesRequest($event, role.reqValue)"
+          >
+            <span class="pw-checkbox__label"
+              >{{ role.roleName }} ({{ role.roleCode }})</span
+            ></mat-checkbox
+          >
+        </ng-template>
+      </div>
+      <div class="col-3 pw-text-center">
+        {{ role.assignedUsers }}
+      </div>
+      <div class="col-3 pw-text-center">
+        {{ role.userLimit }}
+      </div>
+      <div class="col-2 pw-fourth-color pw-text-center">
+        {{ role.reqValue }}
+      </div>
+    </div>
+    <div class="pw-vertical-list__body-item no-gutters">
+      <div class="pw-vertical-list__box">
+        <div class="pw-fourth-color">
+          {{ 'pw.roleCountRequestDetail.remarkSectionTitle' | translate }}
+        </div>
+        <div>
+          {{ item?.requestRemarks }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

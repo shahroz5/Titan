@@ -1,0 +1,26 @@
+{
+	"type": "PAYMENT_DETAILS",
+	"data": {
+		"isRazorPayEnabled": false,
+		"chequeValidityDays": 4,
+		"ddValidityDays": 0,
+		"realisationDays": 4,
+		"isUlpAllowed": true,
+		"enableCNTarnsferForGVpayment": true,
+		"enableCNCancellationForGVPayment": true,
+		"isMultipleGVAllowed": true,
+		"pendingRORequestDeletion": 1,
+		"approvedRORequestDeletion": 1,
+		"rtgs": {
+			"enableRtgsPayment": true,
+			"isRRNumberValidation": true,
+			"maximumAmount": 4,
+			"minimumAmount": 0,
+			"noOfDaysForChequeOrDDAcceptance": 5,
+			"isEnableUnipayForIntegration": true,
+			"isROApprovedByWorkflow": true,
+			"isEnableAirpayForIntegration": true
+		}
+	}
+}
+

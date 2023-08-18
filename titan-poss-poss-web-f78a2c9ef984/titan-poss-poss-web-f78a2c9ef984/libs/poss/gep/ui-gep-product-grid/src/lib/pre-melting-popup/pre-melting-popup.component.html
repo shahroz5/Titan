@@ -1,0 +1,110 @@
+<div
+  class="pw-white-overlay-box"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="pw-confirmation-box pw-confirmation-box__width-450">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{'pw.gep.preMeltingDetailsLabel' | translate}}
+      </div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="close()">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <form [formGroup]="weightForm">
+      <div class="pw-confirmation-box__body">
+        <div class="row">
+          <div class="col-5">
+            <mat-form-field>
+              <mat-label class="pw-fourth-color">
+                {{'pw.gep.weightGm' | translate}}
+              </mat-label>
+              <input
+                matInput
+                class="pw-single-bordered-input"
+                formControlName="weight"
+                name="weight"
+                possWebWeightInput
+              />
+              <mat-error
+                *ngIf="
+                  weightForm.get('weight').errors &&
+                  weightForm.get('weight').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="weightForm.get('weight').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-5">
+            <mat-form-field>
+              <mat-label class="pw-fourth-color">
+                {{'pw.gep.purityPercent' | translate}}
+              </mat-label>
+              <input
+                matInput
+                class="pw-single-bordered-input"
+                formControlName="purity"
+                name="purity"
+                (change)="addKaratage()"
+              />
+              <mat-error
+                *ngIf="
+                  weightForm.get('purity').errors &&
+                  weightForm.get('purity').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="weightForm.get('purity').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-5">
+            <mat-form-field>
+              <mat-label class="pw-fourth-color">
+                {{'pw.gep.karatageK' | translate}}
+              </mat-label>
+              <input
+                readonly
+                matInput
+                class="pw-single-bordered-input"
+                formControlName="karatage"
+                name="karatage"
+              />
+              <mat-error
+                *ngIf="
+                  weightForm.get('karatage').errors &&
+                  weightForm.get('karatage').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="weightForm.get('karatage').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pw-confirmation-box__footer-border">
+        <div class="col-auto pw-confirmation-box__footer-item">
+          <button class="pw-btn pw-accent-btn" (click)="add($event)">
+            {{'pw.gep.add' | translate}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

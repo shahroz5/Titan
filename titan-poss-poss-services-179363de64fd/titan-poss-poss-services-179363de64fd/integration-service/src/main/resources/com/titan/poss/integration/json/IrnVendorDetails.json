@@ -1,0 +1,17 @@
+{
+	"type": "INVOICE_CONFIG",
+	"data": {
+		"tokenUrl": "https://preprodcore.asptax.com/oauth/token",
+		"generateIrnUrl": "https://preprodcore.asptax.com/v1/einv/process",
+		"cancelIrnUrl": "https://preprodcore.asptax.com/v1/einv/action",
+		"clientId": "titan",
+		"clientSecretKey": "t340it49-anp8-46re-9rpo-d1e889eaabb5",
+		"taxSch": "GST",
+		"supTyp": "B2B",
+		"version": "1.1",
+		"docTypeGrn": "CRN",
+		"docTypeOthers": "INV",
+		"verifyGstAction": "EINV_GET_GSTIN",
+		"cancelIrnAction": "EINV_CANCEL"
+	}
+}

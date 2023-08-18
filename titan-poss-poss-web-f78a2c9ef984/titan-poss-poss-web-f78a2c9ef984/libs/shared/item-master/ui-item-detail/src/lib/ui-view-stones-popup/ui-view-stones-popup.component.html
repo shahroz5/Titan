@@ -1,0 +1,46 @@
+<form class="pw-confirmation-box" autocomplete="off">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">VIEW STONES</div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <h4 class="pw-tertiary-color mb-4">
+      {{ 'pw.itemMaster.itemMasterCode' | translate }} :
+      <span class="ml-2">{{ data.itemCode }}</span>
+    </h4>
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData"
+      [context]="context"
+      [animateRows]="animateRows"
+      [domLayout]="domLayout"
+      [rowHeight]="rowHeight"
+      (gridReady)="gridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged()"
+    ></ag-grid-angular>
+  </div>
+  <div class="pw-text-right pw-dialog-popup__footer">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button class="pw-btn pw-accent-btn" (click)="close()">OK</button>
+      </div>
+    </div>
+  </div>
+</form>

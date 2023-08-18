@@ -1,0 +1,9 @@
+{
+	"type": "CONVERSIONS",
+	"data": {
+		"allowedLimitWeight": "40",
+		"allowedLimitValue": "100000",
+		"autoApprovalLimitWeight": "40",
+		"autoApprovalLimitValue": "100000"
+	}
+}

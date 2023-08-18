@@ -1,0 +1,344 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentModeDigi.digiGoldLabel' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div
+    *ngIf="
+      (data.tab1 == 'Not Added' || data.tab1 == 'Not Enabled') &&
+      (data.tab2 == 'Not Added' || data.tab2 == 'Not Enabled')
+    "
+    class="pw-confirmation-box__body"
+  >
+    <form autocomplete="off" class="row">
+      <mat-form-field class="col-4">
+        <mat-label>
+          {{ 'pw.paymentModeDigi.mobileNumber' | translate }}</mat-label
+        >
+
+        <input
+          matInput
+          type="text"
+          disabled="true"
+          [formControl]="mobileNumber"
+          autocomplete="off"
+        />
+        <mat-error
+          *ngIf="mobileNumber.errors && mobileNumber.errors.errorArray"
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="mobileNumber.errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <div class="col-auto">
+        <button
+          [disabled]="mobileNumber.invalid"
+          (click)="onGetBalance()"
+          mat-flat-button
+          class="pw-btn pw-accent-btn"
+        >
+          {{ 'pw.paymentModeDigi.getBalanceButtonLabel' | translate }}
+        </button>
+      </div>
+
+      <div class="col mt-3 pw-text-right">
+        {{ 'pw.paymentModeDigi.DigiGoldSellingPrice' | translate }} :
+        <span class="pw-font-weight-bold">
+          {{ sellingPrice | currencyFormatter: data.currencyCode }}
+        </span>
+      </div>
+    </form>
+    <mat-tab-group
+      dynamicHeight
+      mat-stretch-tabs
+      class="pw-mat-tab pw-confirmation-box__margin-top-0 pw-margin-bottom-0"
+      [(selectedIndex)]="activeTab"
+      (selectedTabChange)="onTabChanged($event.index)"
+    >
+      <ng-container>
+        <mat-tab
+          *ngIf="data.tab1 === 'Not Added'"
+          class="pw-mat-tab__item"
+          label="{{
+            'pw.paymentModeDigi.TanshiqDigitalGoldBalance' | translate
+          }}"
+        >
+          <div class="row mt-3">
+            <div class="col pw-font-weight-bold">
+              <div>
+                <span class="pw-confirmation-box__label">
+                  {{ 'pw.paymentModeDigi.Balance' | translate }}:
+                </span>
+                {{
+                  sellingPrice * cardDetails?.tanishqGoldBalanceInGrams
+                    | currencyFormatter: data.currencyCode:true:true
+                }}
+              </div>
+            </div>
+            <div class="col pw-font-weight-bold pw-text-right">
+              <div>
+                <span class="pw-confirmation-box__label">
+                  {{ 'pw.paymentModeDigi.BalanceInGrams' | translate }} :
+                </span>
+                {{
+                  cardDetails?.tanishqGoldBalanceInGrams
+                    ? cardDetails?.tanishqGoldBalanceInGrams
+                    : 0
+                }}
+                Gms
+              </div>
+            </div>
+          </div>
+
+          <div class="row pw-panel-card__margin-0" [formGroup]="tanshiqForm">
+            <mat-form-field
+              class="col pw-panel-card__right-container pw-panel-card__padding-5 mb-0"
+            >
+              <mat-label>
+                {{ 'pw.paymentCard.amountPlaceholder' | translate }}
+              </mat-label>
+              <span class="pw-font-weight-bold mx-2" matPrefix>
+                {{ data.currencyCode | currencySymbol }}
+              </span>
+              <input
+                formControlName="amount"
+                matInput
+                possWebAmountInput
+                [allowDecimal]="false"
+                required
+                (keyup)="changeWeightTanshiq($event)"
+              />
+              <mat-error
+                *ngIf="
+                  tanshiqForm.get('amount').errors &&
+                  tanshiqForm.get('amount').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="tanshiqForm.get('amount').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+              class="col pw-panel-card__right-container pw-panel-card__padding-5 mb-0"
+            >
+              <mat-label> Enter Weight </mat-label>
+
+              <input
+                formControlName="weight"
+                matInput
+                digiGoldWeightInput
+                required
+                (keyup)="changePriceTanshiq($event)"
+              />
+              <mat-error
+                *ngIf="
+                  tanshiqForm.get('weight').errors &&
+                  tanshiqForm.get('weight').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="tanshiqForm.get('weight').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </ng-container>
+      <ng-container>
+        <mat-tab
+          *ngIf="data.tab2 === 'Not Added'"
+          class="pw-mat-tab__item"
+          label="{{ 'pw.paymentModeDigi.otherSafeGoldBalance' | translate }}"
+        >
+          <div class="pw-confirmation-box__body-item-without-padding">
+            <div class="pw-scrollable-table">
+              <div class="row mt-3">
+                <div class="col pw-font-weight-bold">
+                  <div>
+                    <span class="pw-confirmation-box__label">
+                      {{ 'pw.paymentModeDigi.Balance' | translate }}:
+                    </span>
+                    {{
+                      sellingPrice * cardDetails?.nonTanishqGoldBalanceInGrams
+                        | currencyFormatter: data.currencyCode:true:true
+                    }}
+                  </div>
+                </div>
+                <div class="col pw-font-weight-bold pw-text-right">
+                  <div>
+                    <span class="pw-confirmation-box__label">
+                      {{ 'pw.paymentModeDigi.BalanceInGrams' | translate }} :
+                    </span>
+                    {{
+                      cardDetails?.nonTanishqGoldBalanceInGrams
+                        ? cardDetails?.nonTanishqGoldBalanceInGrams
+                        : 0
+                    }}
+                    Gms
+                  </div>
+                </div>
+              </div>
+              <div
+                class="row pw-panel-card__margin-0"
+                [formGroup]="nonTanshiqform"
+              >
+                <mat-form-field
+                  class="col pw-panel-card__right-container pw-panel-card__padding-5 mb-0"
+                >
+                  <mat-label>
+                    {{ 'pw.paymentCard.amountPlaceholder' | translate }}
+                  </mat-label>
+                  <span class="pw-font-weight-bold mx-2" matPrefix>
+                    {{ data.currencyCode | currencySymbol }}
+                  </span>
+                  <input
+                    formControlName="amount"
+                    matInput
+                    possWebAmountInput
+                    [allowDecimal]="false"
+                    required
+                    (keyup)="changeWeightNonTanshiq($event)"
+                  />
+                  <mat-error
+                    *ngIf="
+                      nonTanshiqform.get('amount').errors &&
+                      nonTanshiqform.get('amount').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [errorMessage]="
+                        nonTanshiqform.get('amount').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field
+                  class="col pw-panel-card__right-container pw-panel-card__padding-5 mb-0"
+                >
+                  <mat-label> Enter Weight </mat-label>
+
+                  <input
+                    formControlName="weight"
+                    matInput
+                    digiGoldWeightInput
+                    required
+                    (keyup)="changePriceNonTanshiq($event)"
+                  />
+                  <mat-error
+                    *ngIf="
+                      nonTanshiqform.get('weight').errors &&
+                      nonTanshiqform.get('weight').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [errorMessage]="
+                        nonTanshiqform.get('weight').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+
+    <div class="row pw-confirmation-box__body-item-without-padding">
+      <div class="col-auto">
+        <button
+          class="pw-btn pw-primary-btn mt-2"
+          [disabled]="disable"
+          (click)="generateOTP()"
+        >
+          <span
+            *ngIf="
+              isOtpGeneratedForDigi === false || isOtpGeneratedForDigi === null
+            "
+          >
+            {{ 'pw.GHRedemption.generateOTP' | translate }}
+          </span>
+          <span *ngIf="isOtpGeneratedForDigi === true">{{
+            'pw.usermanagementform.resendOTPButtonText' | translate
+          }}</span>
+        </button>
+      </div>
+
+      <mat-form-field class="col-4">
+        <mat-label> Enter OTP </mat-label>
+
+        <input matInput [formControl]="OTPFiledFormControl" maxlength="6" />
+        <mat-error
+          *ngIf="
+            OTPFiledFormControl.errors && OTPFiledFormControl.errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="OTPFiledFormControl.errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <p class="pw-success-color" *ngIf="isOtpGeneratedForDigi">
+      OTP has been successfully sent to {{ mobileNumber.value }}
+    </p>
+    <div class="pw-confirmation-box__footer mt-0">
+      <div class="pw-confirmation-box__footer pw-text-right">
+        <div class="row justify-content-end">
+          <div class="col-auto" (click)="delete()">
+            <button mat-flat-button class="pw-btn pw-primary-btn">
+              {{ 'pw.paymentModeDigi.resetButtonLabel' | translate }}
+            </button>
+          </div>
+
+          <div class="col-auto">
+            <button
+              mat-flat-button
+              class="pw-btn pw-accent-btn"
+              (click)="addPayment()"
+              [disabled]="
+                OTPFiledFormControl.disabled ||
+                OTPFiledFormControl.invalid ||
+                OTPFiledFormControl.value.length == 0
+              "
+            >
+              {{ 'pw.paymentModeDigi.addButtonLabel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="data.tab1 === 'Added' || data.tab2 === 'Added'"
+    class="pw-confirmation-box__body"
+  >
+    <span class="pw-font-weight-bold">
+      {{ 'pw.paymentModeDigi.duplicatePayment' | translate }}</span
+    >
+  </div>
+</div>

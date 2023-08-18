@@ -1,0 +1,33 @@
+<div class="pw-form-card">
+  <h4 class="pw-tertiary-color pw-detail-card__heading">
+    {{ 'pw.creditNote.searchResultsLabel' | translate }}
+  </h4>
+  <form>
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="rowData"
+      [domLayout]="domLayout"
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+      (gridReady)="gridReady($event)"
+      [context]="getContext()"
+      (gridSizeChanged)="onGridSizeChanged()"
+      [frameworkComponents]="getComponents()"
+    >
+    </ag-grid-angular>
+  </form>
+  <div class="row pw-form-card__margin-top">
+    <div class="col-auto ml-auto">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="cnDetailsType('Transfer')"
+        [disabled]="disableButton"
+      >
+        {{ 'pw.creditNote.reqCNTransferLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+

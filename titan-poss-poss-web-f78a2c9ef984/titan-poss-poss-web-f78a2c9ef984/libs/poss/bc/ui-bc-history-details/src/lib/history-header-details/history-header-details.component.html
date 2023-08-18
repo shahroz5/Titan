@@ -1,0 +1,68 @@
+<div *ngIf="headerDetails; else noDataTemplate" class="row pw-card__header">
+  <div *ngIf="headerDetails?.docNo" class="col-xl-2 col-lg-2 col-2">
+    <div class="pw-tertiary-color">
+      {{ 'pw.bc.cmNumberLabel' | translate }}
+    </div>
+    {{ headerDetails?.docNo }}
+  </div>
+  <div *ngIf="headerDetails?.txnTime" class="col-xl-2 col-lg-2 col-2">
+    <div class="pw-tertiary-color">
+      {{ 'pw.bc.invoicedAtLabel' | translate }}
+    </div>
+    {{ getInvoicedTime(headerDetails?.txnTime) }}
+  </div>
+  <div class="col-xl-2 col-lg-2 col-2">
+    <div
+      *ngIf="headerDetails?.metalRateList?.metalRates?.J?.ratePerUnit"
+      class="pw-tertiary-color"
+    >
+      {{ 'pw.bc.invoiceGoldRateLabel' | translate }}
+    </div>
+    {{
+      headerDetails?.metalRateList?.metalRates?.J?.ratePerUnit
+        | currencyFormatter
+    }}/{{ weightCodeForGm }}
+  </div>
+  <div
+    *ngIf="headerDetails?.metalRateList?.metalRates?.L?.ratePerUnit"
+    class="col-xl-2 col-lg-2 col-2"
+  >
+    <div class="pw-tertiary-color">
+      {{ 'pw.bc.invoicePlatinumRateLabel' | translate }}
+    </div>
+    {{
+      headerDetails?.metalRateList?.metalRates?.L?.ratePerUnit
+        | currencyFormatter
+    }}/{{ weightCodeForGm }}
+  </div>
+  <div
+    *ngIf="headerDetails?.metalRateList?.metalRates?.P?.ratePerUnit"
+    class="col-xl-2 col-lg-2 col-2"
+  >
+    <div class="pw-tertiary-color">
+      {{ 'pw.bc.invoiceSilverRateLabel' | translate }}
+    </div>
+    {{
+      headerDetails?.metalRateList?.metalRates?.P?.ratePerUnit
+        | currencyFormatter
+    }}/{{ weightCodeForGm }}
+  </div>
+
+  <div *ngIf="headerDetails?.occasion" class="col-xl-2 col-lg-2 col-2 wrap">
+    <div class="pw-tertiary-color">
+      {{ 'pw.bc.occasionLabel' | translate }}
+    </div>
+    {{ headerDetails?.occasion }}
+  </div>
+  <div *ngIf="headerDetails?.cancelRemarks" class="col-xl-2 col-lg-2 col-2">
+    <div class="pw-tertiary-color">
+      {{ 'pw.bc.remarksLabel' | translate }}
+    </div>
+    {{ headerDetails?.cancelRemarks }}
+  </div>
+</div>
+<ng-template #noDataTemplate>
+  <p class="pw-text-center">
+    {{ 'pw.cmRequestApproval.noRowsToShowMessage' | translate }}
+  </p>
+</ng-template>

@@ -1,0 +1,96 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.stoneType.viewHeading' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-form-card">
+      <div class="row pw-form-card__margin-bottom">
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.stoneType.stoneTypeCode' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData.stoneTypeCode ? dialogData.stoneTypeCode : '--' }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.stoneType.description' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData.description ? dialogData.description : '--' }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.stoneType.karatageWeightPrint' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{
+                dialogData.configDetails.karatageWeightPrint
+                  ? dialogData.configDetails.karatageWeightPrint
+                  : '--'
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-5">
+              <span class="pw-fourth-color">
+                {{ 'pw.stoneType.isActiveLabel' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              <mat-slide-toggle [checked]="dialogData.isActive" disabled>
+                {{ dialogData.isActive ? 'Active' : 'In Active' }}
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

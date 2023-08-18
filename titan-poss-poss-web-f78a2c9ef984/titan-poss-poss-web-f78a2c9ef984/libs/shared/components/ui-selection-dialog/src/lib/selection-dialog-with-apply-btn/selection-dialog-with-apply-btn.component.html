@@ -1,0 +1,81 @@
+<div
+  class="row pw-selection-dialog pw-cursor-grab"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="col-auto pw-message">
+    {{ data.title }}
+  </div>
+  <button class="ml-auto" mat-icon-button (click)="close()">
+    <mat-icon>
+      <span class="pw-i-10 pw-close-icon-16"></span>
+    </mat-icon>
+  </button>
+</div>
+<div class="d-flex">
+  <mat-form-field class="flex-fill" [formGroup]="searchForm" floatLabel="never">
+    <input
+      #searchBox
+      matInput
+      [placeholder]="data.placeholder"
+      formControlName="searchValue"
+      autocomplete="off"
+    />
+    <mat-icon matSuffix *ngIf="!searchForm.get('searchValue').value">
+      <span class="pw-i-16 pw-search-icon-16"></span
+    ></mat-icon>
+    <mat-icon
+      matSuffix
+      (click)="clearSearch()"
+      *ngIf="searchForm.get('searchValue').value"
+    >
+      <span class="pw-i-10 pw-close-icon-16"></span
+    ></mat-icon>
+  </mat-form-field>
+</div>
+<cdk-virtual-scroll-viewport
+  [itemSize]="itemSize"
+  [minBufferPx]="minBufferPx"
+  [maxBufferPx]="maxBufferPx"
+  class="pw-selection-dialog__list"
+  possWebFocusableList
+  [wrap]="false"
+  [changes]="false"
+>
+  <p
+    possWebFocusableListItem
+    *cdkVirtualFor="
+      let option of filteredOptions;
+      let i = index;
+      templateCacheSize: 0;
+      trackBy: trackBy
+    "
+    class="pw-selection-dialog__list-item"
+    [class.selected]="option === selectedLocation"
+    (selected)="onSelect(option)"
+    (click)="onSelect(option)"
+  >
+    {{ option.description }}
+  </p>
+
+  <div
+    *ngIf="filteredOptions.length == 0"
+    class="pw-selection-dialog__no-result-text pw-sub-heading"
+  >
+    {{ 'pw.global.noDataFoundMessage' | translate }}
+  </div>
+</cdk-virtual-scroll-viewport>
+<div class="row">
+  <div class="col-auto ml-auto">
+    <button
+      mat-button
+      class="pw-btn pw-accent-btn"
+      (click)="onApply()"
+      [disabled]="!selectedLocation"
+    >
+      Apply
+    </button>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.pw-vertical-tab {
+  border-right: 1px solid $fourth-color;
+
+  &__item {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: $ibm-plex-condensed;
+    font-size: em(14);
+    -webkit-transition: color 0.2s, font-size 0.2s ease;
+    -moz-transition: color 0.2s, font-size 0.2s ease;
+    -o-transition: color 0.2s, font-size 0.2s ease;
+    transition: color 0.2s, font-size 0.2s ease;
+
+    &.active,
+    &:hover {
+      color: $fourth-color !important;
+    }
+  }
+
+  &__list-item {
+    margin-top: 25px;
+  }
+
+  &__list {
+    margin-bottom: 20px;
+  }
+
+  .pw-btn {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  &__footer {
+    margin-top: 40px;
+  }
+}

@@ -1,0 +1,303 @@
+<form [formGroup]="refundFormGroup">
+  <div class="row pw-detail-card__margin-top">
+    <div class="col-auto">
+      <p>{{ 'pw.tep.totalTEPValue' | translate }}</p>
+      <div class="pw-font-weight-bold">
+        {{ totalTEPAmt | currencyFormatter: currencyCode }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <p>{{ 'pw.tep.refundDeductionAmt' | translate }}</p>
+      <div class="pw-font-weight-bold">
+        {{ refundDeductionAmt | currencyFormatter: currencyCode }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <p>{{ 'pw.tep.netRefundValue' | translate }}</p>
+      <div class="pw-font-weight-bold">
+        {{ netRefundAmt | currencyFormatter: currencyCode }}
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row pw-detail-card__margin-top">
+    <poss-web-select-dropdown
+      disableOptionCentering
+      class="col-auto"
+      [placeholder]="'pw.tep.selectRefundType' | translate"
+      [control]="refundFormGroup.get('refundTypeSelected')"
+      [options]="paymentOptionTypes"
+      (selectionChange)="onRefundTypeChanged($event)"
+      [required]="true"
+    >
+    </poss-web-select-dropdown>
+
+    <mat-form-field
+      class="col-auto"
+      *ngIf="selectedRefundType === refundOptionTypes?.RO_PAYMENT"
+    >
+      <mat-select
+        formControlName="paymentSubRefundModes"
+        placeholder="{{ 'pw.tep.selectSubRefundType' | translate }}"
+        (selectionChange)="onSubRefundTypeChanged($event)"
+        disableOptionCentering
+        required
+      >
+        <mat-option
+          *ngFor="let mode of subRefundModes"
+          [value]="mode"
+        >
+          {{ mode }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field
+      class="col-auto"
+      [floatLabel]="'always'"
+      *ngIf="selectedRefundType === refundOptionTypes?.CHEQUE ||
+      selectedRefundType === refundOptionTypes?.RO_PAYMENT &&
+      refundFormGroup.get('paymentSubRefundModes').value === refundOptionTypes?.CHEQUE"
+    >
+      <mat-label>{{ 'pw.tep.nameAsPerBankRecord' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="nameAsPerBankRecord"
+        autocomplete="off"
+        required
+        name="accountHolderField"
+        possWebMaxLengthValidator
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('nameAsPerBankRecord').errors &&
+          refundFormGroup.get('nameAsPerBankRecord').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            refundFormGroup.get('nameAsPerBankRecord').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field
+      class="col-lg-3 col-3"
+      [floatLabel]="'always'"
+      *ngIf="selectedRefundType === refundOptionTypes?.RTGS ||
+      selectedRefundType === refundOptionTypes?.RO_PAYMENT &&
+      refundFormGroup.get('paymentSubRefundModes').value === refundOptionTypes?.RTGS"
+    >
+      <mat-label>{{ 'pw.tep.accountHolderName' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="accountHolderName"
+        autocomplete="off"
+        required
+        name="accountHolderField"
+        possWebMaxLengthValidator
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('accountHolderName').errors &&
+          refundFormGroup.get('accountHolderName').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            refundFormGroup.get('accountHolderName').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field
+      class="col-auto"
+      [floatLabel]="'always'"
+      *ngIf="selectedRefundType === refundOptionTypes?.RTGS ||
+      selectedRefundType === refundOptionTypes?.RO_PAYMENT &&
+      refundFormGroup.get('paymentSubRefundModes').value === refundOptionTypes?.RTGS"
+    >
+      <mat-label>{{ 'pw.tep.bankName' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="bankName"
+        autocomplete="off"
+        required
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('bankName').errors &&
+          refundFormGroup.get('bankName').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="refundFormGroup.get('bankName').errors.errorArray"
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <div
+      class="col-auto"
+      *ngIf="
+        selectedRefundType === refundOptionTypes?.RTGS ||
+        selectedRefundType === refundOptionTypes?.CHEQUE ||
+        selectedRefundType === refundOptionTypes?.RO_PAYMENT &&
+        refundFormGroup.get('paymentSubRefundModes').value === refundOptionTypes?.RTGS"
+    >
+      <!-- <a>
+        <p class="pw-detail-card__upload-item">
+          <span class="pw-i-24 pw-upload-icon-24"></span>
+          {{ 'pw.tep.uploadIdProof' | translate }}
+        </p>
+      </a>
+      <p class="pw-tertiary-color pw-detail-card__padding-5">
+        {{ 'pw.tep.jpegLimitationLabel' | translate }}
+      </p> -->
+      <!-- <div *ngIf="idProofImageUrl" class="pw-tertiary-color">
+        {{ 'pw.tep.idProofLabel' | translate }}
+      </div>
+      <poss-web-file-upload
+        [uploadLabel]="'pw.tep.uploadIdProofLabel' | translate"
+        [imageUrl]="idProofImageUrl"
+        [previewHeader]="'pw.tep.previewIdProofHeaderText' | translate"
+        [fileName]="'pw.tep.viewCopyLabel' | translate"
+        [disabled]="disabled"
+        (fileEmitter)="upload($event, 'ID_PROOF')"
+        (errorEmitter)="uploadError($event)"
+        (clearEmitter)="clearIdProof()"
+      ></poss-web-file-upload> -->
+    </div>
+    <div
+      class="col-auto"
+      *ngIf="selectedRefundType === refundOptionTypes?.RTGS ||
+      selectedRefundType === refundOptionTypes?.RO_PAYMENT &&
+      refundFormGroup.get('paymentSubRefundModes').value === refundOptionTypes?.RTGS"
+    >
+      <!-- <a>
+        <p class="pw-detail-card__upload-item">
+          <span class="pw-i-24 pw-upload-icon-24"></span>
+          {{ 'pw.tep.uploadCancelledCheque' | translate }}
+        </p>
+      </a>
+      <p class="pw-tertiary-color pw-detail-card__padding-5">
+        {{ 'pw.tep.jpegLimitationLabel' | translate }}
+      </p> -->
+
+      <!-- <div *ngIf="cancelledChequeImageUrl" class="pw-tertiary-color">
+        {{ 'pw.tep.cancelledChequeLabel' | translate }}
+      </div>
+      <poss-web-file-upload
+        [uploadLabel]="'pw.tep.cancelledChequeLabel' | translate"
+        [imageUrl]="cancelledChequeImageUrl"
+        [previewHeader]="'pw.tep.previewCancelledChequeHeaderText' | translate"
+        [disabled]="disabled"
+        [fileName]="'pw.tep.viewCopyLabel' | translate"
+        (fileEmitter)="upload($event, 'CANCELLED_CHEQUE')"
+        (errorEmitter)="uploadError($event)"
+        (clearEmitter)="clearCancelledCheque()"
+      ></poss-web-file-upload> -->
+    </div>
+  </div>
+  <br />
+  <div
+    class="row pw-detail-card__margin-top"
+    *ngIf="selectedRefundType === refundOptionTypes?.RTGS ||
+    selectedRefundType === refundOptionTypes?.RO_PAYMENT &&
+    refundFormGroup.get('paymentSubRefundModes').value === refundOptionTypes?.RTGS"
+  >
+    <mat-form-field class="col-auto" [floatLabel]="'always'">
+      <mat-label>{{ 'pw.tep.accountNumber' | translate }}</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="accountNumber"
+        autocomplete="off"
+        (change)="validateAccountNumbers()"
+        required
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('accountNumber').errors &&
+          refundFormGroup.get('accountNumber').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            refundFormGroup.get('accountNumber').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-auto" [floatLabel]="'always'">
+      <mat-label>{{ 'pw.tep.reenterAccoutNumber' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="reenteredAccountNumber"
+        autocomplete="off"
+        (change)="validateAccountNumbers()"
+        required
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('reenteredAccountNumber').errors &&
+          refundFormGroup.get('reenteredAccountNumber').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            refundFormGroup.get('reenteredAccountNumber').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-auto" [floatLabel]="'always'">
+      <mat-label>{{ 'pw.tep.branch' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="branch"
+        autocomplete="off"
+        required
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('branch').errors &&
+          refundFormGroup.get('branch').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="refundFormGroup.get('branch').errors.errorArray"
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-auto" [floatLabel]="'always'">
+      <mat-label>{{ 'pw.tep.ifscCode' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="ifscCode"
+        autocomplete="off"
+        required
+      />
+      <mat-error
+        *ngIf="
+          refundFormGroup.get('ifscCode').errors &&
+          refundFormGroup.get('ifscCode').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="refundFormGroup.get('ifscCode').errors.errorArray"
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>

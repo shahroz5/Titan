@@ -1,0 +1,23 @@
+.pw-dialog-box {
+  &__body {
+    margin-top: 15px;
+  }
+
+  &__icon-button {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+  }
+}
+
+.pw-dialog-box__border-top {
+  display: inline-block;
+  border-top: 1px solid #b0a16e;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+a {
+  cursor: pointer;
+}

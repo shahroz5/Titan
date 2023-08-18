@@ -1,0 +1,9 @@
+{
+	"type": "RAZORPAY",
+	"data": {
+		"keyId": "rzp_test_M4BDyzPj711Afq",
+		"keySecret": "dMjQokHKNwT4InuT1AofRZSe",
+		"expireTimeInMin": "10",
+		"name": "Tanishq"
+	}
+}

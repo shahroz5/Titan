@@ -1,0 +1,63 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+<div class="pw-fixed-container">
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table pw-revenue-table mt-2 pw-scrollable-ag-grid"
+    [rowHeight]="rowHeight"
+    [rowData]="rowData"
+    [animateRows]="animateRows"
+    [suppressRowClickSelection]="true"
+    [columnDefs]="columnDefs"
+    [domLayout]="domLayout"
+    [rowSelection]="rowSelection"
+    [defaultColDef]="defaultColDef"
+    (gridReady)="gridReady($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+    (cellClicked)="onCellClicked($event)"
+    [frameworkComponents]="getComponents()"
+    [context]="getContext()"
+    (cellFocused)="onCellFocused($event)"
+	 (focusout)="focusOut($event)"
+	 (cellEditingStarted)="onCellEditingStarted($event)"
+  ></ag-grid-angular>
+</div>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && tepRequestList?.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>
+
+<div class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button
+      [disabled]="disable"
+      (click)="reject()"
+      class="pw-btn pw-primary-btn"
+    >
+      {{ 'pw.regularTepApproval.rejectButton' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      [disabled]="disable"
+      (click)="approve()"
+      class="pw-btn pw-accent-btn"
+    >
+      {{ 'pw.regularTepApproval.acceptButton' | translate }}
+    </button>
+  </div>
+</div>

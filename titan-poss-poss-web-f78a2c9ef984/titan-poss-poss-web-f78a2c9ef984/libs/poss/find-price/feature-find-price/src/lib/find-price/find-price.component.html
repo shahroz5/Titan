@@ -1,0 +1,138 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+              <div>
+                <h2>{{ 'pw.findPrice.findPriceLabel' | translate }}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="findPriceFormgroup">
+        <div class="pw-detail-card">
+          <div class="row">
+            <div class="col-auto">
+              <div class="pw-detail-card__heading">
+                {{ 'pw.findPrice.calculatePriceLabel' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <poss-web-product-search-autocomplete
+              class="col-lg-12 col-12"
+              (search)="searchByItemcode($event)"
+              (selectedData)="selectedItemcode($event)"
+              (exactSearch)="exactSearchByItemcode($event)"
+              [searchData]="searchProductList$ | async"
+              [searchEnableEvent]="searchEnableFlag$"
+              (clear)="clear()"
+            ></poss-web-product-search-autocomplete>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-4">
+              <mat-label> {{ 'pw.findPrice.lotNoLabel' | translate }} </mat-label>
+                <mat-select formControlName="lotNumber" single>
+                  <mat-option *ngFor="let product of availableProducts" [value]="product.lotNumber">
+                    {{ product.lotNumber }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    findPriceFormgroup.get('lotNumber').errors &&
+                    findPriceFormgroup.get('lotNumber').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                    findPriceFormgroup.get('lotNumber').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-4">
+              <mat-label>
+                {{ 'pw.findPrice.weightLbl' | translate }}
+              </mat-label>
+              <input 
+                matInput 
+                formControlName="weight" 
+                type="number"
+                required 
+                possWebWeightInput />
+              <mat-error
+                *ngIf="
+                  findPriceFormgroup.get('weight').errors &&
+                  findPriceFormgroup.get('weight').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="findPriceFormgroup.get('weight').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row pw-content-header mt-2">
+            <p>
+              {{ 'pw.findPrice.finalValueLabel' | translate }} :
+              {{ finalValue | currencyFormatter: currencyCode }}
+            </p>
+          </div>
+          <div class="row pw-content-header">
+            <p>
+              {{ 'pw.findPrice.taxLabel' | translate }} :
+              {{ totalTax | currencyFormatter: currencyCode }}
+            </p>
+          </div>
+          <div class="row mt-2">
+            <div class="col-auto">
+              <button
+                class="pw-btn pw-accent-btn ml-auto"
+                [disabled]="findPriceFormgroup.invalid"
+                (click)="viewPricing()"
+              >
+                {{ 'pw.findPrice.viewPricingButton' | translate }}
+              </button>
+            </div>
+            <div class="col-auto">
+              <button
+                class="pw-btn pw-primary-btn ml-auto"
+                [disabled]="findPriceFormgroup.invalid"
+                (click)="calculatePrice()"
+              >
+                {{ 'pw.findPrice.calculateButton' | translate }}
+              </button>
+            </div>
+            <div class="col-auto">
+              <button
+                class="pw-btn pw-primary-btn ml-auto"
+                (click)="clear()"
+              >
+                {{ 'pw.findPrice.clearButton' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
+<poss-web-loader 
+  *ngIf="
+    (isLoading$ | async) ||
+    (isProductLoading$ | async) 
+">
+</poss-web-loader>
+  

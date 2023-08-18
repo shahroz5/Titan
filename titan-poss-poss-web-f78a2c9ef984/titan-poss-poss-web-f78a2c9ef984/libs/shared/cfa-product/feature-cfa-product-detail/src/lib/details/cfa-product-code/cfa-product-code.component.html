@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container mb-3">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-product-master-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.CFAProduct.productLabel' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.CFAProduct.masterLabel' | translate }}
+                  <span class="seventh-color"></span>
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" *ngIf="!showViewOnly; else viewOnly">
+        <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+        <poss-web-cfa-productcode-stepone
+          *ngIf="
+            (CFAProduct$ | async) &&
+            (plainStuddedType$ | async) &&
+            (itemTypes$ | async) &&
+            (pricingType$ | async) &&
+            (hallmarkingExcludeKaratType$ | async)
+          "
+          [CFAProduct$]="CFAProduct$"
+          [productTypes$]="productTypes$"
+          [itemTypes$]="itemTypes$"
+          [plainStuddedType$]="plainStuddedType$"
+          [pricingType$]="pricingType$"
+          [hallmarkingExcludeKaratType$]="hallmarkingExcludeKaratType$"
+          (CFAProductDetails)="saveDetails($event)"
+
+          [mode]="productGroupCode"
+        ></poss-web-cfa-productcode-stepone>
+      </div>
+
+      <ng-template #viewOnly>
+        <div>
+          <poss-web-productgroup-view
+            *ngIf="
+              (CFAProduct$ | async) &&
+              (plainStuddedType$ | async) &&
+              (itemTypes$ | async) &&
+              (pricingType$ | async)
+            "
+            [CFAProduct$]="CFAProduct$"
+            [itemTypes$]="itemTypes$"
+            [plainStuddedType$]="plainStuddedType$"
+            [pricingType$]="pricingType$"
+          ></poss-web-productgroup-view>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

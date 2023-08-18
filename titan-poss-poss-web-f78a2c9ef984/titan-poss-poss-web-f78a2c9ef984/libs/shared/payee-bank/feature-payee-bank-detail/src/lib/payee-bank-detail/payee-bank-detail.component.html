@@ -1,0 +1,275 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-company-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.inventoryMasters.paymentLabel' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.inventoryMasters.master' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__padding-heading">PAYEE BANK DETAIL</div>
+        </div>
+      </div>
+      <div class="pw-min-height">
+        <div class="pw-tab">
+          <ul class="pw-tab__list">
+            <li class="pw-tab__list-item">
+              <a
+                [class.pw-is-active-bar]="tab == 'bank-details'"
+                (click)="changeTab('bank-details')"
+              >
+                <h5 class="pw-tab__item">Bank Details</h5>
+              </a>
+            </li>
+            <li class="pw-tab__list-item" *ngIf="bankName !== 'new'">
+              <a
+                [class.pw-is-active-bar]="tab == 'glCodeDetails'"
+                (click)="changeTab('glCodeDetails')"
+              >
+                <h5 class="pw-tab__item">GL Code Details</h5></a
+              >
+            </li>
+            <li *ngIf="bankName !== 'new'" class="pw-tab__right-item">
+              <p class="pw-fourth-color">Bank Name</p>
+              <div class="pw-font-weight-bold">{{ bankName }}</div>
+            </li>
+          </ul>
+        </div>
+        <div
+          [ngClass]="{
+            hidden: tab === 'bank-details'
+          }"
+        >
+          <div class="row align-items-center">
+            <ng-container>
+              <div class="col-lg-5">
+                <div class="pw-tab">
+                  <ul class="pw-tab__list">
+                    <li class="pw-tab__list-item">
+                      <a
+                        (click)="changeSubTab(paymentModeEnumRef.CASH)"
+                        [class.pw-is-active-bar]="
+                          subTab == paymentModeEnumRef.CASH
+                        "
+                      >
+                        <h5 class="pw-tab__item">
+                          {{ 'pw.payeeBank.cash' | translate }}
+                        </h5>
+                      </a>
+                    </li>
+                    <li class="pw-tab__list-item">
+                      <a
+                        (click)="changeSubTab(paymentModeEnumRef.CARD)"
+                        [class.pw-is-active-bar]="
+                          subTab == paymentModeEnumRef.CARD
+                        "
+                      >
+                        <h5 class="pw-tab__item">
+                          {{ 'pw.payeeBank.card' | translate }}
+                        </h5></a
+                      >
+                    </li>
+                    <li class="pw-tab__list-item">
+                      <a
+                        (click)="changeSubTab(paymentModeEnumRef.CHEQUE)"
+                        [class.pw-is-active-bar]="
+                          subTab == paymentModeEnumRef.CHEQUE
+                        "
+                      >
+                        <h5 class="pw-tab__item">
+                          {{ 'pw.payeeBank.cheque' | translate }}
+                        </h5></a
+                      >
+                    </li>
+                    <li class="pw-tab__list-item">
+                      <a
+                        (click)="changeSubTab(paymentModeEnumRef.CHEQUE_RETURN)"
+                        [class.pw-is-active-bar]="
+                          subTab == paymentModeEnumRef.CHEQUE_RETURN
+                        "
+                      >
+                        <h5 class="pw-tab__item">
+                          {{ 'pw.payeeBank.chequeReturn' | translate }}
+                        </h5></a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ng-container>
+            <div class="col-auto ml-auto">
+              <a (click)="openLocationFilter()"
+                ><p>
+                  <span
+                    class="pw-i-24 pw-filter-icon-24 pw-filter-box__icon"
+                    [ngClass]="isfilterApplied ? 'pw-filter-icon-color-24' : ''"
+                  ></span>
+                  {{ 'pw.payeeBank.filterLocationsText' | translate }}
+                </p>
+              </a>
+            </div>
+            <div class="col-auto">
+              <mat-form-field class="pw-search-bar" floatLabel="never">
+                <input
+                  #locationCodeSearch
+                  matInput
+                  class="pw-input-box"
+                  placeholder="Search location code"
+                  [formControl]="searchFormControl"
+                />
+                <mat-icon matSuffix>
+                  <span
+                    *ngIf="!searchFormControl.value"
+                    class="pw-i-16 pw-search-icon-16"
+                  ></span
+                ></mat-icon>
+                <mat-icon matSuffix (click)="clearSearch()">
+                  <span
+                    *ngIf="searchFormControl.value"
+                    class="pw-i-10 pw-close-icon-16"
+                  ></span
+                ></mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!showViewOnly; else vieTabOne">
+          <poss-web-payee-bank-detail-item
+            [hidden]="tab === 'glCodeDetails'"
+            *ngIf="(bankDetails$ | async) && (states$ | async).length !== 0"
+            [bankDetails$]="bankDetails$"
+            [country]="country"
+            [states]="states$ | async"
+            [towns$]="towns$"
+            (tabOne)="addDetails($event)"
+            (formGroup)="formGroup($event)"
+          ></poss-web-payee-bank-detail-item>
+        </div>
+        <div class="pw-form-card" *ngIf="tab === 'glCodeDetails'">
+          <div class="row align-items-baseline" [formGroup]="onFormSubmit">
+            <mat-form-field class="col-lg-2 col-4">
+              <input
+                matInput
+                type="text"
+                placeholder="Locations Added"
+                formControlName="locations"
+                class="pw-single-bordered-input pw-form-card__margin-bottom-0"
+              />
+            </mat-form-field>
+            <mat-form-field class="col-lg-2 col-4">
+              <input
+                matInput
+                type="text"
+                placeholder="GL Code"
+                formControlName="glCode"
+                required
+                class="pw-single-bordered-input pw-form-card__margin-bottom-0"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  onFormSubmit.get('glCode').errors &&
+                  onFormSubmit.get('glCode').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="onFormSubmit.get('glCode').errors.errorArray"
+                >
+                </poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+            <div class="col-lg-2 col-4">
+              <mat-checkbox
+                [disabled]="showViewOnly ? true : disableCheck"
+                formControlName="isDefault"
+              >
+                {{ 'pw.payeeBank.isDefaultHeaderName' | translate }}
+              </mat-checkbox>
+            </div>
+
+            <div
+              class="col-auto pw-form-card__right-container"
+              [hidden]="showViewOnly"
+            >
+              <button class="pw-btn pw-primary-btn" (click)="addLocations()">
+                {{ 'pw.payeeBank.addLocationBtnText' | translate }}
+              </button>
+            </div>
+            <div class="col-auto" [hidden]="showViewOnly">
+              <button
+                class="pw-btn pw-primary-btn"
+                [disabled]="
+                  !this.onFormSubmit.valid || locationsAdded?.length === 0
+                "
+                (click)="saveDetails()"
+              >
+                {{ 'pw.payeeBank.saveBtnText' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!showViewOnly; else vieTabTwo">
+          <poss-web-payee-bank-gl-code-ag-grid
+            *ngIf="tab === 'glCodeDetails' && glCodeData && count > 0"
+            [glCodeData]="glCodeData"
+            [unmappedGlCodeData]="unmappedGlCodeData"
+            [paymentCode]="subTab"
+            [count]="count"
+            [pageEvent]="listingPageEvent"
+            [pageSizeOptions]="pageSizeOptions"
+            [minPageSize]="minPageSize"
+            [bankDetails$]="bankDetails$"
+            (paginator)="paginate($event)"
+            (delete)="deleteRow($event)"
+            (editMappedGlcodeDetails)="editGlCodeDetails($event)"
+          >
+          </poss-web-payee-bank-gl-code-ag-grid>
+        </div>
+      </div>
+      <div
+        *ngIf="tab === 'glCodeDetails' && !glCodeData"
+        class="pw-message pw-text-center mg-t-100"
+      >
+        No Gl Details Available
+      </div>
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+      <ng-template #vieTabOne>
+        <poss-web-bank-details-view
+          [hidden]="tab === 'glCodeDetails'"
+          *ngIf="bankDetails$ | async"
+          [bankDetails$]="bankDetails$"
+        ></poss-web-bank-details-view>
+      </ng-template>
+
+      <ng-template #vieTabTwo>
+        <poss-web-gl-code-details-view
+          *ngIf="tab === 'glCodeDetails' && glCodeData && count > 0"
+          [glCodeData]="glCodeData"
+          [unmappedGlCodeData]="unmappedGlCodeData"
+          [paymentCode]="subTab"
+          [count]="count"
+          [pageEvent]="listingPageEvent"
+          [pageSizeOptions]="pageSizeOptions"
+          [minPageSize]="minPageSize"
+          (paginator)="paginate($event)"
+        ></poss-web-gl-code-details-view>
+      </ng-template>
+    </div>
+  </div>
+</div>

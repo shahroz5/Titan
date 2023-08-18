@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="ml-auto mr-3 mb-3">
+    <button
+      mat-button
+      class="pw-btn pw-primary-btn"
+      type="button"
+      (click)="toggleAccordion()"
+    >
+    {{ expanded ? ('Collapse All' | translate) : ('Expand All' | translate) }}
+    </button>
+  </div>
+</div>
+
+<mat-accordion multi>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >BRAND DETAILS</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-brand-view
+      [brandMasterDetails]="brandMasterDetails"
+    ></poss-web-brand-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >PAN CARD CONFIGURATION</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-pancard-config-view
+      [brandMasterDetails]="brandMasterDetails"
+    ></poss-web-pancard-config-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >TCS CONFIGURATION</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-tcs-config-view
+      [brandMasterDetails]="brandMasterDetails"
+    ></poss-web-tcs-config-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >CM SMS CONFIGURATION</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-cm-sms-type-view
+      [brandMasterDetails]="brandMasterDetails"
+    ></poss-web-cm-sms-type-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >CUSTOMER CONFIGURATIONS</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-customer-config-view
+      [brandMasterDetails]="brandMasterDetails"
+    ></poss-web-customer-config-view>
+  </mat-expansion-panel>
+</mat-accordion>

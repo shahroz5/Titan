@@ -1,0 +1,14 @@
+<div class="container-fluid pt-4">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <poss-web-card-menu-container
+        title="  {{ 'pw.configurations.titleMasterCategory' | translate }}"
+        [menu]="menu"
+        [subMenu]="subMenu"
+        [permissions$]="permissions$"
+        [scrollTop]="scrollService.scrollTop | async"
+      >
+      </poss-web-card-menu-container>
+    </div>
+  </div>
+</div>

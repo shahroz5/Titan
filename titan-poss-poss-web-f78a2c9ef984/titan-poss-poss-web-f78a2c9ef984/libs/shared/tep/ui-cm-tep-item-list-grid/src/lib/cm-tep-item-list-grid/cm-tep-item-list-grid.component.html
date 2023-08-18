@@ -1,0 +1,13 @@
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [context]="getContext()"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [rowHeight]="rowHeight"
+  (gridReady)="gridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged()"
+  [rowData]="rowData"
+  (selectionChanged)="onSelectionChanged($event)"
+></ag-grid-angular>

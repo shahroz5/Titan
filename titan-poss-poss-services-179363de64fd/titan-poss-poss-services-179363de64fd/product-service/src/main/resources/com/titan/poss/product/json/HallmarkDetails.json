@@ -1,0 +1,8 @@
+{
+	"type": "HALLMARK_DETAILS",
+	"data": {
+		"isAllowedForHallmarking": false,
+		"hallmarkingCharges": 0.0,
+		"isFOCForHallmarkingCharges": false
+	}
+}

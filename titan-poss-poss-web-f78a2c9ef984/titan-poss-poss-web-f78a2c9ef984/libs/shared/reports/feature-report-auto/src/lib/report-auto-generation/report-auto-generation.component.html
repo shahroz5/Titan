@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-64 pw-company-icon-64"></span>
+              <div>
+                <h2>
+                  {{ 'pw.reports.reportHeading' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.reports.autoGeneration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <mat-form-field
+          [formGroup]="searchForm"
+          class="col-lg-3 col-sm-4 ml-auto pw-search-bar pw-form-field-border-top-0"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder=" {{ 'pw.reports.searchByReportName' | translate }}"
+            class="single-bordered-input"
+            formControlName="searchValue"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!searchForm.value.searchValue"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchForm.value.searchValue"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+
+
+
+      <poss-web-report-auto
+        [autoReportList]="autoReportList$ | async"
+        [count]="totalReports$ | async"
+        [pageSizeOptions]="pageSizeOptions"
+        [permissions$]="permissions$"
+        [pageEvent]="pageEvent"
+        (paginator)="loadPaginateData($event)"
+        (saveResponse)="save($event)"
+      ></poss-web-report-auto>
+
+
+    </div>
+  </div>
+</div>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

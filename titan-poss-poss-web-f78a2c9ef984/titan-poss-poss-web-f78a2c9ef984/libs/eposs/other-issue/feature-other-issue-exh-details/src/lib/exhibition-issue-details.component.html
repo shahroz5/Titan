@@ -1,0 +1,515 @@
+
+
+<poss-web-expansion-panel>
+  <poss-web-expansion-panel-summary>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+          <div class="row align-items-end">
+            <div class="col-aut">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="back()">
+                  <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+                </a>
+                <span class="pw-i-36 pw-issue-stock-icon-36"></span>
+                <div>
+                  <h2>{{ 'pw.otherReceiptsIssues.title' | translate }}</h2>
+                  <div>
+                    <h5
+                      class="pw-top-heading-container__sub-heading pw-fith-heading"
+                    >
+                      {{ 'pw.otherReceiptsIssues.issueLableText' | translate }}:
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <h4>{{ selectedIssue?.reqDocNo }}</h4>
+              <div>{{ type }}</div>
+            </div>
+
+            <div class="col-lg-5 col-md-6 col-6 no-gutters">
+              <div *ngIf='type !== otherIssuesTabEnumRef.FOC' class="row no-gutters align-items-end">
+                <div class="col-sm-4 col-xs-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.totalValueLabelText' | translate
+                    }}
+                  </p>
+                </div>
+                <div class="col-auto">
+                  <p>
+                    :
+                    {{ selectedIssue?.totalAvailableValue | currency: 'INR' }}
+                  </p>
+                </div>
+              </div>
+              <div class="row no-gutters mt-1">
+                <div class="col-sm-4 col-xs-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.totalWeightLabelText' | translate
+                    }}
+                  </p>
+                </div>
+                <div class="col-auto">
+                  <p>
+                    :
+                    {{ selectedIssue?.totalAvailableWeight | weightFormatter }}
+                    {{ selectedIssue?.weightUnit }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7 align-self-end"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </poss-web-expansion-panel-summary>
+
+  <poss-web-expansion-panel-content>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+          <div class="pw-top-heading-container">
+            <div class="row pw-top-heading-container__item">
+              <div class="col-auto">
+                <div class="pw-top-heading-container__main-head">
+                  <a (click)="back()">
+                    <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+                  </a>
+                  <span class="pw-i-36 pw-issue-stock-icon-36"></span>
+                  <div>
+                    <h2>{{ 'pw.otherReceiptsIssues.title' | translate }}</h2>
+                    <div>
+                      <h5
+                        class="pw-top-heading-container__sub-heading pw-fith-heading"
+                      >
+                        {{
+                          'pw.otherReceiptsIssues.issueLableText' | translate
+                        }}
+                        <span class="pw-seventh-color"></span>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pw-grid-card">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-6">
+                <div class="pw-grid-card__item pw-is-active-bar">
+                  <h4>
+                    {{ 'pw.otherReceiptsIssues.requestNoLabelText' | translate
+                    }}{{ selectedIssue?.reqDocNo }}
+                  </h4>
+                  <div>{{ type }}</div>
+                  <div class="mt-1">
+                    <p>
+                      {{ selectedIssue?.totalAvailableQuantity }} Products
+                      <span *ngIf='type !== otherIssuesTabEnumRef.FOC'>
+                        |
+                      {{ selectedIssue?.totalAvailableValue | currency: 'INR' }}
+                      </span>
+                    </p>
+                    <p>
+                      {{ 'pw.otherReceiptsIssues.fromLabelText' | translate }} :
+                      {{ selectedIssue?.srcLocationCode }} |
+                      {{ selectedIssue?.reqDocDate | dateFormatter }}
+                    </p>
+                    <div class="row">
+                      <div
+                        class="col-auto pw-text-right"
+                        *ngIf="
+                          selectedIssue?.status ==
+                          otherIssuesTabEnumRef.APPROVED_STATUS
+                        "
+                      >
+                        <p
+                          [ngClass]="
+                            getStatusColor(selectedIssue?.status) === true
+                              ? 'pw-success-color'
+                              : 'pw-error-color'
+                          "
+                        >
+                          {{ 'pw.otherReceiptsIssues.status' | translate }} :
+                          {{
+                            'pw.otherReceiptsIssues.approvedStatus' | translate
+                          }}
+                        </p>
+                      </div>
+                      <div
+                        class="col-auto pw-text-right"
+                        *ngIf="
+                          selectedIssue?.status ==
+                          otherIssuesTabEnumRef.APVL_PENDING_STATUS
+                        "
+                      >
+                        <p
+                          [ngClass]="
+                            getStatusColor(selectedIssue?.status) === true
+                              ? 'pw-success-color'
+                              : 'pw-error-color'
+                          "
+                        >
+                          {{ 'pw.otherReceiptsIssues.status' | translate }} :
+                          {{
+                            'pw.otherReceiptsIssues.approvalPendingStatus'
+                              | translate
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 col-md-6 col-6 no-gutters align-self-center">
+                <div *ngIf='type !== otherIssuesTabEnumRef.FOC' class="row no-gutters">
+                  <div class="col-sm-4 col-xs-auto">
+                    <p>
+                      {{
+                        'pw.otherReceiptsIssues.totalValueLabelText' | translate
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    <p>
+                      :{{
+                        selectedIssue?.totalAvailableValue | currency: 'INR'
+                      }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row no-gutters mt-1">
+                  <div class="col-sm-4 col-xs-auto">
+                    <p>
+                      {{
+                        'pw.otherReceiptsIssues.totalWeightLabelText'
+                          | translate
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    <p>
+                      :
+                      {{
+                        selectedIssue?.totalAvailableWeight | weightFormatter
+                      }}
+                      {{ selectedIssue?.weightUnit }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7 col-md-5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </poss-web-expansion-panel-content>
+</poss-web-expansion-panel>
+<div
+  class="container-fluid"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row mt-2 mb-5">
+    <div class="col-lg-10 col-12 m-auto">
+      <mat-accordion *ngIf="this.type === otherIssuesTabEnumRef.EXHIBITION">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.AddressDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row wrap">
+            <div class="col-lg-9 pw-card__border">
+              <div class="row">
+                <mat-form-field class="col-6">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Address 1"
+                    value="{{ selectedIssue?.carrierDetails.data.address1 }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Address 2"
+                    value="{{ selectedIssue?.carrierDetails.data.address2 }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="State"
+                    value="{{ selectedIssue?.carrierDetails.data.town }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="City"
+                    value="{{ selectedIssue?.carrierDetails.data.city }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Pin Code"
+                    value="{{ selectedIssue?.carrierDetails.data.pincode }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approval Code"
+                    value="{{ selectedIssue?.otherDetails.data.approvalCode }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approved By"
+                    value="{{ selectedIssue?.otherDetails.data.approvedBy }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion *ngIf="this.type === otherIssuesTabEnumRef.LOAN_TYPE">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.EmployeeDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row wrap">
+            <div class="col-lg-6 pw-card__border">
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Employee Id"
+                    value="{{ selectedIssue?.carrierDetails.data.employeeId }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Employee Name"
+                    value="{{
+                      selectedIssue?.carrierDetails.data.employeeName
+                    }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approval Code"
+                    value="{{ selectedIssue?.otherDetails.data.approvalCode }}"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field class="col-12">
+                  <input
+                    class="pw-input-box"
+                    matInput
+                    placeholder="Approved By"
+                    value="{{ selectedIssue?.otherDetails.data.approvedBy }}"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion
+        *ngIf="
+          type === otherIssuesTabEnumRef.LOSS ||
+          type === otherIssuesTabEnumRef.PSV ||
+          type === otherIssuesTabEnumRef.ADJUSTMENT ||
+          type === otherIssuesTabEnumRef.FOC
+        "
+      >
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.ApprovalDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <mat-form-field class="col-lg-3 col-5">
+              <input
+                class="pw-input-box"
+                matInput
+                placeholder="Approval Code"
+                value="{{ selectedIssue?.otherDetails.data.approvalCode }}"
+                readonly
+              />
+            </mat-form-field>
+            <mat-form-field class="col-lg-3 col-5">
+              <input
+                class="pw-input-box"
+                matInput
+                placeholder="Approved By"
+                value="{{ selectedIssue?.otherDetails.data.approvedBy }}"
+                readonly
+              />
+            </mat-form-field>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="pw-filter-box">
+        <div class="row pw-filter-box__right-content">
+          <div class="col-auto">
+            <a (click)="openFilter()">
+              <p>
+                <span
+                  *ngIf="filter.length === 0"
+                  class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                ></span>
+                <span
+                  *ngIf="filter.length !== 0"
+                  class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                ></span>
+                {{ 'pw.otherReceiptsIssues.FilterLabelText' | translate }}
+              </p>
+            </a>
+          </div>
+          <div class="col-auto">
+            <a (click)="openSort()">
+              <p>
+                <span
+                  class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                ></span>
+                {{ 'pw.otherReceiptsIssues.SortLableText' | translate }}
+              </p>
+            </a>
+          </div>
+          <poss-web-item-search
+            class="col-lg-3 col-4 ml-auto ml-lg-0"
+            placeholder="{{
+              'pw.otherReceiptsIssues.searchByVariantCodePlaceholderText'
+                | translate
+            }}"
+            (search)="searchItems($event)"
+            (clear)="clearSearchItems()"
+          >
+          </poss-web-item-search>
+        </div>
+      </div>
+      <poss-web-loader
+        *ngIf="
+          (isLoadingOtherIssueDetails$ | async) ||
+          (isSearchingOtherIssueItems$ | async) ||
+          (isLoadingSelectedStock$ | async) ||
+          (isLoadingCancelStockRequestResponse$ | async)
+        "
+      >
+      </poss-web-loader>
+      <poss-web-exhibition-issue-item-list
+        *ngIf="
+          (hasSearchedOtherIssueItems$ | async) === false &&
+          (isSearchingOtherIssueItems$ | async) === false
+        "
+        [count]="nonVerifiedOtherIssueItemsTotalCount"
+        [itemList]="nonVerifiedOtherIssueItems$ | async"
+        [pageSize]="pageSize"
+        [pageEvent]="nonVerifiedOtherIssueItemsPageEvent"
+        (paginator)="paginateNonVerifedItems($event)"
+        [dateFormat]="dateFormat"
+        [pageSizeOptions]="pageSizeOptions"
+        [issueType]="type"
+      >
+      </poss-web-exhibition-issue-item-list>
+      <div
+        *ngIf="nonVerifiedOtherIssueItemsTotalCount == 0"
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        <span class="pw-i-16 pw-success-icon-16"></span>
+        {{ noDataFoundMessage }}
+      </div>
+      <ng-template #confirmSuccessNotificationTemplate>
+        <div class="pw-text-center">
+          <h3 class="pw-success-color">
+            {{ 'pw.otherReceiptsIssues.OtherIssueSuccessMessage' | translate }}:
+            {{ requestDocNumber }}
+          </h3>
+          <h4 class="pw-success-color pw-pointer" (click)="print()">
+            <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+          </h4>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

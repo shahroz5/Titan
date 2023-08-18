@@ -1,0 +1,403 @@
+<div class="pw-grid-table__container">
+  <table mat-table [dataSource]="tcsDetail"  aria-describedby="table" class="pw-mat-table">
+    <!-- Position Column -->
+    <ng-container matColumnDef="slNo">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="pw-mat-table__item pw-cell-width-15"
+        scope="col"
+      >
+        {{ 'pw.viewTcs.slNo' | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let tcs; let i = index"
+        class="pw-mat-table__item pw-cell-width-15"
+      >
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="brandCode">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="pw-mat-table__item pw-cell-width-80"
+        scope="col"
+      >
+        {{ 'pw.viewTcs.brand' | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let tcs"
+        class="pw-mat-table__item pw-cell-width-80"
+      >
+        {{ tcs.brandCode }}
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="ownerType">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="pw-mat-table__item pw-cell-width-80"
+        scope="col"
+      >
+        {{ 'pw.viewTcs.btqType' | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let tcs"
+        class="pw-mat-table__item pw-cell-width-80"
+      >
+        {{ tcs.ownerType }}
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="locationCode">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.locationCode' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs.locationCode }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="docNo">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.taxInvoiceNo' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs.docNo }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="transactionDate">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.dateOfPurchase' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs?.transactionDate | dateFormatter }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="fiscalYear">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        class="pw-mat-table__item pw-cell-width-15"
+        scope="col"
+      >
+        {{ 'pw.viewTcs.fiscalYear' | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let tcs"
+        class="pw-mat-table__item pw-cell-width-15"
+      >
+        {{ tcs.fiscalYear }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="netInvoiceValue">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.netInvoice' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs?.netInvoiceValue | currencyFormatter }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="tcsApplicableAmount">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.tcsApplicableValue' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs?.tcsApplicableAmount | currencyFormatter }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="tcsPercentage">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.tcsPercentApplicable' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs.tcsPercentage }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="tcsAmountPaid">
+      <th mat-header-cell *matHeaderCellDef class="pw-mat-table__item" scope="col">
+        {{ 'pw.viewTcs.tcsAmnt' | translate }}
+      </th>
+      <td mat-cell *matCellDef="let tcs" class="pw-mat-table__item">
+        {{ tcs?.tcsAmountPaid | currencyFormatter }}
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      class="pw-mat-table__header"
+      *matHeaderRowDef="columnDetails; sticky: true"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columnDetails"
+      class="pw-mat-table__body-row"
+    ></tr>
+  </table>
+  <!-- <table class="pw-grid-table pw-grid-table__scrollable">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item">SL No</th>
+        <th class="pw-grid-table__header-item">Brand</th>
+        <th class="pw-grid-table__header-item">Btq. Type</th>
+        <th class="pw-grid-table__header-item">Location code</th>
+        <th class="pw-grid-table__header-item">Tax Invoice No.</th>
+        <th class="pw-grid-table__header-item">Date Of Purchase</th>
+        <th class="pw-grid-table__header-item">FY</th>
+        <th class="pw-grid-table__header-item">Net Invoice</th>
+        <th class="pw-grid-table__header-item">TCS Applicable Value</th>
+        <th class="pw-grid-table__header-item">TCS% Applicable</th>
+        <th class="pw-grid-table__header-item">TCS Amt.</th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+      <tr
+        class="pw-grid-table__row"
+        *ngFor="let tcs of tcsDetail; let i = index"
+      >
+        <td class="pw-grid-table__item">{{ i + 1 }}</td>
+        <td class="pw-grid-table__item">{{ tcs.brandCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.ownerType }}</td>
+        <td class="pw-grid-table__item">{{ tcs.locationCode }}</td>
+        <td class="pw-grid-table__item">{{ tcs.docNo }}</td>
+        <td class="pw-grid-table__item">{{ tcs.transactionDate }}</td>
+        <td class="pw-grid-table__item">{{ tcs.fiscalYear }}</td>
+        <td class="pw-grid-table__item">{{ tcs.netInvoiceAmount }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsApplicableAmoun }}0</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsPercentage }}</td>
+        <td class="pw-grid-table__item">{{ tcs.tcsAmountPaid }}</td>
+      </tr>
+    </tbody>
+  </table> -->
+</div>
+<!-- <div class="row pw-menu-list__footer">
+  <div class="col-auto ml-auto">
+    <div class="pw-menu-list__icon-container">
+      <span class="pw-i-24 pw-left-arrow-icon-24"></span>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="pw-menu-list__icon-container">
+      <span class="pw-i-24 pw-right-arrow-icon-24"></span>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-auto mt-2 pw-font-weight-bold">
+    {{ replaceCurrencyCode('pw.discountMCExculdeConfig.header' | translate) }}
+  </div>
+  <div class="col-auto ml-auto pw-padding-5 mb-2">
+    <button
+      class="pw-btn pw-primary-btn pw-add-button"
+      [disabled]="!isRowSelected"
+      (click)="addAbove()"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.discountMCExculdeConfig.addAboveButton' | translate }}
+    </button>
+  </div>
+
+  <div class="col-auto mb-2">
+    <button
+      class="pw-btn pw-primary-btn pw-add-button"
+      [disabled]="!isRowSelected"
+      (click)="addBelow()"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.discountMCExculdeConfig.addBelowButton' | translate }}
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <ag-grid-angular
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      editType="fullRow"
+      domLayout="autoHeight"
+      animateRows="true"
+      rowSelection="single"
+      [defaultColDef]="defaultColDef"
+      [columnDefs]="colDef"
+      [singleClickEdit]="true"
+      [rowData]="rowData"
+      [context]="getContext()"
+      (gridReady)="gridReady($event)"
+      (selectionChanged)="onSelectionChanged()"
+      (rowValueChanged)="rowValueChanged()"
+      [frameworkComponents]="getComponents()"
+      (rowEditingStarted)="rowEditingStarted($event)"
+    ></ag-grid-angular>
+  </div>
+</div>
+<div class="row">
+  <div class="col-auto ml-auto">
+    <button class="pw-btn pw-accent-btn" (click)="save()">
+      {{ 'pw.discountMCExculdeConfig.saveButton' | translate }}
+    </button>
+  </div>
+</div>

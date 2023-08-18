@@ -1,0 +1,19 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+
+package com.titan.poss.core.domain.constant;
+
+/**
+ * 
+ * @author Mindtree Ltd.
+ * @version 1.0
+ */
+
+public enum RuleFieldCodesEnum {
+	WEIGHT_TOLERANCE_LIMIT, MAX_PRODUCTS_PER_STN, MAX_REQUEST_PER_MONTH, MAX_VAL_PER_STN, VALID_REQUEST_TIME,
+	MAX_PERCENT_ALLOWED_FOR_RETURN_INVOICE, MAX_TIME_TO_MOV_TRNSC_TO_HIS, CASH_AMOUNT_MAX_CAP,
+	GLOBAL_CONFIGURATION, ALLOWED_LIMIT_VALUE, ALLOWED_LIMIT_WEIGHT, AUTO_APPR_LIMIT_VALUE,
+	AUTO_APPR_LIMIT_WEIGHT
+}

@@ -1,0 +1,19 @@
+<poss-web-metal-type-item
+  *ngFor="let metalTypeListItem of metalTypeList"
+  [metalTypeListItem]="metalTypeListItem"
+  (emitMaterialCodeView)="getMaterialCodeView($event)"
+  (emitMaterialCode)="getMaterialCode($event)"
+  (emitToggle)="emitToggleValue($event)"
+></poss-web-metal-type-item>
+
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && metalTypeList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

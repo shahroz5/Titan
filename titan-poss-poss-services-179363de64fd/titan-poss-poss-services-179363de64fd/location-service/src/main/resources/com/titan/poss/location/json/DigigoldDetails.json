@@ -1,0 +1,11 @@
+{
+	"type": "DIGIGOLD_DETAILS",
+	"data": {
+		"digiGoldDiscountPercent": 3,
+		"isCNPartialRedemptionAllowedForDigiGold": true,
+		"isCNCancelAllowedForDigiGold": true,
+		"isCNCancelAllowedForNonDigiGold": true,
+		"isCNTransferAllowedForDigiGold": true,
+		"isCNTransferAllowedForNonDigiGold": true
+	}
+}

@@ -1,0 +1,27 @@
+<poss-web-gep-search
+  [currentFiscalYear] = "currentFiscalYear"
+  [historySearchParams] = "data"
+  [businessDay] = "businessDay"
+  (historySearchFormChange) = "onSearchFormEvent($event)"
+>
+</poss-web-gep-search>
+
+<poss-web-gep-search-list
+  *ngIf="gepHistoryList && gepHistoryList.length > 0"
+  [gepHistory]="gepHistoryList"
+  [count]="this.totalElements"
+  (selectedGEP)="getSelectedHistoryItem($event)"
+  [pageEvent]="historyPageEvent"
+  (paginator)="searchPaginatedHistory($event)"
+  [pageSizeOptions]="pageSizeOptions"
+  [minPageSize]="minPageSize"
+></poss-web-gep-search-list>
+
+<h3
+  class="pw-text-center m-5 pw-success-color"
+  *ngIf="gepHistoryList?.length === 0"
+>
+  {{ noDataFoundMessageHistory }}
+</h3>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

@@ -1,0 +1,15 @@
+<div possWebFocusableList>
+  <poss-web-foc-issue-item
+    possWebFocusableListItem
+    *ngFor="let item of itemList"
+    class="pw-list-card d-block"
+    [tab]="tab"
+    [item]="item"
+    (updateItem)="updateItems($event)"
+    (remove)="remove($event)"
+    (selection)="selectionEmit($event)"
+    [selectionEvents]="selectionEvents"
+    [dateFormat]="dateFormat"
+  >
+  </poss-web-foc-issue-item>
+</div>

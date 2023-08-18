@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-4">
+    <ag-grid-angular
+      *ngIf="paymentModes"
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      [rowData]="paymentModes"
+      (selectionChanged)="onSelectionChanged($event)"
+      (gridReady)="gridReady($event)"
+      [columnDefs]="paymentModecolumnDefs"
+      rowSelection="single"
+      [defaultColDef]="defaultColDef"
+      [getRowHeight]="getRowHeight"
+      (gridSizeChanged)="onGridSizeChanged()"
+    >
+    </ag-grid-angular>
+  </div>
+  <div *ngIf="transactionTypes" class="col-8">
+    <ag-grid-angular
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      [rowData]="transactionTypes"
+      (cellValueChanged)="onCellValueChanged($event)"
+      [defaultColDef]="defaultColDef"
+      (gridReady)="gridReadySecond($event)"
+      [context]="getContext()"
+      [frameworkComponents]="getComponents()"
+      [columnDefs]="transactionTypecolumnDefs"
+      (gridSizeChanged)="onGridSizeChanged()"
+    >
+    </ag-grid-angular>
+  </div>
+</div>
+
+<div class="row pw-margin-top">
+  <div class="col-lg-12">
+    <div class="pw-form-card">
+      <div class="pw-form-card__item pw-font-weight-bold">
+        {{ 'pw.paymentConfiguration.tcsSettings' | translate }}
+      </div>
+      <div>
+        <mat-checkbox
+          [(ngModel)]="selectAll"
+          *ngIf="tcsPaymentModes.length"
+          (click)="$event.stopPropagation()"
+          (change)="selectAllTcsPaymentMode($event)"
+        >
+          {{ 'pw.paymentConfiguration.selectAll' | translate }}
+        </mat-checkbox>
+      </div>
+
+      <div class="row">
+        <div class="col-auto" *ngFor="let paymentmode of tcsPaymentModes">
+          <mat-checkbox
+            (click)="onTcsPaymentSelection(paymentmode, !paymentmode.checked)"
+            [checked]="paymentmode.checked"
+            >{{ paymentmode.code }}</mat-checkbox
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

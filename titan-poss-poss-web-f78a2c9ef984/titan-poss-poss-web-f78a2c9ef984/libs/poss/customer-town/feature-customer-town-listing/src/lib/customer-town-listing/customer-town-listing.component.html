@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-location-icon-36"></span>
+              <div>
+                <h2 class="mt-1">Boutique Master</h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-auto pw-top-heading-container__right-content">
+            <button
+              (click)="getCustomerTownCode('NEW')"
+              class="pw-btn pw-accent-btn"
+            >
+              {{ 'pw.customerTown.addNewLabel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.customerTown.customerTown' | translate }}
+          </div>
+        </div>
+        <mat-form-field
+          class="col-3 ml-auto pw-search-bar pw-form-field-padding-bottom-0"
+          [formGroup]="searchForm"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder=" {{ 'pw.customerTown.searchLabel' | translate }}"
+            class="single-bordered-input"
+            formControlName="searchValue"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!searchForm.value.searchValue"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchForm.value.searchValue"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <poss-web-customer-town-list-items
+        *ngIf="!invalidSearch"
+        [customerTownDetailsList]="customerTownDetailsList$ | async"
+        [count]="customerTownCount$ | async"
+        [pageEvent]="customerTownPageEvent"
+        (paginator)="paginate($event)"
+        [pageSizeOptions]="pageSizeOptions"
+        [minPageSize]="minPageSize"
+        (customerTownCode)="getCustomerTownCode($event)"
+        (toggleEvent)="onChangeToggle($event)"
+      >
+      </poss-web-customer-town-list-items>
+
+      <div
+        *ngIf="!(customerTownDetailsList$ | async)?.length || invalidSearch"
+        class="pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+    </div>
+
+    <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+  </div>
+</div>

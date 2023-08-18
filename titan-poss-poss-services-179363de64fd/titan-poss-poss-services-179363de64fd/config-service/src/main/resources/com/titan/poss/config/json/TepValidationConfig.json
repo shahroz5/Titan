@@ -1,0 +1,10 @@
+{
+	"type": "TEP_VALIDATION_CONFIG",
+	"data": {
+		"isFVTCNCancellationAllowed": true,
+		"fvtCNCancellationDeductionPercent": 10,
+		"isAnnexurePrintingAllowed": true,
+		"tepCancellationDays": 10,
+		"isInterBrandCashRefundAllowed": true
+	}
+}

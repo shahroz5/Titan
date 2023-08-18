@@ -1,0 +1,86 @@
+<div class="pw-form-card pw-form-card__margin-bottom">
+  <div class="row pw-form-card__margin-bottom">
+    <div class="col-4">
+      <p class="pw-fourth-color">
+        {{ 'pw.cnPriorityConfig.configName' | translate }}
+      </p>
+
+      <div class="col-6 pw-form-card__padding-5">
+        {{ selectedConfigDetails?.description }}
+      </div>
+    </div>
+    <div class="col-4">
+      <p class="pw-fourth-color">
+        {{ 'pw.cnPriorityConfig.orderType' | translate }}
+      </p>
+      <div
+        class="pw-font-weight-bold"
+        *ngIf="selectedConfigDetails?.ruleType === 'BGR_TOLERANCE_CONFIG'"
+      >
+        {{ 'pw.bgrToleranceConfigurations.advanceBooking' | translate }}
+      </div>
+      <div
+        class="pw-font-weight-bold"
+        *ngIf="selectedConfigDetails?.ruleType !== 'BGR_TOLERANCE_CONFIG'"
+      >
+        Customer Order
+      </div>
+    </div>
+    <div class="col-4">
+      <p class="pw-fourth-color">
+        {{ 'pw.bgrToleranceConfigurations.isActiveLabel' | translate }}
+      </p>
+
+      <poss-web-toggle-button
+        class="pw-form-card__padding-5"
+        [isActive]="selectedConfigDetails?.isActive"
+        [isDisabled]="true"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    {{ 'pw.bgrToleranceConfigurations.detailsLabel' | translate }}
+  </div>
+  <ng-container *ngIf="rowData.length > 0; else errorMesage">
+    <table class="pw-grid-table" aria-describedby="table">
+      <thead>
+        <tr class="pw-grid-table__background-header">
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.bgrToleranceConfigurations.metalTypeLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.bgrToleranceConfigurations.weightRangeLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.bgrToleranceConfigurations.toleranceLabel' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{
+              'pw.bgrToleranceConfigurations.tolerancePercentLabel' | translate
+            }}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="pw-grid-table__body">
+        <tr *ngFor="let item of rowData" class="pw-grid-table__row">
+          <td class="pw-grid-table__item">{{ item.metalType }}</td>
+          <td class="pw-grid-table__item">{{ item.rangeId }}</td>
+          <td class="pw-grid-table__item">
+            {{ item.configValue | weightFormatter }}
+          </td>
+          <td class="pw-grid-table__item">{{ item.configPercent }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #errorMesage>
+    <div class="pw-sub-heading pw-message pw-text-center">
+      {{ 'pw.bgrToleranceConfigurations.noRecordsLabel' | translate }}
+    </div>
+  </ng-template>
+</div>

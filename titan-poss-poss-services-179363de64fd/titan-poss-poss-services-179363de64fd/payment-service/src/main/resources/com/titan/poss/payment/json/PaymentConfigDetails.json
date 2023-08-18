@@ -1,0 +1,6 @@
+{
+	"type": "PAYEMENT_CONFIG_DETAILS",
+	"data": {
+		"isTCSPaymentEnabled": false
+	}
+}

@@ -1,0 +1,14 @@
+<div class="pw-width-full" [ngClass]="productGroup === '82' ? 'pw-cursor' : ''">
+  {{ displayValue }}
+  <div *ngIf="!isCOMOrder">
+    <span
+      *ngIf="productGroup === '82'"
+      class="pw-i-16 pw-pencil-icon-16"
+    ></span>
+    {{ 'pw.productGrid.qtyLabel' | translate }}. : {{ params.data.quantity }}
+  </div>
+  <div *ngIf="isCOMOrder">
+    {{ 'pw.productGrid.qtyLabel' | translate }}. :
+    {{ params.data.totalQuantity }}
+  </div>
+</div>

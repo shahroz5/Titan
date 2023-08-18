@@ -1,0 +1,17 @@
+<form>
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table pw-scrollable-ag-grid"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [frameworkComponents]="getComponents()"
+    [rowSelection]="rowSelection"
+    [context]="getContext()"
+    [animateRows]="animateRows"
+    [domLayout]="domLayout"
+    [rowHeight]="rowHeight"
+    (gridReady)="gridReady($event)"
+    (gridSizeChanged)="onGridSizeChanged()"
+    [rowData]="rowData"
+    (cellClicked)="onCellClicked($event)"
+  ></ag-grid-angular>
+</form>

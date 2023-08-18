@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-auto ml-auto">
+    <!-- <mat-checkbox
+      class="mr-2"
+      (change)="onChange($event)"
+      [(checked)]="isIdProofVerified"
+      [disabled]="isCheckBoxDisabled"
+      >Photo Identity Card</mat-checkbox
+    > -->
+    <button
+      mat-flat-button
+      class="pw-btn pw-accent-btn"
+      (click)="openDvDetailsPopup()"
+      [disabled]="!cashMemoId || cashMemoId == 'new'"
+    >
+      {{ 'pw.discount.addGhsVoucher' | translate }}
+    </button>
+  </div>
+</div>
+<div class="row mt-3"></div>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [rowData]="rowData"
+  [columnDefs]="columnsDef"
+  [rowHeight]="rowHeight"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [context]="getContext()"
+  (gridReady)="gridReady($event)"
+  [defaultColDef]="defaultColDef"
+  [frameworkComponents]="getComponents()"
+></ag-grid-angular>
+<div
+  class="d-flex justify-content-between pw-mat-table__header align-items-center px-2"
+>
+  <p>{{ 'pw.discount.total' | translate }}</p>
+
+  <p>
+    {{ totalDiscountValue | currencyFormatter: 'INR' }}
+  </p>
+</div>

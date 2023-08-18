@@ -1,0 +1,153 @@
+<div class="pw-form-card__flex-row pw-form-card__margin-bottom">
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'From Date' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ startDate | date: 'd-MMM-y' }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'To Date' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ endDate | date: 'd-MMM-y' }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.tepExceptionConfig.variantCode' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ tepExceptionConfigDetails.itemCode }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.tepExceptionConfig.reasonForException' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ tepExceptionConfigDetails?.offerDetails?.data?.reasonForException }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.tepExceptionConfig.valueFor' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{
+          tepExceptionConfigDetails?.offerDetails?.data?.deductionPercent
+            ? ('pw.tepExceptionConfig.deductionPercentage' | translate)
+            : ('pw.tepExceptionConfig.flatTepExhangeValue' | translate)
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.tepExceptionConfig.deductionPercentage' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ tepExceptionConfigDetails?.offerDetails?.data?.deductionPercent }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.tepExceptionConfig.flatTepExhangeValue' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ tepExceptionConfigDetails.offerDetails.data.flatTepExchangeValue }}
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card__margin-bottom">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.tepExceptionConfig.weightToleranceAllowed' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        <mat-checkbox
+          class="pw-form-card__checkbox-pl-t-pos-0"
+          [checked]="
+            tepExceptionConfigDetails.offerDetails.data.isWeightToleranceAllowed
+          "
+          [disabled]="true"
+        ></mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table
+  *ngIf="tepExceptionConfigDetails.customerMobileNos.length"
+  class="pw-grid-table"
+  description="Table"
+  aria-describedby="table"
+>
+  <thead>
+    <tr class="pw-grid-table__background-header">
+      <th class="pw-grid-table__header-item" scope="col">Phone number</th>
+    </tr>
+  </thead>
+  <tbody class="pw-grid-table__body">
+    <tr
+      *ngFor="let item of tepExceptionConfigDetails.customerMobileNos"
+      class="pw-grid-table__row"
+    >
+      <td class="pw-grid-table__item">{{ item }}</td>
+    </tr>
+  </tbody>
+</table>

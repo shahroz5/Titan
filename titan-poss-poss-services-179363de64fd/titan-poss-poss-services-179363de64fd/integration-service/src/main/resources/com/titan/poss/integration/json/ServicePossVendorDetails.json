@@ -1,0 +1,13 @@
+{
+	"type": "SERVICE",
+	"data": {
+	    "Username": "TJDEPOSS",
+		"Password": "Gzy4W$VKr8",
+		"revenueUrl": "https://dev-cs.titanrts.com/ords/com/servicePOS/getRevenueByDate/v1",
+		"eodUrl": "https://dev-cs.titanrts.com/ords/com/servicePOS/EODRevenueByDate/v1",
+		"cashCollectedUrl": "https://dev-cs.titanrts.com/ords/com/servicePOS/getCashByCustomer",
+		"updateBtqMetalRate":"https://dev-cs.titanrts.com/ords/com/servicePOS/btqMetalRate/v1"
+	
+		
+	}
+}

@@ -1,0 +1,99 @@
+<div [formGroup]="itemForm" class="row no-gutters">
+  <div class="col-auto pw-list-card__item pw-conversion__item">
+    <div class="pw-sub-heading">{{ 'pw.conversion.product' | translate }}</div>
+    <input
+      type="text"
+      class="pw-bg-input-box"
+      [readonly]="isSelectedItemHasChildItems"
+      placeholder="{{ 'pw.conversion.product' | translate }}"
+      formControlName="product"
+    />
+  </div>
+  <div class="col-auto pw-list-card__item">
+    <div class="pw-sub-heading">
+      {{ 'pw.conversion.itemCode' | translate }}
+    </div>
+    <input
+      type="text"
+      class="pw-bg-input-box pw-itemcode-width"
+      placeholder="{{ 'pw.conversion.itemCode' | translate }}"
+      formControlName="itemCode"
+      maxlength="14"
+      readonly
+    />
+  </div>
+  <div class="col-auto pw-list-card__item">
+    <div class="pw-sub-heading" *ngIf="studded">
+      {{ 'pw.conversion.grossItemWeightText' | translate }} {{ '(gms)' }}
+    </div>
+    <div class="pw-sub-heading" *ngIf="!studded">
+      {{ 'pw.conversion.itemWeightText' | translate }} {{ '(gms)' }}
+    </div>
+
+    <input
+      possWebWeightInput
+      class="pw-bg-input-box"
+      placeholder="{{ 'pw.conversion.itemWeightText' | translate }}"
+      formControlName="netWeight"
+      name="weightField"
+      possWebMaxLengthValidator
+      required
+      [readonly]="item.stdWeight"
+    />
+
+    <mat-error
+      *ngIf="
+        (itemForm.get('netWeight').dirty ||
+          itemForm.get('netWeight').touched) &&
+        itemForm.get('netWeight').errors &&
+        itemForm.get('netWeight').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="itemForm.get('netWeight').errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </div>
+  <div class="col-auto pw-list-card__item">
+    <div class="pw-sub-heading">
+      {{ 'pw.conversion.stonePrice' | translate }}
+    </div>
+    <input
+      type="number"
+      step="0.01"
+      possWebInput
+      possWebAmountInput
+      class="pw-bg-input-box"
+      placeholder="{{ 'pw.conversion.stonePrice' | translate }}"
+      formControlName="stonePrice"
+      readonly
+    />
+  </div>
+  <div class="col-auto pw-list-card__item">
+    <div class="pw-sub-heading">
+      {{ 'pw.conversion.complexityCode' | translate }}
+    </div>
+    <input
+      type="text"
+      class="pw-bg-input-box"
+      placeholder="{{ 'pw.conversion.complexityCode' | translate }}"
+      formControlName="complexityCode"
+      readonly
+    />
+  </div>
+  <div class="col-auto pw-list-card__item">
+    <div class="pw-sub-heading">{{ 'pw.conversion.sold' | translate }}</div>
+    <poss-web-select-dropdown
+      class="pw-select-box-padding pw-bg-input-box pw-border-radius-right"
+      [control]="itemForm.get('sold')"
+      [options]="soldOptionsArray"
+      [required]="true"
+    >
+    </poss-web-select-dropdown>
+  </div>
+  <div *ngIf="showCloseIcon" class="col pw-text-right">
+    <a class="sub-heading" (click)="removeItem()">
+      <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+    </a>
+  </div>
+</div>

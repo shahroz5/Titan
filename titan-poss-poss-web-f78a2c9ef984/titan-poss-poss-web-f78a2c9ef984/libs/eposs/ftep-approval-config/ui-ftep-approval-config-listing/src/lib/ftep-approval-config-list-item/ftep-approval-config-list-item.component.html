@@ -1,0 +1,64 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-xl-7 col-lg-7 col-md-12 col-12 align-self-center">
+           <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-2 col-lg-3 col-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.ftepApprovalConfig.configNameLabel' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ ftepApprovalConfigListItem.description }}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a
+        class="mr-3"
+        (click)="
+          openViewPage(
+            ftepApprovalConfigListItem.ruleId,
+            ftepApprovalConfigListItem.ruleType,
+            ftepApprovalConfigListItem.isActive
+          )
+        "
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.ftepApprovalConfig.viewLabel' | translate }}</span
+        >&nbsp;
+      </a>
+
+      <a
+        *ngIf="ftepApprovalConfigListItem.isActive"
+        (click)="
+          edit(
+            ftepApprovalConfigListItem.ruleId,
+            ftepApprovalConfigListItem.ruleType,
+            ftepApprovalConfigListItem.isActive
+          )
+        "
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.productCategory.edit' | translate }}</span
+        >
+
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto pw-detail-card__item">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<poss-web-complexity-pricegroup-listing-item
+  *ngFor="
+    let complexityPricegroupDetailsItem of complexityPricegroupDetailsList;
+    trackBy: trackBy
+  "
+  [complexityPricegroupDetailsList]="complexityPricegroupDetailsItem"
+  (id)="emitId($event)"
+  (emitToggle)="emitToggleValue($event)"
+>
+</poss-web-complexity-pricegroup-listing-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && complexityPricegroupDetailsList?.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

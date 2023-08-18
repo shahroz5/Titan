@@ -1,0 +1,16 @@
+{
+	"type": "BEST_DEAL_DISCOUNT",
+	"data": {
+		"lotAge": {
+			"fromValue": 2.0,
+			"toValue": 5.0
+		},
+		"binAge": {
+			"fromValue": 6.5,
+			"toValue": 9.8
+		},
+		"isApplicableForNewItem": true
+	}
+}
+
+

@@ -1,0 +1,39 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [rowHeight]="rowHeight"
+  [rowData]="cashMemoHistory"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [defaultColDef]="defaultColDef"
+  (gridReady)="gridReady($event)"
+  (cellClicked)="onCellClicked($event)"
+  (sortChanged)="printSortStateToConsole($event)"
+  (cellFocused)="onCellFocused($event)"
+	(focusout)="focusOut($event)"
+  (cellKeyDown)="onCellKeyPress($event)"
+></ag-grid-angular>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="
+    totalCashMemoHistoryReq > minPageSize &&
+    cashMemoHistory.length > 0 &&
+    totalCashMemoHistoryReq != 1
+  "
+  [length]="totalCashMemoHistoryReq"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

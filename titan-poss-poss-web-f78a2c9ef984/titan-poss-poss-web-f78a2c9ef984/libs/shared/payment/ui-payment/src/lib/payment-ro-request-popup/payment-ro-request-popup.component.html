@@ -1,0 +1,221 @@
+<div class="pw-confirmation-box" autocomplete="off">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.roPayment.roPaymentHeadingLable' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body" [formGroup]="ROFormGroup">
+    <div class="row">
+      <div>
+        <poss-web-select-dropdown
+          class="col-6"
+          [placeholder]="
+            'pw.paymentModeAirpay.selectTransactionText' | translate
+          "
+          [control]="ROFormGroup.get('transactionID')"
+          [options]="transactionIdArray"
+          [required]="true"
+          (selectionChange)="selectTransaction()"
+        >
+        </poss-web-select-dropdown>
+      </div>
+    </div>
+    <div *ngIf="this.ROFormGroup.get('transactionID').value !== null">
+      <div class="row">
+        <mat-form-field class="col-6">
+          <mat-label>{{ 'pw.paymentModeAirpay.date' | translate }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [max]="data.businessDate"
+            (click)="picker.open()"
+            readonly
+            formControlName="date"
+            required
+            disabled
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="
+              ROFormGroup.get('date').errors &&
+              ROFormGroup.get('date').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="ROFormGroup.get('date').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-7">
+          <p class="pw-fourth-color">
+            {{ 'pw.paymentModeAirpay.customerMobileNoText' | translate }}
+          </p>
+          {{ data.customer.mobileNumber }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-7">
+          <p class="pw-fourth-color">
+            {{ 'pw.paymentModeAirpay.customerEmailIdText' | translate }}
+          </p>
+          {{ data.customer.emailId }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="hasResponse && ROResponse[0]?.status != 'PENDING'"
+        class="row pw-confirmation-box__item"
+      >
+        <div class="col-7">
+          <p class="pw-fourth-color">Approver Remarks</p>
+          {{ ROResponse[0]?.approvedReason }}
+        </div>
+      </div>
+      <div
+        *ngIf="hasResponse && ROResponse[0]?.status == 'APPROVED'"
+        class="row pw-confirmation-box__item"
+      >
+        <div class="col-7">
+          <p class="pw-fourth-color">
+            {{ 'pw.roPayment.approvedDateTimeLabel' | translate }}
+          </p>
+          {{ ROResponse[0]?.approvedDate | dateFormatter }}
+          ({{ ROResponse[0]?.otherDetails?.data?.approvedTime }})
+        </div>
+      </div>
+      <div *ngIf="hasResponse" class="row pw-confirmation-box__item">
+        <div class="col-7">
+          <p class="pw-fourth-color">Status</p>
+          <p [ngClass]="getOrderStausColor(ROResponse[0]?.status)">
+            {{ ROResponse[0]?.status }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row pw-confirmation-box__item">
+        <div class="col-7" *ngIf="hasResponse; else editabl">
+          <p class="pw-fourth-color">
+            {{ 'pw.roPayment.reasonLable' | translate }}
+          </p>
+          {{ this.ROFormGroup.get('reason').value }}
+        </div>
+        <ng-template #editabl>
+          <div class="col-7">
+            <mat-form-field class="pw-single-bordered-input">
+              <input
+                matInput
+                placeholder="{{ 'pw.roPayment.reasonLable' | translate }} "
+                class="pw-single-bordered-input"
+                required
+                formControlName="reason"
+              />
+              <mat-error
+                *ngIf="
+                  ROFormGroup.get('reason').errors &&
+                  ROFormGroup.get('reason').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="ROFormGroup.get('reason').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-7" *ngIf="hasResponse; else editable">
+          <p class="pw-fourth-color">
+            {{ 'pw.paymentModeAirpay.amount' | translate }} ({{
+              data.currencyCode | currencySymbol
+            }})
+          </p>
+          {{ this.ROFormGroup.get('amount').value }}
+        </div>
+        <ng-template #editable>
+          <div class="col-7">
+            <mat-form-field class="pw-single-bordered-input">
+              <input
+                matInput
+                placeholder=" {{
+                  'pw.paymentModeAirpay.amount' | translate
+                }} ({{ data.currencyCode | currencySymbol }})"
+                class="pw-single-bordered-input"
+                required
+                formControlName="amount"
+                possWebAmountInput
+                [allowDecimal]="false"
+              />
+              <mat-error
+                *ngIf="
+                  ROFormGroup.get('amount').errors &&
+                  ROFormGroup.get('amount').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="ROFormGroup.get('amount').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </ng-template>
+        <div
+          *ngIf="!hasResponse"
+          class="col-auto pw-confirmation-box__right-container"
+        >
+          <button
+            class="pw-btn pw-accent-btn"
+            (click)="sendLink()"
+            [disabled]="
+              (!hasResponse && ROFormGroup.invalid) ||
+              ROResponse[0]?.status == 'COMPLETED' ||
+              ROResponse[0]?.status == 'FAILED'
+            "
+          >
+            {{ sendLinkButtonText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer mt-0">
+    <div class="row pw-confirmation-box__footer-border no-gutters">
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          class="pw-btn pw-primary-btn"
+          (click)="verify()"
+          [disabled]="
+            ROResponse.length <= 0 ||
+            ROResponse[0]?.status == 'REJECTED' ||
+            ROFormGroup.get('amount')?.value > data.totalAmountDue
+          "
+        >
+          {{ 'pw.paymentModeAirpay.verifyLink' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

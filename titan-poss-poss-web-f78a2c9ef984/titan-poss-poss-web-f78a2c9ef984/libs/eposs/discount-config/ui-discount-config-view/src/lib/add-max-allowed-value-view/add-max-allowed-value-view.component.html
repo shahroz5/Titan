@@ -1,0 +1,146 @@
+<table class="pw-grid-table"  aria-describedby="table">
+  <thead>
+    <tr class="pw-grid-table__background-header row">
+      <th class="pw-grid-table__header-item col-lg-3 col-3" scope="col">
+        <div class="row">
+          <div class="col">
+            {{ 'pw.discountMaxValueConfig.typeLabel' | translate }}
+          </div>
+        </div>
+      </th>
+      <th class="pw-grid-table__header-item col-lg-2 col-3" scope="col">
+        {{ 'pw.discountMaxValueConfig.percentageLabel' | translate }}
+      </th>
+      <th class="pw-grid-table__header-item col row" scope="col">
+        <div class="col-lg-5 col-12" scope="col">
+          {{ 'pw.discountMaxValueConfig.valueLabel' | translate }} ({{
+            currencyCode | currencySymbol
+          }})
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody class="pw-grid-table__body">
+    <tr class="pw-grid-table__row row">
+      <td class="pw-grid-table__item col-lg-3 col-3">
+        <div class="row">
+          <div class="col">
+            {{
+              'pw.discountMaxValueConfig.addMaximumMetalChargesDiscountLabel'
+                | translate
+            }}
+          </div>
+        </div>
+      </td>
+      <td class="pw-grid-table__item col-lg-2 col-3">
+        {{
+          config?.additionalMaxMetalChargePercentage !== null
+            ? config?.additionalMaxMetalChargePercentage
+            : 0
+        }}
+      </td>
+
+      <td class="pw-grid-table__item col row">
+        {{
+          config?.additionalMaxMetalChargeValue
+            ? config?.additionalMaxMetalChargeValue
+            : 0
+        }}
+      </td>
+    </tr>
+
+    <tr class="pw-grid-table__row row">
+      <td class="pw-grid-table__item col-lg-3 col-3">
+        <div class="row">
+          <div class="col">
+            {{
+              'pw.discountMaxValueConfig.addMaximumStoneChargesLabel'
+                | translate
+            }}
+          </div>
+        </div>
+      </td>
+      <td class="pw-grid-table__item col-lg-2 col-3">
+        {{
+          config?.additionalMaxStoneChargePercentage
+            ? config?.additionalMaxStoneChargePercentage
+            : 0
+        }}
+      </td>
+
+      <td class="pw-grid-table__item col row">
+        {{
+          config?.additionalMaxStoneChargeValue
+            ? config?.additionalMaxStoneChargeValue
+            : 0
+        }}
+      </td>
+    </tr>
+
+    <tr class="pw-grid-table__row row">
+      <td class="pw-grid-table__item col-lg-3 col-3">
+        <div class="row">
+          <div class="col">
+            {{ 'pw.discountMaxValueConfig.addMaximumUCPLabel' | translate }}
+          </div>
+        </div>
+      </td>
+      <td class="pw-grid-table__item col-lg-2 col-3">
+        {{
+          config?.additionalMaxUcpPercentage
+            ? config?.additionalMaxUcpPercentage
+            : 0
+        }}
+      </td>
+
+      <td class="pw-grid-table__item col row">
+        {{ config?.additionalMaxUCPValue ? config?.additionalMaxUCPValue : 0 }}
+      </td>
+    </tr>
+
+    <tr class="pw-grid-table__row row">
+      <td class="pw-grid-table__item col-lg-3 col-3">
+        <div class="row">
+          <div class="col">
+            {{
+              'pw.discountMaxValueConfig.addMaximumMakingChargesLabel'
+                | translate
+            }}
+          </div>
+        </div>
+      </td>
+      <td class="pw-grid-table__item col-lg-2 col-3">
+        {{
+          config?.additionalMaxMCPercentage
+            ? config?.additionalMaxMCPercentage
+            : 0
+        }}
+      </td>
+
+      <td class="pw-grid-table__item col row">
+        {{ config?.additionalMaxMCValue ? config?.additionalMaxMCValue : 0 }}
+      </td>
+    </tr>
+    <tr class="pw-grid-table__row row">
+      <td class="pw-grid-table__item col-lg-3 col-3">
+        <div class="row">
+          <div class="col">
+            {{ 'pw.discountMaxValueConfig.addMaximumLabel' | translate }}
+
+            ({{ currencyCode | currencySymbol }})
+            {{ 'pw.discountMaxValueConfig.perGramLabel' | translate }}
+          </div>
+        </div>
+      </td>
+      <td class="pw-grid-table__item col-lg-2 col-3"></td>
+
+      <td class="pw-grid-table__item col row">
+        {{
+          config?.additionalMaxPsPerGramVaule
+            ? config?.additionalMaxPsPerGramVaule
+            : 0
+        }}
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+<mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.gepHistory.productDetailsLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="pw-card pw-panel">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [rowData]="productGrid"
+      [rowHeight]="rowHeight"
+      [columnDefs]="colDef"
+      [defaultColDef]="defaultColDef"
+      [domLayout]="domLayout"
+      [animateRows]="'true'"
+      [rowSelection]="'true'"
+      (gridReady)="gridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged()"
+      (cellClicked)="onCellClicked($event)"
+    >
+    </ag-grid-angular>
+  </div>
+</mat-expansion-panel>

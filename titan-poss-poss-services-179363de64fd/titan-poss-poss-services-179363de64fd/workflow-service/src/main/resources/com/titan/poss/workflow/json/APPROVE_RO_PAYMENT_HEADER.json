@@ -1,0 +1,13 @@
+{
+	"type": "APPROVE_RO_PAYMENT_HEADER",
+	"data": {
+		"customerId": 6,
+		"paymentCode": "RO PAYMENT",
+		"amount": 10000,
+		"customerName": "J",
+		"customerTitle": "Mr",
+		"customerMobileNumber": "7789102881",
+		"requestorEmployeeCode": "cashier.urb",
+		"locationCode": "URB"
+	}
+}

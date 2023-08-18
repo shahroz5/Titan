@@ -1,0 +1,468 @@
+.pw-table-container {
+  height: 200px;
+}
+
+.pw-table {
+  position: relative;
+  border: 1px solid $twelth-color;
+  margin: 15px 0;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+
+  &__header {
+    border-bottom: 1px solid $twelth-color;
+    min-height: 33px;
+    font-weight: 500;
+    margin: 0;
+    background: $primary-color;
+  }
+
+  &__thead {
+    width: calc(100% - 0.1em);
+    display: table;
+    table-layout: fixed;
+  }
+
+  &__header-item {
+    border-right: 1px solid $twelth-color;
+    padding: 10px 15px;
+    font-weight: inherit;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+  }
+
+  &__body-item {
+    padding: 10px 0;
+    border-bottom: 1px solid $twelth-color;
+    margin: 0;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 5px 15px;
+    border-right: 1px solid $twelth-color;
+  }
+}
+
+.pw-mat-table {
+  width: 100%;
+  border: 1px solid $twelth-color;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: auto;
+  background: $sixth-color;
+
+  &__header {
+    background: $primary-color;
+    margin: 0;
+    min-height: 33px;
+    height: 33px;
+    font-weight: 600;
+    font-size: em(20);
+  }
+  &__otp {
+    padding: 2px 15px;
+    color: $fourth-color;
+  }
+
+  &__primary-bg {
+    background: $primary-color;
+  }
+
+  &__width-30 {
+    width: 30px;
+  }
+
+  &.pw-mat-table__auto-width {
+    width: auto;
+  }
+
+  .pw-no-border-select {
+    width: 110px;
+  }
+
+  &__footer {
+    background: $fourth-color;
+    margin: 0;
+    min-height: 33px;
+    font-weight: 500;
+    color: $sixth-color;
+  }
+
+  &__footer-light {
+    background: rgba($fourth-color, 0.4);
+    margin: 0;
+    min-height: 33px;
+    border-bottom: 1px solid $twelth-color;
+  }
+
+  &__empty-row {
+    padding: 5px;
+  }
+
+  &__width-150 {
+    width: 150px;
+  }
+
+  &__body-row {
+    margin: 0;
+    min-height: 33px;
+    border-bottom: 1px solid $twelth-color;
+    font-weight: 400;
+    height: 33px;
+
+    &:last-child {
+      border-bottom: inherit;
+    }
+
+    .pw-mat-table__item {
+      height: 30px;
+      padding: 5px;
+    }
+  }
+
+  &.pw-foc-table {
+    width: 100%;
+    height: 235px;
+    .pw-mat-table__body-row {
+      height: 55px;
+      .pw-mat-table__item {
+        height: 60px;
+      }
+    }
+  }
+
+  &__item {
+    border-right: 1px solid $twelth-color;
+    font-weight: inherit;
+    padding: 5px;
+    position: relative;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  &__no-border-item {
+    font-weight: inherit;
+    padding: 5px;
+    position: relative;
+    border-right: 1px solid $twelth-color;
+  }
+
+  &__padding-0 {
+    padding-bottom: 0;
+  }
+
+  .item-semibold {
+    font-weight: 600;
+  }
+
+  &__right-item {
+    text-align: right;
+    font-weight: 500;
+    padding: 5px;
+  }
+
+  &__right-container {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  &__input-percentage {
+    border: 1px solid $fourth-color;
+    padding: 5px;
+    position: relative;
+    width: 95px;
+    padding-right: 24px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__input-rupee {
+    border: 1px solid $fourth-color;
+    padding: 5px;
+    position: relative;
+    width: 95px;
+    padding-left: 24px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__input-percentage-icon {
+    position: absolute;
+    right: 0;
+    border-left: 1px solid $twelth-color;
+    padding: 5px;
+  }
+
+  &__input-rupee-icon {
+    position: absolute;
+    left: 0;
+    border-right: 1px solid $twelth-color;
+    padding: 5px 7px;
+  }
+
+  &__input-container {
+    position: relative;
+    width: 95px;
+  }
+
+  &__circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $twelth-color;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  &__item-content {
+    margin-top: 5px;
+  }
+
+  &__label {
+    color: $tertiary-color;
+  }
+
+  &__select {
+    .mat-select-placeholder,
+    .mat-select-value-text {
+      color: $fourth-color;
+    }
+  }
+
+  .pw-single-bordered-input {
+    margin-bottom: 0;
+  }
+}
+.pw-mat-table-header-fixed {
+  width: 100%;
+  border: 1px solid $twelth-color;
+  border-radius: 5px;
+  margin: 10px 0;
+  table-layout: fixed;
+  background: $sixth-color;
+
+  &__header {
+    background: $primary-color;
+    margin: 0;
+    width: 100%;
+    display: inline-block;
+    min-height: 33px;
+    font-weight: 500;
+    border-bottom: 1px solid $twelth-color;
+  }
+  &__footer {
+    background: $primary-color;
+    margin: 0;
+    width: 100%;
+    display: inline-block;
+    min-height: 33px;
+    font-weight: 500;
+    border-bottom: 1px solid $twelth-color;
+  }
+  &__body-scroll {
+    display: inline-block;
+    height: 200px;
+    width: 100%;
+  }
+  &__checkbox-item {
+    border-right: 1px solid $twelth-color;
+    font-weight: inherit;
+    padding: 5px;
+    width: 5%;
+    position: relative;
+  }
+  &__header-item {
+    border-right: 1px solid $twelth-color;
+    font-weight: inherit;
+    padding: 5px;
+    width: 18%;
+    position: relative;
+  }
+  &__otp {
+    padding: 2px 15px;
+    color: $fourth-color;
+  }
+
+  &.pw-mat-table__auto-width {
+    width: auto;
+  }
+
+  &__filter-icon {
+    top: 9px;
+    right: 17px;
+  }
+
+  &__primary-bg {
+    background: $primary-color;
+  }
+
+  &__background-color {
+    background: $primary-color;
+  }
+
+  &__footer-light {
+    background: rgba($fourth-color, 0.4);
+    margin: 0;
+    min-height: 33px;
+    border-bottom: 1px solid $twelth-color;
+  }
+
+  .pw-no-border-select {
+    width: 110px;
+  }
+
+  &__empty-row {
+    padding: 5px;
+  }
+
+  &__body-row {
+    margin: 0;
+    min-height: 33px;
+    border-bottom: 1px solid $twelth-color;
+    font-weight: 400;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .pw-mat-table-header-fixed__item {
+      height: 30px;
+      width: 18%;
+      padding: 5px;
+    }
+  }
+
+  &__item {
+    border-right: 1px solid $twelth-color;
+    font-weight: inherit;
+    padding: 5px;
+    width: 18%;
+    position: relative;
+  }
+  &__footer-item {
+    border-right: 1px solid $twelth-color;
+    font-weight: inherit;
+    padding: 5px;
+    width: 420px;
+    position: relative;
+  }
+  &__footer-item2 {
+    border-right: 1px solid $twelth-color;
+    font-weight: inherit;
+    padding: 5px;
+    position: relative;
+  }
+
+  &__padding-0 {
+    padding-bottom: 0;
+  }
+
+  &__no-border-item {
+    font-weight: inherit;
+    padding: 5px;
+    position: relative;
+    border-right: 1px solid $twelth-color;
+  }
+
+  &__width-30 {
+    width: 30px;
+  }
+
+  .item-semibold {
+    font-weight: 600;
+  }
+
+  &__right-item {
+    text-align: right;
+    font-weight: 500;
+    padding: 5px;
+  }
+  &__align-right {
+    text-align: right;
+  }
+
+  &__right-container {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  &__input-percentage {
+    border: 1px solid $fourth-color;
+    padding: 5px;
+    position: relative;
+    width: 95px;
+    padding-right: 24px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__input-rupee {
+    border: 1px solid $fourth-color;
+    padding: 5px;
+    position: relative;
+    width: 95px;
+    padding-left: 24px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__input-percentage-icon {
+    position: absolute;
+    right: 0;
+    border-left: 1px solid $twelth-color;
+    padding: 5px;
+  }
+
+  &__input-rupee-icon {
+    position: absolute;
+    left: 0;
+    border-right: 1px solid $twelth-color;
+    padding: 5px 7px;
+  }
+
+  &__input-container {
+    position: relative;
+    width: 95px;
+  }
+
+  &__circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $twelth-color;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  &__item-content {
+    margin-top: 5px;
+  }
+
+  &__label {
+    color: $tertiary-color;
+  }
+
+  .pw-single-bordered-input {
+    margin-bottom: 0;
+  }
+}

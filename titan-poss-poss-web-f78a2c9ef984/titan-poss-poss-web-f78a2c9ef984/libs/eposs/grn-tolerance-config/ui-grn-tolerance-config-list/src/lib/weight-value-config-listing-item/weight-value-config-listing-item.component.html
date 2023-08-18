@@ -1,0 +1,54 @@
+<div
+  class="pw-detail-card"
+  *possWebPermission="loadPermission(VIEW_PERMISSION)"
+>
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-12">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-4 col-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.weightValueConfig.configName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col px-1">
+          <p>
+            <strong> {{ weightValueConfigListItem.description }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="openViewPage(weightValueConfigListItem.ruleId)">
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.weightValueConfig.viewLabel' | translate }}</span
+        >
+      </a>
+      &nbsp;
+      <ng-container *possWebPermission="loadPermission(ADD_EDIT_PERMISSION)">
+        <a
+          *ngIf="weightValueConfigListItem?.isActive"
+          (click)="getWeightValueConfigRuleId(weightValueConfigListItem.ruleId)"
+        >
+          <span class="pw-detail-card__icon-text">
+            {{ 'pw.weightValueConfig.viewEdit' | translate }}</span
+          >
+          <span class="pw-i-24 pw-edit-icon-24"></span>
+        </a>
+      </ng-container>
+    </div>
+
+    <div
+      class="col-auto pw-detail-card__item"
+      *possWebPermission="loadPermission(ADD_EDIT_PERMISSION)"
+    >
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

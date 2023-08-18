@@ -1,0 +1,83 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto pw-message">
+      <ng-container *ngIf="data.title; else defaultTitle">
+        {{ data.title }}
+      </ng-container>
+
+      <ng-template #defaultTitle>
+        {{ 'pw.itemDetailsPopup.title' | translate }}
+      </ng-template>
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="close()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <poss-web-item-details-header
+    [headerDetails]="data.headerDetails"
+    [currencyCode]="data.currencyCode"
+    [weightUnit]="data.weightUnit"
+    [isLoading]="isLoading$ | async"
+    [prodCategoryDesc]="prodCategoryDesc"
+    [prodGroupDesc]="prodGroupDesc"
+  >
+  </poss-web-item-details-header>
+  <mat-tab-group
+    *ngIf="!!data.tabs.length"
+    dynamicHeight
+    mat-stretch-tabs
+    class="pw-mat-tab"
+  >
+    <mat-tab
+      *ngIf="showPriceDetails"
+      class="pw-mat-tab__item"
+      label="{{ 'pw.itemDetailsPopup.priceDetailsTabLabel' | translate }}"
+    >
+      <poss-web-price-details
+        class="pw-item-details-tab"
+        [priceBreakup]="data.priceBreakup"
+        [currencyCode]="data.currencyCode"
+        [weightUnit]="data.weightUnit"
+      ></poss-web-price-details>
+    </mat-tab>
+    <mat-tab
+      *ngIf="showStoneDetails"
+      class="pw-mat-tab__item"
+      label="{{ 'pw.itemDetailsPopup.stoneDetailsTabLabel' | translate }}"
+    >
+      <div class="pw-item-details-tab">
+        <poss-web-stone-details
+          *ngIf="!showStoneDetailsError && (stoneDetails$ | async)?.length != 0"
+          [stoneDetails]="stoneDetails$ | async"
+          [currencyCode]="data.currencyCode"
+          [weightUnit]="stoneWeightUnit"
+        ></poss-web-stone-details>
+
+        <h3
+          class="pw-fourth-color pw-text-center pw-margin-center"
+          *ngIf="
+            (isLoading$ | async) === false &&
+            (showStoneDetailsError || (stoneDetails$ | async)?.length == 0)
+          "
+        >
+          {{ noDataFoundMessageStones }}
+        </h3>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+</div>

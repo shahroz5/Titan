@@ -1,0 +1,39 @@
+{
+	"type": "UNIPAY",
+	"data": {
+		"url": "http://test.xyz",
+		"request": {
+			"txnType": 0,
+			"txnMode": 0,
+			"txnId": "145CBE45-D5B5-4B13-9632-FCEDB7284F5E",
+			"txnAmount": 3000,
+			"date": "2020-06-26T09:26:55.262Z"
+		},
+		"response": {
+			"requestInput": "0,0,145CBE45-D5B5-4B13-9632-FCEDB7284F5E,3000",
+			"responseCode": 0,
+			"responseMessage": "APPROVED",
+			"aprovalCode": "005644",
+			"rRN": "123456",
+			"amount": 3000,
+			"cardNumber": "401403XXXXXX4501",
+			"cardType": "VISA",
+			"cardHolderName": "XYZ",
+			"acquirerBank": "SBI",
+			"txnDate": "2020-06-26T09:26:55.262Z",
+			"txnType": "SALE",
+			"bankInvoiceNumber": "0000003",
+			"batchNumber": "000001",
+			"terminalId": "13232333",
+			"merchantId": "2222222HHHHH562",
+			"utid": "222HHHHH562"
+		},
+		"requestTime": "2020-06-26T09:26:55.262Z",
+		"responseTime": "2020-06-26T09:26:55.262Z",
+		"totalTime": 1000,
+		"httpStatus": 200,
+		"transactionStatus": true,
+		"cardNumber": "401403XXXXXX4501",
+		"referenceNumber": "123456"
+	}
+}

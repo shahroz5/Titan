@@ -1,0 +1,72 @@
+<div class="row pw-margin-bottom-10">
+  <mat-radio-group
+    [disabled]="disabled"
+    [(ngModel)]="radioOptions"
+    (change)="radioChange($event)"
+    class="col-auto row"
+  >
+    <mat-radio-button class="col-auto" [value]="'amount'">
+      <p>
+        {{ 'pw.cashbackConfig.cashBackAmount' | translate }}
+      </p></mat-radio-button
+    >
+    <mat-radio-button class="col-auto" [value]="'percentage'">
+      <p>
+        {{ 'pw.cashbackConfig.cashBackPercentage' | translate }}
+      </p></mat-radio-button
+    >
+  </mat-radio-group>
+
+  <div class="col-auto ml-auto">
+    <button
+      [disabled]="disabled ? disabled : false"
+      (click)="onCellClicked('new')"
+      class="pw-btn pw-primary-btn"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.cashbackConfig.addCashBackDetails' | translate }}
+    </button>
+  </div>
+</div>
+
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [domLayout]="domLayout"
+  [defaultColDef]="defaultColDef"
+  (gridReady)="gridReady($event)"
+  (cellClicked)="onCellClicked('edit', $event)"
+  [getRowNodeId]="getRowNodeId"
+  (gridSizeChanged)="onGridSizeChanged()"
+  (cellFocused)="onCellFocused($event)"
+  (focusout)="focusOut($event)"
+></ag-grid-angular>
+
+<div class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button
+      [disabled]="disableButton"
+      (click)="clear()"
+      class="pw-btn pw-primary-btn"
+    >
+      {{ 'pw.cashbackConfig.remove' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      (click)="save()"
+      [disabled]="disableButton || disabled"
+      class="pw-btn pw-accent-btn"
+    >
+      {{ 'pw.cashbackConfig.save' | translate }}
+    </button>
+  </div>
+</div>

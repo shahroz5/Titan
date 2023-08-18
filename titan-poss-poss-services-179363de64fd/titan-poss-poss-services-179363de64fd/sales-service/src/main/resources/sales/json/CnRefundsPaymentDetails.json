@@ -1,0 +1,11 @@
+{
+	"type": "CN_REFUND_PAYMENT_DETAILS",
+	"data": {
+		"paymentCode": "CHEQUE",
+		"paymentGroup": "REGULAR",
+		"refundAmount": 10000,
+		"instrumentNo": "19298",
+		"instrumentType": "CHEQUE",
+		"bankName": "AXIS"
+	}
+}

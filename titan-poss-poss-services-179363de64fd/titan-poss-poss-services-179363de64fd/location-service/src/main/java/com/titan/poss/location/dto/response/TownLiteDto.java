@@ -1,0 +1,22 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+package com.titan.poss.location.dto.response;
+
+import lombok.Data;
+
+/**
+ * @author Mindtree Ltd.
+ * @version 1.0
+ */
+@Data
+public class TownLiteDto {
+
+	private String townId;
+
+	private String stateId;
+
+	private String description;
+
+}

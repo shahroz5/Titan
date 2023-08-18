@@ -1,0 +1,183 @@
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    OTP
+  </div>
+
+  <div class="pw-form-card__flex-row">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPallowedASSM?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPallowedASSM"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPallowedCM?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPallowedCM"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPallowedAdvance?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPallowedAdvance"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPallowedAB?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPallowedAB"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPallowedGHS?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPallowedGHS"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPallowedCO?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPallowedCO"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isOTPrequiredforGC?' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.otpDetails?.data?.isOTPrequiredforGC"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.IsOTPRequiredForGHS' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.otpDetails?.data?.isOTPrequiredforGHSRedemption
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.otpEmail' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.otpDetails?.data?.otpHelpDeskEmailId
+              ? locationDetails.otpDetails.data.otpHelpDeskEmailId
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

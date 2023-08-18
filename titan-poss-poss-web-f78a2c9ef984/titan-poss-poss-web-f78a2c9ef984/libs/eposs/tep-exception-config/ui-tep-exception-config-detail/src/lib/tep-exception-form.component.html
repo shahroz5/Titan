@@ -1,0 +1,354 @@
+<form [formGroup]="tepExceptionConfigDetailsForm" (ngSubmit)="onSubmit()">
+  <div class="pw-form-card">
+    <div class="row">
+      <div class="col-lg-3 col-3">
+        <mat-form-field>
+          <mat-label>{{
+            'pw.tepExceptionConfig.configurationName' | translate
+          }}</mat-label>
+          <input required matInput formControlName="configurationName" />
+          <mat-error
+            *ngIf="
+              tepExceptionConfigDetailsForm.get('configurationName').errors &&
+              tepExceptionConfigDetailsForm.get('configurationName').errors
+                .errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                tepExceptionConfigDetailsForm.get('configurationName').errors
+                  .errorArray
+              "
+            >
+            </poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 col-3">
+        <mat-form-field>
+          <mat-label>{{
+            'pw.tepExceptionConfig.approvedBy' | translate
+          }}</mat-label>
+          <input required matInput formControlName="approvedBy" />
+          <mat-error
+            *ngIf="
+              tepExceptionConfigDetailsForm.get('approvedBy').errors &&
+              tepExceptionConfigDetailsForm.get('approvedBy').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                tepExceptionConfigDetailsForm.get('approvedBy').errors
+                  .errorArray
+              "
+            >
+            </poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-auto pw-detail-card__item pw-form-card__right-container">
+        <poss-web-toggle-button
+          [isActive]="checked"
+          (changeEvent)="changeEvent($event)"
+        ></poss-web-toggle-button>
+      </div>
+    </div>
+  </div>
+  <div class="pw-form-card">
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.dateRange' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="col-12 pw-single-bordered-input">
+                <mat-label>From Date - To Date</mat-label>
+                <mat-date-range-input [rangePicker]="picker" [min]="todaysDate">
+                  <input matStartDate formControlName="fromDate" required />
+                  <input matEndDate formControlName="toDate" required />
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>
+                    <span class="pw-i-12 pw-calender-icon-12"></span>
+                  </mat-icon>
+                </mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error
+                  *ngIf="
+                    tepExceptionConfigDetailsForm.get('fromDate').errors &&
+                    tepExceptionConfigDetailsForm.get('fromDate').errors
+                      .errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepExceptionConfigDetailsForm.get('fromDate').errors
+                        .errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    tepExceptionConfigDetailsForm.get('toDate').errors &&
+                    tepExceptionConfigDetailsForm.get('toDate').errors
+                      .errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepExceptionConfigDetailsForm.get('toDate').errors
+                        .errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.variantCode' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="col-12">
+                <input matInput formControlName="variantCode" />
+                <mat-error
+                  *ngIf="
+                    tepExceptionConfigDetailsForm.get('variantCode').errors &&
+                    tepExceptionConfigDetailsForm.get('variantCode').errors
+                      .errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepExceptionConfigDetailsForm.get('variantCode').errors
+                        .errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.reasonForException' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="col-12">
+                <mat-label></mat-label>
+                <input matInput formControlName="reasonForException" />
+                <mat-error
+                  *ngIf="
+                    tepExceptionConfigDetailsForm.get('reasonForException')
+                      .errors &&
+                    tepExceptionConfigDetailsForm.get('reasonForException')
+                      .errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepExceptionConfigDetailsForm.get('reasonForException')
+                        .errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row pw-form-card__margin-top">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.valueFor' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-8">
+            <mat-radio-group
+              class="row"
+              aria-label="Select an option"
+              formControlName="exceptionTypeRadioGroup"
+            >
+              <mat-radio-button value="1" class="col-lg-6">
+                {{
+                  'pw.tepExceptionConfig.deductionPercentage' | translate
+                }}</mat-radio-button
+              >
+              <mat-radio-button value="2" class="col-lg-6">{{
+                'pw.tepExceptionConfig.flatTepExhangeValue' | translate
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.deductionPercentage' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="col-12">
+                <mat-label></mat-label>
+                <input matInput formControlName="deductionPercentage" />
+                <mat-error
+                  *ngIf="
+                    tepExceptionConfigDetailsForm.get('deductionPercentage')
+                      .errors &&
+                    tepExceptionConfigDetailsForm.get('deductionPercentage')
+                      .errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepExceptionConfigDetailsForm.get('deductionPercentage')
+                        .errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.flatTepExhangeValue' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-6">
+            <div class="row">
+              <mat-form-field class="col-12">
+                <mat-label></mat-label>
+                <input
+                  matInput
+                  formControlName="flatTepExhangeValue"
+                  possWebAmountInput
+                />
+                <mat-error
+                  *ngIf="
+                    tepExceptionConfigDetailsForm.get('flatTepExhangeValue')
+                      .errors &&
+                    tepExceptionConfigDetailsForm.get('flatTepExhangeValue')
+                      .errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      tepExceptionConfigDetailsForm.get('flatTepExhangeValue')
+                        .errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row pw-form-card__margin-top">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color pw-form-card__align-center">
+              {{ 'pw.tepExceptionConfig.weightToleranceAllowed' | translate }}
+            </p>
+          </div>
+          <div class="col-auto">:</div>
+          <div class="col-6">
+            <mat-checkbox formControlName="wtToleranceAllowed"> </mat-checkbox>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3 pw-form-card__align-center">
+            <p class="pw-fourth-color">
+              {{ 'pw.tepExceptionConfig.customerMobileNo' | translate }}
+            </p>
+          </div>
+          <div class="col-auto pw-form-card__align-center">:</div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-10 pr-0">
+                <div class="row">
+                  <mat-form-field class="col-12">
+                    <input matInput [formControl]="customerMobileNo" />
+                    <mat-error
+                      *ngIf="
+                        customerMobileNo.errors &&
+                        customerMobileNo.errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="customerMobileNo.errors.errorArray"
+                      >
+                      </poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-auto ml-auto pw-form-card__align-center pl-0">
+                <button
+                  class="pw-btn pw-icon-btn-small mt-0"
+                  type="button"
+                  (click)="addPhoneNumberButton()"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ag-grid-angular
+        class="pw-titan-poss-theme pw-ag-grid-table col-4"
+        [defaultColDef]="defaultColDef"
+        [columnDefs]="themeCodesColumnDefs"
+        [rowData]="gridPhoneNumber"
+        [context]="context"
+        [domLayout]="domLayout"
+        [rowHeight]="rowHeight"
+        [animateRows]="animateRows"
+        [frameworkComponents]="getComponents()"
+        (cellClicked)="onCellClicked($event)"
+        (gridReady)="gridReady($event)"
+        (gridSizeChanged)="onGridSizeChanged($event)"
+      >
+      </ag-grid-angular>
+    </div>
+    <div class="row">
+      <div class="col-auto ml-auto">
+        <button
+          class="pw-btn pw-primary-btn"
+          [disabled]="!tepExceptionConfigDetails.configId"
+          type="button"
+          (click)="openLocationMapping()"
+        >
+          {{ 'pw.tepExceptionConfig.locationMapping' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="pw-btn pw-accent-btn" type="submit">
+          {{ 'pw.tepExceptionConfig.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,102 @@
+<div
+  class="pw-mont-semibold-14 mb-3"
+  *possWebPermission="loadPermission(ROLELIMIT_TOTAL_EMPLOYEES_REQUESTED_TEXT)"
+>
+  {{ 'pw.roleCountForm.totalEmployeesRequestedLabeltext' | translate }}&nbsp;{{
+    totalRolesRequested
+  }}
+</div>
+
+<div class="pw-vertical-list">
+  <div class="pw-vertical-list__header">
+    <div class="row">
+      <div class="col-xl-6 col-5">
+        <h4>{{ 'pw.roleCountForm.roleColumnTitle' | translate }}</h4>
+      </div>
+      <div class="col-2 pw-vertical-list__right-content">
+        <h4
+          *possWebPermission="loadPermission(ROLELIMIT_DEFAULT_EMPLOYEE_LIMIT)"
+        >
+          {{ 'pw.roleCountForm.defaultColumnTitle' | translate }}
+        </h4>
+      </div>
+      <div class="col-2 pw-vertical-list__right-content">
+        <h4
+          *possWebPermission="loadPermission(ROLELIMIT_EXISTING_EMPLOYEE_LIMIT)"
+        >
+          {{ 'pw.roleCountForm.existingColumnTitle' | translate }}
+        </h4>
+      </div>
+      <div class="col-xl-2 col-3">
+        <h4
+          class="pw-fourth-color"
+          *possWebPermission="
+            loadPermission(ROLELIMIT_REQUESTED_EMPLOYEE_LIMIT)
+          "
+        >
+          {{ 'pw.roleCountForm.requestedNoColumnTitle' | translate }}
+        </h4>
+      </div>
+
+      <div class="col-xl-2 col-3">
+        <h4
+          class="pw-fourth-color"
+          *possWebPermission="loadPermission(ROLELIMIT_ASSIGNED_EMPLOYEE_LIMIT)"
+        >
+          {{ 'pw.roleCountForm.assignedNoColumnTitle' | translate }}
+        </h4>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="roleForm" class="pw-fixed-height">
+    <div class="pw-vertical-list__body" *ngFor="let role of rolesList">
+      <div class="row pw-vertical-list__body-item">
+        <div class="col-xl-6 col-5">
+          {{ role.roleName }} ({{ role.roleCode }})
+        </div>
+        <div class="col-2 pw-vertical-list__right-content">
+          <span
+            *possWebPermission="
+              loadPermission(ROLELIMIT_DEFAULT_EMPLOYEE_LIMIT)
+            "
+            >{{ role.userLimit }}</span
+          >
+        </div>
+        <div class="col-2 pw-vertical-list__right-content">
+          <span
+            *possWebPermission="
+              loadPermission(ROLELIMIT_EXISTING_EMPLOYEE_LIMIT)
+            "
+            >{{ role.assignedUsers }}</span
+          >
+        </div>
+        <div class="col-xl-2 col-3">
+          <div class="row no-gutters pw-input-group">
+            <mat-form-field class="col-10 pw-single-bordered-input">
+              <input
+                possWebInput
+                matInput
+                type="number"
+                min="{{ isBTQUser ? role.userLimit : 0 }}"
+                max="999"
+                formControlName="{{ role.roleCode }}"
+                (keydown)="
+                  $event.keyCode === 8 ||
+                  $event.keyCode === 9 ||
+                  $event.keyCode === 46 ||
+                  $event.keyCode === 38 ||
+                  $event.keyCode === 40
+                    ? true
+                    : regExp.test($event.key)
+                "
+              />
+              <mat-error *ngIf="!!roleForm.get(role.roleCode).errors">
+                {{ 'pw.roleCountForm.requestlimitErrorMessage' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

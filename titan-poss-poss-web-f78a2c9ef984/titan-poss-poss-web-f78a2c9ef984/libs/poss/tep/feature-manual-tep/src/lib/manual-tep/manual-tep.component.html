@@ -1,0 +1,465 @@
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.manualCashMemo.regulariseBillMsg' | translate }}
+    </h3>
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.manualCashMemo.cmNumber' | translate }} {{ docNo }}
+    </h5>
+    <h4 class="pw-success-color pw-pointer" (click)="print()">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>Print
+    </h4>
+  </div>
+</ng-template>
+<ng-template #confirmApprovalNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.manualCashMemo.approvalSuccessMsg' | translate }}
+    </h3>
+    <h5 class="pw-success-color pt-2">
+      {{ 'pw.manualCashMemo.reqNumber' | translate }} {{ reqNo }}
+    </h5>
+  </div>
+</ng-template>
+
+<form [formGroup]="createTepFormGroup">
+  <div class="row align-items-end">
+    <mat-radio-group
+      class="col-auto"
+      aria-labelledby="tep-type-radio-group-label"
+      formControlName="tepType"
+      (change)="getSelectedTepType($event)"
+    >
+      <mat-radio-button
+        class="pw-radio-btn mr-3"
+        [value]="createTepTypesEnum?.MANUAL_TEP"
+      >
+        <label class="pw-radio-btn__label">{{
+          'pw.tep.regularTep' | translate
+        }}</label>
+      </mat-radio-button>
+      <mat-radio-button
+        class="pw-radio-btn mr-3"
+        [value]="createTepTypesEnum?.MANUAL_INTER_BRAND_TEP"
+      >
+        <label class="pw-radio-btn__label">{{
+          'pw.tep.interBrandTep' | translate
+        }}</label>
+      </mat-radio-button>
+      <mat-radio-button
+        class="pw-radio-btn"
+        [value]="createTepTypesEnum?.MANUAL_FULL_VALUE_TEP"
+      >
+        <label class="pw-radio-btn__label">{{
+          'pw.tep.fullValueTep' | translate
+        }}</label>
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <mat-accordion multi>
+    <mat-expansion-panel expanded class="pw-expansion-panel">
+      <mat-expansion-panel-header
+        class="pw-expansion-panel__header"
+        [collapsedHeight]="'40px'"
+        [expandedHeight]="'40px'"
+      >
+        <mat-panel-title class="pw-expansion-panel__heading">
+          {{ 'pw.tep.manualTepDetailsLabel' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <!-- <ng-container
+        *possWebPermission="loadPermission(TEP_MANUAL_TEP_ADD_EDIT)"
+      > -->
+      <poss-web-manual-form-details
+        [txnType]="TransactionTypeEnumRef.TEP"
+        [detailsFlag$]="detailsFlag$.asObservable()"
+        [customerId]="customerId"
+        [manualBillDetails]="manualBillDetails"
+        [bussinessDay]="businessDay"
+        (validate)="validateBill($event)"
+        [permit]="TEP_CONFIRM_MANUAL_TEP_SUBMENU"
+      ></poss-web-manual-form-details>
+      <!-- </ng-container> -->
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="pw-detail-card" *ngIf="manualBillDetails">
+    <div class="row pw-detail-card__flex-end">
+      <div class="col-auto pw-detail-card__margin-top">
+        <!-- <ng-container
+          *possWebPermission="loadPermission(TEP_MANUAL_TEP_ADD_EDIT)"
+        > -->
+        <poss-web-rso-names-list
+          [rsoNamesList]="rsoNamesList"
+          [selectedRso]="selectedRso"
+          (selectedRSOName)="onSelectedRSONameChanged($event)"
+          [clearSelectedRsoName]="clearSelectedRsoName"
+        >
+        </poss-web-rso-names-list>
+        <!-- </ng-container> -->
+      </div>
+      <!-- <div
+        class="col-auto pw-detail-card__margin-top pw-coin-offer-checkbox"
+        *ngIf="
+          createTepFormGroup.get('tepType').value !==
+          createTepTypesEnum?.MANUAL_FULL_VALUE_TEP
+        "
+      >
+        <mat-checkbox
+          (change)="coinOfferDiscountSelectionChanged($event)"
+          formControlName="coinOfferDiscount"
+        >
+          {{ 'pw.tep.coinOfferDiscount' | translate }}</mat-checkbox
+        >
+      </div> -->
+      <div
+        class="col-auto pw-detail-card__margin-top"
+        *ngIf="
+          createTepFormGroup.get('tepType').value ===
+          createTepTypesEnum?.MANUAL_FULL_VALUE_TEP
+        "
+      >
+        <poss-web-select-dropdown
+          [placeholder]="'pw.tep.selectReason' | translate"
+          [control]="createTepFormGroup.get('fvtReason')"
+          [options]="reasonsForFullValueTep"
+          [required]="true"
+        ></poss-web-select-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="pw-detail-card" *ngIf="manualBillDetails">
+    <div class="row">
+      <div class="col-auto">
+        <div class="pw-detail-card__heading">
+          {{ 'pw.tep.productDetails' | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <ng-container
+        *possWebPermission="loadPermission(TEP_MANUAL_TEP_ADD_EDIT)"
+      > -->
+      <poss-web-product-search-autocomplete
+        class="col-lg-3 col-6"
+        (search)="searchByItemcode($event)"
+        (selectedData)="selectedItemcode($event)"
+        (exactSearch)="exactSearchByItemcode($event)"
+        [searchData]="searchProductList$ | async"
+        [searchEnableEvent]="searchEnableFlag$"
+      ></poss-web-product-search-autocomplete>
+      <!-- </ng-container> -->
+    </div>
+    <poss-web-tep-items-listing-grid
+      [tepItemList]="tepItemList"
+      [isEditMode]="true"
+      [deleteId]="deleteIdForSoftDelete"
+      (deleteTepItem)="deleteTepItemById($event)"
+      (calculatedValueEmit)="setTotalValueOfGridItems($event)"
+      (isViewItemValuation)="viewTepItemValuation($event)"
+      (isSaleableModified)="modifiedSaleableOptionForTepItem($event)"
+      (loadImageUrl)="loadItemImageUrl($event)"
+    ></poss-web-tep-items-listing-grid>
+  </div>
+  <div class="pw-detail-card" *ngIf="manualBillDetails">
+    <div class="pw-detail-card__heading">
+      {{ 'pw.tep.selectMethod' | translate }}
+    </div>
+    <div class="row">
+      <mat-radio-group
+        class="col-auto"
+        aria-labelledby="tep-type-radio-group-label"
+        formControlName="tepPaymentType"
+        (change)="onPaymentMethodChanged($event)"
+      >
+        <mat-radio-button
+          class="pw-radio-btn mr-3"
+          [value]="tepPaymentTypesEnum?.CN"
+          [disabled]="netRefundAmt === 0"
+        >
+          <label class="pw-radio-btn__label">{{
+            'pw.tep.cn' | translate
+          }}</label>
+        </mat-radio-button>
+        <mat-radio-button
+          class="pw-radio-btn mr-3"
+          [value]="tepPaymentTypesEnum?.REFUND"
+          [disabled]="netRefundAmt === 0"
+          *ngIf="
+            !(
+              createTepFormGroup?.get('tepType').value ===
+                createTepTypesEnum.MANUAL_INTER_BRAND_TEP &&
+              tepItemConfiguration?.isInterBrandTepAllowed &&
+              !tepItemConfiguration?.tepValidationConfig
+                ?.isInterBrandCashRefundAllowed
+            )
+          "
+        >
+          <label class="pw-radio-btn__label">{{
+            'pw.tep.refundRadioLabel' | translate
+          }}</label>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <poss-web-refund-payment-mode-fields
+      *ngIf="
+        createTepFormGroup.get('tepPaymentType').value ===
+        tepPaymentTypesEnum?.REFUND &&
+        !hideRefundSection
+      "
+      [isCashLimitExceeded]="
+      isCashRefundAllowed
+      "
+      [refundDeductionAmt]="refundDeductionAmt"
+      [allowedPaymentMode]="allowedPaymentMode"
+      [subrefundMode]="subrefundMode"
+      [netRefundAmt]="netRefundAmt"
+      [customerId]="customerId"
+      [refundDetails]="refundDetails"
+      [idProofImageUrl]="idProofImageUrl"
+      [cancelledChequeImageUrl]="cancelledChequeImageUrl"
+      [approvalMailImageUrl]="approvalMailImageUrl"
+      (emitRefundDetails)="getRefundDetails($event)"
+      (uploadFile)="uploadFile($event)"
+      (refundForm)="getRefundForm($event)"
+    ></poss-web-refund-payment-mode-fields>
+  </div>
+  <div
+    class="pw-detail-card"
+    *ngIf="
+      createTepFormGroup.get('tepType').value ===
+        createTepTypesEnum?.MANUAL_FULL_VALUE_TEP &&
+      manualBillDetails &&
+      tepItemList?.length > 0
+    "
+  >
+    <div class="pw-detail-card__heading">
+      {{ 'pw.tep.approverDetails' | translate }}
+    </div>
+    <div class="row pw-detail-card__margin-top">
+      <div class="col-auto">
+        <poss-web-select-dropdown
+          [placeholder]="'pw.tep.selectApprover' | translate"
+          [control]="createTepFormGroup.get('fvtApprover')"
+          [options]="approverListForFvt"
+          [required]="true"
+          (selectionChange)="onApproverSelectionChange($event)"
+        ></poss-web-select-dropdown>
+      </div>
+
+      <mat-form-field
+        *ngIf="approverProcessType === 'CODE'"
+        class="col-lg-2 col-3"
+      >
+        <input
+          matInput
+          formControlName="fvtApprovalCode"
+          class="pw-single-bordered-input"
+          placeholder="Approval code"
+        />
+        <mat-error
+          *ngIf="
+            createTepFormGroup.get('fvtApprovalCode').errors &&
+            createTepFormGroup.get('fvtApprovalCode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              createTepFormGroup.get('fvtApprovalCode').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="col-auto" *ngIf="approverProcessType === 'EMAIL'">
+        <mat-form-field class="pw-full-bordered-input-box">
+          <input
+            matInput
+            [matDatepicker]="datepicker"
+            formControlName="fvtApprovalDate"
+            (click)="datepicker.open()"
+            placeholder="{{ 'pw.tep.approvalDate' | translate }}"
+            [max]="businessDate"
+            [min]="addedItemCmDocDate"
+            readonly
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-error
+          class="col-auto"
+          *ngIf="
+            createTepFormGroup.get('fvtApprovalDate').errors &&
+            createTepFormGroup.get('fvtApprovalDate').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              createTepFormGroup.get('fvtApprovalDate').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </div>
+
+      <!-- <div class="col-auto">
+        <mat-form-field class="pw-full-bordered-input-box">
+          <input
+            matInput
+            [matDatepicker]="datepicker"
+            formControlName="fvtApprovalDate"
+            (click)="datepicker.open()"
+            placeholder="{{ 'pw.tep.approvalDate' | translate }}"
+            readonly
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-error
+          class="col-auto"
+          *ngIf="
+            createTepFormGroup.get('fvtApprovalDate').errors &&
+            createTepFormGroup.get('fvtApprovalDate').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              createTepFormGroup.get('fvtApprovalDate').errors.errorArray
+            "
+          >
+          </poss-web-error-info-tooltip>
+        </mat-error>
+      </div>
+      <div class="col-auto mt-3">
+        <div *ngIf="approvalMailImageUrl" class="pw-tertiary-color">
+          {{ 'pw.tep.approvalMailLabel' | translate }}
+        </div>
+        <poss-web-file-upload
+          [uploadLabel]="'pw.tep.approvalMailLabel' | translate"
+          [imageUrl]="approvalMailImageUrl"
+          [previewHeader]="'pw.tep.previewApprovalMailHeaderText' | translate"
+          [fileName]="'pw.tep.viewCopyLabel' | translate"
+          (fileEmitter)="uploadApprovalMailForFVT($event)"
+          (errorEmitter)="uploadError($event)"
+          (clearEmitter)="clearApprovalMail()"
+        ></poss-web-file-upload>
+      </div> -->
+    </div>
+  </div>
+</form>
+
+<ng-template #tepSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3
+      class="pw-success-color"
+      *ngIf="
+        status === tepStatusEnum.CONFIRMED &&
+        createTepFormGroup.get('tepType').value !==
+          createTepTypesEnum?.MANUAL_FULL_VALUE_TEP
+      "
+    >
+      {{ 'pw.tep.manualTepGenerationSuccessMsg' | translate }}
+    </h3>
+    <h3
+      class="pw-success-color"
+      *ngIf="
+        status === tepStatusEnum.CONFIRMED &&
+        createTepFormGroup.get('tepType').value ===
+          createTepTypesEnum?.MANUAL_FULL_VALUE_TEP
+      "
+    >
+      {{ 'pw.tep.manualFvTepGenerationSuccessMsg' | translate }}
+    </h3>
+    <h3
+      class="pw-success-color"
+      *ngIf="
+        status === tepStatusEnum.APPROVAL_PENDING &&
+        createTepFormGroup.get('tepType').value !==
+          createTepTypesEnum?.MANUAL_FULL_VALUE_TEP
+      "
+    >
+      {{ 'pw.tep.requestApprovalSuccessMsg' | translate }}
+    </h3>
+    <h3
+      class="pw-success-color"
+      *ngIf="
+        status === tepStatusEnum.APPROVAL_PENDING &&
+        createTepFormGroup.get('tepType').value ===
+          createTepTypesEnum?.MANUAL_FULL_VALUE_TEP
+      "
+    >
+      {{ 'pw.tep.requestApprovalSuccessMsgForFullValueTep' | translate }}
+    </h3>
+    <h3 class="pw-success-color" *ngIf="status === tepStatusEnum.HOLD">
+      {{ 'pw.tep.holdTepSuccessMsg' | translate }}
+    </h3>
+    <br />
+    <div
+      class="pw-black-popup-box__margin-top-10"
+      *ngIf="docNo && status === tepStatusEnum.CONFIRMED"
+    >
+      {{ 'pw.tep.tepDocNo' | translate }}: {{ docNo }}
+    </div>
+    <div
+      class="pw-black-popup-box__margin-top-10"
+      *ngIf="docNo && status === tepStatusEnum.HOLD"
+    >
+      {{ 'pw.tep.tepHoldNo' | translate }}: {{ docNo }}
+    </div>
+    <br
+      *ngIf="
+        tepCnNo &&
+        (status === tepStatusEnum.CONFIRMED || status === tepStatusEnum.HOLD)
+      "
+    />
+    <div
+      class="pw-black-popup-box__margin-top-10"
+      *ngIf="
+        tepCnNo &&
+        (status === tepStatusEnum.CONFIRMED || status === tepStatusEnum.HOLD)
+      "
+    >
+      {{ 'pw.tep.tepCnNo' | translate }}: {{ tepCnNo }}
+    </div>
+    <div
+      class="pw-black-popup-box__margin-top-10"
+      *ngIf="reqDocNo && status === tepStatusEnum.APPROVAL_PENDING"
+    >
+      {{ 'pw.tep.requestNumber' | translate }}: {{ reqDocNo }}
+    </div>
+    <br />
+    <div class="pw-black-popup-box__margin-top-10">
+      <button
+        *ngIf="status === tepStatusEnum.CONFIRMED"
+        matButton
+        class="pw-white-btn"
+        (click)="
+          printTepConfirmedTransaction(
+            tepTransactionId,
+            transactionTypeEnum?.TEP,
+            createTepFormGroup.get('tepType').value
+          )
+        "
+      >
+        {{ 'pw.tep.print' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isProductSearchLoading$ | async) ||
+    (isCommonLoading$ | async) ||
+    (printingService.getPrinterIsLoading() | async)
+  "
+></poss-web-loader>

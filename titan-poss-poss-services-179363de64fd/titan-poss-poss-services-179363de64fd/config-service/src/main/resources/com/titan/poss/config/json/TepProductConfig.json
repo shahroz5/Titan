@@ -1,0 +1,29 @@
+/**
+*	"isQuantityEditable" field is optional
+*/
+{
+	"type": "TEP_PRODUCT_CONFIG",
+	"data": {
+		"isTepAllowed": true,
+		"goldDeductionPercent": 6,
+		"silverDeductionPercent": 10,
+		"platinumDeductionPercent": 10,
+		"ucpDeductionPercent": 10,
+		"ucpDeductionFlatValue": 1000,
+		"isStoneChargesApplicable": true,
+		"stoneDeductionPercent": 10,
+		"isCMMandatory": true,
+		"cmUnavailableDeductionPercent": 20,
+		"isFVTAllowed": true,
+		"fvtDeductionPercent": 10,
+		"isCutPieceTepAllowed": true,
+		"isInterBrandTepAllowed": true,
+		"isQuantityEditable": null,
+		"typeOfExchange": "ABC",
+		"recoverDiscountPercent": 10,
+		"refundDeductionPercent": 10,
+		"isTEPSaleBin": true,
+		"weightTolerancePercent": 10,
+		"isProportionedValue": true
+	}
+}

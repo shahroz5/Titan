@@ -1,0 +1,186 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-auto">
+      <button
+        class="pw-btn pw-accent-btn"
+        *ngIf="bodProcessStatus !== bodEodEnum.INPROGRESS"
+        [disabled]="
+          showBodCannotBeDoneForFutureDateMessage ||
+          boutiquePossBodStatus === bodEodEnum.COMPLETED ||
+          bodProcessStatus === bodEodEnum.COMPLETED
+        "
+        (click)="initiateBodProcess()"
+      >
+        {{ 'pw.bodEod.startBOD' | translate }}
+      </button>
+      <button
+        class="pw-btn pw-accent-btn"
+        *ngIf="bodProcessStatus === bodEodEnum.INPROGRESS"
+        [disabled]="true"
+      >
+        {{ 'pw.bodEod.processing' | translate }}
+      </button>
+    </div>
+
+    <div
+      class="mr-auto align-self-center col-auto"
+      *ngIf="!!closedBusinessDate"
+    >
+      <p class="pw-fourth-color font-size-16">
+        {{ 'pw.bodEod.previousBusinessDate' | translate }} :
+        {{ closedBusinessDate }}
+      </p>
+    </div>
+
+    <div
+      class="col-12 pw-info-container"
+      *ngIf="showBodCannotBeDoneForFutureDateMessage"
+    >
+      <p
+        class="pw-fourth-color font-size-16 pw-error-color pt-2 pw-info-icon-14"
+      >
+        {{ 'pw.bodEod.bodNotAllowedForFutureDateErrorMessage' | translate }}
+      </p>
+    </div>
+  </div>
+  <div class="col-lg-7 col-10 pw-detail-card__listing">
+    <div class="pw-detail-card__listing-item">
+      <div class="row no-gutters">
+        <div class="col-auto align-self-center">
+          <div class="pw-detail-card__number"></div>
+        </div>
+        <div class="col-auto">
+          {{ 'pw.bodEod.metalRatesAreAvailableForBusinessday' | translate }}
+        </div>
+        <div class="col-auto ml-auto">
+          <div>
+            <span
+              class="pw-i-24 pw-arrow-circle-grey-icon-24"
+              *ngIf="metalRateAvailableStatus === bodEodEnum.PENDING"
+            ></span>
+            <span
+              class="pw-i-24 pw-arrow-circle-green-icon-24"
+              *ngIf="metalRateAvailableStatus === bodEodEnum.AVAILABLE"
+            ></span>
+            <span
+              class="pw-i-24 pw-error-circle-icon-24"
+              *ngIf="metalRateAvailableStatus === bodEodEnum.ERROR"
+            ></span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="metalRateAvailableStatus === bodEodEnum.ERROR">
+        <div
+          class="row pw-detail-card__padding-bottom-10"
+          *ngIf="retryForMetalRatesCount < maxMetalRateRetryAttempts"
+        >
+          <div class="col-auto">
+            <button
+              class="pw-btn pw-primary-btn font-size-12"
+              (click)="tryAgainForMetalRates()"
+            >
+              {{ 'pw.bodEod.tryAgain' | translate }}
+            </button>
+          </div>
+        </div>
+        <div
+          class="row pw-detail-card__padding-bottom-10"
+          *ngIf="boutiquePossBodStatus !== bodEodEnum.COMPLETED"
+        >
+          <div class="col-auto">
+            <button
+              class="pw-btn pw-primary-btn font-size-12"
+              (click)="continueWithoutMetalRate()"
+            >
+              {{ 'pw.bodEod.continueAnyways' | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="row pw-detail-card__padding-bottom-10">
+          <div class="col-auto">
+            <button
+              class="pw-btn pw-primary-btn font-size-12"
+              (click)="updateMetalRatesOffline()"
+            >
+              {{ 'pw.bodEod.enterMetalRateManually' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-detail-card__listing-item">
+      <div class="row no-gutters">
+        <div class="col-auto align-self-center">
+          <div class="pw-detail-card__number"></div>
+        </div>
+        <div class="col-auto">
+          {{ 'pw.bodEod.boutiquePOSSBODisCompleted' | translate }}
+        </div>
+        <div class="col-auto ml-auto">
+          <div>
+            <span
+              class="pw-i-24 pw-arrow-circle-grey-icon-24"
+              *ngIf="boutiquePossBodStatus === bodEodEnum.PENDING"
+            ></span>
+            <span
+              class="pw-i-24 pw-arrow-circle-green-icon-24"
+              *ngIf="boutiquePossBodStatus === bodEodEnum.COMPLETED"
+            ></span>
+            <span
+              class="pw-i-24 pw-error-circle-icon-24"
+              *ngIf="boutiquePossBodStatus === bodEodEnum.ERROR"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="pw-detail-card__listing-item"
+      *ngIf="isGhsMandatory === bodEodEnum.TRUE"
+    >
+      <div class="row no-gutters">
+        <div class="col-auto align-self-center">
+          <div class="pw-detail-card__number"></div>
+        </div>
+        <div class="col-auto">
+          {{ 'pw.bodEod.ghsBodIsCompleted' | translate }}
+        </div>
+        <div class="col-auto ml-auto">
+          <div>
+            <span
+              class="pw-i-24 pw-arrow-circle-grey-icon-24"
+              *ngIf="ghsBodStatus === bodEodEnum.PENDING"
+            ></span>
+            <span
+              class="pw-i-24 pw-arrow-circle-green-icon-24"
+              *ngIf="ghsBodStatus === bodEodEnum.COMPLETED"
+            ></span>
+            <span
+              class="pw-i-24 pw-error-circle-icon-24"
+              *ngIf="ghsBodStatus === bodEodEnum.ERROR"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row pw-detail-card__padding-bottom-10"
+        *ngIf="
+          ghsBodStatus === bodEodEnum.ERROR &&
+          showOfflineGhsBodButton &&
+          !!isGoldRateAvailable
+        "
+      >
+        <div class="col-auto">
+          <button
+            class="pw-btn pw-primary-btn font-size-12"
+            (click)="openEghsOfflineBodPopup()"
+          >
+            {{ 'pw.bodEod.eghsOfflineBod' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

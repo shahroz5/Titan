@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+              <div>
+                <h2 class="pw-top-heading-container__sub-heading">  {{ 'pw.upgradeVersion.upgradeVersionHeader' | translate }} </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pw-detail-card" *ngIf="isUpgradeAvailable">
+        <div class="row">
+          <div class="col-auto align-self-center">
+            <p class="font">
+              {{ 'pw.upgradeVersion.newVersionAvailable' | translate }}
+            </p>
+          </div>
+          <div class="col-auto ml-auto">
+            <button
+              class="pw-btn pw-primary-btn font-size-12"
+              (click)="openDialog()"
+            >
+              {{ 'pw.upgradeVersion.upgradeVersionHeader' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pw-detail-card" *ngIf="!isUpgradeAvailable">
+        <div class="row">
+          <div class="col-auto align-self-center">
+            <p class="font-success">
+              {{ 'pw.upgradeVersion.noUpgradesAvailable' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async)
+  "
+>
+</poss-web-loader>
+

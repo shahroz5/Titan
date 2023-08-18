@@ -1,0 +1,462 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto pw-message">
+      {{ 'pw.discountDetailsPopup.discountDetailsHeader' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="close()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <poss-web-item-details-header
+    [headerDetails]="discountDetails.headerDetails"
+    [currencyCode]="discountDetails.currencyCode"
+    [weightUnit]="discountDetails.weightUnit"
+    [isLoading]="isLoading"
+    [prodCategoryDesc]="prodCategoryDesc"
+    [prodGroupDesc]="prodGroupDesc"
+  >
+  </poss-web-item-details-header>
+  <div class="pw-discount-content">
+    <mat-tab-group
+      #tabGroup
+      [selectedIndex]="0"
+      dynamicHeight
+      class="pw-tab pw-discount-tab"
+      (selectedTabChange)="onTabChange($event)"
+    >
+      <mat-tab class="pw-tab__item">
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{ 'pw.discountDetailsPopup.itemLevelDiscountsHeader' | translate }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-item-level-discount
+          #itemLevelDiscount
+          class="pw-discount-tab"
+          [currencyCode]="discountDetails.currencyCode"
+          [itemDetails]="itemDetails"
+          [itemLevelDiscounts]="itemLevelDiscounts"
+          [discountOptions]="discountOptions"
+          [ABDiscountOptions]="ABDiscountOptions"
+          [reasonsForDiscountChange]="reasonsForDiscountChange"
+          [reasonsForNoDiscounts]="reasonsForNoDiscounts"
+          [enableReasonForNoDiscount]="enableReasonForNoDiscount"
+          [enablereasonForDiscountChange]="enablereasonForDiscountChange"
+          [selectedItemIds]="selectedItemIds"
+          [discountType]="discountType"
+          [txnType]="txnType"
+          [typeOfCMByRefTxnId]="typeOfCMByRefTxnId"
+          [isAllowedToChangeAB]="isAllowedToChangeAB"
+          [isBillLevelDiscountsAdded]="isBillLevelDiscountsAdded"
+          [isPopupReadonly]="isPopupReadOnly"
+          [selectedDiscountReason]="selectedDiscountReason"
+          (total)="totalUpdate($event, discountTabRef.ITEM_LEVEL_DISCOUNT)"
+          (loadItems)="loadSelectedDiscountDetails($event)"
+          (loadABItems)="loadSelectedABDiscountDetails($event)"
+          (reasonChange)="reasonChange($event)"
+          (editing)="editing()"
+        >
+        </poss-web-discount-details-item-level-discount>
+      </mat-tab>
+
+      <mat-tab
+        *ngIf="billLevelDiscounts.length"
+        class="pw-tab__item"
+        label="BILL_LEVEL"
+      >
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{ 'pw.discountDetailsPopup.billLevelDiscountsHeader' | translate }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-bill-level-discount
+          class="pw-discount-tab mt-3"
+          [currencyCode]="discountDetails.currencyCode"
+          [billLevelDiscounts]="billLevelDiscounts"
+          (total)="totalUpdate($event, discountTabRef.BILL_LEVEL_DISCOUNT)"
+        >
+        </poss-web-discount-details-bill-level-discount>
+      </mat-tab>
+
+      <mat-tab
+        *ngIf="rivaahDiscounts.length || rivaahDiscountsGep.length"
+        class="pw-tab__item"
+        label="RIVAAH"
+      >
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label"> Rivaah </span>
+        </ng-template>
+        <poss-web-discount-details-rivaah-discount
+          class="pw-discount-tab"
+          [currencyCode]="discountDetails.currencyCode"
+          [itemDetails]="itemDetails"
+          [rivaahDiscount]="rivaahDiscounts"
+          [rivaahDiscountsGep]="rivaahDiscountsGep"
+          [discountType]="discountType"
+          [txnType]="txnType"
+          [typeOfCMByRefTxnId]="typeOfCMByRefTxnId"
+          [isPopupReadonly]="true"
+          (total)="totalUpdate($event, discountTabRef.RIVAAH_CARD_DISCOUNT)"
+        >
+        </poss-web-discount-details-rivaah-discount>
+      </mat-tab>
+
+      <mat-tab
+        *ngIf="karatOfferDiscounts.length"
+        class="pw-tab__item"
+        label="KARAT_OFFER"
+      >
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{
+              'pw.discountDetailsPopup.karatExchangeOfferDiscountsHeader'
+                | translate
+            }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-karat-exchange-offer-discount
+          class="pw-discount-tab mt-3"
+          [currencyCode]="discountDetails.currencyCode"
+          [karatOfferDiscounts]="karatOfferDiscounts"
+          (total)="
+            totalUpdate($event, discountTabRef.KARAT_EXCHANGE_OFFER_DISCOUNT)
+          "
+        >
+        </poss-web-discount-details-karat-exchange-offer-discount>
+      </mat-tab>
+
+      <mat-tab *ngIf="exchangeOfferDiscounts.length" class="pw-tab__item">
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{
+              'pw.discountDetailsPopup.exchangeOfferDiscountsHeader' | translate
+            }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-exchange-offer-discount
+          class="pw-discount-tab mt-3"
+          [currencyCode]="discountDetails.currencyCode"
+          [exchangeOfferDiscounts]="exchangeOfferDiscounts"
+          (total)="totalUpdate($event, discountTabRef.EXCHANGE_OFFER_DISCOUNT)"
+        >
+        </poss-web-discount-details-exchange-offer-discount>
+      </mat-tab>
+
+      <mat-tab
+        *ngIf="coinOfferDiscounts.length"
+        class="pw-tab__item"
+        label="COIN_OFFER"
+      >
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{ 'pw.discountDetailsPopup.coinOfferDiscountsHeader' | translate }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-coin-offer-discount
+          class="pw-discount-tab mt-3"
+          [currencyCode]="discountDetails.currencyCode"
+          [coinOfferDiscounts]="coinOfferDiscounts"
+          (total)="totalUpdate($event, discountTabRef.COIN_OFFER_DISCOUNT)"
+        >
+        </poss-web-discount-details-coin-offer-discount>
+      </mat-tab>
+
+      <mat-tab
+        *ngIf="gepPurityDiscounts.length"
+        class="pw-tab__item"
+        label="GEP_PURITY"
+      >
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{ 'pw.discountDetailsPopup.gepPurityDiscountsHeader' | translate }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-gep-purity-discount
+          class="pw-discount-tab mt-3"
+          [currencyCode]="discountDetails.currencyCode"
+          [gepPurityDiscounts]="gepPurityDiscounts"
+          (total)="
+            totalUpdate($event, discountTabRef.SYSTEM_DISCOUNT_GEP_PURITY)
+          "
+        >
+        </poss-web-discount-details-gep-purity-discount>
+      </mat-tab>
+
+      <mat-tab
+        *ngIf="systemDiscounts.length"
+        class="pw-tab__item"
+        label="SYSTEM_DISC"
+      >
+        <ng-template mat-tab-label>
+          <span class="pw-tab__label">
+            {{
+              'pw.discountDetailsPopup.automatedBillLevelDiscountsHeader'
+                | translate
+            }}
+          </span>
+        </ng-template>
+        <poss-web-discount-details-system-discount
+          class="pw-discount-tab mt-3"
+          [currencyCode]="discountDetails.currencyCode"
+          [systemDiscounts]="systemDiscounts"
+          (total)="totalUpdate($event, discountTabRef.SYSTEM_DISCOUNT)"
+        >
+        </poss-web-discount-details-system-discount>
+      </mat-tab>
+    </mat-tab-group>
+
+    <div class="pw-confirmation-box__footer mt-2 row">
+      <div class="pw-discount-summary col">
+        <div class="row mb-1">
+          <div class="col-7">
+            {{ 'pw.discountDetailsPopup.itemLevelDiscountLabel' | translate }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalItemLevelDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row mb-1" *ngIf="billLevelDiscounts.length">
+          <div class="col-7">
+            {{ 'pw.discountDetailsPopup.billLevelDiscountLabel' | translate }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalBillLevelDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row mb-1" *ngIf="exchangeOfferDiscounts.length">
+          <div class="col-7">
+            {{
+              'pw.discountDetailsPopup.exchangeOfferDiscountLabel' | translate
+            }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalExchangeOfferDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row mb-1" *ngIf="coinOfferDiscounts.length">
+          <div class="col-7">
+            {{ 'pw.discountDetailsPopup.coinOfferDiscountLabel' | translate }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalCoinOfferDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row mb-1" *ngIf="systemDiscounts.length">
+          <div class="col-7">
+            {{
+              'pw.discountDetailsPopup.automatedBillLevelDiscountLabel'
+                | translate
+            }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalSystemDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row mb-1" *ngIf="gepPurityDiscounts.length">
+          <div class="col-7">
+            {{ 'pw.discountDetailsPopup.gepPurityDiscountsHeader' | translate }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalGepPurityDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row mb-1" *ngIf="karatOfferDiscounts.length">
+          <div class="col-7">
+            {{
+              'pw.discountDetailsPopup.karatExchangeOfferDiscountLabel'
+                | translate
+            }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalKaratOfferDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div
+          class="row mb-1"
+          *ngIf="rivaahDiscounts.length || rivaahDiscountsGep.length"
+        >
+          <div class="col-7">
+            {{ 'pw.discountDetailsPopup.rivaahDiscount' | translate }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalRivaahDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+
+        <div class="row pw-font-weight-bold">
+          <div class="col-7">
+            {{ 'pw.discountDetailsPopup.totalDiscountLabel' | translate }}
+          </div>
+
+          <div class="col-5 pw-text-right">
+            {{
+              totalDiscountData.totalDiscount
+                | currency: discountDetails?.currencyCode
+            }}
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-confirmation-box__footer-border col">
+        <!-- todo check error on is popup readonly -->
+        <div *ngIf="showErrors">
+          <div
+            class="pw-error-color pw-font-weight-bold"
+            *ngIf="showMoreThanTotalError"
+          >
+            {{ 'pw.discountDetailsPopup.productDiscountErrorMsg' | translate }}
+          </div>
+
+          <div
+            class="pw-error-color pw-font-weight-bold"
+            *ngIf="showRowValidationError"
+          >
+            {{ 'pw.discountDetailsPopup.maxDiscountErrorMsg' | translate }}
+          </div>
+
+          <div
+            class="pw-error-color pw-font-weight-bold"
+            *ngIf="showZeroDiscountError"
+          >
+            {{ 'pw.discountDetailsPopup.totalAmountErrorMsg' | translate }}
+          </div>
+
+          <div
+            class="pw-error-color pw-font-weight-bold"
+            *ngIf="showCellValidationError"
+          >
+            {{ 'pw.discountDetailsPopup.validInputsErrorMsg' | translate }}
+          </div>
+
+          <div
+            class="pw-error-color pw-font-weight-bold"
+            *ngIf="showNoDiscountReason"
+          >
+            {{ 'pw.discountDetailsPopup.reasonErrorMsg' | translate }}
+          </div>
+
+          <div
+            class="pw-error-color pw-font-weight-bold"
+            *ngIf="
+              isBillLevelDiscountsAdded && selectedTabName !== 'BILL_LEVEL'
+            "
+          >
+            {{
+              'pw.discountDetailsPopup.billLevelDiscountErrorMsg' | translate
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row"
+      *ngIf="
+        !(
+          isPopupReadOnly ||
+          selectedTabName === 'KARAT_OFFER' ||
+          selectedTabName === 'COIN_OFFER' ||
+          selectedTabName === 'GEP_PURITY' ||
+          selectedTabName === 'BILL_LEVEL' ||
+          selectedTabName === 'SYSTEM_DISC' ||
+          selectedTabName === 'RIVAAH'
+        )
+      "
+    >
+      <div class="ml-auto col-auto pw-confirmation-box__footer-item">
+        <button
+          [disabled]="isBillLevelDiscountsAdded"
+          mat-button
+          class="pw-btn pw-accent-btn"
+          (click)="reset()"
+        >
+          {{ 'pw.discountDetailsPopup.resetButtonTxt' | translate }}
+        </button>
+      </div>
+
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          [disabled]="isBillLevelDiscountsAdded"
+          mat-button
+          class="pw-btn pw-accent-btn"
+          (click)="refresh()"
+        >
+          {{ 'pw.discountDetailsPopup.refreshButtonTxt' | translate }}
+        </button>
+      </div>
+
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          [disabled]="isBillLevelDiscountsAdded"
+          mat-button
+          class="pw-btn pw-primary-btn"
+          (click)="apply()"
+        >
+          {{ 'pw.discountDetailsPopup.applyButtonTxt' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <poss-web-loader
+    *ngIf="
+      (isLoading$ | async) ||
+      (isDropdownLoading$ | async) ||
+      (isAlreadyAddedDiscountsLoading$ | async) ||
+      (isABDropdownLoading$ | async) ||
+      (isAutoDiscLoading$ | async) ||
+      (isDiscountDetailsLoading$ | async)
+    "
+  ></poss-web-loader>
+</div>

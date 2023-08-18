@@ -1,0 +1,11 @@
+{
+	"type": "CLUBBING_CONFIG",
+	"data": {
+		"isExchangeOffer": true,
+		"isCBO": true,
+		"isGHS": true,
+		"isRiva": true,
+		"isEmpowerment": true,
+		"isDV": true
+	}
+}

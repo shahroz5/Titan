@@ -1,0 +1,87 @@
+<div class="pw-detail-card">
+  <div class="row align-items-center">
+    <div class="col-xl-5 col-lg-5 col-4">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.vendorMaster.vendorCode' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-auto px-1">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ vendorMasterItem.vendorCode }}</span
+            >
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.vendorMaster.vendorType' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-auto px-1">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              vendorMasterItem.vendorType
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-4">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.vendorMaster.vendorName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-auto px-1">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              vendorMasterItem.vendorName
+            }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.vendorMaster.baseUrl' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col-8 px-1">
+          <p>
+            <span class="pw-font-weight-bold">{{
+              vendorMasterItem.baseUrl
+            }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="vendorMasterItem?.vendorDetail !== null"
+      class="col-auto ml-auto align-self-center"
+    >
+      <a (click)="getId(vendorMasterItem.vendorCode)">
+        <span class="pw-mont-semibold-14 pw-fourth-color pw-position-text a">
+          {{ 'pw.vendorMaster.view' | translate }} &nbsp;</span
+        >
+      </a>
+    </div>
+  </div>
+</div>

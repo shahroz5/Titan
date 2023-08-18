@@ -1,0 +1,364 @@
+.pw-ag-grid-table {
+  min-height: 200px;
+  width: 100%;
+  overflow: auto;
+
+  .ag-root-wrapper {
+    position: inherit;
+  }
+
+  .ag-popup {
+    position: absolute;
+    z-index: 999;
+  }
+
+  .ag-menu {
+    min-width: 248px;
+    min-height: 155px;
+  }
+
+  .ag-header {
+    margin: 0;
+    font-weight: 600;
+    font-size: em(14);
+    height: 35px;
+    min-height: 35px;
+  }
+
+  .ag-header-row {
+    min-height: 35px !important;
+    height: 35px !important;
+  }
+
+  .ag-pinned-right-header {
+    border-left: none;
+    border-left-color: none;
+  }
+
+  .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
+    border-left: none;
+    border-left-color: none;
+  }
+
+  .ag-row {
+    margin: 0;
+    border: none;
+    font-weight: 400;
+    max-height: 80px;
+    align-items: center;
+  }
+
+  .ag-row.ag-row-last {
+    border-bottom-style: none;
+  }
+
+  .ag-cell-auto-height {
+    height: 100%;
+  }
+  .ag-header-group-cell {
+    border-right: 1px solid $twelth-color;
+  }
+  .ag-header-cell,
+  .ag-cell {
+    padding-left: 8px;
+    padding-right: 10px;
+    width: 100%;
+    border-right: 1px solid $twelth-color;
+  }
+
+  .ag-cell {
+    border-right: 1px solid $twelth-color;
+    border-bottom: 1px solid $twelth-color;
+    padding-left: 8px;
+    padding-right: 10px;
+    line-height: 20px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  .pw-delete-icon-width {
+    padding-left: 1px;
+  }
+
+  .pw-delete-black-icon-24 {
+    position: relative;
+    left: -4px;
+  }
+
+  .ag-row-focus {
+    background: rgba($twelth-color, 0.3);
+  }
+
+  .ag-select .ag-picker-field-wrapper {
+    height: 35px;
+    min-height: 35px;
+  }
+
+  .mat-select {
+    padding: 0 10px;
+  }
+
+  .pw-pencil-icon-24 {
+    position: relative;
+    top: 5px;
+    right: 5px;
+  }
+
+  .mat-select-placeholder,
+  .mat-select-value-text {
+    color: $fourth-color;
+  }
+
+  .mat-select-arrow {
+    color: $fourth-color;
+  }
+
+  .ag-row .ag-cell-data-changed {
+    background-color: $error-color !important;
+    color: $sixth-color;
+  }
+
+  .ag-row .ag-cell-data-changed-animation {
+    transition: background-color 50s !important;
+    -webkit-transition: background-color 50s !important;
+    -moz-transition: background-color 50s !important;
+    -o-transition: background-color 50s !important;
+  }
+
+  .ag-cell-first-right-pinned {
+    padding-left: 7px;
+    padding-right: 2px;
+  }
+
+  .ag-cell-inline-editing {
+    padding: 0 5px;
+    height: 100%;
+    background: $sixth-color;
+  }
+
+  .pw-error-border {
+    border-color: $error-color;
+  }
+  .pw-gray-border {
+    border-color: $twelth-color;
+  }
+
+  .pw-image-container {
+    padding: 0 10px 0 0;
+  }
+
+  .ag-popup-editor {
+    background-color: $sixth-color;
+  }
+
+  .ag-pinned-left-header {
+    width: 34px;
+    max-width: 34px;
+    min-width: 34px;
+  }
+
+  .ag-pinned-right-header {
+    width: 21px;
+    max-width: 21px;
+    min-width: 21px;
+  }
+
+  .ag-standard-button {
+    border: 1px solid $fourth-color;
+    color: $fourth-color;
+    margin-left: 5px;
+  }
+
+  .ag-header-cell-menu-button {
+    &:hover {
+      color: $fourth-color;
+    }
+  }
+
+  .ag-row:not(.ag-row-first) {
+    border-style: none;
+  }
+
+  .ag-row-hover {
+    background: $sixth-color;
+  }
+
+  .ag-row-odd {
+    background: $sixth-color;
+  }
+
+  .ag-center-cols-clipper {
+    min-height: 80px;
+  }
+
+  .pw-justify-content-center {
+    justify-content: center;
+  }
+}
+
+.pw-non-scroll-table {
+  .ag-body-horizontal-scroll-viewport {
+    overflow-x: auto;
+  }
+}
+
+.pw-ag-grid-footer-table {
+  .ag-header {
+    height: 0px !important;
+    min-height: 0px !important;
+    border: none;
+  }
+
+  .ag-center-cols-clipper {
+    min-height: 0px;
+  }
+
+  .ag-root-wrapper {
+    border-top: none;
+  }
+}
+
+.pw-discount-table {
+  .ag-center-cols-viewport {
+    overflow-x: hidden;
+  }
+}
+
+.pw-ag-stone-table {
+  .ag-header-row-column {
+    .ag-header-cell {
+      padding-bottom: 8px;
+    }
+  }
+
+  .ag-floating-filter-body {
+    padding-bottom: 3px;
+  }
+
+  .ag-header {
+    min-height: 57px;
+  }
+}
+
+.pw-slab-config-grid {
+  .ag-header {
+    min-height: 51px !important;
+    height: 51px !important;
+  }
+
+  .ag-header-row {
+    height: auto !important;
+    min-height: 26px !important;
+  }
+  .ag-header-group-cell-label {
+    justify-content: center;
+  }
+}
+
+.pw-isActive {
+  background-color: $fourth-color;
+  color: $sixth-color;
+}
+
+.pw-cell-wrap-text {
+  white-space: normal;
+}
+
+.pw-revenue-table {
+  .ag-header-cell-text {
+    white-space: break-spaces;
+  }
+}
+
+.ag-header-viewport {
+  flex: inherit;
+}
+.ag-cell-first-right-pinned.pw-delete-icon-width,
+.ag-header-cell.pw-delete-icon-width {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+.pw-scrollable-ag-grid {
+  .ag-body-viewport {
+    max-height: 340px;
+    overflow-y: auto;
+  }
+}
+
+.pw-bank-deposit-grid {
+  .ag-center-cols-viewport {
+    overflow-x: hidden;
+  }
+}
+@media (max-width: 991px) {
+  .ag-header-cell-label,
+  .pw-table-content {
+    margin-left: 13px;
+  }
+
+  .ag-cell {
+    min-width: 21px;
+  }
+
+  .ag-pinned-right-cols-container {
+    .ag-cell {
+      left: 90px;
+    }
+
+    .ag-cell-first-right-pinned {
+      width: 90px;
+      left: 0;
+    }
+  }
+}
+.pw-justify-content-end {
+  justify-content: flex-end;
+}
+.pw-payee-grid {
+  .ag-header {
+    height: 60px !important;
+    min-height: 60px !important;
+  }
+
+  .ag-header-group-cell-label {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pw-delete-icon-width {
+    padding-left: 1px;
+    padding-right: 1px;
+    min-width: 21px;
+  }
+}
+
+.pw-order-payment-grid {
+  .ag-header {
+    height: 83px !important;
+    min-height: 83px !important;
+  }
+
+  .ag-header-group-cell-label {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pw-delete-icon-width {
+    padding-left: 1px;
+    padding-right: 1px;
+    min-width: 21px;
+  }
+}
+
+.pw-payment-grid {
+  .pw-delete-icon-width {
+    padding-left: 0px;
+  }
+
+  .pw-arrow-circle-green-icon-24 {
+    background-position-x: -2049px;
+  }
+}

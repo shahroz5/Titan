@@ -1,0 +1,24 @@
+<ng-container *ngIf="count != 0">
+  <div possWebFocusableList>
+    <poss-web-exhibition-issue-item
+      possWebFocusableListItem
+      class="pw-list-card d-block"
+      *ngFor="let item of itemList; trackBy: trackBy"
+      [item]="item"
+      [dateFormat]="dateFormat"
+      [issueType]="issueType"
+    >
+    </poss-web-exhibition-issue-item>
+  </div>
+
+  <mat-paginator
+    *ngIf="count > getMinPageSize() && itemList.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+</ng-container>

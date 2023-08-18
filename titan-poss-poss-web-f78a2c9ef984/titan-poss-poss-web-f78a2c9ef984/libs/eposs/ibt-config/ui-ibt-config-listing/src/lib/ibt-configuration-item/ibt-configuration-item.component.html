@@ -1,0 +1,38 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-lg col-12">
+      <p class="pw-fourth-color">
+        {{ 'pw.ibtConfiguration.configName' | translate }}
+      </p>
+      <div class="pw-detail-card__item">
+        <span class="pw-font-weight-bold">{{
+          ibtConfigListItem.description
+        }}</span>
+      </div>
+    </div>
+    <div class="col-auto pw-detail-card__right-container">
+      <a (click)="view(ibtConfigListItem.configId)">
+        <span class="pw-detail-card__icon-text">{{
+          'pw.ibtConfiguration.view' | translate
+        }}</span>
+      </a>
+      &nbsp;
+      <a
+        (click)="edit(ibtConfigListItem.configId)"
+        *ngIf="ibtConfigListItem?.isActive"
+      >
+        <span class="pw-detail-card__icon-text">{{
+          'pw.ibtConfiguration.edit' | translate
+        }}</span>
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+
+    <div class="col-auto pw-detail-card__item">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

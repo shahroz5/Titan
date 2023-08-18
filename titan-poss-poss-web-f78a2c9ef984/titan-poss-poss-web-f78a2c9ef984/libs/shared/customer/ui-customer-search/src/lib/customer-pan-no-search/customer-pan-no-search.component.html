@@ -1,0 +1,18 @@
+<mat-form-field class="pw-form-field-padding-bottom-0" floatLabel="never">
+  <input
+    #searchBox
+    matInput
+    possWebInput
+    [placeholder]="placeholder"
+    [formControl]="searchControl"
+    (keypress)="validKeyCheck($event)"
+    possWebMaxLengthValidator
+    name="pancardField"
+  />
+  <mat-icon matSuffix *ngIf="!searchControl?.value">
+    <span class="pw-i-16 pw-search-icon-16"></span>
+  </mat-icon>
+  <mat-icon matSuffix (click)="clearSearchFn()" *ngIf="searchControl?.value">
+    <span class="pw-i-10 pw-close-icon-16"></span>
+  </mat-icon>
+</mat-form-field>

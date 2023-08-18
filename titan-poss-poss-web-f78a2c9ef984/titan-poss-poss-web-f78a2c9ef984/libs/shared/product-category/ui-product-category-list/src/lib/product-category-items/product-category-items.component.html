@@ -1,0 +1,19 @@
+<poss-web-product-category-listing-item
+  *ngFor="let productCategoryDetailsItem of productCategoryDetailsList"
+  [productCategoryDetailsList]="productCategoryDetailsItem"
+  (productCategoryCodeView)="emitProductCategoryCodeView($event)"
+  (productCategoryCode)="emitProductCategoryCode($event)"
+  (emitToggle)="emitToggle($event)"
+>
+</poss-web-product-category-listing-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

@@ -1,0 +1,145 @@
+<form [formGroup]="coinDetailsForm">
+  <table
+    formArrayName="items"
+    *ngIf="itemsArray.controls.length !== 0"
+    class="pw-mat-table"
+    aria-describedby="table"
+  >
+    <thead>
+      <tr class="pw-mat-table__header">
+        <th class="pw-mat-table__item" scope="col">
+          <p>{{ 'pw.coinPopup.variantCodeHeaderText' | translate }}</p>
+        </th>
+        <th class="pw-mat-table__item pw-mat-table__width-150" scope="col">
+          <p>{{ 'pw.coinPopup.qtyHeaderText' | translate }}</p>
+        </th>
+        <th class="pw-mat-table__item" scope="col">
+          <p>{{ 'pw.coinPopup.actualWeightHeaderText' | translate }}(gms)</p>
+        </th>
+        <th class="pw-mat-table__item" scope="col">
+          <p>{{ 'pw.coinPopup.priceCoinHeaderText' | translate }}(₹)</p>
+        </th>
+        <!-- <th class="pw-mat-table__item" scope="col">
+          <p>{{ 'pw.coinPopup.makingChargeHeaderText' | translate }}(₹)</p>
+        </th> -->
+        <th class="pw-mat-table__item" scope="col">
+          <p>{{ 'pw.coinPopup.totalHeaderText' | translate }}(₹)</p>
+        </th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class="pw-mat-table__body-row"
+        *ngFor="let item of itemsArray.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <td class="pw-mat-table__item">
+          <div>{{ itemsArray.controls[i].get('itemCode').value }}</div>
+          <div class="pw-mat-table__item-content">
+            {{ itemsArray.controls[i].get('karatage').value }}
+            {{ 'pw.coinPopup.ktLabel' | translate }}
+            <span class="tertiary-color"
+              >({{ 'pw.coinPopup.quantityLabel' | translate }}
+              {{ itemsArray.controls[i].get('totalQuantity').value }})</span
+            >
+          </div>
+        </td>
+        <td class="pw-mat-table__item">
+          <div class="pw-fourth-color">
+            <input
+              matInput
+              type="number"
+              formControlName="quantity"
+              min="1"
+              (blur)="quantityChange(i)"
+              (keypress)="numberOnly($event)"
+              required
+            />
+          </div>
+          <mat-error
+            class="pw-error-color"
+            *ngIf="
+              itemsArray.controls[i].get('quantity').errors &&
+              itemsArray.controls[i].get('quantity').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                itemsArray.controls[i].get('quantity').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </td>
+        <td class="pw-mat-table__item">
+          <div class="pw-fourth-color">
+            <input
+              matInput
+              formControlName="actualWeight"
+              possWebWeightInput
+              readonly
+            />
+          </div>
+          <mat-error
+            class="pw-error-color"
+            *ngIf="
+              itemsArray.controls[i].get('actualWeight').errors &&
+              itemsArray.controls[i].get('actualWeight').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                itemsArray.controls[i].get('actualWeight').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </td>
+        <td class="pw-mat-table__item">
+          {{
+            itemsArray.controls[i].get('pricePerUnit').value
+              | currencyFormatter: currencyCode:false
+          }}
+        </td>
+        <!-- <td class="pw-mat-table__item">
+          {{
+            itemsArray.controls[i].get('makingChargeValue').value
+              | currencyFormatter: currencyCode:false
+          }}
+          ({{
+            itemsArray.controls[i].get('makingChargePercentage').value
+              | percentageFormatter
+          }})
+        </td> -->
+        <td class="pw-mat-table__item">
+          {{
+            itemsArray.controls[i].get('finalPrice').value
+              | currencyFormatter: currencyCode:false
+          }}
+        </td>
+        <td class="pw-mat-table__item">
+          <span
+            (click)="deleteRow(i)"
+            class="pw-i-24 pw-delete-black-icon-24"
+          ></span>
+        </td>
+      </tr>
+      <tr class="pw-mat-table__header">
+        <th class="pw-mat-table__item" scope="col">
+          <p>{{ 'pw.coinPopup.totalLabel' | translate }}</p>
+        </th>
+        <th class="pw-mat-table__item pw-font-weight-bold" scope="col">
+          <p>{{ this.totalQuantity }}</p>
+        </th>
+        <th class="pw-mat-table__item pw-font-weight-bold" scope="col">
+          <p>{{ this.totalWeight | weightFormatter }}</p>
+        </th>
+        <th class="pw-mat-table__item" scope="col"></th>
+        <th class="pw-mat-table__item" scope="col"></th>
+        <th class="pw-mat-table__item pw-font-weight-bold" scope="col">
+          <p>{{ this.totalPrice | currencyFormatter: currencyCode:false }}</p>
+        </th>
+        <th scope="col"></th>
+      </tr>
+    </tbody>
+  </table>
+</form>

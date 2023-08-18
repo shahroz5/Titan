@@ -1,0 +1,256 @@
+<div class="pw-detail-card">
+  <mat-accordion multi>
+    <mat-expansion-panel expanded class="pw-expansion-panel">
+      <mat-expansion-panel-header
+        class="pw-expansion-panel__header"
+        [collapsedHeight]="'40px'"
+        [expandedHeight]="'40px'"
+      >
+        <mat-panel-title class="pw-expansion-panel__heading">
+          <p>
+            {{ 'pw.gep.manualGepHeader' | translate }}
+          </p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <!-- <ng-container
+        *possWebPermission="loadPermission(GEP_MANUAL_GEP_ADD_EDIT)"
+      > -->
+        <poss-web-manual-form-details
+          *ngIf="!detailsFlag"
+          [txnType]="TransactionTypeEnumRef.GEP"
+          [detailsFlag$]="detailsFlag$.asObservable()"
+          [customerId]="customerId"
+          [bussinessDay]="bussinessDay"
+          (validate)="validateBill($event)"
+          [permit]="GEP_CONFIRM_MANUAL_GEP_SUBMENU"
+        ></poss-web-manual-form-details>
+      <!-- </ng-container> -->
+      <poss-web-manual-gep-details
+        *ngIf="detailsFlag"
+        [billDetails]="billDetails"
+      ></poss-web-manual-gep-details>
+
+      <div
+        *ngIf="detailsFlag"
+        class="row pw-detail-card__row pw-detail-card__secondary-section"
+        [formGroup]="gepForm"
+      >
+        <!-- <poss-web-select-dropdown
+          class="col-lg-2 col-3"
+          [placeholder]="'pw.productGrid.RSONameLabel' | translate"
+          [control]="gepForm.get('rsoName')"
+          [disabled]="!customerId"
+          [options]="rso"
+          [required]="true"
+          (selectionChange)="onRSONameChange($event)"
+        >
+        </poss-web-select-dropdown> -->
+
+        <!-- <ng-container
+          *possWebPermission="loadPermission(GEP_MANUAL_GEP_ADD_EDIT)"
+        > -->
+          <div class="col-auto">
+            <p *ngIf="gepForm.get('rsoName').value" class="pw-font-weight-bold">
+              {{ 'pw.customerTransaction.rsoNameLabel' | translate }}
+            </p>
+
+            <button
+              [disabled]="!customerId"
+              mat-flat-button
+              class="pw-btn pw-cta-btn"
+              (click)="openRSOSelectionPopup()"
+              matTooltip="{{ gepForm.get('rsoName').value }}"
+            >
+              <div class="row">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      gepForm.get('rsoName').value
+                        ? getRsoNameFromCode(gepForm.get('rsoName').value)
+                        : ('pw.customerTransaction.selectRsoLabel' | translate)
+                    }}
+                  </p>
+                </div>
+                <div class="col-auto ml-auto">
+                  <span class="pw-i-24 pw-user-icon-24"></span>
+                </div>
+              </div>
+            </button>
+            <sup class="pw-error-color pw-font-16"> * </sup>
+          </div>
+
+          <!-- <div class="col-auto"></div> -->
+          <div class="col-auto">
+            <div class="pw-card__margin-top-24">
+              <mat-checkbox
+                [disabled]="!(gepForm.get('rsoName').value && customerId)"
+                formControlName="preDeclarationForm"
+                (change)="checkPreDeclarationForm($event.checked)"
+              >
+                {{ 'pw.gep.checkboxPreDeclaration' | translate }}
+                <sup
+                  *ngIf="isDeclarationFormMandatory"
+                  class="pw-error-color pw-font-16"
+                >
+                  *
+                </sup>
+              </mat-checkbox>
+            </div>
+          </div>
+        <!-- </ng-container> -->
+
+        <div
+          *ngIf="gepForm.get('preDeclarationForm').value === true && customerId"
+          class="col-auto pw-card__margin-top-22"
+        >
+          <poss-web-file-upload
+            [uploadLabel]="'Upload Pre-Declaration Form'"
+            [imageUrl]="imageUrl"
+            (fileEmitter)="upload($event)"
+            (errorEmitter)="uploadError($event)"
+            [previewHeader]="previewHeader"
+            [fileName]="fileName"
+            (clearEmitter)="clear()"
+          ></poss-web-file-upload>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel
+      *ngIf="detailsFlag"
+      expanded
+      class="pw-expansion-panel"
+    >
+      <mat-expansion-panel-header
+        class="pw-expansion-panel__header"
+        [collapsedHeight]="'40px'"
+        [expandedHeight]="'40px'"
+      >
+        <mat-panel-title class="pw-expansion-panel__heading">
+          {{ 'pw.gep.productHeading' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="pw-card pw-panel">
+        <div [formGroup]="validationForm" class="row align-items-center">
+          <mat-form-field *ngIf="scan === true" class="pw-left-margin-20">
+            <mat-icon matPrefix>
+              <span class="pw-i-24 pw-scan-icon-24"></span
+            ></mat-icon>
+            <input
+              #searchBox
+              matInput
+              placeholder="Scan karatage"
+              [formControl]="searchFormControl"
+              class="pw-single-bordered-input"
+              name="weight"
+            />
+
+            <mat-icon
+              matSuffix
+              (click)="clearSearch($event)"
+              *ngIf="searchFormControl.value"
+            >
+              <span class="pw-i-10 pw-close-icon-16"></span
+            ></mat-icon>
+            <mat-error *ngIf="searchFormControl.hasError('invalid')">
+              {{ 'pw.gep.totalValueMsg' | translate }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field *ngIf="scan !== true" class="col-2">
+            <mat-label> Weight </mat-label>
+            <input
+              matInput
+              formControlName="weight"
+              required
+              possWebWeightInput
+            />
+            <mat-error
+              *ngIf="
+                validationForm.get('weight').errors &&
+                validationForm.get('weight').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="validationForm.get('weight').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field *ngIf="scan !== true" class="col-2">
+            <mat-label>
+              {{ 'pw.gep.purityLbl' | translate }}
+            </mat-label>
+            <input
+              matInput
+              formControlName="purity"
+              required
+              possWebMaxLengthValidator
+            />
+
+            <mat-error
+              *ngIf="
+                validationForm.get('purity').errors &&
+                validationForm.get('purity').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="validationForm.get('purity').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+          <div class="col-2">
+            <mat-checkbox
+              formControlName="scan"
+              (change)="scanForm($event.checked)"
+            >
+              {{ 'pw.gep.scanKaratageLbl' | translate }}
+            </mat-checkbox>
+          </div>
+
+          <div *ngIf="scan !== true" class="col-auto ml-auto">
+            <!-- <ng-container
+              *possWebPermission="loadPermission(GEP_MANUAL_GEP_ADD_EDIT)"
+            > -->
+              <button (click)="add()" class="pw-btn pw-primary-btn">
+                {{ 'pw.gep.add' | translate }}
+              </button>
+            <!-- </ng-container> -->
+          </div>
+        </div>
+      </div>
+      <br *ngIf="validationForm.get('purity').errors" />
+      <poss-web-gep-product-grid
+        [productGrid]="productGrid"
+        [preDeclaration]="
+          gepForm.get('preDeclarationForm').value && isDeclarationFormMandatory
+        "
+        [weightPurity]="weightPurity"
+        [metalDetail]="metalDetail"
+        [itemDetail]="itemDetail"
+        (metalTypes)="metalType($event)"
+        (oldValueEmit)="oldValue($event)"
+        (patchGridItems)="patchGridItem($event)"
+        (deleteEmit)="deleteEmit($event)"
+      ></poss-web-gep-product-grid>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <ng-template #confirmSuccessNotificationTemplate>
+    <div class="pw-text-center">
+      <h3 class="pw-success-color">
+        {{ 'pw.gep.manualGepNotification' | translate }}
+      </h3>
+      <h5 class="pt-2">{{ 'pw.gep.cnNo' | translate }} {{ cnNo }}</h5>
+      <h5 class="pt-2">{{ 'pw.gep.gepDocNo' | translate }} {{ srcDocNo }}</h5>
+      <h4 class="pw-success-color pw-pointer" (click)="print()">
+        <span class="pw-i-16 pw-download-icon-16 pw-print"></span>
+        {{ 'pw.advanceBooking.print' | translate }}
+      </h4>
+    </div>
+  </ng-template>
+</div>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) || (printingService.getPrinterIsLoading() | async)
+  "
+></poss-web-loader>

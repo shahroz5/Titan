@@ -1,0 +1,14 @@
+{
+	"type": "DISCOUNT_DETAILS",
+	"data": {
+		"remarks": "Reason 2",
+		"validDiscountDetails": {
+			"string": {
+				"discountId": "string",
+				"discountDetailsId": "string",
+				"isExclude": true,
+				"discountType": "string"
+			}
+		}
+	}
+}

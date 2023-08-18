@@ -1,0 +1,139 @@
+<div
+  class="row no-gutters"
+  [formGroup]="itemForm"
+  [ngClass]="disabled === true ? 'pw-disabled' : ''"
+>
+  <div
+    class="col-auto pw-list-card__checkbox"
+    *ngIf="
+      requestType == interBoutiqueTransferRequestTypesEnumRef.RECEIVED &&
+      selectedRequestStatus == interBoutiqueTransferStatusTypesEnumRef.REQUESTED
+    "
+  >
+    <mat-checkbox
+      (change)="isSelectedChange()"
+      formControlName="isSelected"
+    ></mat-checkbox>
+  </div>
+  <poss-web-item-details 
+    [item]="itemData"
+    [toLoadImageUrlFromAPI]="true"
+    (loadImageEvent)="loadImage()"
+  > 
+  </poss-web-item-details>
+
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div
+        class="col-auto pw-input-group__item"
+        *ngIf="
+          requestType === interBoutiqueTransferRequestTypesEnumRef.RECEIVED
+        "
+      >
+        <div class="pw-input-group__item-label">
+          <span
+            >{{ 'pw.interboutiqueTransfer.itemListInlineText8' | translate }}
+          </span>
+        </div>
+        <input
+          type="number"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          value="{{ item.availableQuantity }}"
+          placeholder="{{
+            'pw.interboutiqueTransfer.itemListInlineText8' | translate
+          }}"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          <span
+            >{{ 'pw.interboutiqueTransfer.itemListInlineText9' | translate }}
+          </span>
+        </div>
+        <input
+          type="number"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          value="{{ item.requestedQuantity }}"
+          placeholder="{{
+            'pw.interboutiqueTransfer.itemListInlineText9' | translate
+          }}"
+          readonly
+        />
+      </div>
+      <div
+        *ngIf="
+          requestType === interBoutiqueTransferRequestTypesEnumRef.RECEIVED
+        "
+        class="col-auto pw-input-group__item"
+      >
+        <div class="pw-input-group__item-label">
+          <span
+            >{{ 'pw.interboutiqueTransfer.itemListInlineText1' | translate }}
+          </span>
+        </div>
+        <input
+          type="number"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          formControlName="requestedQuantity"
+          placeholder="{{
+            'pw.interboutiqueTransfer.itemListInlineText1' | translate
+          }}"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.interboutiqueTransfer.itemListInlineText2' | translate }}
+          ({{ item.weightUnit }})
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box"
+          value="{{ weightToDisplay | weightFormatter }}"
+          placeholder="{{
+            'pw.interboutiqueTransfer.itemListInlineText2' | translate
+          }}"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.interboutiqueTransfer.itemListInlineText10' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          value="{{ item.binCode }}"
+          placeholder="{{
+            'pw.interboutiqueTransfer.itemListInlineText10' | translate
+          }}"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- out of stock message -->
+  <div
+    class="col-auto ml-auto pw-list-card__error-label"
+    *ngIf="
+      item.availableQuantity === 0 &&
+      requestType === interBoutiqueTransferRequestTypesEnumRef.RECEIVED &&
+      getErrorMsgDisplay(selectedRequestStatus)
+    "
+  >
+    <span class="pw-i-16 pw-warning-icon-16"></span>
+    {{ 'pw.interboutiqueTransfer.itemListInlineText5' | translate }}
+  </div>
+  <!-- status message -->
+  <div
+    *ngIf="getStatusDisplay(selectedRequestStatus)"
+    class="col-auto pw-list-card__status-label"
+  >
+    <p [ngClass]="getStatus(item.status)">
+      <span class="pw-i-16" [ngClass]="getStatus(item.status)"></span>
+      {{ status | titlecase }}
+    </p>
+  </div>
+</div>

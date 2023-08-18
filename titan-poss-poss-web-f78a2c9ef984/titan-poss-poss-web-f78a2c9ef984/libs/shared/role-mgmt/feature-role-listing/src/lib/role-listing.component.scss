@@ -1,0 +1,17 @@
+.role-form-fields {
+  width: 100%;
+}
+
+.pw-form-card {
+  position: relative;
+
+  &__footer {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  &__fixed-height {
+    height: 335px;
+  }
+}

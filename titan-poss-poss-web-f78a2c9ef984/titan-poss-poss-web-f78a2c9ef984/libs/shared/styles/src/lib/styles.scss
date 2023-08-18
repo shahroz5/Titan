@@ -1,0 +1,135 @@
+@import 'node_modules/bootstrap/scss/bootstrap-reboot.scss';
+@import 'node_modules/bootstrap/scss/bootstrap-grid.scss';
+@import 'node_modules/ag-grid-community/src/styles/ag-grid.scss';
+@import 'node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss';
+@import 'styles-reset';
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+@import 'style/fonts.scss';
+
+html,
+body {
+  height: 100%;
+}
+
+// // body font size
+$whole-body-font: 16;
+
+// // function to convert px to em
+@function em($pixels, $context: $whole-body-font) {
+  @return #{$pixels/$context}em;
+}
+
+body {
+  margin: 0;
+  font-family: $ibm-plex-condensed;
+  overflow-x: hidden;
+  line-height: 1.3;
+  position: relative;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+.pw-light-theme {
+  --primary-color: #f6f4ee;
+  --secondary-color: #000;
+  --fourth-color: #b0a16e;
+  --sixth-color: #fff;
+  --eigth-color: #ede9de;
+  --eleventh-color: #770ef2;
+  --success-color: #1eb496;
+  --error-color: #ed5b6b;
+  --rgba-color: 126, 110, 56;
+
+  @import 'light-theme-import.scss';
+
+  .pw-login__logo-icon {
+    width: 255px;
+    height: 205px;
+    background: url($appName + '/assets/img/tanishq-logo.svg') 0 0;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: -42px;
+    z-index: 99;
+  }
+  @media (max-width: 991px) {
+    .pw-login__logo-icon {
+      width: 173px;
+      height: 140px;
+      background: url($appName + '/assets/img/tanishq-logo.svg') 0 0;
+      background-size: contain;
+      top: 0px;
+    }
+  }
+}
+
+.pw-dark-theme {
+  --primary-color: #f0f3f5;
+  --secondary-color: #000;
+  --fourth-color: #f15060;
+  --sixth-color: #fff;
+  --eigth-color: #ede9de;
+  --eleventh-color: #770ef2;
+  --success-color: #1eb496;
+  --error-color: #b50617;
+  --rgba-color: 241, 80, 96;
+
+  @import 'dark-theme-import.scss';
+
+  .pw-login__logo-icon {
+    width: 180px;
+    height: 205px;
+    background: url($appName + '/assets/img/mia-icons/mia-logo.svg') 0 0;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: -42px;
+    z-index: 99;
+  }
+}
+
+.pw-zoya-theme {
+  --primary-color: #fcfbf7;
+  --secondary-color: #000;
+  --fourth-color: #d9bdb1;
+  --sixth-color: #fff;
+  --eigth-color: #ede9de;
+  --eleventh-color: #770ef2;
+  --success-color: #1eb496;
+  --error-color: #ed5b6b;
+  --rgba-color: 126, 110, 56;
+
+  @import 'zoya-theme-import.scss';
+
+  .pw-login__logo-icon {
+    width: 181px;
+    height: 205px;
+    background: url($appName + '/assets/img/zoya-icons/zoya-logo.svg') 0 0;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: -42px;
+    z-index: 99;
+  }
+  @media (max-width: 991px) {
+    .pw-login__logo-icon {
+      width: 122px;
+      height: 140px;
+      background: url($appName + '/assets/img/zoya-icons/zoya-logo.svg') 0 0;
+      background-size: contain;
+      top: 0px;
+    }
+  }
+}

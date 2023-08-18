@@ -1,0 +1,45 @@
+/*  
+ * Copyright 2019. Titan Company Limited
+ * All rights reserved.
+ */
+ 
+ /**
+ * @author  Mindtree Ltd.
+ * @version 1.0
+ */
+
+rootProject.name = 'poss-services'
+
+include 'auth-service'
+include 'core-service'
+include 'core-service:core-kernel'
+include 'core-service:sync-data'
+include 'core-service:inventory-data'
+include 'core-service:product-data'
+include 'core-service:location-data'
+include 'core-service:user-data'
+include 'core-service:sales-data'
+include 'core-service:store-data'
+include 'core-service:payment-data'
+include 'core-service:config-data'
+include 'core-service:integration-data'
+include 'core-service:report-data'
+include 'gateway-server'
+include 'inventory-service'
+include 'integration-service'
+include 'location-service'
+include 'product-service'
+include 'user-service'
+include 'datasync-service'
+include 'monolithic-service'
+include 'store-service'
+include 'config-server'
+include 'config-service'
+include 'engine-service'
+include 'sales-service'
+include 'payment-service'
+include 'workflow-service'
+include 'report-service'
+include 'registry-server'
+include 'file-service'
+

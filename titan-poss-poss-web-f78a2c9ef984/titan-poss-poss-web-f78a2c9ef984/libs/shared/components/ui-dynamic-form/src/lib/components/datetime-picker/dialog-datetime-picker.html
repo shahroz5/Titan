@@ -1,0 +1,72 @@
+<mat-calendar
+  [selected]="selectedDate"
+  (selectedChange)="dateSelected($event)"
+  startView="month"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+>
+</mat-calendar>
+<mat-divider></mat-divider>
+<br />
+<div class="row">
+  <div class="col-3">
+    <mat-form-field style="width: 95px;">
+      <mat-label>Hours</mat-label>
+      <mat-select disableOptionCentering [(value)]="hour">
+        <mat-option *ngFor="let hour of hours" [value]="hour">
+          {{hour}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field style="width: 95px;">
+      <mat-label>Minutes</mat-label>
+      <mat-select disableOptionCentering [(value)]="minute">
+        <mat-option *ngFor="let minute of minutes" [value]="minute">
+          {{minute}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field style="width: 95px;">
+      <mat-label>Seconds</mat-label>
+      <mat-select disableOptionCentering [(value)]="second">
+        <mat-option *ngFor="let second of seconds" [value]="second">
+          {{second}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-3">
+    <mat-form-field style="width: 85px;">
+      <mat-label>AM/PM</mat-label>
+      <mat-select disableOptionCentering [(value)]="meridie">
+        <mat-option *ngFor="let meridie of meridies" [value]="meridie">
+          {{meridie}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col">
+    <mat-error *ngIf="errorCheck">
+      {{ error }}
+    </mat-error>
+  </div>
+  <div class="col">
+    <div style="float: right;">
+      <button
+        mat-raised-button
+        style="margin-right: 10px;"
+        (click)="onNoClick()"
+      >
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" (click)="okClick()">Ok</button>
+    </div>
+  </div>
+</div>

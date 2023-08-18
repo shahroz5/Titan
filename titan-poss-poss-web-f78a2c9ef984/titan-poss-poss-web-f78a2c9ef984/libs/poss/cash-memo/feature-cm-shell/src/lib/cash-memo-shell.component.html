@@ -1,0 +1,152 @@
+<ng-container *ngIf="isLoggedIn">
+  <div class="pw-menu-bar">
+    <div class="pw-menu-bar__list">
+      <poss-web-toolbar
+        *ngIf="!router.url.includes('history')"
+        (selectedIdEmit)="onSelected($event)"
+        [item]="currentItem"
+      ></poss-web-toolbar>
+    </div>
+  </div>
+  <div
+    class="container-fluid"
+    [class.pw-overlay-notification-gutter]="hasNotification"
+  >
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto">
+              <div class="pw-top-heading-container__main-head">
+                <a (click)="possHomeUrl()">
+                  <span
+                    class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                  ></span>
+                </a>
+                <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+                <div class="pw-top-heading-container__heading">
+                  {{ 'pw.cashMemoShell.cashMemoHeading' | translate }}
+                </div>
+              </div>
+            </div>
+            <!-- <ng-container
+              *possWebPermission="loadPermission(CASH_MEMO_ADD_EDIT_SUBMENU)"
+            > -->
+            <poss-web-customer-search-container
+              *ngIf="!router.url.includes('history')"
+              class="col-auto ml-auto"
+            ></poss-web-customer-search-container>
+            <!-- </ng-container> -->
+          </div>
+        </div>
+
+        <div class="pw-tab row no-gutters">
+          <ul class="pw-tab__list col">
+            <!-- <ng-container
+              *possWebPermission="loadPermission(CASH_MEMO_VIEW_NEW_CM_SUBMENU)"
+            > -->
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./new']"
+                [class.pw-is-active-bar]="
+                  !router.url.includes('history') &&
+                  !router.url.includes('manual-bill')
+                "
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.cashMemoShell.newCMTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+            <!-- </ng-container> -->
+            <!-- <ng-container
+              *possWebPermission="loadPermission(CASH_MEMO_MANUAL_BILL_SUBMENU)"
+            > -->
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./manual-bill/new']"
+                [class.pw-is-active-bar]="router.url.includes('manual-bill')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.cashMemoShell.manualCMTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+            <!-- </ng-container> -->
+
+            <!-- <ng-container
+              *possWebPermission="loadPermission(CASH_MEMO_HISTORY_SUBMENU)"
+            > -->
+            <li class="pw-tab__list-item">
+              <a
+                [routerLink]="['./history']"
+                [class.pw-is-active-bar]="router.url.includes('history')"
+              >
+                <h5 class="pw-tab__item">
+                  {{ 'pw.cashMemoShell.historyTabLabel' | translate }}
+                </h5></a
+              >
+            </li>
+            <!-- </ng-container> -->
+          </ul>
+
+          <poss-web-order-detail
+            [transactionType]="commomStateAttributeTypeEnum?.CASHMEMO"
+          ></poss-web-order-detail>
+        </div>
+        <ng-container *ngIf="!router.url.includes('history')">
+          <poss-web-shortcut-panel
+            (selectedPanel)="focusSelectedPanel($event)"
+            [setPanelFocus$]="setPanelFocus$.asObservable()"
+            [panelCount]="panelCount"
+          ></poss-web-shortcut-panel>
+        </ng-container>
+
+        <router-outlet></router-outlet>
+
+        <poss-web-tolerance-details
+          *ngIf="
+            !router.url.includes('history') &&
+            !router.url.includes('manual-bill')
+          "
+        ></poss-web-tolerance-details>
+        <ng-container *ngIf="!router.url.includes('history')">
+          <poss-web-product
+            [setFocus]="selectedPanel"
+            [products]="currentItem"
+          ></poss-web-product>
+
+          <poss-web-discount [setFocus]="selectedPanel"></poss-web-discount>
+
+          <poss-web-file-multi-upload
+            [title]="fileUploadTitleText"
+            [fileType]="fileType"
+            [docType]="'CM'"
+            [setFocus]="selectedPanel"
+          ></poss-web-file-multi-upload>
+
+          <poss-web-other-charges
+            *ngIf="!router.url.includes('history')"
+            [setFocus]="selectedPanel"
+          >
+          </poss-web-other-charges>
+          <!-- <ng-container
+            *possWebPermission="loadPermission(CASH_MEMO_VIEW_PAYMENT_SUBMENU)"
+          > -->
+          <poss-web-payment [setFocus]="selectedPanel"> </poss-web-payment>
+        </ng-container>
+        <!-- </ng-container> -->
+
+        <button
+          mat-mini-fab
+          color="primary"
+          class="pw-up-arrow-btn"
+          *ngIf="(scrollService.scrollTop | async) > 50"
+          (click)="scrollUp()"
+        >
+          <span class="pw-i-32 pw-up-arrow-icon-32"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

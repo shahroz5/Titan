@@ -1,0 +1,412 @@
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    Print wastage component (CM)
+  </div>
+
+  <div class="pw-form-card__flex-row">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printWastage' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.printDetails?.data?.printWastageComponent
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printWastagePercent' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printWastagePercent"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.pritnWastageCharge' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printWastageCharge"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printStoneValue' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printStoneValue"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printGoldValue' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printGoldValue"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printPrice' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printPrice"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printmakingWastageCharges' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.isMCAndWastage"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.makingChargesWastageHeading' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.printDetails?.data?.mcOrWastageExpense
+              ? locationDetails.printDetails.data.mcOrWastageExpense
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    Print Details
+  </div>
+  <div class="pw-form-card__flex-row">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.freeTextForGrams' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.printDetails?.data?.freeTextForGrams
+              ? locationDetails.printDetails.data.freeTextForGrams
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.QuickCM' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.printDetails?.data
+              ?.noOfInvoicecopiesforRegularOrQuickCM
+              ? locationDetails.printDetails.data
+                  .noOfInvoicecopiesforRegularOrQuickCM
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.invoiceType' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.printDetails?.data?.invoiceType
+              ? locationDetails.printDetails.data.invoiceType
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.displayWastagePercentage' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.printDetails?.data?.isDisplayWastagePercent
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.variablePricingEnabled' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.isVariablePrice"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printmakingCharges' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printMakingCharges"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printCustomerNoinreport' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.printDetails?.data?.printCustomerNumberinReport
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printCashMemo' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printCashMemo"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printGuaranteeCard' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printGuaranteeCard"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printStoneGuaranteeCard' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.printDetails?.data
+                ?.printOtherStoneWtinGuaranteeCard
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printStoneAnnexure' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.printDetails?.data
+                ?.printOtherStoneWeightinAnnexure
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.printImage' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.printDetails?.data?.printImage"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

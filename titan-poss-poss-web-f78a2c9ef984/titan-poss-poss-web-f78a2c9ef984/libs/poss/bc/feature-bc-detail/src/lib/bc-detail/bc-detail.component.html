@@ -1,0 +1,94 @@
+<mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.bc.cmDetailsLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <poss-web-bc-header-details
+    [cmHeaderDetails$]="viewCashMemo$"
+  ></poss-web-bc-header-details>
+  <div class="row pw-card__header" [formGroup]="detailsForm">
+    <poss-web-select-dropdown
+      class="col-xl-3 col-lg-3 col-3 pw-bc-select"
+      [placeholder]="'pw.bc.selectCancelReasonLabel' | translate"
+      [control]="detailsForm.get('reason')"
+      [options]="reason"
+      [required]="true"
+    >
+    </poss-web-select-dropdown>
+    <div
+      *ngIf="(viewCashMemo$ | async)?.occasion"
+      class="col-xl-2 col-lg-3 col-3"
+    >
+      <div class="pw-tertiary-color">
+        {{ 'pw.bc.occasionLabel' | translate }}
+      </div>
+      {{ (viewCashMemo$ | async)?.occasion }}
+    </div>
+  </div>
+</mat-expansion-panel>
+<poss-web-product-view
+  [productDetails$]="cashMemoHistoryProductGrid$"
+  (loadImageUrl)="loadImageUrl($event)"
+  [imageUrlData$]="imageUrlData$.asObservable()"
+  [cashMemoData]="selectedItemsDetails"
+  [pgDesc$]="pgDesc$"
+  [rsoNames]="rsoDetails$ | async"
+  [isLegacy]="isLegacy"
+></poss-web-product-view>
+
+<ng-template #confirmSuccessNotificationTemplate1>
+  <div class="pw-text-center">
+    <h3 *ngIf="reqStatus === BcTypesEnumRef.CAN_CN" class="pw-success-color">
+      {{ 'pw.bc.cancelSuccessMsg1' | translate }}
+    </h3>
+    <h3
+      *ngIf="reqStatus === BcTypesEnumRef.CAN_RETURN"
+      class="pw-success-color"
+    >
+      {{ 'pw.bc.cancelSuccessMsg2' | translate }}
+    </h3>
+    <h5 *ngIf="paymentFacade.getIsEncirclePaymentAdded() | async" class="pt-2">
+      {{ 'pw.paymentEncircle.encirclePointsReversed' | translate }}
+    </h5>
+    <h5 class="pt-2">
+      {{ 'pw.bc.cancelSuccessMsg3' | translate }} : {{ srcDocNo }}
+    </h5>
+    <h5 *ngIf="cnNos" class="pt-2">
+      {{ 'pw.bc.cancelSuccessMsg4' | translate }} : {{ cnNos }}
+    </h5>
+    <h5 *ngIf="tcsCnDocNo" class="pt-2">TCS CN No. : {{ tcsCnDocNo }}</h5>
+    <h5 *ngIf="tcsCnAmount" class="pt-2">
+      TCS CN Amount : {{ tcsCnAmount | currencyFormatter: currencyCode }}
+    </h5>
+    <h4 class="pw-success-color pw-pointer" (click)="print()">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>
+      {{ 'pw.advanceBooking.print' | translate }}
+    </h4>
+  </div>
+</ng-template>
+
+<ng-template #confirmSuccessNotificationTemplate2>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.bc.confirmSuccessMsg1' | translate }}
+    </h3>
+    <h5 class="pt-2">
+      {{ 'pw.bc.requestNoMsg' | translate }} : {{ srcDocNo }}
+    </h5>
+  </div>
+</ng-template>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) === true ||
+    (isCommonLoading$ | async) ||
+    (printingService.getPrinterIsLoading() | async) ||
+    (isPaymentLoading$ | async) === true ||
+    timeDelayLoader
+  "
+>
+</poss-web-loader>

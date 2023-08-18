@@ -1,0 +1,15 @@
+.pw-signature-pad {
+  // display: block;
+}
+
+:host {
+  // display: block;
+}
+
+.pw-signature-pad-container-disable {
+  border: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.pw-signature-pad-container-enable {
+  border: 2px solid var(--fourth-color);
+}

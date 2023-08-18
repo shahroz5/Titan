@@ -1,0 +1,185 @@
+// TOP MENU
+.pw-top-menu {
+  display: flex;
+  height: 84px;
+  line-height: 84px;
+
+  &__profile {
+    position: relative;
+    top: 3px;
+  }
+
+  &__profile-text {
+    color: var(--secondary-color);
+    position: relative;
+    top: -1px;
+    left: 3px;
+    font-weight: bold;
+  }
+
+  &__right-item {
+    margin-right: 15px;
+
+    .mat-badge-content {
+      right: 0;
+      bottom: 0;
+      color: var(--secondary-color);
+    }
+  }
+
+  .pw-user-icon-24 {
+    top: 1px;
+    margin-right: 7px;
+  }
+
+  &__profile-badge {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    background: var(--success-color);
+    border-radius: 50%;
+    border: 1px solid var(--fourth-color);
+    bottom: -1px;
+    left: 15px;
+  }
+
+  .pw-top-menu__left-menu {
+    align-items: center;
+    width: 70%;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+
+    ul {
+      align-items: center;
+      list-style-position: inside;
+      padding: 0;
+      margin: 0;
+
+      li {
+        a {
+          span {
+            margin: 0 25px 0 0;
+            opacity: 0.4;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            color: var(--secondary-color);
+          }
+
+          &:hover {
+            span {
+              opacity: 1;
+              color: var(--secondary-color);
+
+              &::before {
+                position: absolute;
+                content: '';
+                bottom: -10px;
+                border: 2px solid var(--fourth-color);
+                width: 47px;
+              }
+            }
+          }
+
+          &.is-active {
+            span {
+              opacity: 1;
+              color: var(--secondary-color);
+
+              &::before {
+                position: absolute;
+                content: '';
+                bottom: -10px;
+                border: 2px solid var(--fourth-color);
+                width: 47px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pw-top-menu__right-menu {
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    margin-left: auto;
+  }
+
+  .pw-user-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px 0 5px;
+  }
+
+  &.pw-margin-left {
+    margin-left: 35px;
+  }
+
+  &__middle-menu {
+    float: right;
+
+    .pw-top-navbar__menu {
+      text-transform: none;
+    }
+  }
+
+  &__tablet-view {
+    display: none;
+    margin: 0;
+  }
+
+  &__desktop-view {
+    display: inline;
+    margin: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .pw-top-menu {
+    .pw-top-menu__left-menu {
+      display: none;
+    }
+
+    &__tablet-view {
+      display: block;
+    }
+
+    &__desktop-view {
+      display: none;
+    }
+
+    &__block {
+      height: 30px;
+    }
+
+    &__menu {
+      padding: 0 10px;
+      margin: 0 2px 0 0;
+    }
+  }
+
+  .pw-shortcut-key {
+    display: none;
+  }
+}
+
+.toggle {
+  padding: 1px 10px;
+}
+p {
+  color: black;
+  font-size: 12px;
+}
+
+.pw-top-menu__location {
+  position: relative;
+}
+.pw-top-menu__location_text {
+  position: absolute;
+  top: -13px;
+  left: -70px;
+  z-index: -2;
+}

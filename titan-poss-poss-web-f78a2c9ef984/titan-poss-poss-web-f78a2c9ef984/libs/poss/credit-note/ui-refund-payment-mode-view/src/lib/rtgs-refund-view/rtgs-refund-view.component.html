@@ -1,0 +1,81 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__heading">
+        {{ 'pw.creditNote.refundPaymentDetails' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.netRefundAmount' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.netRefundAmount | currencyFormatter}}</div>
+    </div>
+    <div class="col-auto" *ngIf='creditNoteDetails?.cnRefundDetails?.refundPaymentType'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.refundModeLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.refundPaymentType }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.refundTypeLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.refundPaymentMode }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.cancelRemarksLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cancelRemarks }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.approvalRemarksLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.approverRemarks }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.approvedByLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.approverBy }}</div>
+    </div>
+  </div>
+</div>
+<div *ngIf='creditNoteDetails?.cnRefundDetails?.refundPaymentMode === refundOptionTypes.RTGS || creditNoteDetails?.cnRefundDetails?.refundPaymentMode === refundOptionTypes.RO_RTGS' class="pw-detail-card">
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.accountHoldersName' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.accountHoldersName }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.bankName' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.bankName }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.accountNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.accountNumber }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.branch' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.bankName }}</div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.creditNote.ifscCode' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">{{ creditNoteDetails?.cnRefundDetails?.bankDetails?.ifscCode }}</div>
+    </div>
+  </div>
+</div>

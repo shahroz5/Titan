@@ -1,0 +1,23 @@
+<div class="pw-form-card">
+  <div class="pw-form-card__margin-bottom pw-font-weight-bold">
+    {{ 'pw.discountApplicable.tepDiscountRecoveryLabel' | translate }}
+  </div>
+  <table class="pw-grid-table"  aria-describedby="table">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discountApplicable.durationLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discountApplicable.utilizationPercentageLabel' | translate }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr *ngFor="let item of rowData" class="pw-grid-table__row">
+        <td class="pw-grid-table__item">{{ item.durationInDays }}</td>
+        <td class="pw-grid-table__item">{{ item.recoveryPercent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,43 @@
+<mat-form-field
+  class="pw-mat-form-field-container"
+  [formGroup]="barCodeSearchForm"
+>
+  <mat-label>{{ 'pw.giftCards.scanGiftCardNumber' | translate }}</mat-label>
+  <mat-icon matPrefix>
+    <span class="pw-i-24 pw-scan-icon-24"></span>
+  </mat-icon>
+  <input
+    #visibleGcCardInput
+    autoComplete="off"
+    id="visibleGcCardInput"
+    (focus)="onVisibleInputFieldFocus()"
+    (blur)="onFocusOut()"
+    matInput
+    formControlName="visibleCardControl"
+    name="giftCardField"
+  />
+  <mat-error
+    *ngIf="
+      barCodeSearchForm.get('visibleCardControl').errors &&
+      barCodeSearchForm.get('visibleCardControl').errors.errorArray
+    "
+  >
+    <poss-web-error-info-tooltip
+      [errorMessage]="
+        barCodeSearchForm.get('visibleCardControl').errors.errorArray
+      "
+    ></poss-web-error-info-tooltip>
+  </mat-error>
+</mat-form-field>
+
+<!-- <div
+  class="pw-mat-form-z-index pw-scan-gift-card-label"
+  *ngIf="!giftCardNumber"
+>
+  <div class="pw-bordered-text-label">Scan Gift Card.</div>
+</div> -->
+
+<div class="pw-mat-form-z-index pw-gift-card-number" *ngIf="giftCardNumber">
+  <p class="pw-fourth-color pw-gift-card-no-label">Gift Card Number</p>
+  <div class="pw-bordered-text-label">{{ giftCardNumber }}</div>
+</div>

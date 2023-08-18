@@ -1,0 +1,13 @@
+{
+	"type": "INSTRUMENT_NUMBER_DETAILS",
+	"data": [
+		{
+			"instrumentNo": "214788881",
+			"isGhsVoucherEnabled": true
+		},
+		{
+			"instrumentNo": "412788881",
+			"isGhsVoucherEnabled": true
+		}
+	]
+}

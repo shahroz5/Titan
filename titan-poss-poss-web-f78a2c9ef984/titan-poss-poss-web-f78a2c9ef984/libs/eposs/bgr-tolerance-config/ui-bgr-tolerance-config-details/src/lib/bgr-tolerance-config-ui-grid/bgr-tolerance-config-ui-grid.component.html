@@ -1,0 +1,44 @@
+<!-- <form> -->
+<div class="row mb-2">
+  <div class="col-auto ml-auto">
+    <button class="pw-btn pw-primary-btn pw-add-button" (click)="addRow()">
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.bgrToleranceConfigurations.add' | translate }}
+    </button>
+  </div>
+</div>
+
+
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [rowData]="configRowData"
+  [context]="getContext()"
+  [animateRows]="true"
+  [rowHeight]="rowHeight"
+  [domLayout]="domLayout"
+  (gridReady)="gridReady($event)"
+  [frameworkComponents]="getComponents()"
+  (gridSizeChanged)="onGridSizeChanged()"
+></ag-grid-angular>
+
+<div class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button
+      [disabled]="configId === 'new'"
+      class="pw-btn pw-primary-btn"
+      (click)="locationMapping()"
+    >
+      {{ 'pw.weightTolerance.locationMapping' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-accent-btn"
+      (click)="save()"
+      [disabled]="!formData"
+    >
+      {{ 'pw.weightTolerance.saveLable' | translate }}
+    </button>
+  </div>
+</div>

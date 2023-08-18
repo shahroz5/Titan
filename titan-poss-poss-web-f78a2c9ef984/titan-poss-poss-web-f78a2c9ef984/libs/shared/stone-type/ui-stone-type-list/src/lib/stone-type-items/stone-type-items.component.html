@@ -1,0 +1,19 @@
+<poss-web-stone-type-listing-item
+  *ngFor="let stoneTypeDetailsItem of stoneTypeDetailsList; trackBy: trackBy"
+  [stoneTypeDetailsList]="stoneTypeDetailsItem"
+  (stoneTypeCode)="emitStoneTypeCode($event)"
+  (stoneTypeCodeView)="emitstoneTypeCodeView($event)"
+  (emitToggle)="emitToggleEvent($event)"
+>
+</poss-web-stone-type-listing-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

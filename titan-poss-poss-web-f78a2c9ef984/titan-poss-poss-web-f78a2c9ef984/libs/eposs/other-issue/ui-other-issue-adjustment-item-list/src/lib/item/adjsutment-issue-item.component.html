@@ -1,0 +1,94 @@
+<div class="row no-gutters" [formGroup]="itemForm">
+  <div class="col-auto pw-list-card__checkbox" *ngIf="cart == true">
+    <mat-checkbox formControlName="isItemSelected" (change)="selectItem()">
+    </mat-checkbox>
+  </div>
+
+  <poss-web-item-details [item]="itemData"> </poss-web-item-details>
+
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.availableQuantityLabelText' | translate }}
+        </div>
+        <input
+          type="number"
+          possWebInput
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          formControlName="measuredQuantity"
+          [readonly]="true"
+          min="1"
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.RequestedQuantityLabelText' | translate }}
+        </div>
+        <input
+          type="number"
+          possWebInput
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          formControlName="measuredQuantity"
+          (keypress)="numberOnly($event)"
+          [readonly]="readonlyData"
+          min="1"
+          (blur)="measuredQuantity()"
+          name="quantityField"
+          possWebMaxLengthValidator
+        />
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.grossWeightText' | translate }}
+        </div>
+        <input
+          possWebWeightInput
+          class="pw-bg-input-box"
+          formControlName="measuredWeight"
+          [readonly]="readonlyData"
+          (blur)="measuredWeight()"
+          name="weightField"
+          possWebMaxLengthValidator
+        />
+      </div>
+
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.otherReceiptsIssues.BinLabelText' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          value="{{ item.binCode }}"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="flex-fill"></div>
+  <div class="col-auto">
+    <span
+      *ngIf="
+        itemForm.get('measuredWeight').dirty ||
+        itemForm.get('measuredWeight').touched
+      "
+      class="pw-list-card__error-label"
+    >
+      {{ weightMismatchError }}
+    </span>
+    <mat-error
+      *ngIf="
+        itemForm.get('measuredQuantity').errors &&
+        itemForm.get('measuredQuantity').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="itemForm.get('measuredQuantity').errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </div>
+</div>

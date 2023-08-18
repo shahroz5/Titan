@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{
+                    'pw.clubbingDiscounts.offerConfigurationLabel' | translate
+                  }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.clubbingDiscounts.configurationLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.clubbingDiscounts.clubbingDiscountsLabel' | translate }}
+          </div>
+        </div>
+        <div class="col-auto ml-auto pw-form-field-padding-bottom-0">
+          <mat-form-field class="pw-search-bar">
+            <input
+              #discountCodeSearch
+              matInput
+              placeholder="Discount Code"
+              class="pw-single-bordered-input"
+              [formControl]="searchFormControl"
+            />
+            <mat-icon matSuffix>
+              <span
+                *ngIf="!searchFormControl.value"
+                class="pw-i-16 pw-search-icon-16"
+              ></span
+            ></mat-icon>
+            <mat-icon matSuffix (click)="clearSearch()">
+              <span
+                *ngIf="searchFormControl.value"
+                class="pw-i-10 pw-close-icon-16"
+              ></span
+            ></mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-auto">
+          <button class="pw-btn pw-primary-btn" (click)="addRule()">
+            {{ 'pw.clubbingDiscounts.addRuleLabel' | translate }}
+          </button>
+        </div>
+      </div>
+      <poss-web-clubbing-discount-grid
+        [clubbedDiscountsList]="clubbedDiscountsList"
+        [count]="count"
+        [pageEvent]="listingPageEvent"
+        (paginator)="paginate($event)"
+        [pageSizeOptions]="pageSizeOptions"
+        [minPageSize]="minPageSize"
+        (delete)="deleteRow($event)"
+      >
+      </poss-web-clubbing-discount-grid>
+
+
+    </div>
+  </div>
+</div>

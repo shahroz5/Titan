@@ -1,0 +1,223 @@
+<div class="pw-detail-card">
+  <div class="pw-detail-card__heading">
+    {{ 'pw.gepHistory.gepDetailsLabel' | translate }}
+  </div>
+  <div class="row pw-detail-card__flex-end" [formGroup]="gepHistorySearchForm">
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{ 'pw.gepHistory.docNumberLabel' | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="docNumber"
+        type="text"
+        autocomplete="off"
+        possWebMaxLengthValidator
+      />
+      <mat-error
+        *ngIf="
+          gepHistorySearchForm.get('docNumber').errors &&
+          gepHistorySearchForm.get('docNumber').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            gepHistorySearchForm.get('docNumber').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{ 'pw.gepHistory.cnDocNoLabel' | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="cnDocNo"
+        type="text"
+        autocomplete="off"
+        possWebMaxLengthValidator
+      />
+      <mat-error
+        *ngIf="
+          gepHistorySearchForm.get('cnDocNo').errors &&
+          gepHistorySearchForm.get('cnDocNo').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="gepHistorySearchForm.get('cnDocNo').errors.errorArray"
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <poss-web-fiscal-year
+      class="col-lg-2 col-3"
+      [control]="gepHistorySearchForm.get('fiscalYear')"
+      [required]="false"
+      [currentFiscalYear]="currentFiscalYear"
+      [placeHolder]="'pw.gepHistory.fiscalYearLabel' | translate"
+      [disabled]="false"
+      [data]="historySearchParams?.fiscalYear"
+    ></poss-web-fiscal-year>
+
+    <poss-web-select-dropdown
+      class="col-lg-2 col-3"
+      [placeholder]="'pw.gepHistory.searchTypeLabel' | translate"
+      [control]="gepHistorySearchForm.get('searchType')"
+      [options]="searchTypeOptions"
+      [required]="false"
+      (selectionChange)="onSearchTypeChanged($event)"
+    ></poss-web-select-dropdown>
+
+    <mat-form-field
+      class="col-lg-2 col-3"
+      [floatLabel]="'auto'"
+      *ngIf="showSearchField"
+    >
+      <mat-label>{{ searchFieldPlaceholder | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="searchField"
+        type="text"
+        required
+        autocomplete="off"
+        possWebMaxLengthValidator
+      />
+      <mat-error
+        *ngIf="
+          gepHistorySearchForm.get('searchField').errors &&
+          gepHistorySearchForm.get('searchField').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            gepHistorySearchForm.get('searchField').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <poss-web-select-dropdown
+      class="col-lg-2 col-3"
+      [placeholder]="'pw.gepHistory.statusLabel' | translate"
+      [control]="gepHistorySearchForm.get('status')"
+      [options]="statusOptions"
+      [required]="true"
+    ></poss-web-select-dropdown>
+
+    <mat-form-field class="col-lg-4 col-3">
+      <mat-label>{{ 'pw.gepHistory.docDateRangeLabel' | translate }}</mat-label>
+      <mat-date-range-input
+        [rangePicker]="picker"
+        (click)="picker.open()"
+        [max]="businessDay"
+      >
+        <input
+          matStartDate
+          formControlName="startDate"
+          placeholder="{{ 'pw.gepHistory.fromDocDateLabel' | translate }}"
+          readonly
+        />
+        <input
+          matEndDate
+          formControlName="endDate"
+          placeholder="{{ 'pw.gepHistory.toDocDateLabel' | translate }}"
+          readonly
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>
+          <span class="pw-i-12 pw-calender-icon-12"></span>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-icon
+        *ngIf="
+          gepHistorySearchForm.get('startDate').value !== null &&
+          gepHistorySearchForm.get('endDate').value !== null
+        "
+        class="pw-pointer"
+        matSuffix
+        (click)="clearDocRange()"
+      >
+        <span class="pw-i-10 pw-close-icon-16"></span
+      ></mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{
+        'pw.gepHistory.fromNetAmountLabel' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="fromNetAmount"
+        type="text"
+        autocomplete="off"
+        possWebAmountInput
+        possWebMaxLengthValidator
+      />
+      <mat-error
+        *ngIf="
+          gepHistorySearchForm.get('fromNetAmount').errors &&
+          gepHistorySearchForm.get('fromNetAmount').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            gepHistorySearchForm.get('fromNetAmount').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-lg-2 col-3" [floatLabel]="'auto'">
+      <mat-label>{{ 'pw.gepHistory.toNetAmountLabel' | translate }}</mat-label>
+      <input
+        matInput
+        class="pw-single-bordered-input"
+        formControlName="toNetAmount"
+        type="text"
+        autocomplete="off"
+        possWebAmountInput
+      />
+      <mat-error
+        *ngIf="
+          gepHistorySearchForm.get('toNetAmount').errors &&
+          gepHistorySearchForm.get('toNetAmount').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            gepHistorySearchForm.get('toNetAmount').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <poss-web-select-dropdown
+      class="col-lg-2 col-3"
+      [placeholder]="'pw.gepHistory.subTxnTypeLabel' | translate"
+      [control]="gepHistorySearchForm.get('subTxnType')"
+      [options]="subTxnTypeOptions"
+      [required]="true"
+      (selectionChange)="onSubTxnTypeChanged($event)"
+    ></poss-web-select-dropdown>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <button
+        mat-flat-button
+        class="pw-btn pw-accent-btn"
+        (click)="searchAdvanceHistory()"
+        [disabled]="gepHistorySearchForm.invalid"
+      >
+        {{ 'pw.gepHistory.searchLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

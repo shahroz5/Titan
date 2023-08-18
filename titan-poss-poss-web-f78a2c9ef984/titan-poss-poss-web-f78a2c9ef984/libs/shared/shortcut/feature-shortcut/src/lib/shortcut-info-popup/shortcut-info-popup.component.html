@@ -1,0 +1,161 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-confirmation-box pw-confirmation-box__fixed-width">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{ 'pw.shortcutInfoPopup.keyboardShortcutsLabel' | translate }}
+      </div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="close()">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body">
+      <div class="pw-confirmation-box__scrollable-body row">
+        <div
+          *ngIf="config.globalShortcuts.length !== 0"
+          class="col-lg-6 col-12"
+        >
+          <div class="pw-grid-table">
+            <div class="row pw-grid-table__background-header">
+              <div class="col-12 pw-grid-table__header-item">
+                {{ 'pw.shortcutInfoPopup.globalShortucutsLabel' | translate }}
+              </div>
+            </div>
+            <div class="pw-grid-table__body">
+              <div
+                *ngFor="let list of config.globalShortcuts | fillRows: (config.globalShortcuts.length < 10 ? 10 : config.globalShortcuts.length)"
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">{{ list.description }}</div>
+                <div
+                  class="col-3 pw-grid-table__align-self-center"
+                  [ngClass]="
+                    list.shortcutKeys === null ? 'pw-grid-large' : null
+                  "
+                >
+                  <button
+                    *ngIf="list.shortcutKeys !== null"
+                    class="pw-grid-table__shortcut-btn"
+                  >
+                    {{ list.shortcutKeys }}
+                  </button>
+                  <!-- <button class="pw-grid-table__shortcut-btn">i</button> -->
+                </div>
+              </div>
+              <!-- <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Go to your pull requests</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">g</button>
+                  <button class="pw-grid-table__shortcut-btn">p</button>
+                </div>
+              </div>
+            </div> -->
+            </div>
+          </div>
+        </div>
+        <div *ngIf="config.pageShortcuts.length !== 0" class="col-lg-6 col-12">
+          <div class="pw-grid-table">
+            <div class="row pw-grid-table__background-header">
+              <div class="col-12 pw-grid-table__header-item">
+                <!-- Site-wide shortcuts -->
+                {{ 'pw.shortcutInfoPopup.pagewiseShortcutsLabel' | translate }}
+              </div>
+            </div>
+            <div class="pw-grid-table__body">
+              <div
+                *ngFor="let list of config.pageShortcuts | fillRows: (config.pageShortcuts.length < 10 ? 10 : config.pageShortcuts.length)"
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">{{ list.description }}</div>
+                <div
+                  class="col-3 pw-grid-table__align-self-center"
+                  [ngClass]="
+                    list.shortcutKeys === null ? 'pw-grid-large' : null
+                  "
+                >
+                  <button
+                    *ngIf="list.shortcutKeys !== null"
+                    class="pw-grid-table__shortcut-btn"
+                  >
+                    {{ list.shortcutKeys }}
+                  </button>
+                  <!-- <button class="pw-grid-table__shortcut-btn">/</button> -->
+                </div>
+              </div>
+              <!-- <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Go to notification</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">g</button>
+                  <button class="pw-grid-table__shortcut-btn">n</button>
+                </div>
+              </div>
+              <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Go to dashboard</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">g</button>
+                  <button class="pw-grid-table__shortcut-btn">d</button>
+                </div>
+              </div>
+              <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Bring up this help dialog</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">?</button>
+                </div>
+              </div>
+              <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Move selection down</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">j</button>
+                </div>
+              </div>
+              <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Move selection up</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">k</button>
+                </div>
+              </div>
+              <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Toggle selection</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">x</button>
+                </div>
+              </div>
+              <div
+                class="pw-grid-table__row no-gutters row pw-grid-table__item"
+              >
+                <div class="col-9">Open selection</div>
+                <div class="col-3 pw-grid-table__align-self-center">
+                  <button class="pw-grid-table__shortcut-btn">o</button> or
+                  <button class="pw-grid-table__shortcut-btn">enter</button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="pw-confirmation-box__footer-border row">
+        <div class="col-auto">
+          <button class="pw-btn pw-primary-btn">
+            {{ 'pw.shortcutInfoPopup.viewAllShortcutsLabel' | translate }}
+          </button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

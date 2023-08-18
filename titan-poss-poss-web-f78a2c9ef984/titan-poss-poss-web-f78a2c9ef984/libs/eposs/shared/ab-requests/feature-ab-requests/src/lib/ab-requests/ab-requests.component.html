@@ -1,0 +1,111 @@
+<div [formGroup]="filterForm" class="row">
+  <div class="col-auto ml-auto"></div>
+
+  <mat-form-field class="col-lg-2 col-3 align-self-end pw-search-bar">
+    <mat-label>{{ 'pw.abRequests.label1' | translate }}</mat-label>
+    <input
+      matInput
+      #searchReq
+      class="pw-input-box"
+      placeholder="Req. Number"
+      formControlName="searchFormControl"
+    />
+    <mat-icon matSuffix>
+      <span
+        *ngIf="!filterForm.get('searchFormControl').value"
+        class="pw-i-16 pw-search-icon-16"
+      ></span
+    ></mat-icon>
+    <mat-icon matSuffix (click)="clearSearch()">
+      <span
+        *ngIf="filterForm.get('searchFormControl').value"
+        class="pw-i-10 pw-close-icon-16"
+      ></span
+    ></mat-icon>
+    <mat-error
+      *ngIf="
+        filterForm.get('searchFormControl').errors &&
+        filterForm.get('searchFormControl').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="filterForm.get('searchFormControl').errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="col-lg-2 col-3 align-self-end pw-search-bar">
+    <mat-label>{{ 'pw.abRequests.label2' | translate }}</mat-label>
+    <input
+      #searchBox
+      matInput
+      class="pw-input-box"
+      placeholder="Search Loc. Code"
+      formControlName="location"
+      [matAutocomplete]="auto"
+    />
+    <mat-icon matSuffix>
+      <span
+        *ngIf="!filterForm.get('location').value"
+        class="pw-i-16 pw-search-icon-16"
+      ></span
+    ></mat-icon>
+    <mat-icon matSuffix (click)="clear()">
+      <span
+        *ngIf="filterForm.get('location').value"
+        class="pw-i-10 pw-close-icon-16"
+      ></span
+    ></mat-icon>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+        (onSelectionChange)="locationSelected($event, option)"
+        >{{ option }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <mat-error
+      *ngIf="
+        filterForm.get('location').errors &&
+        filterForm.get('location').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="filterForm.get('location').errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<poss-web-ui-ab-request
+  [count]="count$ | async"
+  [productGrid]="productGrid$ | async"
+  [pageSize]="pageSize"
+  [minPageSize]="minPageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (paginateEmit)="onPaginate($event)"
+  (approveIdEmit)="approveEvent($event)"
+  (onselected)="getUploadedFiles($event)"
+></poss-web-ui-ab-request>
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3
+      *ngIf="actionType === 'ACTIVATE_ADVANCE_BOOKING'"
+      class="pw-success-color"
+    >
+      {{ 'pw.abRequests.activateStatus' | translate }}{{ status }}.
+    </h3>
+    <h3
+      *ngIf="actionType === 'CANCEL_ADVANCE_BOOKING'"
+      class="pw-success-color"
+    >
+      {{ 'pw.abRequests.cancelStatus' | translate }}{{ status }}.
+    </h3>
+
+    <h5>Request No: {{ bulkDocNo }}</h5>
+  </div>
+</ng-template>
+<poss-web-loader
+  *ngIf="(isLoading$ | async) || (fileFacade.getIsLoading() | async)"
+></poss-web-loader>

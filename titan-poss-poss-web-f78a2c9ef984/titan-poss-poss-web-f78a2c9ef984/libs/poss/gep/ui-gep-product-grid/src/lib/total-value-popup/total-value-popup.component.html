@@ -1,0 +1,134 @@
+<div
+  class="pw-white-overlay-box"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+
+  <div class="pw-confirmation-box pw-confirmation-box__width-450">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{ 'pw.gep.totalValueBreakupLbl' | translate }}
+      </div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="close()">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body">
+      <div class="row">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.rateForPurityLbl' | translate }}
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.rateForPurity | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.deductionLbl' | translate }} ({{ data?.deductionPercentage }} %)
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.deductionValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+
+      <div class="row pw-confirmation-box__item">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.valueForActualWtLbl' | translate }}
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.netValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-8 pw-font-weight-bold">
+          {{ 'pw.gep.exchangeValueLbl' | translate }}
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.totalValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item" *ngIf="checkTaxExist('SGST')=== true">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.sgstLbl' | translate }} ({{ data?.SGST.taxPercentage }} %)
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.SGST.taxValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item" *ngIf="checkTaxExist('CGST')=== true">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.cgstLbl' | translate }} ({{ data?.CGST.taxPercentage }} %)
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.CGST.taxValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item" *ngIf="checkTaxExist('IGST')=== true">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.igstLbl' | translate }} ({{ data?.IGST.taxPercentage }} %)
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.IGST.taxValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item" *ngIf="checkTaxExist('UTGST')=== true">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.utgstLbl' | translate }}  ({{ data?.UTGST.taxPercentage }} %)
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.UTGST.taxValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-8 pw-tertiary-color">
+          {{ 'pw.gep.totalTaxLbl' | translate }}
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.totalTax | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__item">
+        <div class="col-8 pw-font-weight-bold">
+          {{ 'pw.gep.finalExchangeValueLbl' | translate }} 
+        </div>
+        <div class="col-auto pw-tertiary-color pw-confirmation-box__padding-5">
+          :
+        </div>
+        <div class="col-auto pw-font-weight-bold">
+          {{ data?.finalValue | currencyFormatter: 'INR' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

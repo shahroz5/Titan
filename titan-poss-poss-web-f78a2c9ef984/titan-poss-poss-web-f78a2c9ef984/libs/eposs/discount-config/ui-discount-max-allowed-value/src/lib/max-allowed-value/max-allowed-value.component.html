@@ -1,0 +1,320 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="row">
+    <div class="col-auto pw-font-weight-bold">
+      {{ 'pw.discountMaxValueConfig.detailsLabel' | translate }}
+    </div>
+  </div>
+
+  <table class="pw-grid-table"  aria-describedby="table" description="Table">
+    <thead>
+      <tr class="pw-grid-table__background-header row">
+        <th class="pw-grid-table__header-item col-lg-3 col-3" scope="col">
+          <div class="row">
+            <div class="col">
+              {{ 'pw.discountMaxValueConfig.typeLabel' | translate }}
+            </div>
+          </div>
+        </th>
+        <th class="pw-grid-table__header-item col-lg-2 col-3" scope="col">
+          {{ 'pw.discountMaxValueConfig.percentageLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item col row" scope="col">
+          <div class="col-lg-5 col-12" scope="col">
+            {{ 'pw.discountMaxValueConfig.valueLabel' | translate }} ({{
+              currencyCode | currencySymbol
+            }})
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{
+                'pw.discountMaxValueConfig.maximumMetalChargesDiscountLabel'
+                  | translate
+              }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3">
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxMetalChargePercentage" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxMetalChargePercentage').touched &&
+                form.get('maxMetalChargePercentage').errors &&
+                form.get('maxMetalChargePercentage').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="
+                  form.get('maxMetalChargePercentage').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input
+              matInput
+              formControlName="maxMetalChargeValue"
+              possWebAmountInput
+            />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxMetalChargeValue').touched &&
+                form.get('maxMetalChargeValue').errors &&
+                form.get('maxMetalChargeValue').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="
+                  form.get('maxMetalChargeValue').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{
+                'pw.discountMaxValueConfig.maximumStoneChargesLabel' | translate
+              }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3">
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxScPercentage" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxScPercentage').touched &&
+                form.get('maxScPercentage').errors &&
+                form.get('maxScPercentage').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxScPercentage').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxScValue" possWebAmountInput />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxScValue').touched &&
+                form.get('maxScValue').errors &&
+                form.get('maxScValue').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxScValue').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{ 'pw.discountMaxValueConfig.maximumUCPLabel' | translate }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3">
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxUcpPercentage" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxUcpPercentage').touched &&
+                form.get('maxUcpPercentage').errors &&
+                form.get('maxUcpPercentage').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxUcpPercentage').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxUcpValue" possWebAmountInput />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxUcpValue').touched &&
+                form.get('maxUcpValue').errors &&
+                form.get('maxUcpValue').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxUcpValue').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{
+                'pw.discountMaxValueConfig.maximumMakingChargesLabel'
+                  | translate
+              }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3">
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxMcPercentage" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxMcPercentage').touched &&
+                form.get('maxMcPercentage').errors &&
+                form.get('maxMcPercentage').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxMcPercentage').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="maxMcValue" possWebAmountInput />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxMcValue').touched &&
+                form.get('maxMcValue').errors &&
+                form.get('maxMcValue').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxMcValue').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{ 'pw.discountMaxValueConfig.maximumLabel' | translate }}
+
+              ({{ currencyCode | currencySymbol }})
+              {{ 'pw.discountMaxValueConfig.perGramLabel' | translate }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3"></td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input
+              matInput
+              formControlName="maxPerGramVaule"
+              possWebAmountInput
+            />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('maxPerGramVaule').touched &&
+                form.get('maxPerGramVaule').errors &&
+                form.get('maxPerGramVaule').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('maxPerGramVaule').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row mt-4">
+    <div class="col-auto ml-auto">
+      <button class="pw-btn pw-accent-btn" (click)="saveFn()">
+        {{ 'pw.discountMaxValueConfig.saveButton' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

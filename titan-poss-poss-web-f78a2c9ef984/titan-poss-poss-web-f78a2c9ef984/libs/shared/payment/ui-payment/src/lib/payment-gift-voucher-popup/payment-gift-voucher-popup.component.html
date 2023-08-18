@@ -1,0 +1,395 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">{{ 'pw.paymentModeGV.giftVoucher' | translate }}</div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div
+    class="pw-confirmation-box__body pw-confirmation-box__padding-bottom-0 pw-padding-bottom-0"
+  >
+    <mat-tab-group
+      dynamicHeight
+      mat-stretch-tabs
+      class="pw-mat-tab pw-confirmation-box__margin-top-0 pw-margin-bottom-0"
+      (selectedTabChange)="onTabChange($event)"
+      [(selectedIndex)]="activeTab"
+    >
+      <ng-container>
+        <mat-tab
+          class="pw-mat-tab__item"
+          label="{{ 'pw.paymentModeGV.giftVoucherDetails' | translate }}"
+        >
+          <form autocomplete="off" class="row">
+            <poss-web-ui-gv-bar-code
+              class="col-lg-6 col-6 mt-2"
+              *ngIf="filterSelected === InputTypes.SCAN_VALUE"
+              [clearCardNumberField]="clearCardNumberField"
+              (cardNumberEmit)="getScanCardNumber($event)"
+            ></poss-web-ui-gv-bar-code>
+            <poss-web-ui-gv-manual-entry
+              class="col-lg-6 col-6 mt-2"
+              *ngIf="filterSelected === InputTypes.MANUAL_VALUE"
+              [clearCardNumberField]="clearCardNumberField"
+              [mutipleGVsearch]="data.mutipleGVsearch"
+              (gcNumberManualEmit)="getCardNumber($event)"
+            >
+            </poss-web-ui-gv-manual-entry>
+            <div class="col-auto mt-2">
+              <poss-web-select-dropdown
+                [placeholder]="'pw.paymentModeGV.inputType' | translate"
+                [options]="dropDownvalues"
+                [control]="gvForm.get('dropDownvalues')"
+                [required]="true"
+                (selectionChange)="statusChange($event.value)"
+              >
+              </poss-web-select-dropdown>
+
+              <!-- <mat-form-field class="pw-form-field-border-top-0 mt-4">
+                <mat-label>{{
+                  'pw.paymentModeGV.inputType' | translate
+                }}</mat-label>
+
+
+                <mat-select
+                  [(value)]="filterSelected"
+                  (selectionChange)="statusChange($event.value)"
+                >
+                  <mat-option
+                    *ngFor="let data of dropDownvalues"
+                    [value]="data.code"
+                    >{{ data.value }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field> -->
+            </div>
+
+            <!-- <div class="col-auto mt-4">
+              <mat-checkbox
+                class="col-auto pw-list-card__checkbox pw_gc_scan_checkbox"
+                (change)="setScan($event.checked)"
+              >
+                {{ 'pw.giftCards.scan' | translate }}
+              </mat-checkbox>
+            </div> -->
+            <div class="col-auto mt-2">
+              <button
+                (click)="onGetBalance()"
+                mat-flat-button
+                class="pw-btn pw-accent-btn"
+                [disabled]="cardNumber && cardNumber.length < 8"
+              >
+                {{ 'pw.paymentModeGV.detailsButtonLabel' | translate }}
+              </button>
+            </div>
+          </form>
+
+          <div class="pw-scrollable-table">
+            <table class="pw-grid-table pw-grid-table__scrollable"  aria-describedby="table">
+              <thead>
+                <tr class="pw-mat-table__header">
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.itemCodeHeaderName' | translate }}
+                    </p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.serialNoHeaderName' | translate }}
+                    </p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>{{ 'pw.paymentModeGV.Customer' | translate }}</p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>{{ 'pw.paymentModeGV.status' | translate }}</p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.Issued' | translate }}
+                    </p>
+                  </th>
+
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.validTillHeaderName' | translate }}
+                    </p>
+                  </th>
+
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>{{ 'pw.paymentModeGV.restricted' | translate }}</p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.totalValue' | translate }} ({{
+                        data.currencyCode | currencySymbol
+                      }})
+                    </p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item"></th>
+                </tr>
+              </thead>
+              <tbody *ngIf="redeemableGVList.length === 0">
+                <tr class="pw-mat-table__body-row">
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+
+                  <td class="pw-mat-table__item"></td>
+                </tr>
+              </tbody>
+
+              <tbody *ngIf="redeemableGVList.length > 0">
+                <tr
+                  *ngFor="let cardDetails of redeemableGVList"
+                  class="pw-mat-table__body-row pw-text-center"
+                >
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.giftCode }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.serialNo }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.giftDetails?.customerName }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.status }}
+                  </td>
+
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.validFrom | dateFormatter }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.validTill | dateFormatter }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    <span
+                      (click)="onselected(cardDetails.excludes)"
+                      *ngIf="cardDetails.excludes"
+                    >
+                      <a class="pw-anchor-underline pw-success-color">
+                        {{ cardDetails.excludes.length }}</a
+                      >
+                    </span>
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{
+                      cardDetails.totalValue
+                        | currencyFormatter: data.currencyCode:false
+                    }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    <a (click)="remove(cardDetails.serialNo)">
+                      <span class="pw-i-24 pw-delete-black-icon-24"></span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="d-flex justify-content-between pw-mat-table__header align-items-center px-2 pw-mat-table_footer"
+          >
+            <p>Redeemable GV : {{ redeemableGVList.length }}</p>
+
+            <p>
+              Total value :
+
+              {{ redeemableGVvalue }}
+            </p>
+          </div>
+
+          <div class="pw-scrollable-table">
+            <table class="pw-grid-table pw-grid-table__scrollable"  aria-describedby="table">
+              <thead>
+                <tr class="pw-mat-table__header">
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.itemCodeHeaderName' | translate }}
+                    </p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.serialNoHeaderName' | translate }}
+                    </p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>{{ 'pw.paymentModeGV.Customer' | translate }}</p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>{{ 'pw.paymentModeGV.status' | translate }}</p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.Issued' | translate }}
+                    </p>
+                  </th>
+
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.validTillHeaderName' | translate }}
+                    </p>
+                  </th>
+
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>{{ 'pw.paymentModeGV.restricted' | translate }}</p>
+                  </th>
+                  <th scope="col" class="pw-mat-table__item">
+                    <p>
+                      {{ 'pw.paymentModeGV.totalValue' | translate }} ({{
+                        data.currencyCode | currencySymbol
+                      }})
+                    </p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody *ngIf="nonRedeemableGVList.length === 0">
+                <tr class="pw-mat-table__body-row">
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                  <td class="pw-mat-table__item"></td>
+                </tr>
+              </tbody>
+
+              <tbody *ngIf="nonRedeemableGVList.length > 0">
+                <tr
+                  *ngFor="let cardDetails of nonRedeemableGVList"
+                  class="pw-mat-table__body-row pw-text-center"
+                >
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.giftCode }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.serialNo }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.giftDetails?.customerName }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.status }}
+                  </td>
+
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.validFrom | dateFormatter }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{ cardDetails.validTill | dateFormatter }}
+                  </td>
+                  <td class="pw-mat-table__item">
+                    <span
+                      (click)="onselected(cardDetails.excludes)"
+                      *ngIf="cardDetails.excludes"
+                    >
+                      <a class="pw-anchor-underline pw-success-color">
+                        {{ cardDetails.excludes.length }}</a
+                      >
+                    </span>
+                  </td>
+                  <td class="pw-mat-table__item">
+                    {{
+                      cardDetails.totalValue
+                        | currencyFormatter: data.currencyCode:false
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="d-flex justify-content-between pw-mat-table__header align-items-center px-2 pw-mat-table_footer"
+          >
+            <p>Non-Redeemable GV : {{ nonRedeemableGVList.length }}</p>
+          </div>
+
+          <div class="pw-confirmation-box__footer mt-0">
+            <div class="pw-confirmation-box__footer pw-text-right">
+              <div class="row justify-content-end">
+                <div class="col-auto" (click)="delete()">
+                  <button mat-flat-button class="pw-btn pw-primary-btn">
+                    {{ 'pw.paymentModeGV.resetButtonLabel' | translate }}
+                  </button>
+                </div>
+
+                <div class="col-auto">
+                  <button
+                    mat-flat-button
+                    [disabled]="addButtonEnabled()"
+                    class="pw-btn pw-accent-btn"
+                    [disabled]="redeemableGVvalue === 0"
+                    (click)="addPayment()"
+                  >
+                    {{ 'pw.paymentModeGV.addButtonLabel' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+      <ng-container>
+        <mat-tab
+          class="pw-mat-tab__item"
+          label="{{ 'pw.paymentModeGV.restrictedProductGroup' | translate }}"
+          [disabled]="true"
+        >
+          <div class="pw-confirmation-box__body-item-without-padding">
+            <div class="pw-scrollable-table">
+              <table class="pw-grid-table pw-grid-table__scrollable"  aria-describedby="table">
+                <thead>
+                  <tr class="pw-mat-table__header">
+                    <th scope="col" class="pw-mat-table__item">
+                      <p>
+                        {{ 'pw.paymentModeGV.ProductCode' | translate }}
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="!productList">
+                  <tr class="pw-mat-table__body-row">
+                    <td class="pw-mat-table__item"></td>
+                  </tr>
+                </tbody>
+
+                <tbody *ngIf="productList">
+                  <tr
+                    *ngFor="let product of productList"
+                    class="pw-mat-table__body-row pw-text-center"
+                  >
+                    <td class="pw-mat-table__item">
+                      {{ product }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+</div>

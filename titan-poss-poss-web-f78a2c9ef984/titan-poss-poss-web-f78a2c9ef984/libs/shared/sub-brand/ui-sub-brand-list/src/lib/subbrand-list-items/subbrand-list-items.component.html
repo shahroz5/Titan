@@ -1,0 +1,17 @@
+<poss-web-subbrand-list-item
+  *ngFor="let listItem of SubbrandList; trackBy: trackBy"
+  [listItem]="listItem"
+  (emitBrandCode)="emitBrandCode($event)"
+  (emitToggle)="emitToggle($event)"
+></poss-web-subbrand-list-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && SubbrandList.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

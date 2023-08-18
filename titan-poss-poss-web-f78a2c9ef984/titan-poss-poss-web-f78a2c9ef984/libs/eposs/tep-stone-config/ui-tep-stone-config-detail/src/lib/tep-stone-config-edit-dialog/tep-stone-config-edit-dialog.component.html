@@ -1,0 +1,55 @@
+<div
+  class="pw-confirmation-box"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="row pw-confirmation-box__header">
+    <div class="col-auto">
+      {{ 'pw.tepStoneConfig.edit' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="tepStoneConfigEditForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="mt-2 w-100">
+      <mat-label>{{
+        'pw.tepStoneConfig.deductionPercentTranslate' | translate
+      }}</mat-label>
+      <input required matInput formControlName="dedutionPercent" />
+      <mat-error
+        *ngIf="
+          tepStoneConfigEditForm.get('dedutionPercent').errors &&
+          tepStoneConfigEditForm.get('dedutionPercent').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="
+            tepStoneConfigEditForm.get('dedutionPercent').errors.errorArray
+          "
+        >
+        </poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="pw-text-right">
+      <div class="row align-items-center">
+        <div class="col-auto ml-auto">
+          <button class="pw-btn pw-accent-btn">
+            {{ 'pw.tepStoneConfig.save' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

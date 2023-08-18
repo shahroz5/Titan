@@ -1,0 +1,111 @@
+<form [formGroup]="filterForm">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="pw-tab">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(discountProductGroupTabEnum.PRODUCT_GROUP_UCP)"
+              [class.pw-is-active-bar]="
+                selectedTab === discountProductGroupTabEnum.PRODUCT_GROUP_UCP
+              "
+            >
+              <h5 class="pw-tab__item">
+                {{
+                  'pw.discountProductGroupMapping.ucpProductGroupLabel'
+                    | translate
+                }}
+              </h5></a
+            >
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab(discountProductGroupTabEnum.PRODUCT_GROUP_MC)"
+              [class.pw-is-active-bar]="
+                selectedTab === discountProductGroupTabEnum.PRODUCT_GROUP_MC
+              "
+            >
+              <h5 class="pw-tab__item">
+                {{
+                  'pw.discountProductGroupMapping.mcProductGroupLabel'
+                    | translate
+                }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row align-items-baseline">
+    <div class="col-auto ml-auto">
+      <button mat-button [matMenuTriggerFor]="filterby">
+        <span
+          class="pw-i-24 pw-filter-box__icon-top"
+          [ngClass]="
+            appliedFilter ? 'pw-filter-icon-color-24' : 'pw-filter-icon-24'
+          "
+        ></span
+        > {{ 'pw.discountProductGroupMapping.filterLabel' | translate }}
+      </button>
+
+      <mat-menu #filterby="matMenu">
+        <ng-container *ngFor="let product of productTypeList">
+          <button mat-menu-item (click)="getValue(product.value)">
+            {{ product.description }}
+          </button>
+        </ng-container>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="mappedProductGroups.length > 0; else errorMesage">
+    <div class="col-12">
+      <table class="pw-grid-table"  aria-describedby="table">
+        <thead>
+          <tr class="pw-grid-table__background-header">
+            <th class="pw-grid-table__header-item" scope="col">
+              {{ 'pw.discountProductGroupMapping.pG' | translate }}
+            </th>
+            <th class="pw-grid-table__header-item" scope="col">
+              {{ 'pw.discountProductGroupMapping.description' | translate }}
+            </th>
+            <th class="pw-grid-table__header-item" scope="col">
+              {{ 'pw.discountProductGroupMapping.isActive' | translate }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="pw-grid-table__body">
+          <tr
+            *ngFor="let item of mappedProductGroups"
+            class="pw-grid-table__row"
+          >
+            <td class="pw-grid-table__item">{{ item.productGroupCode }}</td>
+            <td class="pw-grid-table__item">{{ item.description }}</td>
+            <td class="pw-grid-table__item">{{ item.isActive }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #errorMesage>
+    <div class="pw-sub-heading pw-message pw-text-center">
+      {{ 'No Records' | translate }}
+    </div>
+  </ng-template>
+
+  <div class="row mt-2">
+    <mat-paginator
+      class="pw-paginator ml-auto"
+      *ngIf="totalElements > minPageSize && mappedProductGroups.length > 0"
+      [length]="totalElements"
+      [pageSize]="pageEvent.pageSize"
+      [pageIndex]="pageEvent.pageIndex"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="paginate($event)"
+    >
+    </mat-paginator>
+  </div>
+</form>

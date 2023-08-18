@@ -1,0 +1,113 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-location-icon-36"></span>
+
+              <div>
+                <h2>
+                  {{ 'pw.productMasterUpdate.master' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.productMasterUpdate.update' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3 mb-4 align-items-center">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.productMasterUpdate.productMasterUpdate' | translate }}
+          </div>
+          <div
+          >
+          <p
+            class="pt-2 display-text"
+          >
+            {{ 'pw.productMasterUpdate.fetchHeaderText' | translate }}
+          </p>
+        </div>
+      </div>
+      </div>
+      <div class="pw-detail-card">
+        <div class="row pw-detail-card__flex-end">
+          <ng-container [formGroup]="updateForm">
+            <mat-form-field class="col-lg-3 col-4">
+              <mat-label> {{ 'pw.productMasterUpdate.itemCode' | translate }} </mat-label>
+              <input
+                matInput
+                class="pw-single-bordered-input col-auto"
+                formControlName="itemCode"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  updateForm.get('itemCode').errors &&
+                  updateForm.get('itemCode').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="updateForm.get('itemCode').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-lg-3 col-4">
+              <mat-label> {{ 'pw.productMasterUpdate.lotNumber' | translate }} </mat-label>
+              <input
+                matInput
+                class="pw-single-bordered-input col-auto"
+                formControlName="lotNumber"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  updateForm.get('lotNumber').errors &&
+                  updateForm.get('lotNumber').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="updateForm.get('lotNumber').errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+
+            <div class="col-auto ml-auto align-self-baseline">
+              <button
+                class="pw-btn pw-accent-btn"
+                [disabled]="this.updateForm.invalid"
+                (click)="updateProductMaster()"
+              >
+              {{ 'pw.productMasterUpdate.update' | translate }}
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      {{ 'pw.productMasterUpdate.successMsg' | translate }}
+    </h3>
+  </div>
+</ng-template>
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async)
+  "
+>
+</poss-web-loader>
+
+
+
+

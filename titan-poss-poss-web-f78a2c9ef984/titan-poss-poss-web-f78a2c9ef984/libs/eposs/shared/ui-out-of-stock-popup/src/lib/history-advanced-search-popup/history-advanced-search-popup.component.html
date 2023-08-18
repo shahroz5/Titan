@@ -1,0 +1,170 @@
+<div class="pw-dialog-popup">
+  <div
+    class="row pw-dialog-popup__header align-items-center pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto pw-message">Advanced Filter</div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="close()"
+        class="pw-dialog-popup__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-dialog-popup__body" [formGroup]="historyFilter">
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input [rangePicker]="picker" [max]="data.bussinessDay">
+          <input
+            matStartDate
+            formControlName="docFromDate"
+            placeholder="From Date"
+            required
+          />
+          <input
+            matEndDate
+            formControlName="docToDate"
+            placeholder="To Date"
+            required
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>
+            <span class="pw-i-12 pw-calender-icon-12"></span>
+          </mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error
+          *ngIf="
+            historyFilter.get('docFromDate').errors &&
+            historyFilter.get('docFromDate').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('docFromDate').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            historyFilter.get('docToDate').errors &&
+            historyFilter.get('docToDate').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('docToDate').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="Location code"
+          class="pw-single-bordered-input"
+          formControlName="locationCode"
+        />
+        <mat-error
+          *ngIf="
+            historyFilter.get('locationCode').errors &&
+            historyFilter.get('locationCode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('locationCode').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="Doc No"
+          class="pw-single-bordered-input"
+          formControlName="docNo"
+        />
+        <mat-error
+          *ngIf="
+            historyFilter.get('docNo').errors &&
+            historyFilter.get('docNo').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('docNo').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="pw-dialog-popup__item">
+
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="Fiscal Year"
+          class="pw-single-bordered-input"
+          formControlName="fiscalYear"
+          name="fiscalYearField"
+          possWebMaxLengthValidator
+        />
+
+        <mat-error
+          *ngIf="
+            historyFilter.get('fiscalYear').errors &&
+            historyFilter.get('fiscalYear').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('fiscalYear').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="pw-dialog-popup__item"
+      *ngIf="requestType === stockIssueAPIRequestTypesEnumRef.BTQ"
+    >
+      <mat-form-field class="pw-single-bordered-input">
+        <mat-select
+          disableOptionCentering
+          placeholder="Status"
+          floatLabel="never"
+          formControlName="statuses"
+          multiple
+        >
+          <mat-option *ngFor="let status of statusesList" [value]="status">{{
+            getStatus(status)
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="pw-text-right pw-dialog-popup__footer">
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <button class="pw-btn pw-primary-btn" (click)="clear()">CLEAR</button>
+        </div>
+        <div class="col-auto">
+          <button
+            class="pw-btn pw-accent-btn"
+            (click)="apply()"
+            [disabled]="historyFilter.invalid"
+          >
+            APPLY
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

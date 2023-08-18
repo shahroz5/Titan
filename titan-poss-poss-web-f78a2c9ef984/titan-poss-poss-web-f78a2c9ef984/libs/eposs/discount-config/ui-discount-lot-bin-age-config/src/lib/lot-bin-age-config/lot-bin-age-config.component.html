@@ -1,0 +1,156 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="row">
+    <div class="col-auto pw-font-weight-bold">
+      {{ 'pw.discountLotBinAgeConfig.detailsLabel' | translate }}
+    </div>
+  </div>
+
+  <table class="pw-grid-table"  aria-describedby="table" description="Table">
+    <thead>
+      <tr class="pw-grid-table__background-header row">
+        <th class="pw-grid-table__header-item col-lg-3 col-3" scope="col">
+          <div class="row">
+            <div class="col">
+              {{ 'pw.discountLotBinAgeConfig.typeLabel' | translate }}
+            </div>
+          </div>
+        </th>
+        <th class="pw-grid-table__header-item col-lg-2 col-3" scope="col">
+          {{ 'pw.discountLotBinAgeConfig.fromLabel' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item col row" scope="col">
+          <div class="col-lg-5 col-12" scope="col">
+            {{ 'pw.discountLotBinAgeConfig.toLabel' | translate }}
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{ 'pw.discountLotBinAgeConfig.lotAgeLabel' | translate }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3">
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="fromLotAge" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('fromLotAge').touched &&
+                form.get('fromLotAge').errors &&
+                form.get('fromLotAge').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('fromLotAge').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="toLotAge" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('toLotAge').touched &&
+                form.get('toLotAge').errors &&
+                form.get('toLotAge').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="form.get('toLotAge').errors.errorArray"
+                [isOnlyTooltip]="true"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr class="pw-grid-table__row row">
+        <td class="pw-grid-table__item col-lg-3 col-3">
+          <div class="row">
+            <div class="col">
+              {{ 'pw.discountLotBinAgeConfig.binAgeLabel' | translate }}
+            </div>
+          </div>
+        </td>
+        <td class="pw-grid-table__item col-lg-2 col-3">
+          <mat-form-field
+            appearance="outline"
+            class="col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="fromBinAge" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('fromBinAge').touched &&
+                form.get('fromBinAge').errors &&
+                form.get('fromBinAge').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('fromBinAge').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+
+        <td class="pw-grid-table__item col row">
+          <mat-form-field
+            appearance="outline"
+            class="col-lg-3 col-12 pw-full-bordered-input-box pw-form-field-padding-bottom-0 pw-mat-form-field"
+          >
+            <input matInput formControlName="toBinAge" />
+
+            <span
+              matSuffix
+              *ngIf="
+                form.get('toBinAge').touched &&
+                form.get('toBinAge').errors &&
+                form.get('toBinAge').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="form.get('toBinAge').errors.errorArray"
+              ></poss-web-error-info-tooltip>
+            </span>
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row mt-4">
+    <div class="col-auto">
+      <mat-checkbox formControlName="isSameDiscountApplicable">
+        {{
+          'pw.discountLotBinAgeConfig.isSameDiscountApplicableLabel' | translate
+        }}
+      </mat-checkbox>
+    </div>
+
+    <div class="col-auto ml-auto">
+      <button class="pw-btn pw-accent-btn" (click)="saveFn()">
+        {{ 'pw.discountLotBinAgeConfig.saveButton' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

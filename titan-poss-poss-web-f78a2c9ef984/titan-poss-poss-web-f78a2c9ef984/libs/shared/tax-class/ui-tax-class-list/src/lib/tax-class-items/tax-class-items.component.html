@@ -1,0 +1,19 @@
+<poss-web-tax-class-listing-item
+  *ngFor="let taxClassListItem of taxClassList"
+  [taxClassListItem]="taxClassListItem"
+  (taxClassCode)="emitTaxClassCode($event)"
+  (taxClassCodeView)="emitTaxClassCodeView($event)"
+  (emitToggle)="emitToggle($event)"
+>
+</poss-web-tax-class-listing-item>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="ic_account_circle_24px" d="M19,2A17,17,0,1,0,36,19,17.006,17.006,0,0,0,19,2Z" transform="translate(48.999 73)" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-icon34x34">
+      <rect width="34" height="34"/>
+    </clipPath>
+  </defs>
+  <g id="icon34x34" clip-path="url(#clip-icon34x34)">
+    <g id="Group_3751" data-name="Group 3751" transform="translate(-51 -76)">
+      <path id="ic_account_circle_24px-2" data-name="ic_account_circle_24px" d="M19,2A17,17,0,1,0,36,19,17.006,17.006,0,0,0,19,2Z" transform="translate(48.999 74)" fill="#fff"/>
+      <g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(0 1)" clip-path="url(#clip-path)">
+        <path id="ic_account_circle_24px-3" data-name="ic_account_circle_24px" d="M21.544,9.1a6.372,6.372,0,1,1-6.372,6.372A6.364,6.364,0,0,1,21.544,9.1Zm0,28.455c-3.774,0-12.832-1.432-12.744-7.24.064-4.227,8.5-6.542,12.744-6.542,4.227,0,12.681,2.315,12.744,6.542C34.381,36.423,25.318,37.555,21.544,37.555Z" transform="translate(46.488 72.9)" fill="#b0a16e"/>
+      </g>
+    </g>
+  </g>
+</svg>

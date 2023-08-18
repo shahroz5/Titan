@@ -1,0 +1,10 @@
+<button
+  mat-flat-button
+  #menuCard
+  [tabindex]="tabindex"
+  class="pw-dashboard-menu__button"
+  [class.active]="isSelected"
+  (click)="onSelected()"
+>
+  <ng-content></ng-content>
+</button>

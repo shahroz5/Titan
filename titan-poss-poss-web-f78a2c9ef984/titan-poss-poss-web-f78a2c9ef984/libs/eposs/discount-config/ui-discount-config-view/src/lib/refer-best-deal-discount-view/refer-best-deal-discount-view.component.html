@@ -1,0 +1,45 @@
+<ng-container *ngIf="selectedDiscounts?.length > 0; else errorMesage">
+  <table class="pw-grid-table"  aria-describedby="table">
+    <thead>
+      <tr class="pw-grid-table__background-header">
+        <th class="pw-grid-table__header-item" scope="col">
+          {{ 'pw.discountReferBestDeal.discountNameLable' | translate }}
+        </th>
+        <th class="pw-grid-table__header-item" scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody class="pw-grid-table__body">
+      <tr
+        *ngFor="let discounts of selectedDiscounts"
+        class="pw-grid-table__row"
+      >
+        <td class="pw-grid-table__item">{{ discounts.description }}</td>
+        <td class="pw-grid-table__item">
+          <poss-web-toggle-button
+            [isActive]="discounts?.isActive"
+            [isDisabled]="true"
+          >
+          </poss-web-toggle-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+<ng-template #errorMesage>
+  <div class="pw-sub-heading pw-message pw-text-center">
+    {{ 'No Records' | translate }}
+  </div>
+</ng-template>
+<div class="row mt-2">
+  <mat-paginator
+    class="pw-paginator ml-auto"
+    *ngIf="totalSelectedElements > minPageSize && selectedDiscounts.length > 0"
+    [length]="totalSelectedElements"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+</div>

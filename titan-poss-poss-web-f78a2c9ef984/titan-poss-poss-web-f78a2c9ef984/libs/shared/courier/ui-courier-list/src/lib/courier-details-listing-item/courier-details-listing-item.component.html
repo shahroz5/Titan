@@ -1,0 +1,47 @@
+<div
+  class="pw-detail-card"
+  *possWebPermission="loadPermission(VIEW_COURIER_PERMISSIONS)"
+>
+  <div class="row align-items-center">
+    <div class="col-lg-auto col-12">
+      <p class="pw-fourth-color">
+        {{ 'pw.courierDetails.courierNameLabel' | translate }}
+      </p>
+      <div class="mt-2">
+        <span class="pw-font-weight-bold">{{
+          courierDetailsList.courierName
+        }}</span>
+      </div>
+    </div>
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="openViewPage()">
+        <span class="pw-detail-card__icon-text">View</span>
+      </a>
+
+      <ng-container
+        *possWebPermission="loadPermission(ADD_EDIT_COURIER_PERMISSIONS)"
+      >
+        <a
+          *ngIf="courierDetailsList?.isActive"
+          (click)="getCourierName(courierDetailsList.courierName)"
+        >
+          <span class="pw-detail-card__icon-text">{{
+            'pw.courierDetails.view/editLabel' | translate
+          }}</span
+          >&nbsp;
+          <span class="pw-i-24 pw-edit-icon-24"></span>
+        </a>
+      </ng-container>
+    </div>
+    <div
+      class="col-auto"
+      *possWebPermission="loadPermission(ADD_EDIT_COURIER_PERMISSIONS)"
+    >
+      <poss-web-toggle-button
+        [isActive]="active"
+        (changeEvent)="changeEvent($event)"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>

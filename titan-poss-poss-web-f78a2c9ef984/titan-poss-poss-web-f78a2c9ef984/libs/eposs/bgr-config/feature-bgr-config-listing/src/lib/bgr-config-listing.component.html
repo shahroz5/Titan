@@ -1,0 +1,109 @@
+<div class="row m-0">
+  <div class="col-12 col-lg-10 m-auto">
+    <div class="pw-top-heading-container">
+      <div class="row pw-top-heading-container__item">
+        <div class="col-auto">
+          <div class="pw-top-heading-container__main-head">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+            <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+            <div>
+              <h2>
+                {{ 'pw.bgrConfigurations.bestGoldRateLabel' | translate }}
+              </h2>
+              <h5 class="pw-top-heading-container__sub-heading">
+                {{ 'pw.configurations.configuration' | translate }}
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-auto pw-top-heading-container__right-content"
+          *possWebPermission="loadPermission(ADD_EDIT_PERMISSION)"
+        >
+          <button
+            class="pw-btn pw-accent-btn"
+            routerLinkActive="router-link-active"
+            (click)="loadDetails()"
+          >
+            {{ 'pw.weightValueConfig.addNew' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-container *possWebPermission="loadPermission(VIEW_PERMISSION)">
+      <div class="row align-items-flex-end">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.bgrConfigurations.bgrConfigurationsLabel' | translate }}
+          </div>
+        </div>
+        <mat-form-field
+          class="col-3 ml-auto pw-search-bar pw-form-field-padding-bottom-0"
+          [formGroup]="searchForm"
+        >
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder="{{ 'pw.weightValueConfig.searchBy' | translate }}"
+            class="single-bordered-input"
+            formControlName="searchValue"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!searchForm.value.searchValue"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchForm.value.searchValue"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <div class="col-3 ml-auto">
+          <poss-web-select-dropdown
+            class="pw-form-field-padding-bottom-0"
+            [placeholder]="
+              'pw.bgrConfigurations.searchOrderTypeLabel' | translate
+            "
+            [control]="orderTypeFormControl"
+            [options]="orderTypes"
+            [required]="true"
+            (selectionChange)="orderTypeChangeHandler($event)"
+          >
+          </poss-web-select-dropdown>
+        </div>
+      </div>
+
+      <poss-web-bgr-config-items
+        *ngIf="!invalidSearch"
+        [bgrConfigListing]="bgrConfigListing$ | async"
+        [count]="bgrConfigListCount$ | async"
+        [pageEvent]="listPageEvent"
+        [permissions$]="permissions$"
+        (paginator)="paginate($event)"
+        [pageSize]="pageSize"
+        (bgrConfigRuleId)="getId($event)"
+        (emitToggleValue)="updateIsActive($event)"
+        (viewPage)="openViewPage($event)"
+      >
+      </poss-web-bgr-config-items>
+    </ng-container>
+    <div
+      *ngIf="
+        ((isLoading$ | async) === false &&
+          (bgrConfigListing$ | async)?.length === 0) ||
+        invalidSearch
+      "
+      class="pw-message pw-text-center mg-t-100"
+    >
+      {{ noDataFoundMessage }}
+    </div>
+  </div>
+  <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+</div>

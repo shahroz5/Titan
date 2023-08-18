@@ -1,0 +1,10 @@
+{
+	"type": "TEP_EXCEPTION_CONFIG",
+	"data": {
+		"deductionPercent": 10,
+		"flatTepExchangeValue": 1000,
+		"isWeightToleranceAllowed": true,
+		"approvedBy": "commercial",
+		"reasonForException": "string"
+	}
+}

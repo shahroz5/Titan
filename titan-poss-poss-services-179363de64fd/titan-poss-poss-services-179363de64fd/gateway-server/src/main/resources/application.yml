@@ -1,0 +1,151 @@
+server:
+  port: 9208
+
+spring:
+  application:
+    name: gateway-server 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mvc:
+    servlet:
+      path: 
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+      - name: Retry
+        args:
+          retries: 1
+      - StripPrefix=1
+                
+      routes:
+      #auth-service route
+      - id: auth-service
+        uri: lb://auth-service
+        predicates:
+        - Path=/api/auth/**
+        
+      #- RewritePath=/api/(?<path>.*), /$\{path}
+      #saml route     
+      - id: auth-service
+        uri: lb://auth-service
+        predicates:
+        - Path=/api/saml/**
+        
+        #- RewritePath=/api/(?<path>.*), /$\{path}
+     #inventory-service route
+      - id: inventory-service
+        uri: lb://inventory-service
+        predicates:
+        - Path=/api/inventory/**
+     
+      
+     #user-service route
+      - id: user-service
+        uri: lb://user-service
+        predicates:
+        - Path=/api/user/**
+        
+     #location-service route
+      - id: location-service
+        uri: lb://location-service
+        predicates:
+        - Path=/api/location/**
+        
+     #store-service route
+      - id: store-service
+        uri: lb://store-service
+        predicates:
+        - Path=/api/store/**
+        
+     #product-service route
+      - id: product-service
+        uri: lb://product-service
+        predicates:
+        - Path=/api/product/**
+        
+        
+     #config-service route
+      - id: config-service
+        uri: lb://config-service
+        predicates:
+        - Path=/api/config/**
+        
+     #engine-service route
+      - id: engine-service
+        uri: lb://engine-service
+        predicates:
+        - Path=/api/engine/**
+        
+    #sales-service route
+      - id: sales-service
+        uri: lb://sales-service
+        predicates:          - Path=/api/sales/**
+
+    #integration-service route
+      - id: integration-service
+        uri: lb://integration-service
+        predicates:
+          - Path=/api/integration/**
+                  
+    #revenue-service route
+      - id: payment-service
+        uri: lb://payment-service
+        predicates:
+            - Path=/api/payment/**
+            
+    #datasync-service route
+      - id: datasync-service
+        uri: lb://datasync-service
+        predicates:
+            - Path=/api/datasync/**
+
+    #workflow-service route
+      - id: workflow-service
+        uri: lb://workflow-service
+        predicates:
+            - Path=/api/workflow/**  
+            
+    #report-service route
+      - id: report-service
+        uri: lb://report-service
+        predicates:
+            - Path=/api/report/**       
+    
+    #file-service route
+      - id: file-service
+        uri: lb://file-service
+        predicates:
+            - Path=/api/file/**              
+                 
+
+auth-service:
+  ribbon:
+    isSecure: false
+
+
+ribbon:
+  ReadTimeout: 1900000
+  ConnectTimeout: 2000
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
+  ServerListRefreshInterval: 2000
+   
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 2
+    leaseExpirationDurationInSeconds: 6
+    securePortEnabled: false
+  client:
+    registryFetchIntervalSeconds: 2
+    
+
+ssl:
+    enabled: false
+    key-alias: spring
+    key-store: classpath:saml/keystore.jks
+    key-store-password: secret 

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: datasync-service
+  profiles:    active: dev
+  cloud:
+    config:
+      #uri: http://localhost:7777/config
+      uri: http://config-server/config
+      name: datasync-service
+      label: v2
+      username: configadmin
+      password: SrrL28WdGwaXtSRM
+      fallbackLocation: fallback/datasync

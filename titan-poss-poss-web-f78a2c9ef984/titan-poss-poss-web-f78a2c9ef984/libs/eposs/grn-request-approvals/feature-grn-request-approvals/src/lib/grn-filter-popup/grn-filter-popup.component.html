@@ -1,0 +1,141 @@
+<div [formGroup]="filterForm">
+  <div
+    class="row pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      <div class="pw-font-weight-bold mt-1 mb-2">
+        {{ 'pw.grnRequestApproval.advanceFilter' | translate }}
+      </div>
+    </div>
+    <div (click)="close()" class="col-auto ml-auto pw-cursor">
+      <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+    </div>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-6">
+      <mat-label>{{
+        'pw.grnRequestApproval.srcLocationCode' | translate
+      }}</mat-label>
+      <input matInput formControlName="srcLocationCode" class="pw-input-box" />
+      <mat-error
+        *ngIf="
+          filterForm.get('srcLocationCode').touched &&
+          filterForm.get('srcLocationCode').errors &&
+          filterForm.get('srcLocationCode').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('srcLocationCode').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <mat-label>{{
+        'pw.grnRequestApproval.destLocationCode' | translate
+      }}</mat-label>
+      <input matInput formControlName="destLocationCode" class="pw-input-box" />
+      <mat-error
+        *ngIf="
+          filterForm.get('destLocationCode').touched &&
+          filterForm.get('destLocationCode').errors &&
+          filterForm.get('destLocationCode').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('destLocationCode').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-12">
+      <mat-label>{{
+        'pw.grnRequestApproval.docDateRange' | translate
+      }}</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [max]="currentDate">
+        <input
+          matStartDate
+          formControlName="startDate"
+          placeholder="Doc From Date"
+        />
+        <input matEndDate formControlName="endDate" placeholder="Doc To Date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>
+          <span class="pw-i-12 pw-calender-icon-12"></span>
+        </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-error
+        *ngIf="
+          filterForm.get('startDate').errors &&
+          filterForm.get('startDate').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('startDate').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+      <mat-error
+        *ngIf="
+          filterForm.get('endDate').errors &&
+          filterForm.get('endDate').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('endDate').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row">
+
+    <mat-form-field class="col-12">
+      <mat-label>{{
+        'pw.grnRequestApproval.fiscalYear' | translate
+      }}</mat-label>
+      <input matInput formControlName="fiscalYear" class="pw-input-box" />
+      <mat-error
+        *ngIf="
+          filterForm.get('fiscalYear').touched &&
+          filterForm.get('fiscalYear').errors &&
+          filterForm.get('fiscalYear').errors.errorArray
+        "
+      >
+        <poss-web-error-info-tooltip
+          [errorMessage]="filterForm.get('fiscalYear').errors.errorArray"
+        ></poss-web-error-info-tooltip>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <poss-web-select-dropdown
+      class="col-12"
+      [control]="filterForm.get('grnType')"
+      [placeholder]="'pw.grnRequestApproval.grnType' | translate"
+      [options]="grnTypeArray"
+      [required]="false"
+      (selectionChange)="onDropDownValueChange($event)"
+    >
+    </poss-web-select-dropdown>
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">
+      <button (click)="clear()" class="pw-btn pw-primary-btn">
+        {{ 'pw.grnRequestApproval.clear' | translate }}
+      </button>
+    </div>
+    <div class="col-4">
+      <button (click)="apply()" class="pw-btn pw-accent-btn">
+        {{ 'pw.grnRequestApproval.apply' | translate }}
+      </button>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

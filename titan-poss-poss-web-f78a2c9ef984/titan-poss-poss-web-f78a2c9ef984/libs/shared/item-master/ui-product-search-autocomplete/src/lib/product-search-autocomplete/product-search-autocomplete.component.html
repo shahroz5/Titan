@@ -1,0 +1,49 @@
+<mat-form-field
+  [formGroup]="searchForm"
+  floatLabel="never"
+  class="pw-form-field-border-top-0"
+>
+  <mat-icon matPrefix> <span class="pw-i-24 pw-scan-icon-24"></span></mat-icon>
+  <input
+    #searchBox
+    matInput
+    formControlName="searchValue"
+    [placeholder]="placeholder"
+    [matAutocomplete]="auto"
+    class="pw-uppercase"
+    name="itemCodeField"
+    possWebMaxLengthValidator
+    (keydown.enter)="searchEvent()"
+  />
+  <mat-icon matSuffix *ngIf="!searchForm.get('searchValue').value">
+    <span class="pw-i-16 pw-search-icon-16"></span
+  ></mat-icon>
+  <mat-icon
+    matSuffix
+    (click)="clearSearch($event)"
+    *ngIf="searchForm.get('searchValue').value"
+  >
+    <span class="pw-i-10 pw-close-icon-16"></span
+  ></mat-icon>
+</mat-form-field>
+<p *ngIf="!noSearchResultFound" class="pw-fourth-color pw-msg-padding">
+  {{ 'pw.productGrid.minCharHint' | translate }}
+</p>
+<mat-autocomplete
+  #auto="matAutocomplete"
+  (optionSelected)="updateMySelection($event)"
+  #inputAutoComplete
+>
+  <mat-option *ngFor="let option of searchData" [value]="option">
+    {{ option.itemCode }} <span class="alignOption"></span>
+    <span *ngIf="option?.totalQuantity"> ({{ option?.totalQuantity }}) </span>
+  </mat-option>
+</mat-autocomplete>
+<mat-card
+  *ngIf="noSearchResultFound"
+  class="mat-elevation-z3 pw-text-center pw-card-relative"
+>
+  <p>
+    <span class="pw-font-weight-bold"> {{ noDataFoundMessage }}</span>
+  </p></mat-card
+>

@@ -1,0 +1,153 @@
+<div class="row">
+  <poss-web-select-dropdown
+    class="col-auto"
+    [placeholder]="'pw.focConfiguration.focTypeLabel' | translate"
+    [options]="focTypeArray"
+    [control]="dropDownForm.get('discountType')"
+    [required]="true"
+    (selectionChange)="onDropDownChange($event)"
+  >
+  </poss-web-select-dropdown>
+
+  <poss-web-select-dropdown
+    class="col-auto"
+    [placeholder]="'pw.focConfiguration.focEligibleOnLabel' | translate"
+    [options]="focEligibilityArray"
+    [control]="dropDownForm.get('focEligibility')"
+    [required]="true"
+    (selectionChange)="onFocEligibilityDropDownChange($event)"
+  >
+  </poss-web-select-dropdown>
+</div>
+
+<div
+  *ngIf="dropDownForm.get('discountType').value === 'SLAB'"
+  class="row align-items-center mb-2"
+>
+  <div class="col-3 pw-mont-semibold-14 mt-3">
+    {{ 'pw.focConfiguration.focDetails' | translate }}
+  </div>
+
+  <div class="col-auto mt-1 ml-auto">
+    <div class="row mt-1 align-items-center">
+      <div class="col-auto pr-0">
+        {{ 'pw.focConfiguration.isSingle' | translate }} :
+      </div>
+      <div class="col-auto mt-1">
+        <poss-web-toggle-button
+          [isActive]="
+            varinatDetails[0]?.isSingle ? varinatDetails[0]?.isSingle : false
+          "
+          [toggleCaption]="isSingle ? 'Yes' : 'No'"
+          (changeEvent)="changeEvent($event.checked)"
+        ></poss-web-toggle-button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-primary-btn pw-add-button"
+      (click)="addAbove()"
+      [disabled]="disableWeightBasedButton"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.focConfiguration.addAbove' | translate }}
+    </button>
+  </div>
+
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-primary-btn pw-add-button"
+      (click)="addBelow()"
+      [disabled]="disableWeightBasedButton"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.focConfiguration.addBelow' | translate }}
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="dropDownForm.get('discountType').value === 'STANDARD'"
+  class="row align-items-center mb-2"
+>
+  <div class="col-3 pw-mont-semibold-14 mt-3">
+    {{ 'pw.focConfiguration.focDetails' | translate }}
+  </div>
+
+  <div class="col-auto ml-auto pw-padding-5">
+    <button class="pw-btn pw-primary-btn pw-add-button" (click)="addRow()">
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      ADD
+    </button>
+  </div>
+</div>
+
+<div *ngIf="dropDownForm.get('discountType').value === 'STANDARD'" class="row">
+  <div class="col-12">
+    <ag-grid-angular
+      editType="fullRow"
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      rowSelection="single"
+      domLayout="autoHeight"
+      [columnDefs]="weightBasedOthersStdColdefs"
+      [rowData]="weightBasedOthersStdRowData"
+      [singleClickEdit]="true"
+      [context]="getStdContext()"
+      [singleClickEdit]="true"
+      [frameworkComponents]="getComponents()"
+      (gridReady)="weightBasedOthersStdGridReady($event)"
+      (selectionChanged)="onSelectionChanged($event)"
+      (rowValueChanged)="rowValueChanged($event)"
+      (rowEditingStarted)="rowEditingStarted($event)"
+      (gridSizeChanged)="onGridStdSizeChanged()"
+    ></ag-grid-angular>
+  </div>
+</div>
+
+<div *ngIf="dropDownForm.get('discountType').value === 'SLAB'" class="row">
+  <div class="col-12">
+    <ag-grid-angular
+      editType="fullRow"
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      domLayout="autoHeight"
+      rowSelection="single"
+      [columnDefs]="weightBasedOthersSlabColdefs"
+      [rowData]="weightBasedOthersSlabRowData"
+      [singleClickEdit]="true"
+      [context]="getSlabContext()"
+      [singleClickEdit]="true"
+      [frameworkComponents]="getComponents()"
+      (gridReady)="weightBasedOthersSlabGridReday($event)"
+      (selectionChanged)="onSelectionChanged($event)"
+      (rowValueChanged)="rowValueChanged($event)"
+      (rowEditingStarted)="rowEditingStarted($event)"
+      (gridSizeChanged)="onGridSlabSizeChanged()"
+    ></ag-grid-angular>
+  </div>
+</div>
+
+<div *ngIf="dropDownForm.get('discountType').value === 'SLAB'" class="row">
+  <div class="ml-auto col-auto">
+    <button
+      class="pw-btn pw-primary-btn"
+      (click)="openSlabProductGroupMapping()"
+      [disabled]="enableButton"
+    >
+      {{ 'pw.focConfiguration.productGroupMappingLable' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="pw-btn pw-accent-btn" (click)="save()">
+      {{ 'pw.focConfiguration.save' | translate }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="dropDownForm.get('discountType').value === 'STANDARD'" class="row">
+  <button class="col-auto ml-auto pw-btn pw-accent-btn" (click)="save()">
+    {{ 'pw.focConfiguration.save' | translate }}
+  </button>
+</div>
+<poss-web-loader *ngIf="(selectedGroups | async) === false"></poss-web-loader>

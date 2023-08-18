@@ -1,0 +1,85 @@
+<div class="pw-dialog-box">
+  <div
+    class="row pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto pw-message">
+      {{ 'pw.instock.requestPopuptitle' | translate }}
+    </div>
+    <div class="col-auto ml-auto">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-dialog-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="newBinRequestForm">
+    <div mat-dialog-content class="pw-dialog-box__body">
+      <div class="pw-search-bar row">
+        <mat-form-field class="col-12">
+          <input
+            matInput
+            formControlName="bin"
+            placeholder="Bin Name"
+            class="single-bordered-input"
+            required
+            name="binNameField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              newBinRequestForm.get('bin').errors &&
+              newBinRequestForm.get('bin').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="newBinRequestForm.get('bin').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <textarea
+            matInput
+            formControlName="remarks"
+            class="single-bordered-input mt-5"
+            placeholder="Reason for Bin Request"
+            rows="4"
+            required
+            name="remarkField"
+            possWebMaxLengthValidator
+          ></textarea>
+          <mat-error
+            *ngIf="
+              newBinRequestForm.get('remarks').errors &&
+              newBinRequestForm.get('remarks').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                newBinRequestForm.get('remarks').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <a>
+      <div class="pw-text-right pt-3">
+        <button mat-button (click)="requestBin()" class="pw-btn pw-accent-btn">
+          <span class="pw-i-14 pw-exclamation-icon-14"></span>
+          {{ 'pw.instock.popupButton' | translate }}
+        </button>
+      </div>
+    </a>
+  </form>
+</div>

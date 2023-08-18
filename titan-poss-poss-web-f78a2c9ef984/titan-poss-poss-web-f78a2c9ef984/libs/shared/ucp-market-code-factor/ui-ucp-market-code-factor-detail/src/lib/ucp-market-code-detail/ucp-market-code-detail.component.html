@@ -1,0 +1,40 @@
+<div class="pw-confirmation-box" #mainPopup>
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto" *ngIf="this.dialogData.ucpMarketCode.id === 'new'">
+      {{ 'pw.ucpMarketFactor.newHeading' | translate }}
+    </div>
+    <div class="col-auto" *ngIf="this.dialogData.ucpMarketCode.id !== 'new'">
+      {{ 'pw.ucpMarketFactor.editHeading' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <poss-web-dynamic-form
+      *ngIf="formFields"
+      [style]="currentStyle"
+      [formFields]="formFields"
+      [disabled]="false"
+      [enableSubmitOnInvalid]="true"
+      [buttonNames]="['Cancel', 'Save']"
+      (onFormCancel)="deleteButton($event)"
+      (onFormSubmit)="addButton($event)"
+    >
+    </poss-web-dynamic-form>
+  </div>
+</div>

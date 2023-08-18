@@ -1,0 +1,120 @@
+<div class="col-12 col-lg-10 m-auto">
+  <div class="pw-top-heading-container">
+    <div class="row pw-top-heading-container__item">
+      <div class="col-auto">
+        <div class="pw-top-heading-container__main-head">
+          <a (click)="back()">
+            <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+          </a>
+          <span class="pw-i-36 pw-instock-icon-36"></span>
+          <div>
+            <h2>{{ 'pw.instock.request' | translate }}</h2>
+            <h5 class="pw-top-heading-container__sub-heading">
+              {{
+                'pw.requestApprovalsNotificationMessages.subheader' | translate
+              }}
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mb-3">
+    {{ 'pw.instock.interBoutiqueTransferHeaderText' | translate }}
+  </h3>
+
+  <!-- grid-card-list  -->
+
+  <!-- grid-card -->
+  <div class="pw-grid-card">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-6">
+        <a>
+          <div class="pw-grid-card__item pw-is-active-bar">
+            <h4>{{ item?.reqDocNo }}</h4>
+            <div>
+              <p class="pw-success-color">{{ item?.srcLocationCode }}</p>
+            </div>
+            <div>
+              <p>{{ item?.destLocationCode }}</p>
+            </div>
+            <div class="mt-1">
+              <p>
+                {{ item?.totalAcceptedQuantity }} Products |
+                {{
+                  item?.totalRequestedValue
+                    | currencyFormatter: item?.currencyCode
+                }}
+              </p>
+              <p>
+                {{ item?.reqDocDate.fromNow() }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="row mt-3"
+    *ngIf="ibtRequestApprovalsItemsCount$ | async"
+    [formGroup]="approvalsTransferForm"
+  >
+    <div class="col-lg-3">
+      <mat-radio-group
+        class="col-auto"
+        (change)="selectChange()"
+        formControlName="selectItems"
+      >
+        <mat-radio-button class="mr-3" value="1">
+          <p>{{ 'pw.stockIssue.selectAllText' | translate }}</p>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div
+      class="col-auto ml-auto ml-lg-0"
+      *ngIf="isSelectAll || isSelectedArray.length !== 0"
+    >
+      <a (click)="clearAll()">
+        <p>
+          <span class="pw-i-16 pw-clear-icon-16"></span>
+          {{ 'pw.stockIssue.clearAllButtonText' | translate }}
+        </p>
+      </a>
+    </div>
+  </div>
+  <!-- list-card -->
+
+  <div [class.pw-overlay-notification-gutter]="hasNotification">
+    <poss-web-ibt-request-approvals-item-list
+      [count]="ibtRequestApprovalsItemsCount$ | async"
+      [selectionEvents]="selectionAllSubject.asObservable()"
+      [requestId]="requestId"
+      [itemList]="Items$ | async"
+      [locationCode]="item?.srcLocationCode"
+      (isSelected)="isSelect($event)"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageEvent]="itemsPageEvent"
+      (paginator)="paginateItems($event)"
+      (loadImageEvent)="loadImageUrl($event)"
+    ></poss-web-ibt-request-approvals-item-list>
+
+    <div
+      *ngIf="(ibtRequestApprovalsItemsCount$ | async) === 0"
+      class="pw-success-color pw-message pw-text-center mg-t-100"
+    >
+      <span class="pw-i-16 "></span>
+      {{ 'pw.instock.noRequestText' | translate }}
+    </div>
+
+    <poss-web-loader 
+      *ngIf="
+        isItemsLoading || 
+        (loading$ | async) ||
+        (isLoadingImage$ | async)
+    ">
+    </poss-web-loader>
+  </div>
+</div>

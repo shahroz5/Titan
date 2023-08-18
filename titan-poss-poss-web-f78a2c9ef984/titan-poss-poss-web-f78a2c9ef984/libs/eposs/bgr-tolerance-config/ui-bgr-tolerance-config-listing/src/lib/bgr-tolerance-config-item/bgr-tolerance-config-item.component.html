@@ -1,0 +1,87 @@
+<div class="pw-detail-card">
+  <div class="row">
+    <div class="col-xl-4 col-lg-3 col-6">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-4 col-lg-5 col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.bgrToleranceConfigurations.configName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold">
+              {{ bgrTolerancConfigItem.description }}</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-3 col-6">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-4 col-lg-5 col-3">
+          <p class="pw-fourth-color">
+            {{ 'pw.bgrToleranceConfigurations.orderType' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span
+              class="pw-font-weight-bold"
+              *ngIf="bgrTolerancConfigItem.ruleType === 'BGR_TOLERANCE_CONFIG'"
+            >
+              {{
+                'pw.bgrToleranceConfigurations.advanceBooking' | translate
+              }}</span
+            >
+            <span
+              class="pw-font-weight-bold"
+              *ngIf="bgrTolerancConfigItem.ruleType !== 'BGR_TOLERANCE_CONFIG'"
+            >
+              Customer Order</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a
+        *possWebPermission="loadPermission(VIEW_PERMISSION)"
+        class="mr-3"
+        (click)="openViewPage(bgrTolerancConfigItem.ruleId)"
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.bgrToleranceConfigurations.viewLabel' | translate }}</span
+        >&nbsp;
+      </a>
+
+      <ng-container *possWebPermission="loadPermission(ADD_EDIT_PERMISSION)">
+        <a
+          *ngIf="bgrTolerancConfigItem?.isActive"
+          (click)="edit(bgrTolerancConfigItem.ruleId)"
+        >
+          <span class="pw-detail-card__icon-text">
+            {{ 'pw.bgrToleranceConfigurations.viewOrEdit' | translate }}</span
+          >
+
+          <span class="pw-i-24 pw-edit-icon-24"></span>
+        </a>
+      </ng-container>
+    </div>
+    <div
+      class="col-auto pw-detail-card__item"
+      *possWebPermission="loadPermission(ADD_EDIT_PERMISSION)"
+    >
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,758 @@
+<div
+  class="container-fluid"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row">
+    <div class="col-lg-10 col-12 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-issue-stock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.otherReceiptsIssues.title' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.otherReceiptsIssues.issueLableText' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="mb-3">{{ transferType }}</h3>
+      <mat-accordion *ngIf="transferType == otherIssuesTabEnumRef.EXHIBITION">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.EnterAddressLabelText' | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="addressForm">
+            <div class="row wrap">
+              <div class="col-lg-9 pw-card__border">
+                <div class="row">
+                  <mat-form-field class="col-6">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Address 1"
+                      formControlName="address1"
+                      name="addressField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('address1').errors &&
+                        addressForm.get('address1').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('address1').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-6">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Address 2"
+                      formControlName="address2"
+                      name="addressField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('address2').errors &&
+                        addressForm.get('address2').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('address2').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="State"
+                      formControlName="state"
+                      name="stateField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('state').errors &&
+                        addressForm.get('state').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('state').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="City"
+                      formControlName="city"
+                      name="cityField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('city').errors &&
+                        addressForm.get('city').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('city').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Pin Code"
+                      formControlName="pinCode"
+                      name="pincodeField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('pinCode').errors &&
+                        addressForm.get('pinCode').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('pinCode').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="row">
+                  <mat-form-field class="col-12">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Approval Code"
+                      formControlName="approvalCode"
+                      name="approvalCodeField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('approvalCode').errors &&
+                        addressForm.get('approvalCode').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('approvalCode').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Approved By"
+                      formControlName="approvedBy"
+                      name="nameWithSpaceField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        addressForm.get('approvedBy').errors &&
+                        addressForm.get('approvedBy').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          addressForm.get('approvedBy').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion *ngIf="transferType == otherIssuesTabEnumRef.LOAN_TYPE">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.EmployeeDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="employeeForm">
+            <div class="row wrap">
+              <div class="col-lg-9 pw-card__border">
+                <div class="row">
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Employee Id"
+                      formControlName="employeeId"
+                      name="alphaNumericField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('employeeId').errors &&
+                        employeeForm.get('employeeId').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('employeeId').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Employee Name"
+                      formControlName="employeeName"
+                      name="nameWithSpaceField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('employeeName').errors &&
+                        employeeForm.get('employeeName').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('employeeName').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Designation"
+                      formControlName="designation"
+                      name="designationField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('designation').errors &&
+                        employeeForm.get('designation').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('designation').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Email Id"
+                      formControlName="emailId"
+                      name="emailField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('emailId').errors &&
+                        employeeForm.get('emailId').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('emailId').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Mobile No"
+                      formControlName="mobileNo"
+                      name="mobileField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('mobileNo').errors &&
+                        employeeForm.get('mobileNo').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('mobileNo').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Brand"
+                      formControlName="brand"
+                      name="nameWithSpaceField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('brand').errors &&
+                        employeeForm.get('brand').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('brand').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="row">
+                  <mat-form-field class="col-12">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Approval Code"
+                      formControlName="approvalCode"
+                      name="approvalCodeField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('approvalCode').errors &&
+                        employeeForm.get('approvalCode').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('approvalCode').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-12">
+                    <input
+                      class="pw-input-box"
+                      matInput
+                      possWebInput
+                      required
+                      placeholder="Approved By"
+                      formControlName="approvedBy"
+                      name="nameWithSpaceField"
+                      possWebMaxLengthValidator
+                    />
+                    <mat-error
+                      *ngIf="
+                        employeeForm.get('approvedBy').errors &&
+                        employeeForm.get('approvedBy').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          employeeForm.get('approvedBy').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion *ngIf="transferType == otherIssuesTabEnumRef.LOSS">
+        <mat-expansion-panel
+          class="pw-expansion-panel-other-issues"
+          [expanded]="true"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="row pw-accordion">
+                <div class="col-auto">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.ApprovalDetailsLabelText'
+                        | translate
+                    }}
+                  </p>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="lossForm">
+            <div class="row">
+              <mat-form-field class="col-lg-3 col-5">
+                <input
+                  class="pw-input-box"
+                  matInput
+                  possWebInput
+                  required
+                  placeholder="Approval Code"
+                  formControlName="approvalCode"
+                  name="approvalCodeField"
+                  possWebMaxLengthValidator
+                />
+                <mat-error
+                  *ngIf="
+                    lossForm.get('approvalCode').errors &&
+                    lossForm.get('approvalCode').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      lossForm.get('approvalCode').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-lg-3 col-5">
+                <input
+                  class="pw-input-box"
+                  matInput
+                  possWebInput
+                  required
+                  placeholder="Approved By"
+                  formControlName="approvedBy"
+                  name="nameWithSpaceField"
+                  possWebMaxLengthValidator
+                />
+                <mat-error
+                  *ngIf="
+                    lossForm.get('approvedBy').errors &&
+                    lossForm.get('approvedBy').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      lossForm.get('approvedBy').errors.errorArray
+                    "
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="row mb-4"></div>
+      <div class="pw-filter-box">
+        <div class="row">
+          <div class="col-9">
+            <ul class="pw-filter-box__sub-head-lists">
+              <li class="pw-filter-box__list">
+                <a
+                  [class.is-active]="tab === otherIssuesTabEnumRef.ALL"
+                  (click)="changeTab(otherIssuesTabEnumRef.ALL)"
+                  class="pw-filter-box__heading pw-cursor"
+                >
+                  {{
+                    'pw.otherReceiptsIssues.ListOfProductsLabelText' | translate
+                  }}
+                  <span class="pw-fourth-color"
+                    >({{ allOtherIssuesCreateCount }})</span
+                  >
+                </a>
+              </li>
+              <li class="pw-filter-box__list">
+                <a
+                  [class.is-active]="
+                    tab == otherIssuesTabEnumRef.SELECTED_PRODUCTS
+                  "
+                  (click)="changeTab(otherIssuesTabEnumRef.SELECTED_PRODUCTS)"
+                  class="pw-filter-box__heading pw-cursor"
+                >
+                  {{
+                    'pw.otherReceiptsIssues.SelectedProductsLabeltext'
+                      | translate
+                  }}
+                  <span class="pw-fourth-color"
+                    >({{ selectedOtherIssuesCreateCount }})</span
+                  >
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="pw-filter-box">
+        <div class="row align-items-flex-end" [formGroup]="itemForm">
+          <div class="col-lg-7">
+            <div class="row">
+              <mat-radio-group
+                aria-label="Select an option"
+                (change)="selectChange()"
+                formControlName="selectRadioButton"
+                class="col-auto"
+              >
+                <mat-radio-button
+                  value="1"
+                  class="mr-3"
+                  [disabled]="
+                    itemCode != null ||
+                    (tab == otherIssuesTabEnumRef.ALL
+                      ? filterAllProducts.length > 0
+                      : filterSelectedProducts.length > 0)
+                  "
+                >
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.SelectAllProductsTabLabel'
+                        | translate
+                    }}
+                  </p>
+                </mat-radio-button>
+                <mat-radio-button value="2">
+                  <p>
+                    {{
+                      'pw.otherReceiptsIssues.SelectAllProductsCurrentPageTabLabel'
+                        | translate
+                    }}
+                  </p></mat-radio-button
+                >
+              </mat-radio-group>
+              <div
+                class="col-auto ml-auto ml-lg-0 pw-cursor"
+                *ngIf="selectedItemids.length !== 0"
+              >
+                <a (click)="clearAll()">
+                  <p>
+                    <span class="pw-i-16 pw-clear-icon-16"></span>
+                    {{ 'pw.otherReceiptsIssues.ClearAllLabelText' | translate }}
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 pw-text-right">
+            <div class="row pw-filter-box__right-content">
+              <div class="col-auto">
+                <a (click)="openFilter()">
+                  <p>
+                    <span
+                      *ngIf="
+                        (filterAllProducts.length === 0 &&
+                          tab == otherIssuesTabEnumRef.ALL) ||
+                        (filterSelectedProducts.length === 0 &&
+                          tab == otherIssuesTabEnumRef.SELECTED_PRODUCTS)
+                      "
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="
+                        (filterAllProducts.length !== 0 &&
+                          tab == otherIssuesTabEnumRef.ALL) ||
+                        (filterSelectedProducts.length !== 0 &&
+                          tab == otherIssuesTabEnumRef.SELECTED_PRODUCTS)
+                      "
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.otherReceiptsIssues.FilterLabelText' | translate }}
+                  </p>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a (click)="openSort()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.otherReceiptsIssues.SortLableText' | translate }}
+                  </p>
+                </a>
+              </div>
+              <poss-web-item-search
+                class="col-lg-6 col-4 ml-auto ml-lg-0"
+                placeholder="{{
+                  'pw.otherReceiptsIssues.searchByVariantCodePlaceholderText'
+                    | translate
+                }}"
+                (search)="searchItems($event)"
+                (clear)="clearSearchItems()"
+              >
+              </poss-web-item-search>
+            </div>
+          </div>
+        </div>
+      </div>
+      <poss-web-loader
+        *ngIf="
+          (isAllOtherIssueCreateItemsLoading$ | async) ||
+          (isSelectedOtherIssueCreateItemsLoading$ | async) ||
+          (isOtherIssueCreateItemsTotalCountLoading$ | async) ||
+          (isSearchingOtherIssueCreateItems$ | async) ||
+          (isSelectedOtherIssueCreateItemsLoading$ | async)
+        "
+      >
+      </poss-web-loader>
+      <poss-web-exhibition-issue-create-item-list
+        *ngIf="
+          (hasSearchedOtherIssueCreateItems$ | async) === false &&
+          (isSearchingOtherIssueCreateItems$ | async) === false &&
+          tab == otherIssuesTabEnumRef.ALL
+        "
+        [count]="allProdctsTabTotalCountforPagination"
+        [itemList]="allOtherIssueCreateItems$ | async"
+        [pageSize]="pageSize"
+        [pageEvent]="allOtherIssueItemsPageEvent"
+        (paginator)="paginateAllOtherIssueCreateItems($event)"
+        (selection)="selectionEmit($event)"
+        [SelectedTab]="otherIssuesTabEnumRef.ALL"
+        (quantity)="quantity($event)"
+        [selectionEvents]="selectionAllObaservable"
+        [dateFormat]="dateFormat"
+        [pageSizeOptions]="pageSizeOptions"
+      >
+      </poss-web-exhibition-issue-create-item-list>
+      <div
+        *ngIf="
+          (isOtherIssueCreateItemsTotalCountLoaded$ | async) &&
+          allOtherIssuesCreateCount == 0 &&
+          tab == otherIssuesTabEnumRef.ALL
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        <span class="pw-i-16 pw-success-icon-16"></span>
+        {{ 'pw.otherReceiptsIssues.emptyListOfProductsMessage' | translate }}
+      </div>
+      <div
+        *ngIf="
+          (isOtherIssueCreateItemsTotalCountLoaded$ | async) &&
+          allOtherIssuesCreateCount !== 0 &&
+          (allOtherIssueCreateItems$ | async)?.length == 0 &&
+          tab == otherIssuesTabEnumRef.ALL
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+      <poss-web-exhibition-issue-create-item-list
+        *ngIf="
+          (hasSearchedOtherIssueCreateItems$ | async) === false &&
+          (isSearchingOtherIssueCreateItems$ | async) === false &&
+          tab == otherIssuesTabEnumRef.SELECTED_PRODUCTS
+        "
+        [count]="selectedTabTotalCountforPagination"
+        [itemList]="selectedOtherIssueCreateItems$ | async"
+        [pageSize]="pageSize"
+        [pageEvent]="selectedOtherIssueItemsPageEvent"
+        (paginator)="paginateSelectedOtherIssueCreateItems($event)"
+        (selection)="selectionEmit($event)"
+        [SelectedTab]="otherIssuesTabEnumRef.SELECTED_PRODUCTS"
+        (quantity)="quantity($event)"
+        [selectionEvents]="selectionAllObaservable"
+        [dateFormat]="dateFormat"
+        [pageSizeOptions]="pageSizeOptions"
+      >
+      </poss-web-exhibition-issue-create-item-list>
+      <div
+        *ngIf="
+          (isOtherIssueCreateItemsTotalCountLoaded$ | async) &&
+          selectedOtherIssuesCreateCount == 0 &&
+          tab == otherIssuesTabEnumRef.SELECTED_PRODUCTS
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        <span class="pw-i-16 pw-success-icon-16"></span>
+        {{ 'pw.otherReceiptsIssues.emptySelectedTabMessage' | translate }}
+      </div>
+      <div
+        *ngIf="
+          (isOtherIssueCreateItemsTotalCountLoaded$ | async) &&
+          selectedOtherIssuesCreateCount !== 0 &&
+          (selectedOtherIssueCreateItems$ | async)?.length == 0 &&
+          tab == otherIssuesTabEnumRef.SELECTED_PRODUCTS
+        "
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+    </div>
+  </div>
+</div>

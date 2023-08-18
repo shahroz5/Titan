@@ -1,0 +1,328 @@
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    INVENTORY
+  </div>
+
+  <div class="pw-form-card__flex-row">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueToFactory' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isIssueToFactory
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueToMerchandise' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isIssueToMerchandise
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueToOtherBtq' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isIssueToOtherBoutique
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueTEP' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.inventoryDetails?.data?.isIssueToTEP"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueGEP' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.inventoryDetails?.data?.isIssueToGEP"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueDefectDispute' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isIssueDefective
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.issueothers' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.inventoryDetails?.data?.isIssueOthers"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.daysforphysicalReceiptdate' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.inventoryDetails?.data
+              ?.maximumNoOfDaysForPhysicalReceiptDate
+              ? locationDetails.inventoryDetails.data
+                  .maximumNoOfDaysForPhysicalReceiptDate
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isConversionRestricted' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isConversionRestricted
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.daysforSTNCancellation' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.inventoryDetails?.data
+              ?.maximumNoOfDaysForSTNCancellation
+              ? locationDetails.inventoryDetails.data
+                  .maximumNoOfDaysForSTNCancellation
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isSTNCancellationAllowed' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isSTNcancellationAllowed
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isStuddedsplitallowed' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.inventoryDetails?.data?.isStuddedSplitAllowed
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    ASSM
+  </div>
+
+  <div class="pw-form-card__flex-row">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.wttoleranceforstock' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.inventoryDetails?.data
+              ?.sparewtToleranceforStockItem
+              ? locationDetails.inventoryDetails.data
+                  .sparewtToleranceforStockItem
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5 h-110">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.servicewttoleranceforstock' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.inventoryDetails?.data
+              ?.servicewtToleranceforStockItem
+              ? locationDetails.inventoryDetails.data
+                  .servicewtToleranceforStockItem
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5 h-110">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.conversionwtToleranceforBangle' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.inventoryDetails?.data
+              ?.conversionwtToleranceforBangle
+              ? locationDetails.inventoryDetails.data
+                  .conversionwtToleranceforBangle
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

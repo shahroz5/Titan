@@ -1,0 +1,34 @@
+<div class="row mb-2 mt-1">
+  <div class="col-auto ml-auto">
+    <button
+      class="pw-btn pw-primary-btn pw-add-btn"
+      (click)="addRow()"
+      [disabled]="!isAdd"
+    >
+      <span class="pw-i-24 pw-add-icon-24"></span>
+      {{ 'pw.range.addLabel' | translate }}
+    </button>
+  </div>
+</div>
+<ag-grid-angular
+  class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table pw-scrollable-ag-grid"
+  [rowData]="rangeRowData"
+  [columnDefs]="columnDefs"
+  [rowHeight]="rowHeight"
+  [animateRows]="animateRows"
+  [domLayout]="domLayout"
+  [rowSelection]="rowSelection"
+  [frameworkComponents]="getComponents()"
+  (gridReady)="gridReady($event)"
+  [defaultColDef]="defaultColDef"
+  (gridSizeChanged)="onGridSizeChanged()"
+  (rowEditingStarted)="rowEditingStarted($event)"
+  (cellValueChanged)="onCellValueChanged($event)"
+  [context]="getContext()"
+></ag-grid-angular>
+
+<div class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button class="pw-btn pw-primary-btn" (click)="onSubmit()">Save</button>
+  </div>
+</div>

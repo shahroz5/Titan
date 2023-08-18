@@ -1,0 +1,18 @@
+{
+	"type": "HIGH_VALUE_DISCOUNT",
+	"data": {
+		"digit1": true,
+		"digit2": true,
+		"digit3": true,
+		"digit4": true,
+		"digit5": true,
+		"digit6": true,
+		"digit8": true,
+		"digit9": true,
+		"digit10": true,
+		"digit11": true,
+		"digit12": true,
+		"digit13": true,
+		"digit14": true
+	}
+}

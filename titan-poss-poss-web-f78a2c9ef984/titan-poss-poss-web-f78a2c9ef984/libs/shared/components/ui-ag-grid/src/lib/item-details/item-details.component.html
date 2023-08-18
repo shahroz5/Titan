@@ -1,0 +1,119 @@
+<div *ngIf="!isCOMOrder" class="pw-table-content">
+  <div>
+    <a class="pw-anchor-underline" (click)="showPopup(itemCode)">{{
+      itemCode
+    }}</a>
+  </div>
+  <div>
+    {{
+      params.data?.productType === productTypesEnumRef.FOC
+        ? '(FOC)'
+        : descriptionValues !== null && descriptionCode !== null
+        ? descriptionValues[descriptionCode]
+        : null
+    }}
+    <span
+      *ngIf="params.data.productType === productTypesEnumRef.FOC"
+      class="pw-i-14 pw-info-icon-14"
+      [matMenuTriggerFor]="focSchemeInfoMenu"
+    ></span>
+  </div>
+  <div *ngIf="params.data.productType === productTypesEnumRef.REGULAR">
+    {{ binCode }}
+    <div>({{ 'pw.productGrid.qtyLabel' | translate }}:{{ totalQuantity }})</div>
+  </div>
+  <div *ngIf="params.data.productType === productTypesEnumRef.COINS">
+    {{ karatage }}
+    {{ 'pw.productGrid.ktLabel' | translate }} ({{
+      'pw.productGrid.qtyLabel' | translate
+    }}:{{ totalQuantity }})
+  </div>
+</div>
+<mat-menu
+  #focSchemeInfoMenu="matMenu"
+  class="pw-overlay-notification-band__menu"
+>
+  <div class="d-flex pw-menu-item__margin">
+    <div class="d-flex flex-column pw-tertiary-color">
+      <div
+        *ngIf="params.data?.focSchemeDetails?.data?.schemeName"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.productGrid.focSchemeNameLabel' | translate }}
+      </div>
+      <div
+        *ngIf="params.data?.focSchemeDetails?.data?.schemeCategory"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.productGrid.focCategoryNameLabel' | translate }}
+      </div>
+      <div
+        *ngIf="params.data?.productGroupList"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.productGrid.focSchemesProductGroupListLabel' | translate }}
+      </div>
+    </div>
+    <div class="d-flex flex-column mx-2 pw-tertiary-color">
+      <div
+        *ngIf="params.data?.focSchemeDetails?.data?.schemeName"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+      <div
+        *ngIf="params.data?.focSchemeDetails?.data?.schemeCategory"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+      <div
+        *ngIf="params.data?.productGroupList"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+    </div>
+    <div class="d-flex flex-column pw-font-weight-bold pw-text-right">
+      <div
+        *ngIf="params.data?.focSchemeDetails?.data?.schemeName"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{
+          getSchemeNameToDisplay(
+            params.data?.focSchemeDetails?.data?.schemeName
+          ) | translate
+        }}
+      </div>
+      <div
+        *ngIf="params.data?.focSchemeDetails?.data?.schemeCategory"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{
+          getSchemeCategoryToDisplay(
+            params.data?.focSchemeDetails?.data?.schemeCategory
+          ) | translate
+        }}
+      </div>
+      <div
+        *ngIf="params.data?.productGroupList"
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ params.data?.productGroupList }}
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<div *ngIf="isCOMOrder" class="pw-width-full">
+  {{ params.data?.itemCode }}
+  <div
+    *ngIf="
+      params.data?.productGroupCode &&
+      params.data?.requestType === requestTypeEnumRef.COM
+    "
+  >
+    {{ 'pw.productGrid.cfaCodeLabel' | translate }} :
+    {{ params.data?.productGroupCode }}
+  </div>
+</div>

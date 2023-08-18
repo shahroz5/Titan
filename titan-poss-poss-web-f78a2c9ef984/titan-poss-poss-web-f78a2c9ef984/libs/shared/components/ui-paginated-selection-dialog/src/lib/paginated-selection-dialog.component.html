@@ -1,0 +1,76 @@
+<div
+  class="row pw-selection-dialog pw-cursor-grab"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="col-auto pw-message">
+    {{ data.title }}
+  </div>
+  <button class="ml-auto" mat-icon-button (click)="close()">
+    <mat-icon>
+      <span class="pw-i-10 pw-close-icon-16"></span>
+    </mat-icon>
+  </button>
+</div>
+<div class="d-flex">
+  <mat-form-field class="flex-fill" [formGroup]="searchForm" floatLabel="never">
+    <input
+      #searchBox
+      matInput
+      [placeholder]="data.placeholder"
+      formControlName="searchValue"
+    />
+    <mat-icon matSuffix *ngIf="!searchForm.get('searchValue').value">
+      <span class="pw-i-16 pw-search-icon-16"></span
+    ></mat-icon>
+    <mat-icon
+      matSuffix
+      (click)="clearSearch()"
+      *ngIf="searchForm.get('searchValue').value"
+    >
+      <span class="pw-i-10 pw-close-icon-16"></span
+    ></mat-icon>
+  </mat-form-field>
+</div>
+<div class="pw-selection-dialog__list" possWebFocusableList>
+  <p
+    possWebFocusableListItem
+    *ngFor="let option of options; let i = index"
+    class="pw-selection-dialog__list-item"
+    (click)="onSelect(option)"
+    (selected)="onSelect(option)"
+  >
+    {{ option.description }}
+  </p>
+  <p *ngIf="isLoading" class="pw-text-center pw-sub-heading">
+    {{ 'pw.selectionDialog.loadingText' | translate }} ...
+  </p>
+  <div
+    *ngIf="!isLoading && options.length == 0"
+    class="pw-selection-dialog__no-result-text pw-sub-heading"
+  >
+  {{ 'pw.selectionDialog.noDataFoundMessage' | translate }}
+</div>
+</div>
+<div class="d-flex justify-content-end">
+  <button
+    mat-icon-button
+    *ngIf="pageIndex != 0"
+    (click)="loadData(false, false)"
+  >
+    <mat-icon>
+      <span class="pw-i-24 pw-down-arrow-icon-24 pw-left-arrow"></span>
+    </mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    *ngIf="pageIndex < lastPageIndex"
+    (click)="loadData(false, true)"
+  >
+    <mat-icon>
+      <span class="pw-i-24 pw-down-arrow-icon-24 pw-right-arrow"></span>
+    </mat-icon>
+  </button>
+</div>

@@ -1,0 +1,24 @@
+<mat-form-field [formGroup]="datePickerForm" class="col-auto">
+  <input
+    matInput
+    formControlName="datePicker"
+    [matDatepicker]="picker"
+    [min]="currentDate"
+    autocomplete="off"
+    readonly
+  />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <mat-error
+    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+    *ngIf="
+      datePickerForm.get('datePicker').errors &&
+      datePickerForm.get('datePicker').errors.errorArray
+    "
+  >
+    <poss-web-error-info-tooltip
+      [isOnlyTooltip]="true"
+      [errorMessage]="datePickerForm.get('datePicker').errors.errorArray"
+    ></poss-web-error-info-tooltip>
+  </mat-error>
+</mat-form-field>

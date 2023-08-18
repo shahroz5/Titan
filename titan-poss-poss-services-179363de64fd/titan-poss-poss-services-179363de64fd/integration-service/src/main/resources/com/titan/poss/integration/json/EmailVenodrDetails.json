@@ -1,0 +1,10 @@
+{
+	"type": "EMAIL",
+	"data": {
+		"userName": "poss.devteam@gmail.com",
+		"password": "72jR2uhNMPqMNpFiN0G8wA==",
+		"properties": {
+			"mail.smtp.starttls.enable": "true"
+		}
+	}
+}

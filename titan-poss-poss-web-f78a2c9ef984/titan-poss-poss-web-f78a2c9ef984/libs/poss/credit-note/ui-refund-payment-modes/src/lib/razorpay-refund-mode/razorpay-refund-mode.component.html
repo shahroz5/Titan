@@ -1,0 +1,50 @@
+<div class="row" [formGroup]="razorpayDetailsFormGroup">
+  <mat-form-field class="col-auto" [floatLabel]="'auto'">
+    <mat-label>{{
+      'pw.creditNote.tanishqTransactionId' | translate
+    }}</mat-label>
+    <input
+      #focusPin
+      matInput
+      type="text"
+      formControlName="tanishqTransactionId"
+      required
+    />
+    <mat-error
+      *ngIf="
+        razorpayDetailsFormGroup.get('tanishqTransactionId').errors &&
+        razorpayDetailsFormGroup.get('tanishqTransactionId').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="
+          razorpayDetailsFormGroup.get('tanishqTransactionId').errors.errorArray
+        "
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="col-auto" [floatLabel]="'auto'">
+    <mat-label>{{ 'pw.creditNote.razorpayTransactionId' | translate }}</mat-label>
+    <input
+      #focusPin
+      matInput
+      formControlName="razorpayTransactionId"
+      type="text"
+      required
+    />
+    <mat-error
+      *ngIf="
+        razorpayDetailsFormGroup.get('razorpayTransactionId').errors &&
+        razorpayDetailsFormGroup.get('razorpayTransactionId').errors.errorArray
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="
+          razorpayDetailsFormGroup.get('razorpayTransactionId').errors.errorArray
+        "
+      >
+      </poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+</div>

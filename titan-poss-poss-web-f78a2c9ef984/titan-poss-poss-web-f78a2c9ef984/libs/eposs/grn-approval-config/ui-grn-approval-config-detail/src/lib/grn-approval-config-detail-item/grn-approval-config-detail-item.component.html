@@ -1,0 +1,133 @@
+<div *ngIf="grnApprovalConfig$ | async">
+  <form [formGroup]="grnApprovalConfigForm" novalidate autocomplete="off">
+    <div class="pw-form-card">
+      <div class="row">
+        <poss-web-select-dropdown
+          *ngIf="ruleId === 'new'"
+          disableOptionCentering
+          class="col-4"
+          [placeholder]="'pw.grnApprovalConfig.grnTypeLabel' | translate"
+          [control]="grnApprovalConfigForm.get('grnType')"
+          [options]="grnTypeList"
+          [required]="true"
+        >
+        </poss-web-select-dropdown>
+
+        <mat-form-field class="col-4" *ngIf="ruleId !== 'new'">
+          <mat-label>{{
+            'pw.grnApprovalConfig.grnTypeLabel' | translate
+          }}</mat-label>
+          <input matInput formControlName="grnTypeInput" required />
+        </mat-form-field>
+        <mat-form-field class="col-4">
+          <mat-label>{{
+            'pw.grnApprovalConfig.configNameLabel' | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="configName"
+            required
+            name="nameWithSpaceField"
+            possWebMaxLengthValidator
+          />
+          <mat-error
+            *ngIf="
+              grnApprovalConfigForm.get('configName').errors &&
+              grnApprovalConfigForm.get('configName').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                grnApprovalConfigForm.get('configName').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+        <div
+          class="col-auto pw-form-card__right-container pw-form-card__align-center"
+        >
+          <poss-web-toggle-button formControlName="isActive">
+          </poss-web-toggle-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-form-card">
+      <div class="pw-font-weight-bold pw-form-card__item">
+        {{ 'pw.grnApprovalConfig.detailsLabel' | translate }}
+      </div>
+      <div class="row">
+        <poss-web-select-dropdown
+          disableOptionCentering
+          class="col-lg-3 col-4"
+          [placeholder]="'pw.grnApprovalConfig.approvedByLabel' | translate"
+          [control]="grnApprovalConfigForm.get('approvedBy')"
+          [options]="roleList"
+          [required]="false"
+        >
+        </poss-web-select-dropdown>
+
+        <div class="col-lg-auto col-auto">
+          <button
+            type="button"
+            class="pw-btn pw-icon-btn-small mt-3"
+            (click)="addRow(grnApprovalConfigForm.get('approvedBy').value)"
+            [disabled]="
+              grnApprovalConfigForm.get('approvedBy').value === '' ||
+              grnApprovalConfigForm.get('approvedBy').value === null ||
+              grnApprovalConfigForm.get('approvedBy').value === undefined
+            "
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <ag-grid-angular
+        class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [rowHeight]="rowHeight"
+        [animateRows]="animateRows"
+        [context]="getContext()"
+        (cellValueChanged)="onCellValueChanged($event)"
+        [frameworkComponents]="getComponents()"
+        [domLayout]="domLayout"
+        (gridSizeChanged)="onGridSizeChanged($event)"
+        (gridReady)="gridReady($event)"
+      ></ag-grid-angular>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-auto ml-auto">
+        <button
+          *ngIf="configDetail.isActive !== false"
+          [disabled]="ruleId === 'new'"
+          class="pw-btn pw-primary-btn"
+          (click)="locationMapping()"
+        >
+          {{ 'pw.grnApprovalConfig.locationMappingLabel' | translate }}
+        </button>
+        <button
+          *ngIf="configDetail.isActive === false"
+          class="pw-btn pw-primary-btn"
+          (click)="locationMapping()"
+        >
+          {{ 'pw.grnApprovalConfig.viewLocationMappingLabel' | translate }}
+        </button>
+      </div>
+      <div
+        class="col-auto"
+      >
+        <button
+          class="pw-btn pw-accent-btn"
+          [disabled]="grnApprovalConfigForm.valid !== true"
+          (click)="saveDetail()"
+        >
+          {{ 'pw.grnApprovalConfig.saveLabel' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

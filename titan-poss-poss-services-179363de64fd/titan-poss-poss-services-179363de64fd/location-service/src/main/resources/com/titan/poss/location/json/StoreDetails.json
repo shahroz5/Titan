@@ -1,0 +1,33 @@
+{
+	"type": "STORE_DETAILS",
+	"data": {
+		"cinNumber": "string",
+		"corporateAddress": "string",
+		"companyName": "string",
+		"regdOffice": "string",
+		"isWalkInsDetailsMandatory": true,
+		"numberOfDaysToDisplay": 2,
+		"noOfDays": 8,
+		"addressLines": [
+			"Chennai",
+			"India",
+			null
+		],
+		"phoneNumber1": "String",
+		"phoneNumber2": "String",
+		"contactNumber": "String",
+		"boutiqueEmailId": "String",
+		"pincode": 560030,
+		"isDial": false,
+		"maxRateRetryAttempt": 10,
+		"isEinvoiceEnabled": true,
+		"isHallmarkingEnabled": false,
+		"hallmarkRegistrationNumber": "string",
+		"hallmarkGSTPercentage": 0,
+		"reviewLinkURL": "String",
+		"isPanCardVerifyIntegration":true
+	}
+}
+
+
+	

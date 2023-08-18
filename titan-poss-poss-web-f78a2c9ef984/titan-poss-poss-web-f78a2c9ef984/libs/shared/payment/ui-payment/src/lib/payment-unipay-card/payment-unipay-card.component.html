@@ -1,0 +1,46 @@
+<form class="row pw-panel-card" autocomplete="off">
+  <div class="col-xl-2 col-auto pw-panel-card__box pw-panel-card__padding-5">
+    <div class="pw-panel-card__card-container">
+      <div>
+        <span class="pw-i-24 pw-card-icon-24"></span>
+      </div>
+      Card
+    </div>
+  </div>
+
+  <mat-form-field
+    class="col-xl-7 col pw-panel-card__item pw-panel-card__padding-5 mb-xl-4 mt-xl-5"
+  >
+    <mat-label>Enter Amount</mat-label>
+    <span class="pw-font-weight-bold mx-2" matPrefix>
+      {{ currencyCode | currencySymbol }}
+    </span>
+
+    <input
+      [formControl]="uniPayFormControl"
+      matInput
+      possWebAmountInput
+      [allowDecimal]="false"
+      required
+    />
+    <mat-error
+      *ngIf="uniPayFormControl.errors && uniPayFormControl.errors.errorArray"
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="uniPayFormControl.errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="col-auto ml-auto pw-panel-card__item pw-panel-card__padding-5">
+    <button
+      mat-flat-button
+      class="pw-btn pw-accent-btn"
+      (click)="addPayment()"
+      [disabled]="uniPayFormControl.disabled"
+      type="button"
+    >
+      Add
+    </button>
+  </div>
+</form>

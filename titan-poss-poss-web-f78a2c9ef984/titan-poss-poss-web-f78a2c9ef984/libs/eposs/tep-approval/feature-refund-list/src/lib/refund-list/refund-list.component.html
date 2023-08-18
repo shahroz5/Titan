@@ -1,0 +1,196 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-customer-transaction-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.regularTepApproval.customerTransaction' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.regularTepApproval.refundStatus' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-tab mt-4">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a
+              [class.pw-is-active-bar]="showChequeList === true"
+              (click)="changeTab('CHEQUE')"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'CHEQUE' }}
+              </h5>
+            </a>
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              [class.pw-is-active-bar]="showRtgsList === true"
+              (click)="changeTab('RTGS')"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'RTGS' }}
+              </h5>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="row" [formGroup]="filterForm">
+        <mat-form-field class="col-lg-2 col-3 ml-auto pw-search-bar">
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder="{{
+              'pw.regularTepApproval.searchByTepNo' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="tepNo"
+          />
+
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!filterForm.value.tepNo"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearTepNoSearch()">
+            <span
+              *ngIf="filterForm.value.tepNo"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="col-lg-2 col-3 pw-search-bar">
+          <input
+            #searchBox
+            matInput
+            type="text"
+            placeholder="{{
+              'pw.regularTepApproval.searchByLocationCodeLabel' | translate
+            }}"
+            class="single-bordered-input"
+            formControlName="locationCode"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!filterForm.value.locationCode"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearLocationSearch()">
+            <span
+              *ngIf="filterForm.value.locationCode"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+        <poss-web-fiscal-year
+          class="col-lg-2 col-3"
+          [control]="filterForm.get('fiscalYear')"
+          [required]="false"
+          [currentFiscalYear]="currentFiscalYear"
+          [placeHolder]="'pw.grf.fiscalYearLabel' | translate"
+          [disabled]="false"
+        ></poss-web-fiscal-year>
+
+        <poss-web-select-dropdown
+          class="col-lg-2 col-3"
+          [placeholder]="'pw.regularTepApproval.status' | translate"
+          [control]="filterForm.get('status')"
+          [options]="refundStatusOptions"
+          [required]="false"
+          (selectionChange)="filterByStatus($event)"
+        ></poss-web-select-dropdown>
+
+        <poss-web-select-dropdown
+          class="col-lg-2 col-3"
+          [placeholder]="'pw.regularTepApproval.dateRangeTypes' | translate"
+          [control]="filterForm.get('dateRangeType')"
+          [options]="dateRangeTypes"
+          [required]="false"
+          (selectionChange)="filterByDateRangeType($event)"
+        ></poss-web-select-dropdown>
+
+        <mat-form-field class="col-lg-4 col-3" *ngIf="showDateRangePicker">
+          <mat-label>{{
+            'pw.regularTepApproval.dateRange' | translate
+          }}</mat-label>
+          <mat-date-range-input [rangePicker]="picker" [max]="currentDate">
+            <input
+              matStartDate
+              formControlName="fromDate"
+              placeholder="Doc From Date"
+              #dateRangeStart
+            />
+            <input
+              matEndDate
+              formControlName="toDate"
+              placeholder="Doc To Date"
+              #dateRangeEnd
+              (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>
+              <span class="pw-i-12 pw-calender-icon-12"></span>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-error
+            *ngIf="
+              filterForm.get('fromDate').errors &&
+              filterForm.get('fromDate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="filterForm.get('fromDate').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              filterForm.get('toDate').errors &&
+              filterForm.get('toDate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="filterForm.get('toDate').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <poss-web-refund-list-grid
+            [tepRefundList]="tepRefundList"
+            [refundType]="refundType"
+            [count]="totalElements"
+            [pageEvent]="tepApprovalPageEvent"
+            (paginator)="paginate($event)"
+            (emitEditedRefundItem)="getEditedRefundItem($event)"
+            [pageSizeOptions]="pageSizeOptions"
+            [minPageSize]="minPageSize"
+            (viewIdProofCopy)="getUploadedFiles($event)"
+          >
+          </poss-web-refund-list-grid>
+        </div>
+      </div>
+
+      <poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<form>
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [frameworkComponents]="getComponents()"
+    [rowSelection]="rowSelection"
+    [context]="getContext()"
+    [animateRows]="animateRows"
+    [domLayout]="domLayout"
+    [rowHeight]="rowHeight"
+    [getRowNodeId]="getRowNodeId"
+    (gridReady)="gridReady($event)"
+    (gridSizeChanged)="onGridSizeChanged()"
+  ></ag-grid-angular>
+</form>

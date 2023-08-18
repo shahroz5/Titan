@@ -1,0 +1,130 @@
+<div
+  class="pw-card pw-panel"
+  *ngIf="productDetails?.length !== 0; else noDataTemplate"
+>
+  <div class="align-items-center">
+    <table class="pw-mat-table" aria-describedby="table">
+      <thead>
+        <tr class="pw-mat-table__header pw-mat-table__primary-bg">
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.variantCodeHeaderText' | translate }}
+          </th>
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.lotNumberHeaderText' | translate }}
+          </th>
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.unitWeightHeaderText' | translate }} ({{
+              weightCode
+            }})
+          </th>
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.actualWeightHeaderText' | translate }}
+            ({{ weightCode }})
+          </th>
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.RSONameHeaderText' | translate }}
+          </th>
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.pricePerUnitHeaderText' | translate }}
+            ({{ defaultCurrencyCode | currencySymbol }})
+          </th>
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.discountHeaderText' | translate }} ({{
+              defaultCurrencyCode | currencySymbol
+            }})
+          </th>
+
+          <th class="pw-mat-table__item" scope="col">
+            {{ 'pw.cmRequestApproval.finalPriceHeaderText' | translate }} ({{
+              defaultCurrencyCode | currencySymbol
+            }})
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="pw-mat-table__body-row"
+          *ngFor="let item of productDetails; let i = index"
+        >
+          <td class="pw-mat-table__item">
+            <div>
+              <a (click)="showPopup(item)" class="pw-anchor-underline">
+                {{ item.itemCode }}
+              </a>
+            </div>
+            <div class="pw-mat-table__item-content">
+              {{ getProductGroupDesc(item?.productGroupCode) }}
+            </div>
+            <div class="pw-mat-table__item-content">
+              {{ item.binCode }}
+            </div>
+          </td>
+          <!-- <td class="pw-mat-table__item">
+              {{
+                item.productGroupCode === coinCode
+                  ? item.totalQuantity
+                  : item.lotNumber
+              }}
+            </td> -->
+          <td class="pw-mat-table__item">
+            <div class="pw-mat-table__item-content">{{ item.lotNumber }}</div>
+            <div class="pw-mat-table__item-content">
+              Qty: {{ item.totalQuantity }}
+            </div>
+          </td>
+          <td class="pw-mat-table__item">
+            {{ item.unitWeight | weightFormatter }}
+          </td>
+          <td class="pw-mat-table__item">
+            {{ item.totalWeight | weightFormatter }}
+          </td>
+          <td class="pw-mat-table__item">
+            <span
+              matTooltip="{{ item.employeeCode }}"
+              matTooltipPosition="right"
+              >{{ getRsoNameFromCode(item.employeeCode) }}</span
+            >
+          </td>
+          <td class="pw-mat-table__item">
+            {{
+              item.totalValue / item.totalQuantity
+                | currencyFormatter: currencyCode:false
+            }}
+          </td>
+          <td class="pw-mat-table__item">
+            <a
+              *ngIf="item.totalDiscount"
+              (click)="openDiscountDetails(item, cashMemoData[i])"
+              [ngClass]="cashMemoData[i] ? 'pw-anchor-underline' : ''"
+            >
+              <!-- <div>Studded Discount..</div>
+                <div class="pw-mat-table__item-content pw-fourth-color">
+                  0 Selected
+                </div> -->
+              <!-- <div class="pw-mat-table__item-content"> -->
+              {{ item.totalDiscount | currencyFormatter: currencyCode:false }}
+              <!-- </div> -->
+            </a>
+            <a *ngIf="!item.totalDiscount">
+              <!-- <div>Studded Discount..</div>
+                <div class="pw-mat-table__item-content pw-fourth-color">
+                  0 Selected
+                </div> -->
+              <div class="pw-mat-table__item-content">0.00</div>
+            </a>
+          </td>
+          <td class="pw-mat-table__item">
+            <a (click)="openItemDetails(item)" class="pw-anchor-underline">
+              {{ item.finalValue | currencyFormatter: currencyCode:false }}
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #noDataTemplate>
+  <p class="pw-text-center">
+    {{ 'pw.cmRequestApproval.noRowsToShowMessage' | translate }}
+  </p>
+</ng-template>

@@ -1,0 +1,521 @@
+<poss-web-expansion-panel>
+  <poss-web-expansion-panel-summary>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+          <div class="pw-top-heading-container">
+            <div
+              class="row pw-top-heading-container__item align-items-flex-end"
+            >
+              <div class="col-auto">
+                <div class="pw-top-heading-container__main-head">
+                  <a (click)="back()">
+                    <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+                  </a>
+                  <span class="pw-i-36 pw-receive-stock-icon-36"></span>
+                  <div>
+                    <h2>{{ 'pw.stockReceive.title' | translate }}</h2>
+                    <h5
+                      class="pw-top-heading-container__sub-heading pw-fith-heading"
+                    >
+                      {{ 'pw.stockReceive.fromLableText' | translate }} :
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.FAC_BTQ"
+                      >
+                        {{ 'pw.stockReceive.factoryLableText' | translate }}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.BTQ_BTQ"
+                      >
+                        {{ 'pw.stockReceive.boutiqueLableText' | translate }}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.MER_BTQ"
+                      >
+                        {{ 'pw.stockReceive.merchandiseLabelText' | translate }}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.CFA_BTQ"
+                      >
+                        {{ 'pw.stockReceive.cfaLableText' | translate }}
+                      </ng-container>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto">
+                <h4>
+                  {{
+                    (isL1L2Store
+                      ? 'pw.stockReceive.stnNoLable'
+                      : 'pw.stockReceive.invoiceNoLable'
+                    ) | translate
+                  }}
+                  : {{ selectedStock?.srcDocNo }}
+                </h4>
+
+                <h4>
+                  {{ 'pw.stockReceive.docNo' | translate }}
+                  : {{ selectedStock?.destDocNo }}
+                </h4>
+                <div>
+                  {{ selectedStock?.srcLocationCode }} |
+                  {{ selectedStock?.srcLocationDescription }}
+                </div>
+              </div>
+              <div class="col-auto">
+                <p *ngIf="selectedStock?.status">
+                  {{ 'pw.stockReceive.statusLabel' | translate }} :
+                  <span
+                    [class.pw-success-color]="
+                      selectedStock.status === stockStatusEnumRef.RECEIVED
+                    "
+                    [class.pw-warning-color]="
+                      selectedStock.status === stockStatusEnumRef.PUBLISHED
+                    "
+                  >
+                    {{ selectedStock.status }}
+                  </span>
+                </p>
+                <p>
+                  {{ selectedStock?.totalMeasuredQuantity }}
+                  {{ 'pw.stockReceive.quantityLableText' | translate }} |
+                  {{
+                    (isL3Store
+                      ? selectedStock?.totalValue
+                      : selectedStock?.totalMeasuredValue
+                    ) | currencyFormatter: selectedStock?.currencyCode
+                  }}
+                </p>
+                <p
+                  *ngIf="
+                    selectedStock?.invoiceType ===
+                    StockReceiveAPITypesEnumRef.CFA_BTQ
+                  "
+                >
+                  {{ 'pw.stockReceive.totalDiscountLabel' | translate }} :
+                  {{
+                    selectedStock?.totalDiscount
+                      | currencyFormatter: selectedStock?.currencyCode
+                  }}
+                </p>
+                <p class="mt-1" *ngIf="isL1L2Store">
+                  <ng-container
+                    *ngIf="
+                      selectedStock?.courierDetails.type ==
+                      stockReceiveCarrierTypesEnumRef.COURIER
+                    "
+                  >
+                    {{ 'pw.stockReceive.courierLableText' | translate }} :
+                    {{ selectedStock?.courierDetails.data.companyName }}
+                  </ng-container>
+                  <ng-container
+                    *ngIf="
+                      selectedStock?.courierDetails.type ==
+                      stockReceiveCarrierTypesEnumRef.EMPLOYEE
+                    "
+                  >
+                    {{ 'pw.stockReceive.employeeLableText' | translate }} :
+                    {{ selectedStock?.courierDetails.data.employeeName }}
+                  </ng-container>
+                </p>
+              </div>
+              <div class="col">
+                <p>
+                  {{
+                    'pw.stockReceive.totalReceivedWeightLableText' | translate
+                  }}
+                  :
+
+                  {{ selectedStock?.totalAvailableWeight | weightFormatter }}
+                  {{ selectedStock?.weightUnit }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </poss-web-expansion-panel-summary>
+  <poss-web-expansion-panel-content>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-10 m-auto">
+          <div class="pw-top-heading-container">
+            <div class="row pw-top-heading-container__item">
+              <div class="col-auto">
+                <div class="pw-top-heading-container__main-head">
+                  <a (click)="back()">
+                    <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+                  </a>
+                  <span class="pw-i-36 pw-receive-stock-icon-36"></span>
+                  <div>
+                    <h2>{{ 'pw.stockReceive.title' | translate }}</h2>
+                    <h5
+                      class="pw-top-heading-container__sub-heading pw-fith-heading"
+                    >
+                      {{ 'pw.stockReceive.fromLableText' | translate }} :
+
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.FAC_BTQ"
+                      >
+                        {{ 'pw.stockReceive.factoryLableText' | translate }}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.BTQ_BTQ"
+                      >
+                        {{ 'pw.stockReceive.boutiqueLableText' | translate }}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.MER_BTQ"
+                      >
+                        {{ 'pw.stockReceive.merchandiseLabelText' | translate }}
+                      </ng-container>
+                      <ng-container
+                        *ngIf="requestType == stockReceiveEnumRef.CFA_BTQ"
+                      >
+                        {{ 'pw.stockReceive.cfaLableText' | translate }}
+                      </ng-container>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 col-md-4 col-6 pw-grid-card">
+              <div class="pw-grid-card__item pw-is-active-bar">
+                <div class="row">
+                  <div class="col-auto">
+                    <h4>
+                      {{
+                        (isL1L2Store
+                          ? 'pw.stockReceive.stnNoLable'
+                          : 'pw.stockReceive.invoiceNoLable'
+                        ) | translate
+                      }}
+                      :
+                      {{ selectedStock?.srcDocNo }}
+                    </h4>
+                    <h4>
+                      {{ 'pw.stockReceive.docNo' | translate }}
+                      :
+                      {{ selectedStock?.destDocNo }}
+                    </h4>
+                  </div>
+                  <div class="col-auto ml-auto">
+                    <p class="pw-seventh-color">
+                      <span class="pw-font-weight-bold">{{
+                        selectedStock?.orderType
+                      }}</span>
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  {{ selectedStock?.srcLocationCode }} |
+                  {{ selectedStock?.srcLocationDescription }}
+                </div>
+                <div class="mt-1">
+                  <p *ngIf="selectedStock?.status">
+                    {{ 'pw.stockReceive.statusLabel' | translate }} :
+                    <span
+                      [class.pw-success-color]="
+                        selectedStock.status === stockStatusEnumRef.RECEIVED
+                      "
+                      [class.pw-warning-color]="
+                        selectedStock.status === stockStatusEnumRef.PUBLISHED
+                      "
+                    >
+                      {{ selectedStock.status }}
+                    </span>
+                  </p>
+                  <p>
+                    {{ selectedStock?.totalMeasuredQuantity }}
+                    {{ 'pw.stockReceive.quantityLableText' | translate }} |
+                    {{
+                      (isL3Store
+                        ? selectedStock?.totalValue
+                        : selectedStock?.totalMeasuredValue
+                      ) | currencyFormatter: selectedStock?.currencyCode
+                    }}
+                  </p>
+                  <p
+                    *ngIf="
+                      selectedStock?.invoiceType ===
+                      StockReceiveAPITypesEnumRef.CFA_BTQ
+                    "
+                  >
+                    {{ 'pw.stockReceive.totalDiscountLabel' | translate }} :
+                    {{
+                      selectedStock?.totalDiscount
+                        | currencyFormatter: selectedStock?.currencyCode
+                    }}
+                  </p>
+                  <p>
+                    {{
+                      (isL1L2Store
+                        ? 'pw.stockReceive.stnDateLable'
+                        : 'pw.stockReceive.invoiceDateLable'
+                      ) | translate
+                    }}
+                    :
+                    {{ selectedStock?.srcDocDate | dateFormatter }}
+                  </p>
+                  <p>
+                    {{ 'pw.stockReceive.docDateLable' | translate }}
+                    :
+                    {{ selectedStock?.destDocDate | dateFormatter }}
+                  </p>
+
+                  <p *ngIf="isL1L2Store">
+                    <ng-container
+                      *ngIf="
+                        selectedStock?.courierDetails.type ==
+                        stockReceiveCarrierTypesEnumRef.COURIER
+                      "
+                    >
+                      {{ 'pw.stockReceive.courierLableText' | translate }} :
+                      {{ selectedStock?.courierDetails.data.companyName }}
+                    </ng-container>
+                    <ng-container
+                      *ngIf="
+                        selectedStock?.courierDetails.type ==
+                        stockReceiveCarrierTypesEnumRef.EMPLOYEE
+                      "
+                    >
+                      {{ 'pw.stockReceive.employeeLableText' | translate }} :
+                      {{ selectedStock?.courierDetails.data.employeeName }}
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6 col-6 no-gutters align-self-center">
+              <div class="">
+                <ng-container *ngIf="isL1L2Store">
+                  <div class="row no-gutters">
+                    <div class="col-sm-4 col-xs-auto">
+                      <p>
+                        <ng-container
+                          *ngIf="
+                            selectedStock?.courierDetails.type ==
+                            stockReceiveCarrierTypesEnumRef.COURIER
+                          "
+                        >
+                          {{
+                            'pw.stockReceive.courierdocketNumberLableText'
+                              | translate
+                          }}</ng-container
+                        >
+                        <ng-container
+                          *ngIf="
+                            selectedStock?.courierDetails.type ==
+                            stockReceiveCarrierTypesEnumRef.EMPLOYEE
+                          "
+                        >
+                          {{
+                            'pw.stockReceive.employeeIdLableText' | translate
+                          }}</ng-container
+                        >
+                      </p>
+                    </div>
+                    <div class="col-auto">
+                      <p>
+                        :
+                        <ng-container
+                          *ngIf="
+                            selectedStock?.courierDetails.type ==
+                            stockReceiveCarrierTypesEnumRef.COURIER
+                          "
+                        >
+                          {{ selectedStock?.courierDetails.data.docketNumber }}
+                        </ng-container>
+                        <ng-container
+                          *ngIf="
+                            selectedStock?.courierDetails.type ==
+                            stockReceiveCarrierTypesEnumRef.EMPLOYEE
+                          "
+                        >
+                          {{ selectedStock?.courierDetails.data.employeeId }}
+                        </ng-container>
+                      </p>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <div class="row no-gutters mt-1">
+                  <div class="col-sm-4 col-xs-auto">
+                    <p>
+                      {{
+                        'pw.stockReceive.totalReceivedWeightLableText'
+                          | translate
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    <p>
+                      :
+                      {{
+                        selectedStock?.totalAvailableWeight | weightFormatter
+                      }}
+                      {{ selectedStock?.weightUnit }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row no-gutters mt-1">
+                  <div class="col-sm-4 col-xs-auto">
+                    <p>
+                      {{
+                        'pw.stockReceive.totalMeasuredWeightLableText'
+                          | translate
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-auto">
+                    <p>
+                      :
+                      {{ selectedStock?.totalMeasuredWeight | weightFormatter }}
+                      {{ selectedStock?.weightUnit }}
+                    </p>
+                  </div>
+                </div>
+                <div class="row no-gutters mt-1">
+                  <div class="col-sm-4 col-xs-auto">
+                    <p>
+                      <span class="pw-i-12 pw-calender-icon-12"></span>
+                      {{
+                        'pw.stockReceive.STNReceivingDateLableText' | translate
+                      }}
+                    </p>
+                  </div>
+
+                  <div class="col-auto">
+                    <p>: {{ selectedStock?.destDocDate | dateFormatter }}</p>
+                  </div>
+                </div>
+                <div *ngIf="isL1L2Store">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder=" {{
+                        'pw.stockReceive.ReasonforDelayText' | translate
+                      }}"
+                      readonly
+                      value="{{ selectedStock?.reasonForDelay }}"
+                      class="pw-single-bordered-input"
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="pw-remarks">
+                <h5>Remarks</h5>
+                <p class="pw-remarks__content">
+                  {{
+                    selectedStock?.remarks !== null
+                      ? selectedStock?.remarks
+                      : ''
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </poss-web-expansion-panel-content>
+</poss-web-expansion-panel>
+
+<div
+  class="container-fluid"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row mt-2 pw-margin-bottom-70">
+    <div class="col-lg-10 col-12 m-auto">
+      <div class="pw-filter-box">
+        <div class="row align-items-end">
+          <div class="col-lg-7">
+            <ul class="pw-filter-box__sub-head-lists">
+              <li class="pw-filter-box__list">
+                <a class="pw-filter-box__heading is-active">
+                  {{ 'pw.stockReceive.listOfProductsText' | translate }}
+                  <span class="pw-fourth-color">({{ itemsCount }})</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="row pw-filter-box__right-content align-items-baseline">
+              <div class="col-auto">
+                <a id="filter" (click)="openFilter()">
+                  <p>
+                    <span
+                      *ngIf="filter.length === 0"
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="filter.length !== 0"
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockReceive.filterLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a id="sort" (click)="openSortDailog()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.stockReceive.sortLable' | translate }}
+                  </p>
+                </a>
+              </div>
+
+              <poss-web-item-search
+                class="col-lg-6 col-4 ml-auto ml-lg-0"
+                placeholder="{{
+                  'pw.stockReceive.searchByVariantCodePlaceholderText'
+                    | translate
+                }}"
+                (search)="searchItems($event)"
+                (clear)="clearSearchItems()"
+              >
+              </poss-web-item-search>
+            </div>
+          </div>
+        </div>
+      </div>
+      <poss-web-stock-receive-item-list
+        [count]="itemsCount"
+        [itemList]="items$ | async"
+        [pageEvent]="itemsPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        [isHistory]="true"
+        [isCFAStore]="isL3Store"
+        (paginator)="paginate($event)"
+        (loadImageEvent)="loadImageUrl($event)"
+      >
+      </poss-web-stock-receive-item-list>
+
+      <div
+        *ngIf="(isItemsLoaded$ | async) && (items$ | async)?.length == 0"
+        class="pw-success-color pw-message pw-text-center mg-t-100"
+      >
+        {{ noDataFoundMessage }}
+      </div>
+      <poss-web-loader
+        *ngIf="
+          (isLoadingSelectedStock$ | async) ||
+          (isItemsLoading$ | async) ||
+          (isLoadingImage$ | async)
+        "
+      >
+      </poss-web-loader>
+    </div>
+  </div>
+</div>

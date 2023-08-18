@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-1"></div>
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-instock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.boutiqueMasters.boutiqueMaster' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.boutiqueMasters.management' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3 mb-3">
+        <div class="col-auto">
+          <div class="pw-mont-semibold-14">
+            {{ 'pw.boutiqueMasters.viewEditMetalsRate' | translate }}
+          </div>
+        </div>
+      </div>
+      <poss-web-update-metal-rates
+        [isGoldRateAvailable]="isGoldRateAvailable$ | async"
+        [businessDate]="businessDate"
+        (saveMetalRates)="updateMetalRates($event)"
+        (noMetalRatesProvided)="noMetalRatesProvided($event)"
+      ></poss-web-update-metal-rates>
+    </div>
+    <div class="col-12 col-lg-1"></div>
+  </div>
+</div>
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

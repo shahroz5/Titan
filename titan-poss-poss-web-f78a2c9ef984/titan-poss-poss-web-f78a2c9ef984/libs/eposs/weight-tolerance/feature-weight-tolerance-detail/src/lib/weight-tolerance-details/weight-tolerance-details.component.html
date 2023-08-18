@@ -1,0 +1,160 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+              <div>
+                <h2>
+                  {{ 'pw.weightTolerance.inventoryManagement' | translate }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.weightTolerance.configurationLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div
+            *ngIf="configId === 'new'"
+            class="pw-sub-header__padding-heading"
+          >
+            {{ 'pw.weightTolerance.newWeightToleranceLabel' | translate }}
+          </div>
+          <div
+            *ngIf="configId !== 'new'"
+            class="pw-sub-header__padding-heading"
+          >
+            {{ 'pw.weightTolerance.weightToleranceLabel' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="pw-form-card">
+              <ng-container *ngIf="!showViewOnly; else elseTemplate">
+                <div class="row" [formGroup]="formData">
+                  <mat-form-field class="col-lg-10 col-9">
+                    <p class="pw-fourth-color">
+                      {{ 'pw.weightTolerance.configNameLabel' | translate }}
+                    </p>
+                    <input
+                      matInput
+                      type="text"
+                      (blur)="loadCheckConfigName()"
+                      value="{{ selectedConfigDetails?.configName }}"
+                      formControlName="configName"
+                      class="pw-single-bordered-input"
+                    />
+                    <mat-error
+                      *ngIf="
+                        formData.get('configName').errors &&
+                        formData.get('configName').errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="
+                          formData.get('configName').errors.errorArray
+                        "
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <div class="col-auto pw-detail-card__item ml-auto">
+                    <!-- <poss-web-toggle-button
+                      [isActive]="
+                        selectedConfigDetails?.isActive
+                          ? selectedConfigDetails?.isActive
+                          : this.formData.get('isActive').value
+                      "
+                      (changeEvent)="updateIsActive($event.checked)"
+                    >
+                    </poss-web-toggle-button> -->
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <div class="row">
+                  <div class="pw-form-card__margin-bottom col-4">
+                    <div class="row">
+                      <div class="col-5">
+                        <span class="pw-fourth-color">
+                          {{ 'pw.weightTolerance.configNameLabel' | translate }}
+                        </span>
+                      </div>
+                      <div class="col-auto pw-form-card__padding-5">
+                        <span> : </span>
+                      </div>
+                      <div class="col-6 pw-form-card__padding-5">
+                        {{ selectedConfigDetails.configName }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-auto pw-detail-card__item ml-auto">
+                    <poss-web-toggle-button
+                      class="col-6 pw-form-card__padding-5"
+                      [isActive]="selectedConfigDetails.isActive"
+                      [isDisabled]="true"
+                    >
+                    </poss-web-toggle-button>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="!showViewOnly; else elseTemplateGrid">
+        <poss-web-weight-tolerance-details-item
+          [weightRange]="rangeWeight$ | async"
+          [formData]="formData.valid"
+          [weightTolerance]="weightTolerance"
+          [totalCount]="totalElements$ | async"
+          [pageEvent]="initialPageEvent"
+          [pageSize]="pageSize"
+          [isCleared]="isCleared$ | async"
+          [productGroups]="productGroups$ | async"
+          [selectedConfigDetails]="selectedConfigDetails"
+          (responseEvent)="createConfiguration($event)"
+          (removeEvent)="remove($event)"
+          (openLocationMappingPopUp)="openLocationMapping()"
+          (clearProductGroupSearch)="clearProductGroupSearch()"
+          (searchProductGroup)="searchProductGroup($event)"
+          (paginator)="paginate($event)"
+        ></poss-web-weight-tolerance-details-item>
+      </ng-container>
+      <ng-template #elseTemplateGrid>
+        <poss-web-weight-tolerance-view
+          [weightRange]="rangeWeight$ | async"
+          [formData]="formData.valid"
+          [weightTolerance]="weightTolerance"
+          [totalCount]="totalElements$ | async"
+          [pageEvent]="initialPageEvent"
+          [pageSize]="pageSize"
+          [isCleared]="isCleared$ | async"
+          [productGroups]="productGroups$ | async"
+          (responseEvent)="createConfiguration($event)"
+          (removeEvent)="remove($event)"
+          (openLocationMappingPopUp)="openViewLocationMapping()"
+          (clearProductGroupSearch)="clearProductGroupSearch()"
+          (searchProductGroup)="searchProductGroup($event)"
+          (paginator)="paginate($event)"
+        ></poss-web-weight-tolerance-view
+      ></ng-template>
+
+      <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+    </div>
+  </div>
+</div>

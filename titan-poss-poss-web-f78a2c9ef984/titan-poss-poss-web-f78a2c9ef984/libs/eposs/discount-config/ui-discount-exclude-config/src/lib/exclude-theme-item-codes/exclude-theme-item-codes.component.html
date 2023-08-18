@@ -1,0 +1,163 @@
+<div class="row align-items-center" [formGroup]="form">
+  <div class="col-6 col-lg-3">
+    <div class="row">
+      <mat-form-field class="col">
+        <mat-label class="pw-fourth-color">
+          {{
+            'pw.discountExculdeConfig.themeCodePlaceholder' | translate
+          }}</mat-label
+        >
+        <input
+          matInput
+          formControlName="themeCode"
+          class="pw-single-bordered-input"
+        />
+
+        <mat-icon matSuffix (click)="clearExcludeThemeCode()">
+          <span
+            *ngIf="form.value.themeCode"
+            class="pw-i-10 pw-close-icon-16"
+          ></span
+        ></mat-icon>
+
+        <mat-error
+          *ngIf="
+            form.get('themeCode').errors &&
+            form.get('themeCode').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="form.get('themeCode').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+      <button
+        class="pw-btn pw-icon-btn-small mt-3"
+        (click)="addThemeCodeFn()"
+        [disabled]="form.invalid || invalid"
+      >
+        +
+      </button>
+    </div>
+  </div>
+  <div class="col-auto ml-auto">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <mat-form-field>
+          <input
+            #itemCodeSearch
+            matInput
+            type="text"
+            placeholder="{{
+              'pw.discountExculdeConfig.searchItemCodePlaceholder' | translate
+            }} "
+            class="single-bordered-input"
+            formControlName="itemCode"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!form.value.itemCode"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearExcludeItemCode()">
+            <span
+              *ngIf="form.value.itemCode"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+          <mat-error
+            *ngIf="
+              form.get('itemCode').errors &&
+              form.get('itemCode').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="form.get('itemCode').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-auto">
+        <button
+          (click)="downLoadFormatFn()"
+          class="pw-btn pw-primary-btn pw-form-card__upload-btn"
+        >
+          <span class="pw-i-24 pw-download-icon-24"></span>
+          {{ 'pw.discountExculdeConfig.downloadButton' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button
+          (click)="fileInput.click()"
+          class="pw-btn pw-primary-btn pw-form-card__upload-btn"
+        >
+          <span class="pw-i-24 pw-upload-icon-24"></span>
+          <input
+            [hidden]="true"
+            #fileInput
+            class="pw-hidden"
+            type="file"
+            (change)="uploadItemCodesFn($event)"
+          />
+
+          {{ 'pw.discountExculdeConfig.uploadButton' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<div class="row no-gutters">
+  <div class="col-6 col-lg-3">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table pw-scrollable-ag-grid"
+      [columnDefs]="themeCodesColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="excludeThemeCodes"
+      [context]="getContext()"
+      [domLayout]="domLayout"
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+      [frameworkComponents]="getComponents()"
+      (cellKeyPress)="onCellKeyPress($event)"
+      (gridReady)="gridReady($event)"
+
+    >
+    </ag-grid-angular>
+  </div>
+
+  <div class="col-12 col-lg-9 pl-2">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table pw-scrollable-ag-grid"
+      [columnDefs]="itemCodeColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="excludeItemCodes"
+      domLayout="autoHeight"
+      [context]="context"
+      [rowHeight]="rowHeight"
+      [animateRows]="animateRows"
+
+      (cellFocused)="onCellFocused($event)"
+      (focusout)="focusOut($event)"
+    >
+    </ag-grid-angular>
+    <mat-paginator
+      class="pw-paginator"
+      *ngIf="excludeItemCodesCount > minPageSize && excludeItemCodes.length > 0"
+      [length]="excludeItemCodesCount"
+      [pageSize]="pageEvent.pageSize"
+      [pageIndex]="pageEvent.pageIndex"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="paginatorFn($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

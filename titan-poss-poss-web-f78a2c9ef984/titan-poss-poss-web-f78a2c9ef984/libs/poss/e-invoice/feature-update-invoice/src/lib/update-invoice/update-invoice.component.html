@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span
+                  class="pw-i-24 pw-back-arrow-icon-24 pw-back-arrow-position-middle"
+                ></span>
+              </a>
+              <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+              <div class="pw-top-heading-container__heading">
+                {{ 'pw.eivoice.updateEInvoice' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-tab-group
+        dynamicHeight
+        mat-stretch-tabs
+        class="pw-mat-tab"
+      >
+        <mat-tab
+          class="pw-mat-tab__item"
+          label="{{'pw.eivoice.updateEInvoice' | translate }}"
+          *possWebPermission="loadPermission(UPDATE_INVOICE_TAB)"
+        >
+          <div class="col-4 col-lg-4">
+            <poss-web-invoice-list
+              [invoices]="invoices$ | async"
+            ></poss-web-invoice-list>
+          </div>
+    
+          <div class="row mt-2 pl-3">
+            <div class="col-auto">
+              <button
+                class="pw-btn pw-accent-btn"
+                (click)="resend()"
+                [disabled]="
+                  !enableResendButton ||
+                  ((invoices$ | async) && (invoices$ | async).length === 0)
+                "
+              >
+                {{ 'pw.eivoice.resendButtonTxt' | translate }}
+              </button>
+            </div>
+            <div class="col-auto">
+              <button class="pw-btn pw-accent-btn" (click)="getStatus()">
+                {{ 'pw.eivoice.getStatusButtonTxt' | translate }}
+              </button>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab
+          class="pw-mat-tab__item"
+          label="{{ 'pw.eivoice.copyInvoices' | translate }}"
+          *possWebPermission="loadPermission(COPY_INVOICE_TAB)"
+        >
+        <div class="col-auto" >
+          <button class="pw-btn pw-accent-btn" (click)="copyInvoice()">
+            {{ 'pw.eivoice.copyInvoices' | translate }}
+          </button>
+        </div>
+        </mat-tab>
+      </mat-tab-group>
+
+      
+    </div>
+  </div>
+</div>
+
+<poss-web-loader *ngIf="(isLoading$ | async) || isLoading"> </poss-web-loader>

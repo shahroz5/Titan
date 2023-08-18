@@ -1,0 +1,174 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.employeeLoanConfiguration.empLoanLabel' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div>
+      <div class="row">
+        <mat-form-field class="col-7">
+          <mat-label>{{ 'pw.employeeLoanConfiguration.empCodeLabel' | translate }}
+          </mat-label>
+          <input [formControl]='employeeCode' matInput />
+        </mat-form-field>
+        <div class="col-auto pw-confirmation-box__right-content">
+          <button mat-flat-button class="pw-btn pw-accent-btn" (click)='getEmpLoanDetails()'>
+            {{ 'pw.employeeLoanConfiguration.getDetailsLabel' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf='employeeCode.value && empLoanDetails?.empCode === employeeCode.value'>
+      <div>
+        <h4>{{ 'pw.employeeLoanConfiguration.employeeDetails' | translate }}</h4>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-lg-4 col-4 pw-confirmation-box__label">
+            {{ 'pw.employeeLoanConfiguration.empNameLabel' | translate }}
+          </div>
+          <div class="col-auto pw-confirmation-box__label">
+            :
+          </div>
+          <div class="col pw-font-weight-bold">{{ empLoanDetails?.empName }}</div>
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-lg-4 col-4 pw-confirmation-box__label">
+            {{ 'pw.employeeLoanConfiguration.mobileNumberLabel' | translate }}
+          </div>
+          <div class="col-auto pw-confirmation-box__label">
+            :
+          </div>
+          <div class="col pw-font-weight-bold">{{ empLoanDetails.empMobileNum }}</div>
+        </div>
+        <div class="row pw-confirmation-box__item">
+          <div class="col-lg-4 col-4 pw-confirmation-box__label">
+            {{ 'pw.employeeLoanConfiguration.approvedAmountLabel' | translate }}
+          </div>
+          <div class="col-auto pw-confirmation-box__label">
+            :
+          </div>
+          <div class="col pw-font-weight-bold">{{ empLoanDetails.eligibleAmount }}</div>
+        </div>
+        <div class="row pw-confirmation-box__item pw-margin-bottom-5">
+          <!-- <mat-form-field class="col-7">
+            <mat-label>{{ 'pw.employeeLoanConfiguration.paymentCollectedLabel' | translate }}</mat-label>
+            <input  [formControl]="paymentCollected" type="number" matInput possWebAmountInput  [allowDecimal]="false" />
+          </mat-form-field> -->
+          <mat-form-field
+              class="col-7"
+            >
+              <mat-label>
+                {{ 'pw.employeeLoanConfiguration.paymentCollectedLabel' | translate }} ({{ data.currencyCode | currencySymbol }})
+              </mat-label>
+              <!-- <span class="pw-font-weight-bold mx-2" matPrefix>
+                {{ data.currencyCode | currencySymbol }}
+              </span> -->
+              <input
+                [formControl]="paymentCollected"
+                matInput
+                possWebAmountInput
+                [allowDecimal]="false"
+                required
+              />
+              <mat-error
+                *ngIf="
+                paymentCollected.errors &&
+                paymentCollected.errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="paymentCollected.errors.errorArray"
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+        </div>
+      </div>
+      <div class="row pw-confirmation-box__body-item-without-padding">
+        <div class="col-auto">
+          <button
+            class="pw-btn pw-primary-btn mt-2"
+            (click)="generateOTP()"
+            [disabled]="!paymentCollected.valid && !isOtpGeneratedForEmpLoan"
+          >
+            <span>{{ 'pw.employeeLoanConfiguration.generateOTPLabel' | translate }}
+            </span>
+          </button>
+        </div>
+
+        <mat-form-field class="col-7">
+          <mat-label> {{ 'pw.employeeLoanConfiguration.enterOTPLabel' | translate }} </mat-label>
+
+          <input matInput [formControl]="OTPFiledFormControl" maxlength="6"
+          />
+          <mat-error
+            *ngIf="
+              OTPFiledFormControl.errors && OTPFiledFormControl.errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="OTPFiledFormControl.errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row pw-confirmation-box__detail">
+        <p class="col-auto pw-success-color" *ngIf="isOtpGeneratedForEmpLoan">
+          {{ 'pw.employeeLoanConfiguration.otpSentMessage' | translate}} {{ empLoanDetails.empMobileNum }}
+        </p>
+      </div>
+      <!-- <div class="row pw-confirmation-box__item">
+        <div class="col-4">
+          <div class="pw-confirmation-box__label">
+            {{ 'pw.employeeLoanConfiguration.CMAmountLabel' | translate }}
+          </div>
+          <div class="pw-font-weight-bold pw-confirmation-box__margin-top-5">
+            ₹ 0.00
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="pw-confirmation-box__label">
+            {{ 'pw.employeeLoanConfiguration.paymentCollectedLabel' | translate }}
+          </div>
+          <div class="pw-font-weight-bold pw-confirmation-box__margin-top-5">
+            ₹ 0.00
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="pw-confirmation-box__label">
+            {{ 'pw.employeeLoanConfiguration.remainingAmountLabel' | translate }}
+          </div>
+          <div class="pw-font-weight-bold pw-confirmation-box__margin-top-5">
+            ₹ 0.00
+          </div>
+        </div>
+      </div> -->
+    </ng-container>
+  </div>
+  <div class="pw-confirmation-box__footer-box row">
+    <div class="col-auto ml-auto">
+      <button mat-flat-button class="pw-btn pw-accent-btn"
+      [disabled]="!OTPFiledFormControl.valid || !paymentCollected.valid"
+      (click)="addLoanPayment()"
+      >
+        {{ 'pw.employeeLoanConfiguration.addButtonLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

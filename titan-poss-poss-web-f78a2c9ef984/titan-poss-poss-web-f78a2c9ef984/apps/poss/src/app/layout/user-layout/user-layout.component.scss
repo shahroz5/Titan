@@ -1,0 +1,72 @@
+.sidenav-container {
+  height: 100%;
+}
+
+//TODO:  TEMP : TOP MENU
+.top-navbar {
+  &__logo {
+    margin: 10px 12px;
+  }
+}
+.pw-top-menu {
+  display: flex;
+  height: 84px;
+  line-height: 84px;
+  margin-left: 30px;
+  .pw-top-menu__left-menu {
+    align-items: center;
+    width: 70%;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    ul {
+      align-items: center;
+      list-style-position: inside;
+      padding: 0;
+      margin: 0;
+
+      li {
+        a {
+          span {
+            margin: 0 25px 0 0;
+            opacity: 0.4;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            color: var(--secondary-color);
+          }
+
+          &:hover {
+            span {
+              opacity: 1;
+              color: var(--secondary-color);
+
+              &::before {
+                position: absolute;
+                content: '';
+                bottom: -10px;
+                border: 2px solid var(--fourth-color);
+                width: 47px;
+              }
+            }
+          }
+
+          &.is-active {
+            span {
+              opacity: 1;
+              color: var(--secondary-color);
+
+              &::before {
+                position: absolute;
+                content: '';
+                bottom: -10px;
+                border: 2px solid var(--fourth-color);
+                width: 47px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

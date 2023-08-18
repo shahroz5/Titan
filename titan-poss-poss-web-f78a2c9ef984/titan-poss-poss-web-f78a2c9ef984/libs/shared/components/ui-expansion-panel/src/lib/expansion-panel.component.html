@@ -1,0 +1,18 @@
+<div
+  class="expansion-panel"
+  [class.pw-bg-set]="!isExpanded"
+  (click)="isExpanded = !isExpanded"
+>
+  <ng-container *ngIf="!isExpanded; else showContent">
+    <div class="d-flex align-items-center">
+      <div class="flex-fill">
+        <ng-content select="poss-web-expansion-panel-summary"> </ng-content>
+      </div>
+      <span class="pw-i-24 pw-down-arrow-icon-24"></span>
+    </div>
+  </ng-container>
+
+  <ng-template #showContent>
+    <ng-content select="poss-web-expansion-panel-content"> </ng-content>
+  </ng-template>
+</div>

@@ -1,0 +1,81 @@
+<div class="d-flex flex-column pw-selection-panel pw-relative">
+  <poss-web-item-search
+    class="flex-fill"
+    [placeholder]="placeholder"
+    [autocomplete]="autocomplete"
+    [hasSuggestiveSearch]="hasSuggestiveSearch"
+    [class.pw-selection-panel__search-box]="
+      itemCheckList.length > 0 || !hasResults
+    "
+    (search)="onSearch($event)"
+    (clear)="clearResults()"
+  >
+  </poss-web-item-search>
+
+  <div class="pw-selection-panel__container">
+    <div class="pw-selection-panel__content" *ngIf="itemCheckList.length > 0">
+      <div class="pw-selection-panel__list">
+        <ng-container>
+          <div class="pw-selection-panel__list-item">
+            <ng-container
+              *ngFor="let selectableItem of itemCheckList; let last = last; trackBy: trackBy"
+            >
+              <div class="row no-gutters align-items-center">
+                <mat-checkbox
+                  *ngIf="multipleSelection"
+                  class="col-auto pw-selection-panel__checkbox"
+                  [(ngModel)]="selectableItem.isSelected"
+                  [disabled]="isBinToBinTransfer && !selectableItem?.item?.isBinToBinAllowed"
+                  (change)="onSelectionChange($event.checked)"
+                ></mat-checkbox>
+                <div class="col">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      templateRef;
+                      context: { data: selectableItem.item }
+                    "
+                  >
+                  </ng-container>
+                </div>
+                <button
+                  *ngIf="!multipleSelection"
+                  class="pw-btn pw-primary-btn ml-auto"
+                  (click)="add(selectableItem.item)"
+                >
+                  {{ 'pw.searchList.selectItemsLable' | translate }}
+                </button>
+              </div>
+              <mat-divider *ngIf="!last"></mat-divider>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+
+      <div
+        class="pw-selection-panel__footer"
+        *ngIf="!hasResults || selectedLength > 0"
+      >
+        <div class="row no-gutters align-items-center">
+          <ng-container *ngIf="selectedLength > 0">
+            <div class="col pw-mont-semibold-14">
+              {{ selectedLength }}
+              {{ 'pw.searchList.itemSelectedMessage' | translate }}
+            </div>
+            <button
+              class="pw-btn pw-primary-btn col-2 ml-auto"
+              (click)="multipleAdd()"
+            >
+              {{ 'pw.searchList.addToListLable' | translate }}
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div
+      class="pw-text-center pw-selection-panel__content pw-selection-panel__no-result"
+      *ngIf="!hasResults"
+    >
+      {{ noDataFoundMessageItems }}
+    </div>
+  </div>
+</div>

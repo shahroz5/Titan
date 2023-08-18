@@ -1,0 +1,6 @@
+{
+	"type": "TEP_GLOBAL_CONFIG",
+	"data": {
+		"maxFlatTepExchangeValue": "10"
+	}
+}

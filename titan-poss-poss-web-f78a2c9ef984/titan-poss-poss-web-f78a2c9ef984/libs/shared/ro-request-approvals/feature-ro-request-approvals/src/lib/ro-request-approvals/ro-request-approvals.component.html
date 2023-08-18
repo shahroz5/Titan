@@ -1,0 +1,183 @@
+<div class="container-fluid" [formGroup]="filterForm">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-40 pw-cash-memo-icon-40"></span>
+              <div>
+                <h2>
+                  {{
+                    'pw.roRequestApproval.customerTransactionLabel' | translate
+                  }}
+                </h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.roRequestApproval.approvalsLabel' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pw-tab mt-4">
+        <ul class="pw-tab__list">
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab('list')"
+              [class.pw-is-active-bar]="type === 'list'"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.roRequestApproval.roRequestsLabel' | translate }}
+              </h5>
+            </a>
+          </li>
+          <li class="pw-tab__list-item">
+            <a
+              (click)="changeTab('history')"
+              [class.pw-is-active-bar]="type === 'history'"
+            >
+              <h5 class="pw-tab__item">
+                {{ 'pw.roRequestApproval.historyLabel' | translate }}
+              </h5></a
+            >
+          </li>
+        </ul>
+      </div>
+      <mat-radio-group
+        *ngIf="type === 'history'"
+        class="col-auto row"
+        formControlName="historyType"
+      >
+        <mat-radio-button value="Approved" class="mr-3" class="col-auto">
+          <p class="pw-radio-btn__label">
+            {{ 'pw.roRequestApproval.approvedLabel' | translate }}
+          </p>
+        </mat-radio-button>
+
+        <mat-radio-button value="Rejected" class="mr-3" class="col-auto">
+          <p class="pw-radio-btn__label">
+            {{ 'pw.roRequestApproval.rejectedLabel' | translate }}
+          </p>
+        </mat-radio-button>
+        <mat-radio-button value="CLOSED" class="mr-3" class="col-auto">
+          <p class="pw-radio-btn__label">Utilised</p>
+        </mat-radio-button>
+      </mat-radio-group>
+      <div class="row">
+        <mat-form-field class="col-auto ml-auto">
+          <mat-date-range-input [rangePicker]="picker" [max]="currentDate">
+            <input
+              matStartDate
+              formControlName="fromDate"
+              placeholder=" {{ 'pw.roRequestApproval.fromDate' | translate }} "
+            />
+            <input
+              matEndDate
+              formControlName="toDate"
+              placeholder="{{ 'pw.roRequestApproval.toDate' | translate }}"
+            />
+          </mat-date-range-input>
+
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>
+              <span class="pw-i-12 pw-calender-icon-12"></span>
+            </mat-icon>
+          </mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error
+            *ngIf="
+              filterForm.get('fromDate').errors &&
+              filterForm.get('fromDate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="filterForm.get('fromDate').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+          <mat-error
+            *ngIf="
+              filterForm.get('toDate').errors &&
+              filterForm.get('toDate').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="filterForm.get('toDate').errors.errorArray"
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+
+        <poss-web-fiscal-year
+          class="col-auto"
+          [control]="filterForm.get('fiscalYear')"
+          [required]="false"
+          [currentFiscalYear]="currentFiscalYear"
+          [placeHolder]="'pw.creditNote.searchByFiscalYearLabel' | translate"
+          [disabled]="false"
+        ></poss-web-fiscal-year>
+
+        <mat-form-field
+          class="col-lg-3 col-4 align-self-end pw-search-bar"
+          floatLabel="never"
+        >
+          <input
+            #searchBox
+            id="searchBox"
+            matInput
+            class="pw-input-box"
+            placeholder="     {{
+              'pw.roRequestApproval.searchByLocationCodeLable' | translate
+            }}"
+            formControlName="searchFormControl"
+          />
+          <mat-icon matSuffix>
+            <span
+              *ngIf="!filterForm.get('searchFormControl').value"
+              class="pw-i-16 pw-search-icon-16"
+            ></span
+          ></mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="filterForm.get('searchFormControl').value"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+          <mat-error
+            *ngIf="
+              filterForm.get('searchFormControl').errors &&
+              filterForm.get('searchFormControl').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                filterForm.get('searchFormControl').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <poss-web-ro-request-list
+        [isEposs]="true"
+        [disableButton]="disableButton"
+        [pendingRequests]="pendingRequests"
+        [rejectedRequests]="rejectedRequests$ | async"
+        [approvedRequests]="approvedRequests$ | async"
+        [closedRequests]="closedRequests$ | async"
+        [isHistory]="type === 'history'"
+        [isApproved]="filterForm.get('historyType').value === 'Approved'"
+        [pageEvent]="initialPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        (paginator)="paginate($event)"
+        (saveStatus)="save($event)"
+      ></poss-web-ro-request-list>
+    </div>
+  </div>
+</div>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

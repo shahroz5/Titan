@@ -1,0 +1,217 @@
+<div class="row no-gutters pw-list-card__detail-container">
+  <poss-web-thumbnail
+    *ngIf="!item.hideImage"
+    class="col-auto pw-list-card__item"
+    [thumbnailSrc]="item.thumbnailURL"
+    [imageSrc]="item.imageURL"
+    [alt]="item.productCategory"
+    [isLoadingImage]="item.isLoadingImage"
+    [isLoadingThumbnailImage]="item.isLoadingThumbnailImage"
+    [toLoadImageUrlFromAPI]="toLoadImageUrlFromAPI"
+    (loadImageEvent)="loadImage()"
+  >
+    <p>
+      {{ 'pw.itemDetails.variantCodeLableText' | translate }} -
+      {{ item.itemCode }}
+    </p>
+  </poss-web-thumbnail>
+  <div class="col pw-list-card__item">
+    <p>
+      <span
+        [matBadge]="item.orderType"
+        matBadgeOverlap="false"
+        [matBadgeColor]="matBadgeColor"
+        ><span class="pw-font-weight-bold">{{ item.itemCode }}</span>
+      </span>
+
+      <span
+        (click)="openItemDetails()"
+        *ngIf="item.isStudded"
+        class="pw-i-16 pw-stone-icon-16"
+      ></span>
+      <span
+        *ngIf="item.isHallmarked && (!showHallmarkDetails || !item.itemDetails)"
+        matTooltip="Hallmarked"
+        matTooltipPosition="above"
+        class="pw-hallmark-icon-16"
+      ></span>
+      <a *ngIf="item.isHallmarked && showHallmarkDetails && item.itemDetails">
+        <span
+          matTooltip="Hallmarked"
+          matTooltipPosition="above"
+          class="pw-hallmark-icon-16"
+          [matMenuTriggerFor]="hallmarkMenu"
+        ></span>
+      </a>
+      <mat-menu
+        #hallmarkMenu="matMenu"
+        class="pw-menu-profile pw-hallmark-details"
+      >
+        <div *ngIf="item?.itemDetails" class="container-fluid">
+          <div
+            class="row pw-menu-profile__middle-section"
+            *ngIf="item.itemDetails?.data?.hallMarkingCentreName"
+          >
+            <div class="col-4 pw-fourth-color">
+              {{ 'pw.itemDetails.hmCentreNameLabel' | translate }}
+            </div>
+            <div class="col-auto">:</div>
+            <div class="col">
+              {{ item.itemDetails?.data?.hallMarkingCentreName }}
+            </div>
+          </div>
+          <div
+            class="row pw-menu-profile__middle-section"
+            *ngIf="item.itemDetails?.data?.hallMarkingCode"
+          >
+            <div class="col-4 pw-fourth-color">
+              {{ 'pw.itemDetails.hmCodeLabel' | translate }}
+            </div>
+            <div class="col-auto">:</div>
+            <div class="col">
+              {{ item.itemDetails?.data?.hallMarkingCode }}
+            </div>
+          </div>
+          <div
+            class="row pw-menu-profile__middle-section"
+            *ngIf="item.itemDetails?.data?.hallMarkedDate"
+          >
+            <div class="col-4 pw-fourth-color">
+              {{ 'pw.itemDetails.hmDateLabel' | translate }}
+            </div>
+            <div class="col-auto">:</div>
+            <div class="col">
+              {{ item.itemDetails?.data?.hallMarkedDate | dateFormatter }}
+            </div>
+          </div>
+          <div class="row" *ngIf="item.itemDetails?.data?.hallMarkRemarks">
+            <div class="col-4 pw-fourth-color">
+              {{ 'pw.itemDetails.hmRemarksLabel' | translate }}
+            </div>
+            <div class="col-auto">:</div>
+            <div class="col">
+              {{ item.itemDetails?.data?.hallMarkRemarks }}
+            </div>
+          </div>
+        </div>
+      </mat-menu>
+    </p>
+
+    <p>
+      <ng-container *ngIf="!hideLotNumber">{{ item.lotNumber }}</ng-container>
+      <ng-container
+        *ngIf="
+          item.lotNumber !== null &&
+          item.productCategory !== null &&
+          !hideLotNumber
+        "
+      >
+        |
+      </ng-container>
+      {{ item.productCategory }}
+    </p>
+    <p>
+      {{ item.productGroup }}
+      <ng-container *ngIf="item.productGroup !== null && item.mfgDate !== null">
+        |
+      </ng-container>
+      <ng-container *ngIf="item.mfgDate">
+        {{ item.mfgDate | dateFormatter }}</ng-container
+      >
+    </p>
+    <p>
+      <span class="pw-font-weight-bold">
+        <ng-container *ngIf="item.stdWeight !== null && !hideWeight">
+          {{ item.stdWeight | weightFormatter }} {{ item.weightUnit }}
+        </ng-container>
+        <ng-container
+          *ngIf="
+            item.stdWeight !== null &&
+            item.stdValue !== null &&
+            type !== otherIssuesTabEnumRef.FOC &&
+            (!hidePrice || !hideWeight)
+          "
+        >
+          |
+        </ng-container>
+        <ng-container
+          *ngIf="
+            type !== otherIssuesTabEnumRef.FOC &&
+            item.stdValue !== null &&
+            !hidePrice
+          "
+        >
+          <a
+            *ngIf="
+              item.taxDetails && getTaxObjectLength(item.taxDetails);
+              else noTaxValueTemplate
+            "
+            class="pw-anchor-underline"
+            [matMenuTriggerFor]="profileMenu"
+          >
+            {{ item.stdValue | currencyFormatter: item.currencyCode }}</a
+          >
+          <mat-menu
+            #profileMenu="matMenu"
+            class="pw-menu-profile pw-tax-details"
+          >
+            <div class="container-fluid" *ngIf="item.taxDetails">
+              <!-- <div mat-menu-item class="pw-menu-profile__item">
+                <div class="pw-font-weight-bold">
+                  <span class="pw-i-16 pw-settings-icon-16"></span> Settings
+                </div>
+              </div> -->
+
+              <div class="row pw-menu-profile__middle-section">
+                <div class="col-3 pw-fourth-color">IGST</div>
+                <div class="col-auto">:</div>
+                <div class="col">
+                  {{
+                    item.taxDetails.data?.IGSTVal
+                      | currencyFormatter: item.currencyCode
+                  }}
+                </div>
+              </div>
+              <div class="row pw-menu-profile__middle-section">
+                <div class="col-3 pw-fourth-color">CGST</div>
+                <div class="col-auto">:</div>
+                <div class="col">
+                  {{
+                    item.taxDetails.data?.CGSTVal
+                      | currencyFormatter: item.currencyCode
+                  }}
+                </div>
+              </div>
+              <div class="row pw-menu-profile__middle-section">
+                <div class="col-3 pw-fourth-color">SGST</div>
+                <div class="col-auto">:</div>
+                <div class="col">
+                  {{
+                    item.taxDetails.data?.SGSTVal
+                      | currencyFormatter: item.currencyCode
+                  }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3 pw-fourth-color">UGST</div>
+                <div class="col-auto">:</div>
+                <div class="col">
+                  {{
+                    item.taxDetails.data?.UTGSTVal
+                      | currencyFormatter: item.currencyCode
+                  }}
+                </div>
+              </div>
+            </div>
+          </mat-menu>
+          <ng-template #noTaxValueTemplate>
+            <span class="pw-font-weight-bold">{{
+              item.stdValue | currencyFormatter: item.currencyCode
+            }}</span>
+          </ng-template>
+        </ng-container>
+      </span>
+    </p>
+    <ng-content> </ng-content>
+  </div>
+</div>

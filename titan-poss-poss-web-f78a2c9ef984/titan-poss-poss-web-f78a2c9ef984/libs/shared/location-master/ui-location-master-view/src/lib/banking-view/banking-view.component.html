@@ -1,0 +1,149 @@
+<div class="pw-form-card">
+  <div
+    class="pw-form-card__margin-bottom pw-font-weight-bold pw-form-card__margin-top"
+  >
+    BANKING
+  </div>
+
+  <div class="pw-form-card__flex-row">
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.paymentModeForRefund' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.bankingDetails?.data?.paymentMode
+              ? locationDetails.bankingDetails.data.paymentMode
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.enableCashDeposit' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="locationDetails?.bankingDetails?.data?.enableCashDeposit"
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.enableChequeDeposit' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.bankingDetails?.data?.enableChequeDeposit
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.SAPCode' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.bankingDetails?.data?.sapCode
+              ? locationDetails.bankingDetails.data.sapCode
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isBankingMandatory' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.bankingDetails?.data?.isBankingMandatory
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.isPasswordMandatory' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          <mat-checkbox
+            class="pw-form-card__checkbox-pl-t-pos-0"
+            [checked]="
+              locationDetails?.bankingDetails?.data?.isPasswordMandatory
+            "
+            [disabled]="true"
+          ></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="pw-form-card__margin-bottom">
+      <div class="row">
+        <div class="col-5">
+          <span class="pw-fourth-color">
+            {{ 'pw.locationMaster.remarksForPassword' | translate }}
+          </span>
+        </div>
+        <div class="col-auto pw-form-card__padding-5">
+          <span> : </span>
+        </div>
+        <div class="col-6 pw-form-card__padding-5">
+          {{
+            locationDetails?.bankingDetails?.data?.remarksForPassword
+              ? locationDetails.bankingDetails.data.remarksForPassword
+              : '--'
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

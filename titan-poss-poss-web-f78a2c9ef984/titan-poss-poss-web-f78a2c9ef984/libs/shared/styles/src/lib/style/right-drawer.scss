@@ -1,0 +1,45 @@
+.pw-right-drawer {
+  position: fixed;
+  width: 200px;
+  right: 0;
+  background-color: $sixth-color;
+  font-size: em(12);
+  padding: 10px;
+  transform: none;
+  overflow: hidden;
+  height: calc(100vh - 84px);
+  z-index: 0;
+
+  .mat-drawer-inner-container {
+    overflow: hidden;
+  }
+
+  &__header {
+    font-weight: bold;
+    padding: 0 0 10px;
+  }
+
+  &__list {
+    height: calc(100vh - 244px);
+    overflow: auto;
+  }
+
+  &__list1 {
+    height: calc(100vh - 245px);
+  }
+
+  &__list-item {
+    border-bottom: 1px solid $ninth-color;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 991px) {
+  .pw-right-drawer {
+    height: calc(100vh - 120px);
+
+    &____list1 {
+      height: calc(100vh - 269px);
+    }
+  }
+}

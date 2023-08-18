@@ -1,0 +1,10 @@
+{
+	"type": "LOCATION_TCS_DETAILS",
+	"data": {
+		"isTcsApplicable": true,
+		"locationPanNumber": "string",
+		"isApplicableLocations": true,
+		"tcsStartDate": "Date",
+		"tcsApplicableDate": "Date"
+	}
+}

@@ -1,0 +1,45 @@
+{
+    "popUpHeading": "TERMS AND CONDITIONS",
+    "heading": "PRIORITY ORDER & CREDIT NOTE",
+    "bodyContent": [
+        {
+            "heading": "Terms & Conditions:",
+            "bodyMainContentArray": [
+                {
+                    "bodyMainContent": "I have read and understood this advance order form of Titan Company limited (Company) and the contents appearing herein, including the remarks column, which I fully agree.",
+                    "element": "span",
+                    "subBullettedPoints": [
+                        {
+                            "bullettedPointContent": "I hereby undertake that irrespective of whatever be the gold/platinum/silver rate prevailing on the date of actual billing; I shall accept the gold/platinum/silver rate that I have frozen on this customer order date. I shall not raise any claims or dispute on the boutique or Company if the gold/platinum/silver rate falls on actual billing date, due to market volatility or delay form my end.",
+                            "element": "span"
+                        },
+                        {
+                            "bullettedPointContent": "From the estimated date of delivery, if the product appearing in the Customer order is not collected within 15 days from date of receipt at boutique, the order will automatically stand cancelled and the amount paid there under would be forfeited and the company, besides not being held responsible for this, shall also have the right to dispose of the same product to any other third party or customer.",
+                            "element": "span"
+                        },
+                        {
+                            "bullettedPointContent": "Diamond and stone prices, making charges, wastage, taxes etc., are subject to change till the delivery of the product /Invoice of the product.",
+                            "element": "span"
+                        },
+                        {
+                            "bullettedPointContent": "I agree that the gross weight of the product is only for reference at the time of placing the order and this may vary with +/- tolerance, at the time of delivery based on the complexity, design and nature of the product.",
+                            "element": "span"
+                        },
+                        {
+                            "bullettedPointContent": "The order value is and estimated value inclusive of Labour cost, making charges/wastage, stone cost if any plus taxes as applicable, which may vary at the time of actual Invoicing of the ordered product.",
+                            "element": "span"
+                        },
+                        {
+                            "bullettedPointContent": "In other cases of payment (Except Cash) for purchase above Rs.2 lakhs paid by Credit card / Cheque, PAN CARD Copy or Form 60 (as per IT rules) with valid photo id may be given at a time of advance or Billing.",
+                            "element": "span"
+                        },
+                        {
+                            "bullettedPointContent": "Any conditions which are explicitly not covered above would be the discretion of the company, at the time of transaction.",
+                            "element": "span"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+  }

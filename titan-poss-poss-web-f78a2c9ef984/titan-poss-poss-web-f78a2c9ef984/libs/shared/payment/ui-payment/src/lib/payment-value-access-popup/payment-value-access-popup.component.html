@@ -1,0 +1,90 @@
+<div class="pw-confirmation-box">
+  <div class="row pw-confirmation-box__header"   cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle>
+    <div class="col-auto">
+      ValueAccess Payment
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-confirmation-box__detail">
+      <div class="row">
+        <mat-form-field class="col-7">
+          <mat-label>Gift card PIN</mat-label>
+          <mat-icon matPrefix>
+            <span class="pw-i-24 pw-scan-icon-24"></span>
+          </mat-icon>
+
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div class="row ">
+        <mat-form-field class="col-7">
+          <mat-label>Gift card PIN</mat-label>
+          <mat-icon matPrefix>
+            <span class="pw-i-24 pw-scan-icon-24"></span>
+          </mat-icon>
+          <input matInput />
+        </mat-form-field>
+        <div class="col-auto pw-confirmation-box__right-content">
+          <button mat-flat-button class="pw-btn pw-accent-btn">
+            Get Details
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row pw-confirmation-box__item">
+      <div class="col-auto">
+        <span class="pw-confirmation-box__label">Card Status : </span>
+        <span class="pw-font-weight-bold">Open</span>
+      </div>
+      <div
+        class="col-auto pw-confirmation-box__label pw-confirmation-box__padding-5"
+      >
+        |
+      </div>
+      <div class="col-auto">
+        <span class="pw-confirmation-box__label">Available Balance : </span>
+        <span class="pw-font-weight-bold">₹ 0.00</span>
+      </div>
+    </div>
+    <div class="row pw-confirmation-box__item">
+      <div class="col-auto">
+        <span class="pw-confirmation-box__label">Valid Till : </span>
+        <span class="pw-font-weight-bold">11-07-2022</span>
+      </div>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>Reedeem Amount</mat-label>
+        <input type="number" matInput possWebAmountInput  [allowDecimal]="false" />
+      </mat-form-field>
+    </div>
+    <div class="row ">
+      <mat-form-field class="col-7">
+        <mat-label>Remarks</mat-label>
+        <input type="number" matInput />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer-box row">
+    <div class="col-auto ml-auto">
+      <button class="pw-btn pw-accent-btn" mat-flat-button>
+        ADD
+      </button>
+    </div>
+  </div>
+</div>

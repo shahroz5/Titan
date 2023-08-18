@@ -1,0 +1,57 @@
+<div class="row mb-3">
+  <div class="col-auto ml-auto"></div>
+  <div class="col-auto">
+    <button
+      (click)="downloadFile()"
+      class="pw-btn pw-primary-btn pw-form-card__upload-btn"
+    >
+      <span class="pw-i-24 pw-download-icon-24"></span>
+      {{ 'pw.cashbackConfig.downLoadFormat' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <a (click)="fileInput.click()">
+      <input
+        [hidden]="true"
+        #fileInput
+        class="pw-hidden"
+        type="file"
+        (change)="uploadCardDetails($event)"
+      />
+      <button class="pw-btn pw-primary-btn pw-form-card__upload-btn">
+        <span class="pw-i-24 pw-upload-icon-24"> </span>
+        {{ 'pw.cashbackConfig.uploadFile' | translate }}
+      </button>
+    </a>
+  </div>
+</div>
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="currentRowInfo"
+>
+</poss-web-top-info-panel>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [columnDefs]="columnDefs"
+  [rowSelection]="rowSelection"
+  [context]="context"
+  [rowHeight]="rowHeight"
+  [domLayout]="domLayout"
+  (gridReady)="gridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged()"
+  (cellFocused)="onCellFocused($event)"
+  (focusout)="focusOut($event)"
+></ag-grid-angular>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && cardDetails.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  showFirstLastButtons
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+>
+</mat-paginator>

@@ -1,0 +1,34 @@
+<div class="row pw-form-card__margin-bottom">
+  <div class="col-6">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color">
+          {{ 'pw.cnPriorityConfig.configName' | translate }}
+        </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+      <div class="col-6 pw-form-card__padding-5">
+        {{ gepDetails?.description }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="row">
+      <div class="col-5">
+        <span class="pw-fourth-color"> IsActive </span>
+      </div>
+      <div class="col-auto pw-form-card__padding-5">
+        <span> : </span>
+      </div>
+
+      <poss-web-toggle-button
+        class="col-6 pw-form-card__padding-5"
+        [isActive]="gepDetails?.isActive"
+        [isDisabled]="true"
+      >
+      </poss-web-toggle-button>
+    </div>
+  </div>
+</div>

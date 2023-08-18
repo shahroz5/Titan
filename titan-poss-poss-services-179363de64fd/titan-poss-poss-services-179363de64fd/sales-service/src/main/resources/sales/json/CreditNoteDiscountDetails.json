@@ -1,0 +1,64 @@
+{
+	"type": "CN_DISCOUNT_DETAILS",
+	"data": {
+		"coinOfferDiscount": [
+			{
+				"discountId": "string",
+				"discountCode": "string",
+				"discountType": "string",
+				"discountValue": 0
+			}
+		],
+		"karatageExchangeDiscount": [
+			{
+				"discountId": "string",
+				"discountCode": "string",
+				"discountType": "string",
+				"oneKTdiscountValue": 0,
+				"twoKTdiscountValue": 0
+			}
+		],
+		"gepPurityDiscount": [
+			{
+				"discountId": "string",
+				"discountCode": "string",
+				"discountType": "string",
+				"configId": "string",
+				"configCode": "string",
+				"configType": "string",
+				"discountValue": 0,
+				"gepItemPurity": 0
+			}
+		],
+		"ghsAccountDiscount": {
+			"discountId": "string",
+			"discountCode": "string",
+			"discountType": "string",
+			"discountValue": 0,
+			"discountMcPct": 0,
+			"discountUcpPct": 0,
+			"schemeCode": "string",
+			"schemeType": "string",
+			"productGroupCodesRestricted": [
+				"string"
+			]
+		},
+		"digiGoldDiscount": {
+			"discountValue": 0
+		},
+		"systemDiscountDv":{
+			"discountValue":0,
+			"isGoldCoinAllowed":false,
+			"discountId": "string",
+			"discountCode": "string",
+			"discountType": "string"			
+		},
+		"grnMultipleDiscount":{
+				"discountId": "string",
+				"discountCode": "string",
+				"discountType": "string",
+				"discountValue": 0
+		}
+		
+	}
+}

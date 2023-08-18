@@ -1,0 +1,65 @@
+{
+	"type": "ORDER_CO_PAYMENT_CONFIG",
+	"data": {
+		"ibt": {
+			"gold": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			},
+			"platinum": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			}
+		},
+		"mtr": {
+			"gold": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			},
+			"platinum": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			}
+		},
+		"prod": {
+			"gold": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			},
+			"platinum": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 10,
+				"bestRatePercent": 0
+			}
+		},
+		"com": {
+			"gold": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			},
+			"platinum": {
+				"metalRateFrozenPercent": 20,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 5
+			}
+		},
+		"autoApproval": {
+			"gold": {
+				"metalRateFrozenPercent": 0,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			},
+			"platinum": {
+				"metalRateFrozenPercent": 10,
+				"metalRateNonFrozenPercent": 0,
+				"bestRatePercent": 0
+			}
+		}
+	}
+}

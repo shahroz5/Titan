@@ -1,0 +1,54 @@
+<div [formGroup]="newIbtRequestForm" class="row no-gutters">
+  <div class="col-auto pw-list-card__checkbox">
+    <mat-checkbox
+      formControlName="selected"
+      (change)="updateItem()"
+      [checked]="item.isSelected"
+    >
+    </mat-checkbox>
+  </div>
+  <poss-web-item-details 
+    [item]="itemData"
+    [locationCode]="locationCode"
+    [toLoadImageUrlFromAPI]="true"
+    (loadImageEvent)="loadImage()"
+  > </poss-web-item-details>
+  <div class="col-auto pw-list-card__item">
+    <div class="row no-gutters pw-input-group">
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          {{ 'pw.stockIssue.requestedQuantityLabelText' | translate }}
+        </div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-right"
+          value="{{ item.requestedQuantity }}"
+          placeholder="requestedQuantity"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">
+          itemWeight ({{ item.weightUnit }})
+        </div>
+        <input
+          possWebWeightInput
+          class="pw-bg-input-box"
+          value="{{ item.stdWeight | weightFormatter }}"
+          placeholder="itemWeight"
+          readonly
+        />
+      </div>
+      <div class="col-auto pw-input-group__item">
+        <div class="pw-input-group__item-label">BIN</div>
+        <input
+          type="text"
+          class="pw-bg-input-box pw-input-group__item-border-left"
+          value="{{ item.binCode }}"
+          placeholder="BinCode"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+</div>

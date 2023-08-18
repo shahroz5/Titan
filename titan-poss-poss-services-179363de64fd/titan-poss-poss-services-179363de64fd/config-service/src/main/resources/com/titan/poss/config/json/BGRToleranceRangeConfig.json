@@ -1,0 +1,7 @@
+{
+	"type": "BGR_TOLERANCE_CONFIG or BGR_CO_TOLERANCE_CONFIG",
+	"data": {
+		"configPercent": null,
+		"configValue": 0.03
+	}
+}

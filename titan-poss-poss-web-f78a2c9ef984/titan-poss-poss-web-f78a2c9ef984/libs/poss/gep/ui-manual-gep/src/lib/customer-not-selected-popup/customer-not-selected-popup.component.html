@@ -1,0 +1,36 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-confirmation-box pw-confirmation-box__width-450">
+    <div class="row pw-confirmation-box__header">
+      <div *ngIf="!isExpired" class="col-auto">
+        {{'pw.gep.customerNotSelectedLabel' | translate}}
+      </div>
+      <div *ngIf="isExpired" class="col-auto">
+        {{'pw.gep.holdTimeExpiredLbl' | translate}}
+      </div>
+      <div class="col pw-text-right">
+        <a class="sub-heading" (click)="dialogResponse(false)">
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </a>
+      </div>
+    </div>
+    <div *ngIf="!isExpired" class="pw-confirmation-box__body pw-error-color">
+      {{'pw.gep.selectCutomerMsg' | translate}}
+    </div>
+    <div *ngIf="isExpired" class="pw-confirmation-box__body">
+      {{'pw.gep.metalPriceChangedLbl' | translate}}
+    </div>
+    <div class="pw-confirmation-box__footer">
+      <div class="row pw-confirmation-box__footer-border">
+        <div class="col-auto pw-confirmation-box__footer-item">
+          <button
+            mat-button
+            class="pw-btn pw-accent-btn"
+            (click)="dialogResponse(true)"
+          >
+            {{'pw.gep.okLbl' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

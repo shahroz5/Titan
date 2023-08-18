@@ -1,0 +1,98 @@
+<mat-accordion multi="true">
+  <div class="pw-sidenav__body" *ngFor="let items of sidenavitems">
+    <ng-container
+      *ngIf="items.children && items.children.length; else singlelevelTemplate"
+    >
+      <mat-expansion-panel
+        expanded="true"
+        *possWebPermission="getPermissions(items.permission)"
+        class="pw-sidenav__expansion-panel pw-sidenav__sub-panel"
+        #subMenuPanel
+      >
+        <mat-expansion-panel-header
+          [collapsedHeight]="'35px'"
+          [expandedHeight]="'35px'"
+          routerLinkActive="active"
+          [ngClass]="
+            items.isExactMatchForSearchInput
+              ? 'pw-search-match-background pw-sidenav__expansion-header'
+              : 'pw-sidenav__expansion-header'
+          "
+        >
+          <mat-panel-title
+            [ngClass]="
+              items.isExactMatchForSearchInput
+                ? 'pw-search-match-background '
+                : 'pw-sidenav__expansion-title'
+            "
+          >
+            <ng-container *ngIf="items.external; else internalMenuItem">
+              <a
+                (click)="sideNavToggle.emit()"
+                [href]="hostname + '/' + items.url"
+              >
+                {{ items.translatedName | translate }}</a
+              >
+            </ng-container>
+            <ng-template #internalMenuItem>
+              <a (click)="sideNavToggle.emit()" [routerLink]="items.url">
+                {{ items.translatedName | translate }}</a
+              >
+            </ng-template>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <poss-web-sub-menu
+          class="pw-poss-web-sub-menu"
+          [sidenavitems]="items.children"
+          (sideNavToggle)="sideNavToggle.emit()"
+          (panelToggle)="subMenuPanel.expanded = true; panelToggle.emit()"
+          #queryItem
+        ></poss-web-sub-menu>
+      </mat-expansion-panel>
+    </ng-container>
+    <ng-template #singlelevelTemplate>
+      <ng-container *ngIf="items.external; else internalMenuItem">
+        <poss-web-menu-item
+          [ngClass]="
+            items.isExactMatchForSearchInput
+              ? 'pw-search-match-background pw-sidenav__sub-list pw-pointer'
+              : 'pw-sidenav__sub-list pw-pointer'
+          "
+          tabindex="-1"
+          *possWebPermission="getPermissions(items.permission)"
+          (click)="sideNavToggle.emit()"
+          (keydown.enter)="
+            sideNavToggle.emit(); queryItem.element.nativeElement.click()
+          "
+          (focusToggle)="panelToggle.emit()"
+          #queryItem
+        >
+          <a [href]="hostname + '/' + items.url">{{
+            items.translatedName | translate
+          }}</a>
+        </poss-web-menu-item>
+      </ng-container>
+      <ng-template #internalMenuItem>
+        <poss-web-menu-item
+          [ngClass]="
+            items.isExactMatchForSearchInput
+              ? 'pw-search-match-background pw-sidenav__sub-list pw-pointer'
+              : 'pw-sidenav__sub-list pw-pointer'
+          "
+          tabindex="-1"
+          *possWebPermission="getPermissions(items.permission)"
+          routerLinkActive="active"
+          [routerLink]="[items.url]"
+          (click)="sideNavToggle.emit()"
+          (keydown.enter)="
+            sideNavToggle.emit(); queryItem.element.nativeElement.click()
+          "
+          (focusToggle)="panelToggle.emit()"
+          #queryItem
+        >
+          {{ items.translatedName | translate }}</poss-web-menu-item
+        >
+      </ng-template>
+    </ng-template>
+  </div>
+</mat-accordion>

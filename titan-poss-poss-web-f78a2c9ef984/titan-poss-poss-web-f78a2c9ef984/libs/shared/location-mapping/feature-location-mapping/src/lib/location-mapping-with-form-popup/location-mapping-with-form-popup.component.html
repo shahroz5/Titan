@@ -1,0 +1,389 @@
+<div class="pw-location-mapping pw-location-mapping__fixed-width">
+  <div
+    class="row pw-location-mapping__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <h3 class="pw-message col-auto">
+      {{ 'pw.locationMapping.addLocationLabel' | translate }}
+    </h3>
+
+    <div class="col pw-text-right">
+      <button
+        class="pw-location-mapping__icon-btn"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-location-mapping__body">
+    <mat-divider></mat-divider>
+
+    <mat-tab-group #tabGroup>
+      <mat-tab label=" {{ 'pw.locationMapping.heading' | translate }}">
+        <div class="pw-dialog-container__tab pw-location-mapping__tab-height">
+          <div class="row no-gutters pw-location-mapping__config-tab">
+            <div class="col-3 pw-vertical-tab">
+              <div
+                class="pw-font-weight-bold pw-fourth-color pw-no-data-message ml-3 my-2"
+              >
+                {{ 'pw.locationMapping.filterlabel' | translate }}
+              </div>
+              <poss-web-location-filter
+                class="pw-vertical-tab__content"
+                [config]="config.filterConfig"
+                [readonly]="readonly"
+                buttonText="{{
+                  'pw.locationMapping.searchButtonText' | translate
+                }}"
+                (clear)="clearFilter()"
+                (filter)="searchLocations($event)"
+                (loadStates)="loadStates.emit($event)"
+                (loadTowns)="loadTowns.emit($event)"
+              >
+              </poss-web-location-filter>
+            </div>
+            <div class="col-9 pw-tab__content">
+              <div class="row pw-location-mapping__row">
+                <div class="col-6 pw-location-mapping__padding-5">
+                  <mat-card class="pw-location-mapping__columns">
+                    <div class="pw-location-mapping__column-header">
+                      <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        [(ngModel)]="selectAllOfSearchTab"
+                        (change)="selectAll('new', $event.checked)"
+                        [disabled]="!locationResults.length"
+                      >
+                      </mat-checkbox>
+
+                      <span class="pw-location-mapping__checkbox-label">
+                        {{
+                          'pw.locationMapping.locationListingLable' | translate
+                        }}
+                        ({{ locationResults.length }})
+                      </span>
+                    </div>
+                    <div class="pw-location-mapping__column-body">
+                      <mat-form-field appearance="outline" floatLabel="none">
+                        <input
+                          #searchInput
+                          matInput
+                          placeholder=" {{
+                            'pw.locationMapping.searchLocationTabLable'
+                              | translate
+                          }}"
+                          (keyup)="scrollToTop('new')"
+                        />
+                        <mat-icon matPrefix>
+                          <span class="pw-i-16 pw-search-icon-16"></span
+                        ></mat-icon>
+                        <mat-icon matSuffix (click)="searchInput.value = null">
+                          <span
+                            *ngIf="searchInput.value"
+                            class="pw-i-10 pw-close-icon-16"
+                          ></span
+                        ></mat-icon>
+                      </mat-form-field>
+
+                      <div class="pw-selection-list_header">
+                        <div>
+                          {{
+                            'pw.locationMapping.locationCodeLable' | translate
+                          }}
+                        </div>
+                      </div>
+
+                      <cdk-virtual-scroll-viewport
+                        [itemSize]="itemSize"
+                        [minBufferPx]="minBufferPx"
+                        [maxBufferPx]="maxBufferPx"
+                        class="pw-selection-list-full"
+                        #virtualScrollNewLocation
+                      >
+                        <ng-container *ngIf="locationResults.length === 0">
+                          <div
+                            class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                            *ngIf="
+                              showLocationResult && !showSelectFilterMessage
+                            "
+                          >
+                            {{ noDataFoundMessageLocations }}
+                          </div>
+                          <div
+                            class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                            *ngIf="showSelectFilterMessage"
+                          >
+                            {{
+                              'pw.locationMapping.selectFilterMessage'
+                                | translate
+                            }}
+                          </div>
+                        </ng-container>
+                        <div
+                          class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                          *ngIf="
+                            locationResults.length !== 0 &&
+                            (
+                              locationResults
+                              | locationSearch: searchInput.value:'id'
+                            ).length === 0
+                          "
+                        >
+                          {{ noDataFoundMessageLocations }}
+                        </div>
+                        <div
+                          *cdkVirtualFor="
+                            let location of locationResults
+                              | locationSearch: searchInput.value:'id';
+                            templateCacheSize: 0;
+                            trackBy: trackByLocation
+                          "
+                          (click)="
+                            selectionChange(
+                              location,
+                              !location.isSelected,
+                              'new'
+                            )
+                          "
+                          class="pw-selection-list_item pw-font-weight-bold"
+                        >
+                          <mat-checkbox
+                            class="pw-mat-checkbox"
+                            [(ngModel)]="location.isSelected"
+                            (change)="
+                              selectionChange(
+                                location,
+                                location.isSelected,
+                                'new'
+                              )
+                            "
+                            (click)="$event.stopPropagation()"
+                          ></mat-checkbox>
+                          {{ location.id }}
+                        </div>
+                      </cdk-virtual-scroll-viewport>
+                      <button
+                        [disabled]="!locationResults.length || readonly"
+                        mat-flat-button
+                        class="pw-btn pw-primary-btn pw-width-100 mt-2"
+                        (click)="updateSelectedLocations('new')"
+                      >
+                        {{ 'pw.locationMapping.addButtonText' | translate }}
+                      </button>
+                    </div>
+                  </mat-card>
+                </div>
+                <div class="col-6 pw-location-mapping__padding-5">
+                  <mat-card class="pw-location-mapping__columns">
+                    <div class="pw-location-mapping__column-header">
+                      <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        [(ngModel)]="selectAllOfSelectedTab"
+                        (change)="selectAll('selected', $event.checked)"
+                        [disabled]="!selectedLocations.length || readonly"
+                      >
+                      </mat-checkbox>
+                      <span class="pw-location-mapping__checkbox-label">
+                        {{
+                          'pw.locationMapping.mappedlocationListingLable'
+                            | translate
+                        }}
+                        ({{ selectedLocations.length }})
+                      </span>
+                    </div>
+                    <div class="pw-location-mapping__column-body">
+                      <mat-form-field appearance="outline" floatLabel="none">
+                        <input
+                          #searchSelectedLocationsInput
+                          matInput
+                          placeholder=" {{
+                            'pw.locationMapping.searchLocationTabLable'
+                              | translate
+                          }}"
+                          (keyup)="scrollToTop('selected')"
+                        />
+                        <mat-icon matPrefix>
+                          <span class="pw-i-16 pw-search-icon-16"></span
+                        ></mat-icon>
+                        <mat-icon
+                          matSuffix
+                          (click)="searchSelectedLocationsInput.value = null"
+                        >
+                          <span
+                            *ngIf="searchSelectedLocationsInput.value"
+                            class="pw-i-10 pw-close-icon-16"
+                          ></span
+                        ></mat-icon>
+                      </mat-form-field>
+                      <div class="pw-selection-list_header">
+                        <div>
+                          {{
+                            'pw.locationMapping.locationCodeLable' | translate
+                          }}
+                        </div>
+                      </div>
+                      <cdk-virtual-scroll-viewport
+                        [itemSize]="itemSize"
+                        [minBufferPx]="minBufferPx"
+                        [maxBufferPx]="maxBufferPx"
+                        class="pw-selection-list-full"
+                        #virtualScrollSelectedLocation
+                      >
+                        <div
+                          class="pw-selection-list_item pw-font-weight-bold pw-text-center pw-fourth-color pw-no-data-message"
+                          *ngIf="
+                            selectedLocations.length === 0 ||
+                            (
+                              selectedLocations
+                              | locationSearch
+                                : searchSelectedLocationsInput.value
+                                : 'id'
+                            ).length === 0
+                          "
+                        >
+                          {{ noDataFoundMessageSelectedLocations }}
+                        </div>
+                        <div
+                          *cdkVirtualFor="
+                            let location of selectedLocations
+                              | locationSearch
+                                : searchSelectedLocationsInput.value
+                                : 'id';
+                            templateCacheSize: 0;
+                            trackBy: trackByLocation
+                          "
+                          (click)="
+                            selectionChange(
+                              location,
+                              !location.isSelected,
+                              'selected'
+                            )
+                          "
+                          class="pw-selection-list_item pw-font-weight-bold"
+                        >
+                          <mat-checkbox
+                            class="pw-mat-checkbox"
+                            [(ngModel)]="location.isSelected"
+                            (change)="
+                              selectionChange(
+                                location,
+                                location.isSelected,
+                                'selected'
+                              )
+                            "
+                            [disabled]="readonly"
+                            (click)="$event.stopPropagation()"
+                          ></mat-checkbox>
+                          <span class="pw-location-mapping__checkbox-label">
+                            {{ location.id }}
+                          </span>
+                        </div>
+                      </cdk-virtual-scroll-viewport>
+                      <button
+                        [disabled]="!selectedLocations.length || readonly"
+                        mat-flat-button
+                        class="pw-btn pw-primary-btn"
+                        (click)="updateSelectedLocations('selected')"
+                      >
+                        {{ 'pw.locationMapping.removeButtonText' | translate }}
+                      </button>
+                    </div>
+                  </mat-card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab
+        label=" {{ addValueLabel }}"
+        [disabled]="selectedLocations.length === 0"
+        *ngIf="config.isFormApplicable"
+      >
+        <div class="pw-Configuration-tab pt-3">
+          <poss-web-foc-blocking-cust-level-form
+            *ngIf="
+              config.formType ===
+              locationMappingFormTypeRef.FOC_BLOCKING_CUSTOMER_LEVEL
+            "
+            (formReady)="form = $event"
+          ></poss-web-foc-blocking-cust-level-form>
+          <poss-web-location-mapping-discount-form
+            *ngIf="config.formType === locationMappingFormTypeRef.DISCOUNT"
+            (formReady)="form = $event"
+            [isPreviewApplicable]="config.data"
+          ></poss-web-location-mapping-discount-form>
+          <poss-web-foc-blocking-location-level-form
+            *ngIf="
+              config.formType ===
+              locationMappingFormTypeRef.FOC_BLOCKING_LOCATION_LEVEL
+            "
+            (formReady)="form = $event"
+          ></poss-web-foc-blocking-location-level-form>
+          <poss-web-emp-discount-location-form
+            *ngIf="
+              config.formType ===
+              locationMappingFormTypeRef.EMPOWERMENT_LOCATION_MAPPING
+            "
+            (formReady)="form = $event"
+          ></poss-web-emp-discount-location-form>
+          <poss-web-location-mapping-foc-config-form
+            *ngIf="
+              config.formType ===
+              locationMappingFormTypeRef.FOC_SCHEME_BASED_CONFIG
+            "
+            (formReady)="form = $event"
+          ></poss-web-location-mapping-foc-config-form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="pw-location-mapping__footer pw-text-right">
+    <div class="row justify-content-end">
+      <div class="col-auto" *ngIf="!config.isFormApplicable || tabGroup.selectedIndex == 1">
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn pw-width-100"
+          (click)="applyLocations()"
+          [disabled]="selectedLocations.length === 0 || readonly"
+        >
+          {{ 'pw.locationMapping.applyButtonText' | translate }}
+        </button>
+      </div>
+      <div
+        class="col-auto"
+        *ngIf="config.isFormApplicable && tabGroup.selectedIndex == 0 && hasLable === false"
+      >
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn pw-width-150"
+          (click)="tabGroup.selectedIndex = 1"
+          [disabled]="selectedLocations.length === 0 || readonly"
+        >
+          {{ 'pw.locationMapping.addValueLabel' | translate }}
+        </button>
+      </div>
+
+      <div
+        class="col-auto"
+        *ngIf="config.isFormApplicable && tabGroup.selectedIndex == 0 && hasLable === true"
+      >
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn"
+          (click)="tabGroup.selectedIndex = 1"
+          [disabled]="selectedLocations.length === 0 || readonly"
+        >
+          {{ addValueLabel }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

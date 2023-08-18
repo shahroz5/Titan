@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container" role="main">
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span class="top-navbar__logo">
+        <a [routerLink]="['/sales']" class="pw-i-64 pw-logo-icon-64"> </a>
+      </span>
+      <div class="pw-poss-web-top-menu">
+        <div class="pw-top-menu">
+          <div
+            class="pw-top-menu__left-menu d-flex flex-row justify-content-start"
+          >
+            <ul role="navigation" class="d-flex flex-row">
+              <li>
+                <a
+                  class="nav-link"
+                  [routerLink]="['/sales']"
+                  [class.is-active]="router.isActive('/sales', false)"
+                  ><span class="nav-link-inner">Salees</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <img
+    [src]="
+      isLightTheme
+        ? './assets/img/bg-top.svg'
+        : './assets/img/mia-icons/flower.svg'
+    "
+    class="pw-bg-img"
+    alt="background_img"
+  />
+
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

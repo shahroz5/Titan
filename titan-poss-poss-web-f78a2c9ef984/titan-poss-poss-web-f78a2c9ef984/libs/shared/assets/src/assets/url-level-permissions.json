@@ -1,0 +1,2701 @@
+[
+  {
+    "url": "/uam/home",
+    "transactionCodes": ["U0", "U1", "U3", "U5", "U6", "U7", "U8", "U9"]
+  },
+  {
+    "url": "/uam/users",
+    "transactionCodes": ["U0", "U1"]
+  },
+  {
+    "url": "/uam/users/:_id",
+    "transactionCodes": ["U0", "U1"]
+  },
+  {
+    "url": "/uam/roles",
+    "transactionCodes": ["U2", "U3"]
+  },
+  {
+    "url": "/uam/role-limit/default",
+    "transactionCodes": ["U5"]
+  },
+
+  {
+    "url": "/uam/role-limit/customize",
+    "transactionCodes": ["U5"]
+  },
+  {
+    "url": "/uam/role-limit/role-limit-request",
+    "transactionCodes": ["U6"]
+  },
+  {
+    "url": "/uam/role-limit-requests",
+    "transactionCodes": ["U7"]
+  },
+  {
+    "url": "/uam/role-limit-requests/:_requestid",
+    "transactionCodes": ["U7"]
+  },
+  {
+    "url": "/uam/access-control",
+    "transactionCodes": ["U8", "U9"]
+  },
+
+  {
+    "url": "/inventory/home",
+    "transactionCodes": [
+      "I0",
+      "I1",
+      "I2",
+      "I3",
+      "I4",
+      "I5",
+      "I6",
+      "I7",
+      "I8",
+      "I9",
+      "I10",
+      "I11",
+      "I12",
+      "I13",
+      "I14",
+      "I15",
+      "I16",
+      "I17",
+      "I18",
+      "I20",
+      "I21",
+      "I22",
+      "I23",
+      "I24",
+      "I25",
+      "I26",
+      "I27",
+      "I28",
+      "I29",
+      "I30",
+      "I31",
+      "I32",
+      "I33",
+      "I39",
+      "I42",
+      "I43",
+      "I44",
+      "I45",
+      "I46",
+      "I47",
+      "I48",
+      "I49",
+      "I50",
+      "I51",
+      "I52",
+      "I53",
+      "I54",
+      "I55",
+      "I56",
+      "I57",
+      "I58",
+      "I59",
+      "I60",
+      "I61",
+      "I62",
+      "I63",
+      "I64",
+      "I65",
+      "I66",
+      "I67",
+      "I68",
+      "I70",
+      "I71",
+      "I72",
+      "I74"
+    ]
+  },
+  {
+    "url": "/inventory/stockreceive/factory",
+    "transactionCodes": ["I0"]
+  },
+  {
+    "url": "/inventory/stockreceive/factory/:_id/nonverified",
+    "transactionCodes": ["I0"]
+  },
+  {
+    "url": "/inventory/stockreceive/factory/:_id/verified",
+    "transactionCodes": ["I0"]
+  },
+  {
+    "url": "/inventory/stockreceive/boutique",
+    "transactionCodes": ["I2"]
+  },
+  {
+    "url": "/inventory/stockreceive/boutique/:_id/nonverified",
+    "transactionCodes": ["I2"]
+  },
+  {
+    "url": "/inventory/stockreceive/boutique/:_id/verified",
+    "transactionCodes": ["I2"]
+  },
+  {
+    "url": "/inventory/stockreceive/cfa",
+    "transactionCodes": ["I1"]
+  },
+  {
+    "url": "/inventory/stockreceive/cfa/:_id/nonverified",
+    "transactionCodes": ["I1"]
+  },
+  {
+    "url": "/inventory/stockreceive/cfa/:_id/verified",
+    "transactionCodes": ["I1"]
+  },
+  {
+    "url": "/inventory/stockreceive/merchandise",
+    "transactionCodes": ["I27"]
+  },
+  {
+    "url": "/inventory/stockreceive/merchandise/:_id/nonverified",
+    "transactionCodes": ["I27"]
+  },
+  {
+    "url": "/inventory/stockreceive/merchandise/:_id/verified",
+    "transactionCodes": ["I27"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/factory",
+    "transactionCodes": ["I42"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/factory/:_id",
+    "transactionCodes": ["I42"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/boutique",
+    "transactionCodes": ["I44"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/boutique/:_id",
+    "transactionCodes": ["I44"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/merchandise",
+    "transactionCodes": ["I45"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/merchandise/:_id",
+    "transactionCodes": ["I45"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/cfa",
+    "transactionCodes": ["I43"]
+  },
+  {
+    "url": "/inventory/stockreceive/history/cfa/:_id",
+    "transactionCodes": ["I43"]
+  },
+  {
+    "url": "/inventory/instock/home",
+    "transactionCodes": [
+      "I3",
+      "I4",
+      "I5",
+      "I6",
+      "I7",
+      "I8",
+      "I9",
+      "I10",
+      "I11",
+      "I12",
+      "I13",
+      "I14",
+      "I15",
+      "I16",
+      "I17",
+      "I26",
+      "I28",
+      "I29",
+      "I30",
+      "I31",
+      "I32",
+      "I33",
+      "I46",
+      "I47",
+      "I48",
+      "I49",
+      "I50",
+      "I51",
+      "I52",
+      "I53",
+      "I54",
+      "I55",
+      "I56",
+      "I57",
+      "I58",
+      "I59",
+      "I60",
+      "I61",
+      "I70",
+      "I71"
+    ]
+  },
+  {
+    "url": "/inventory/instock/update-item-hallmark-details",
+    "transactionCodes": [
+      "I3",
+      "I4",
+      "I5",
+      "I6",
+      "I7",
+      "I8",
+      "I9",
+      "I10",
+      "I11",
+      "I12",
+      "I13",
+      "I14",
+      "I15",
+      "I16",
+      "I17",
+      "I26",
+      "I28",
+      "I29",
+      "I30",
+      "I31",
+      "I32",
+      "I33",
+      "I46",
+      "I47",
+      "I48",
+      "I49",
+      "I50",
+      "I51",
+      "I52",
+      "I53",
+      "I54",
+      "I55",
+      "I56",
+      "I57",
+      "I58",
+      "I59",
+      "I60",
+      "I61",
+      "I70",
+      "I71"
+    ]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/variantCode",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/binCode",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/binCode/:_value",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/productGroup",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/productGroup/:_value",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/productCategory",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/productCategory/:_value",
+    "transactionCodes": ["I3"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/history",
+    "transactionCodes": ["I46"]
+  },
+  {
+    "url": "/inventory/instock/bintobinTransfer/history/:_value",
+    "transactionCodes": ["I46"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/sent",
+    "transactionCodes": ["I4"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/sent/:_requestId",
+    "transactionCodes": ["I4"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/create-request",
+    "transactionCodes": ["I4"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/received",
+    "transactionCodes": ["I5"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/received/:_requestId",
+    "transactionCodes": ["I5"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/history",
+    "transactionCodes": ["I47", "I48"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/history/sent/:_requestId",
+    "transactionCodes": ["I47"]
+  },
+  {
+    "url": "/inventory/instock/inter-boutique-transfer/history/received/:_requestId",
+    "transactionCodes": ["I48"]
+  },
+  {
+    "url": "/inventory/instock/conversion/search",
+    "transactionCodes": ["I6"]
+  },
+  {
+    "url": "/inventory/instock/conversion/requests",
+    "transactionCodes": ["I7"]
+  },
+  {
+    "url": "/inventory/instock/conversion/requests/:_id",
+    "transactionCodes": ["I7"]
+  },
+  {
+    "url": "/inventory/instock/conversion/history/requestSent",
+    "transactionCodes": ["I50"]
+  },
+  {
+    "url": "/inventory/instock/conversion/history/requestSent/:_id",
+    "transactionCodes": ["I50"]
+  },
+  {
+    "url": "/inventory/instock/conversion/history/convertedTransaction",
+    "transactionCodes": ["I49"]
+  },
+  {
+    "url": "/inventory/instock/conversion/history/convertedTransaction/:_id",
+    "transactionCodes": ["I49"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherissues/Exhibition",
+    "transactionCodes": ["I15"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherissues/Adjustment",
+    "transactionCodes": ["I12"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherissues/FOC",
+    "transactionCodes": ["I26"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherissues/Loan",
+    "transactionCodes": ["I13"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherissues/Loss",
+    "transactionCodes": ["I14"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherissues/PSV",
+    "transactionCodes": ["I16"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/Exhibition/:_reqDocNo",
+    "transactionCodes": ["I15"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/create/Exhibition/allProducts",
+    "transactionCodes": ["I15"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/create/Exhibition/Selected",
+    "transactionCodes": ["I15"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/Loan/:_reqDocNo",
+    "transactionCodes": ["I13"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/create/Loan/allProducts",
+    "transactionCodes": ["I13"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/create/Loan/Selected",
+    "transactionCodes": ["I13"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/Loss/:_reqDocNo",
+    "transactionCodes": ["I14"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/create/Loss/allProducts",
+    "transactionCodes": ["I14"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/create/Loss/Selected",
+    "transactionCodes": ["I14"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/Adjustment",
+    "transactionCodes": ["I12"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/Adjustment/:_reqDocNo",
+    "transactionCodes": ["I12"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/PSV",
+    "transactionCodes": ["I16"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/PSV/:_reqDocNo",
+    "transactionCodes": ["I16"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/FOC",
+    "transactionCodes": ["I26"]
+  },
+  {
+    "url": "/inventory/instock/otherissues/FOC/:_reqDocNo",
+    "transactionCodes": ["I26"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherreceipts/Exhibition",
+    "transactionCodes": ["I10"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/otherreceipts/Exhibition/:_id/verified",
+    "transactionCodes": ["I10"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/otherreceipts/Exhibition/:_id/nonverified",
+    "transactionCodes": ["I10"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherreceipts/Loan",
+    "transactionCodes": ["I9"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/otherreceipts/Loan/:_id/verified",
+    "transactionCodes": ["I9"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/otherreceipts/Loan/:_id/nonverified",
+    "transactionCodes": ["I9"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherreceipts/Adjustment",
+    "transactionCodes": ["I8"]
+  },
+  {
+    "url": "/inventory/instock/otherreceipts/Adjustment",
+    "transactionCodes": ["I8"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/list/otherreceipts/PSV",
+    "transactionCodes": ["I11"]
+  },
+  {
+    "url": "/inventory/instock/otherreceipts/PSV",
+    "transactionCodes": ["I11"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues/Adjustment",
+    "transactionCodes": ["I55"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues/Loan",
+    "transactionCodes": ["I56"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues/Loss",
+    "transactionCodes": ["I57"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues/Exhibition",
+    "transactionCodes": ["I58"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues/PSV",
+    "transactionCodes": ["I59"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues/FOC",
+    "transactionCodes": ["I60"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues-requests/Adjustment",
+    "transactionCodes": ["I28"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues-requests/Loan",
+    "transactionCodes": ["I29"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues-requests/Loss",
+    "transactionCodes": ["I30"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues-requests/Exhibition",
+    "transactionCodes": ["I31"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues-requests/PSV",
+    "transactionCodes": ["I32"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherissues-requests/FOC",
+    "transactionCodes": ["I33"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues-requests/Adjustment/:_id",
+    "transactionCodes": ["I28"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues-requests/Loan/:_id",
+    "transactionCodes": ["I29"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues-requests/Loss/:_id",
+    "transactionCodes": ["I30"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues-requests/Exhibition/:_id",
+    "transactionCodes": ["I31"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues-requests/PSV/:_id",
+    "transactionCodes": ["I32"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues-requests/FOC/:_id",
+    "transactionCodes": ["I33"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherreceipts/Adjustment",
+    "transactionCodes": ["I51"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherreceipts/Loan",
+    "transactionCodes": ["I52"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherreceipts/Exhibition",
+    "transactionCodes": ["I53"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/otherreceipts/PSV",
+    "transactionCodes": ["I54"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherreceipts/Adjustment/:_id",
+    "transactionCodes": ["I51"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherreceipts/Loan/:_id",
+    "transactionCodes": ["I52"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherreceipts/Exhibition/:_id",
+    "transactionCodes": ["I53"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherreceipts/PSV/:_id",
+    "transactionCodes": ["I54"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues/Adjustment/:_id",
+    "transactionCodes": ["I55"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues/Loan/:_id",
+    "transactionCodes": ["I56"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues/Loss/:_id",
+    "transactionCodes": ["I57"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues/Exhibition/:_id",
+    "transactionCodes": ["I58"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues/PSV/:_id",
+    "transactionCodes": ["I59"]
+  },
+  {
+    "url": "/inventory/instock/other-receipts-issues-list/history/details/otherissues/FOC/:_id",
+    "transactionCodes": ["I60"]
+  },
+  {
+    "url": "/inventory/instock/binCreation/binHistory",
+    "transactionCodes": ["I61"]
+  },
+  {
+    "url": "/inventory/stockissue/factory",
+    "transactionCodes": ["I18"]
+  },
+  {
+    "url": "/inventory/stockissue/details/factory/:_reqDocNo",
+    "transactionCodes": ["I18"]
+  },
+  {
+    "url": "/inventory/stockissue/boutique",
+    "transactionCodes": ["I20"]
+  },
+  {
+    "url": "/inventory/stockissue/details/boutique/:_reqDocNo",
+    "transactionCodes": ["I20"]
+  },
+  {
+    "url": "/inventory/stockissue/merchandise",
+    "transactionCodes": ["I21"]
+  },
+  {
+    "url": "/inventory/stockissue/details/merchandise/:_reqDocNo",
+    "transactionCodes": ["I21"]
+  },
+  {
+    "url": "/inventory/stockissue/cfa",
+    "transactionCodes": ["I39"]
+  },
+  {
+    "url": "/inventory/stockissue/factory/tep-gep/tep-plain",
+    "transactionCodes": ["I22"]
+  },
+  {
+    "url": "/inventory/stockissue/factory/tep-gep/tep-gold-coin",
+    "transactionCodes": ["I25"]
+  },
+  {
+    "url": "/inventory/stockissue/factory/tep-gep/defective",
+    "transactionCodes": ["I28"]
+  },
+  {
+    "url": "/inventory/stockissue/factory/tep-gep/tep-studded",
+    "transactionCodes": ["I23"]
+  },
+  {
+    "url": "/inventory/stockissue/factory/tep-gep/gep",
+    "transactionCodes": ["I24"]
+  },
+  {
+    "url": "/inventory/stockissue/history/fac",
+    "transactionCodes": ["I62"]
+  },
+  {
+    "url": "/inventory/stockissue/history/btq",
+    "transactionCodes": ["I64"]
+  },
+  {
+    "url": "/inventory/stockissue/history/mer",
+    "transactionCodes": ["I65"]
+  },
+  {
+    "url": "/inventory/stockissue/history/tep-plain",
+    "transactionCodes": ["I66"]
+  },
+  {
+    "url": "/inventory/stockissue/history/tep-studded",
+    "transactionCodes": ["I67"]
+  },
+  {
+    "url": "/inventory/stockissue/history/gep",
+    "transactionCodes": ["I68"]
+  },
+  {
+    "url": "/inventory/stockissue/history/tep-gold-coin",
+    "transactionCodes": ["I69"]
+  },
+  {
+    "url": "/inventory/stockissue/history/direct-issue",
+    "transactionCodes": ["I74"]
+  },
+  {
+    "url": "/inventory/stockissue/history/btq-cfa",
+    "transactionCodes": ["I39"]
+  },
+  {
+    "url": "/inventory/stockissue/history/defective",
+    "transactionCodes": ["I70"]
+  },
+  {
+    "url": "/inventory/stockissue/invoice/history/invoiceToCFA",
+    "transactionCodes": ["I63"]
+  },
+  {
+    "url": "/inventory/stockissue/invoice/history/tep-plain",
+    "transactionCodes": ["I66"]
+  },
+  {
+    "url": "/inventory/stockissue/invoice/history/tep-studded",
+    "transactionCodes": ["I67"]
+  },
+  {
+    "url": "/inventory/stockissue/invoice/history/tep-gold-coin",
+    "transactionCodes": ["I72"]
+  },
+  {
+    "url": "/inventory/stockissue/invoice/history/gep",
+    "transactionCodes": ["I68"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/fac/:_reqDocNo",
+    "transactionCodes": ["I62"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/invoiceToCFA/:_reqDocNo",
+    "transactionCodes": ["I63"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/btq/:_reqDocNo",
+    "transactionCodes": ["I64"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/mer/:_reqDocNo",
+    "transactionCodes": ["I65"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/tep-plain/:_reqDocNo",
+    "transactionCodes": ["I66"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/tep-studded/:_reqDocNo",
+    "transactionCodes": ["I67"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/gep/:_reqDocNo",
+    "transactionCodes": ["I68"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/tep-gold-coin/:_reqDocNo",
+    "transactionCodes": ["I69"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/direct-issue/:_reqDocNo",
+    "transactionCodes": ["I74"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/btq-cfa/:_reqDocNo",
+    "transactionCodes": ["I39"]
+  },
+  {
+    "url": "/inventory/stockissue/details/history/defective/:_reqDocNo",
+    "transactionCodes": ["I70"]
+  },
+  {
+    "url": "/master/home",
+    "transactionCodes": [
+      "S",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8",
+      "M9",
+      "M10",
+      "M11",
+      "M12",
+      "M13",
+      "M14",
+      "M17",
+      "M18",
+      "M21",
+      "M22",
+      "M25",
+      "M26",
+      "M27",
+      "M29",
+      "M32",
+      "M33",
+      "M38",
+      "M39",
+      "M42",
+      "M43",
+      "M45",
+      "M46",
+      "M48",
+      "M49",
+      "M50",
+      "M51",
+      "M52",
+      "M53",
+      "M54",
+      "M55",
+      "M56",
+      "M57",
+      "M58",
+      "M59",
+      "M60",
+      "M61",
+      "M62",
+      "M64",
+      "M65",
+      "M66",
+      "M67",
+      "M68",
+      "M69",
+      "M70",
+      "M71",
+      "M72",
+      "M73",
+      "M74",
+      "M77",
+      "M78",
+      "M80",
+      "M81",
+      "M83",
+      "M84",
+      "M85",
+      "M91",
+      "M96",
+      "M97",
+      "M98",
+      "M99",
+      "M100",
+      "M101",
+      "M102",
+      "M109",
+      "M110",
+      "M118",
+      "M120",
+      "M122",
+      "M124",
+      "M126",
+      "M131",
+      "M132",
+      "M135",
+      "M136",
+      "M139",
+      "M140",
+      "M148",
+      "M150",
+      "M40",
+      "M41",
+      "M23",
+      "M24"
+    ]
+  },
+  {
+    "url": "/master/product-masters/brand-list",
+    "transactionCodes": ["M1", "M2"]
+  },
+  {
+    "url": "/master/product-masters/brand-master/:_brand-code",
+    "transactionCodes": ["M1", "M2"]
+  },
+  {
+    "url": "/master/product-masters/sub-brand-list",
+    "transactionCodes": ["M3", "M4"]
+  },
+  {
+    "url": "/master/product-masters/product-category-list",
+    "transactionCodes": ["M10", "M11"]
+  },
+  {
+    "url": "/master/product-masters/product-group-list",
+    "transactionCodes": ["M12", "M13"]
+  },
+  {
+    "url": "/master/product-masters/product-group",
+    "transactionCodes": ["M12", "M13"]
+  },
+  {
+    "url": "/master/product-masters/item-list",
+    "transactionCodes": ["M5", "M91"]
+  },
+  {
+    "url": "/master/product-masters/item-master/:_itemCode/item-details",
+    "transactionCodes": ["M5"]
+  },
+  {
+    "url": "/master/product-masters/stone-list",
+    "transactionCodes": ["M8", "M9"]
+  },
+  {
+    "url": "/master/product-attributes/material-type-list",
+    "transactionCodes": ["M6", "M7"]
+  },
+  {
+    "url": "/master/product-attributes/purity-list",
+    "transactionCodes": ["M17", "M18"]
+  },
+  {
+    "url": "/master/product-attributes/stone-type-list",
+    "transactionCodes": ["M21", "M22"]
+  },
+  {
+    "url": "/master/product-attributes/complexity-list",
+    "transactionCodes": ["M26", "M27"]
+  },
+  {
+    "url": "/master/product-pricing/price-group-list",
+    "transactionCodes": ["M42", "M43"]
+  },
+  {
+    "url": "/master/product-pricing/complexity-price-group-list",
+    "transactionCodes": ["M38", "M39"]
+  },
+  {
+    "url": "/master/product-pricing/market-price-list/:_materialType",
+    "transactionCodes": ["M32", "M33"]
+  },
+  {
+    "url": "/master/product-pricing/market-price/:_materialType/daily/:_mode",
+    "transactionCodes": ["M32", "M33"]
+  },
+  {
+    "url": "/master/product-pricing/market-price/:_materialType/forced/:_mode",
+    "transactionCodes": ["M32", "M33"]
+  },
+  {
+    "url": "/master/location-masters/location-list",
+    "transactionCodes": ["M67", "M68"]
+  },
+  {
+    "url": "/master/location-masters/location/:_locCode",
+    "transactionCodes": ["M67", "M68"]
+  },
+  {
+    "url": "/master/location-masters/price-group-mapping/:_locCode",
+    "transactionCodes": ["M24", "M23"]
+  },
+  {
+    "url": "/master/location-masters/price-group-mapping",
+    "transactionCodes": ["M24", "M23"]
+  },
+  {
+    "url": "/master/location-masters/corporate-town-list",
+    "transactionCodes": ["M69", "M70"]
+  },
+  {
+    "url": "/master/location-masters/market-code-list",
+    "transactionCodes": ["M65", "M66"]
+  },
+  {
+    "url": "/master/location-masters/region-list",
+    "transactionCodes": ["M71", "M72"]
+  },
+  {
+    "url": "/master/location-masters/sub-region-list",
+    "transactionCodes": ["M73", "M74"]
+  },
+  {
+    "url": "/master/location-masters/state-list",
+    "transactionCodes": ["M84", "M85"]
+  },
+  {
+    "url": "/master/location-masters/country-list",
+    "transactionCodes": ["M61", "M62"]
+  },
+  {
+    "url": "/master/location-masters/currency-list",
+    "transactionCodes": ["M80", "M81"]
+  },
+  {
+    "url": "/master/inventory-masters/bin-group-list",
+    "transactionCodes": ["M55", "M56"]
+  },
+  {
+    "url": "/master/inventory-masters/bin-code-list",
+    "transactionCodes": ["M57", "M58"]
+  },
+  {
+    "url": "/master/inventory-masters/courier-list",
+    "transactionCodes": ["M59", "M60"]
+  },
+  {
+    "url": "/master/inventory-masters/courier",
+    "transactionCodes": ["M59", "M60"]
+  },
+  {
+    "url": "/master/tax-masters/tax-master-list",
+    "transactionCodes": ["M49", "M50"]
+  },
+  {
+    "url": "/master/tax-masters/tax-class-list",
+    "transactionCodes": ["M53", "M54"]
+  },
+  {
+    "url": "/master/payment-masters/transaction-type-list",
+    "transactionCodes": ["M148"]
+  },
+  {
+    "url": "/master/payment-masters/payment-mode-list",
+    "transactionCodes": ["M99", "M100"]
+  },
+  {
+    "url": "/configuration/banking-revenue/payer-bank-list",
+    "transactionCodes": ["M109", "M110"]
+  },
+  {
+    "url": "/master/boutique-masters/customer-town-list",
+    "transactionCodes": ["M51", "M52"]
+  },
+  {
+    "url": "/master/boutique-masters/catchment-list",
+    "transactionCodes": ["M"]
+  },
+  {
+    "url": "/master/lov-master-list",
+    "transactionCodes": [
+      "M25",
+      "M14",
+      "M45",
+      "M46",
+      "M29",
+      "M77",
+      "M78",
+      "M64",
+      "M83",
+      "M48",
+      "M96",
+      "M120",
+      "M124",
+      "M126",
+      "M122",
+      "M118"
+    ]
+  },
+  {
+    "url": "/master/banking/gl-boutique-location-list",
+    "transactionCodes": ["M"]
+  },
+  {
+    "url": "/master/banking/gl-boutique-location/:_loc/details",
+    "transactionCodes": ["M"]
+  },
+  {
+    "url": "/boutique-master/banking/bank-priorities",
+    "transactionCodes": ["M"]
+  },
+  {
+    "url": "/master/company-related/bank-priority-list",
+    "transactionCodes": ["S1"]
+  },
+  {
+    "url": "/master/banking/payer-bank-list",
+    "transactionCodes": ["M109", "M110"]
+  },
+  {
+    "url": "/home/banking/upload-eGHS",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/home/banking/upload-service-poss",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/master/boutique-masters/item-list",
+    "transactionCodes": ["M131"]
+  },
+  {
+    "url": "/master/boutique-masters/item-master/:_itemCode/item-details",
+    "transactionCodes": ["M131"]
+  },
+  {
+    "url": "/master/boutique-masters/stone-list",
+    "transactionCodes": ["M132"]
+  },
+  {
+    "url": "/master/boutique-masters/update-metal-rates",
+    "transactionCodes": ["M135", "M136"]
+  },
+  {
+    "url": "/files/data-upload",
+    "transactionCodes": ["F9", "F10"]
+  },
+
+  {
+    "url": "/sales/advance-booking/:id",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/advance-booking/search",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+
+  {
+    "url": "/sales/cm-requests/list",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/cm-requests/details/:_txnType/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/home",
+    "transactionCodes": [
+      "S",
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8",
+      "S9",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20",
+      "S21",
+      "S22",
+      "S23",
+      "S24",
+      "S25",
+      "S26",
+      "S27",
+      "S28",
+      "S29",
+      "S30",
+      "S31",
+      "S32",
+      "S33",
+      "S34",
+      "S35",
+      "S36",
+      "S37",
+      "S38",
+      "S39",
+      "S40",
+      "S41",
+      "S42",
+      "S43",
+      "S44",
+      "S45",
+      "S46",
+      "S47",
+      "S48",
+      "S50",
+      "S51",
+      "S52",
+      "S73",
+      "S74",
+      "S75",
+      "S76",
+      "S77",
+      "S78",
+      "S79",
+      "S80",
+      "S81",
+      "S82",
+      "S83",
+      "S84",
+      "S85",
+      "S86"
+    ]
+  },
+  {
+    "url": "/digital-signature",
+    "transactionCodes": ["S95"]
+  },
+  {
+    "url": "/cashier-signature",
+    "transactionCodes": ["S96", "S97"]
+  },
+  {
+    "url": "/sales/cash-memo/:_id",
+    "transactionCodes": ["S2", "S3", "S4", "S5", "S6", "S7", "S8"]
+  },
+  {
+    "url": "/sales/advance-booking/:_id",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/quick-cash-memo/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/cash-memo/manual-bill/:_id",
+    "transactionCodes": ["S2", "S3", "S4", "S5", "S6", "S8", "S9"]
+  },
+  {
+    "url": "/sales/cash-memo/history",
+    "transactionCodes": ["S12"]
+  },
+  {
+    "url": "/sales/customer-order/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/customer-order/fetch",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/customer-order/search",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/gift-cards/sale/:_id",
+    "transactionCodes": ["S13"]
+  },
+  {
+    "url": "/sales/gift-cards/balance-inquiry",
+    "transactionCodes": ["S15"]
+  },
+  {
+    "url": "/sales/gift-cards/cancellation",
+    "transactionCodes": ["S14"]
+  },
+  {
+    "url": "/sales/gift-cards/history",
+    "transactionCodes": ["S16"]
+  },
+  {
+    "url": "/sales/gep/new",
+    "transactionCodes": ["S27", "S28", "S29"]
+  },
+  {
+    "url": "/sales/gep/new/:_id",
+    "transactionCodes": ["S27", "S28", "S29"]
+  },
+  {
+    "url": "/sales/gep/cancel",
+    "transactionCodes": ["S33"]
+  },
+  {
+    "url": "/sales/gep/manual",
+    "transactionCodes": ["S30", "S31", "S32"]
+  },
+  {
+    "url": "/sales/gep/manual/:_id",
+    "transactionCodes": ["S30", "S31", "S32"]
+  },
+  {
+    "url": "/sales/gep/hold",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/gep/history",
+    "transactionCodes": ["S8"]
+  },
+  {
+    "url": "/configuration/home",
+    "transactionCodes": [
+      "C0",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C16",
+      "C17",
+      "C22",
+      "C23",
+      "C26",
+      "C27",
+      "C28",
+      "C29",
+      "C34",
+      "C35",
+      "C36",
+      "C37",
+      "C38",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C48",
+      "C49",
+      "C50",
+      "C51",
+      "C52",
+      "C53",
+      "C54",
+      "C55",
+      "C58",
+      "C59",
+      "C60",
+      "C61",
+      "C64",
+      "C65",
+      "C66",
+      "C67",
+      "C72",
+      "C73",
+      "C68",
+      "C69",
+      "C82",
+      "C83",
+      "C20",
+      "C21",
+      "C24",
+      "C25",
+      "C99",
+      "C100",
+      "C30",
+      "C31",
+      "C76",
+      "C77",
+      "C78",
+      "C79",
+      "C107",
+      "C108",
+      "C109",
+      "C110",
+      "C111",
+      "C112",
+      "C133",
+      "C134",
+      "C129",
+      "C130",
+      "C119",
+      "C120",
+      "C115",
+      "C116",
+      "C117",
+      "C118",
+      "C14",
+      "C15",
+      "C121",
+      "C122",
+      "C123",
+      "C124",
+      "C97",
+      "C98",
+      "C127",
+      "C128",
+      "C101",
+      "C102",
+      "C103",
+      "M106",
+      "M105",
+      "M108",
+      "M107",
+      "C131",
+      "C132",
+      "M109",
+      "M110",
+      "M101",
+      "M102",
+      "C56",
+      "C57",
+      "C62",
+      "C63",
+      "C86",
+      "C87",
+      "C88",
+      "C135",
+      "C136",
+      "C137",
+      "C138",
+      "C139",
+      "C140",
+      "C141",
+      "C142",
+      "C143",
+      "C144",
+      "C145",
+      "C146",
+      "C113",
+      "C114",
+      "C125",
+      "C126",
+      "M129",
+      "M130"
+    ]
+  },
+  {
+    "url": "/configuration/inventory-configuration/conversion-config-list",
+    "transactionCodes": ["C5", "C4"]
+  },
+  {
+    "url": "/configuration/tax-configuration/state-tax-config-list",
+    "transactionCodes": ["C72", "C73"]
+  },
+  {
+    "url": "/configuration/tax-configuration/state-tax-config-details",
+    "transactionCodes": ["C73"]
+  },
+  {
+    "url": "/configuration/tax-configuration/state-tax-config-details/:_configId",
+    "transactionCodes": ["C73"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/cpg-qcgc-map-config-list",
+    "transactionCodes": ["M129", "M130"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/cpg-qcgc-map-config-details/:_id",
+    "transactionCodes": ["M129", "M130"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/weight-tolerance-config-list",
+    "transactionCodes": ["C2", "C3"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/weight-tolerance-config/:_configId",
+    "transactionCodes": ["C3"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/grf-tolerance-config-list",
+    "transactionCodes": ["C22", "C23"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/grf-tolerance-config/:_id",
+    "transactionCodes": ["C23"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/inv-global-config",
+    "transactionCodes": ["C137", "C138"]
+  },
+  {
+    "url": "/configuration/global-configuration/amendment-config",
+    "transactionCodes": ["C129", "C130"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/inv-global-config/:_configId",
+    "transactionCodes": ["C137", "C138"]
+  },
+  {
+    "url": "/configuration/user-access-management",
+    "transactionCodes": ["C"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/unipay-access-mapping-list",
+    "transactionCodes": ["C14", "C15"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/gv-status-update-list",
+    "transactionCodes": ["C123", "C124"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/gv-redemption-configuration",
+    "transactionCodes": ["C"]
+  },
+  {
+    "url": "/configuration/global-configuration",
+    "transactionCodes": [
+      "C68",
+      "C69",
+      "C82",
+      "C83",
+      "C8",
+      "C86",
+      "C87",
+      "C88",
+      "C135",
+      "C136",
+      "C145",
+      "C146",
+      "C129",
+      "C130"
+    ]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/payment-config-list",
+    "transactionCodes": ["C139", "C140"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/L3-inventory-configuration",
+    "transactionCodes": ["C6", "C7"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/ibt-config-list",
+    "transactionCodes": ["C0", "C1"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/payment-config/:_configId",
+    "transactionCodes": ["C139", "C140"]
+  },
+  {
+    "url": "/configuration/inventory-configuration/ibt-config/:_configId",
+    "transactionCodes": ["C1"]
+  },
+  {
+    "url": "/configuration/payment-configuration/cash-payment-config",
+    "transactionCodes": ["C10", "C11"]
+  },
+  {
+    "url": "/configuration/grn-configuration/grn-interboutique-config",
+    "transactionCodes": ["C27", "C26"]
+  },
+  {
+    "url": "/configuration/global-configuration/password-config",
+    "transactionCodes": ["C86", "C87", "C88"]
+  },
+  {
+    "url": "/configuration/payment-configuration/cashback-offer-config-list",
+    "transactionCodes": ["C12", "C13"]
+  },
+  {
+    "url": "/configuration/payment-configuration/cashback-offer-config/:_configId",
+    "transactionCodes": ["C13"]
+  },
+
+  {
+    "url": "/approvals/home",
+    "transactionCodes": [
+      "A0",
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "A9",
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A14",
+      "A15",
+      "A16",
+      "A17",
+      "A18",
+      "A19",
+      "A20",
+      "A21",
+      "A40",
+      "A41",
+      "A51",
+      "A52",
+      "A47",
+      "A48",
+      "A59",
+      "A60",
+      "A61",
+      "A56",
+      "A57",
+      "A58",
+      "A53",
+      "A54",
+      "A55",
+      "A62",
+      "A63",
+      "A64",
+      "A37",
+      "A38",
+      "A39",
+      "A25",
+      "A26",
+      "A27",
+      "A34",
+      "A35",
+      "A36",
+      "A22",
+      "A23",
+      "A24",
+      "A28",
+      "A29",
+      "A30",
+      "A31",
+      "A32",
+      "A33"
+    ]
+  },
+  {
+    "url": "/approvals/request-approvals/BinRequest",
+    "transactionCodes": ["A4"]
+  },
+  {
+    "url": "/approvals/request-approvals/IbtRequest",
+    "transactionCodes": ["A3"]
+  },
+  {
+    "url": "/approvals/request-approvals/IbtRequest/:_id",
+    "transactionCodes": ["A3"]
+  },
+  {
+    "url": "/approvals/request-approvals/IbtCancellationRequest/:_id",
+    "transactionCodes": ["A3"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/ADJ",
+    "transactionCodes": ["A8"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/ADJ/:_id",
+    "transactionCodes": ["A8"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/LOAN",
+    "transactionCodes": ["A9"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/LOAN/:_id",
+    "transactionCodes": ["A9"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/FOC",
+    "transactionCodes": ["A6"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/FOC/:_id",
+    "transactionCodes": ["A6"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/cut-piece-tot",
+    "transactionCodes": ["C62", "C63"]
+  },
+  {
+    "url": "/configuration/tep-exchange-config-list",
+    "transactionCodes": ["C58", "C59"]
+  },
+  {
+    "url": "/configuration/tep-exchange-config-details/:_id",
+    "transactionCodes": ["C58", "C59"]
+  },
+  {
+    "url": "/configuration/tep-product-group-config-list",
+    "transactionCodes": ["C64", "C65"]
+  },
+  {
+    "url": "/configuration/tep-product-group-config-details/:_id",
+    "transactionCodes": ["C64", "C65"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-validation-config-list",
+    "transactionCodes": ["C60", "C61"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-validation-config-details/:_id",
+    "transactionCodes": ["C60", "C61"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-stone-config-list",
+    "transactionCodes": ["C66", "C67"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-stone-config-details/:_id",
+    "transactionCodes": ["C66", "C67"]
+  },
+  {
+    "url": "/configuration/weight-tolerance-config-list",
+    "transactionCodes": ["C2", "C3"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/LOSS",
+    "transactionCodes": ["A11"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/LOSS/:_id",
+    "transactionCodes": ["A11"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/PSV",
+    "transactionCodes": ["A7"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/PSV/:_id",
+    "transactionCodes": ["A7"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/EXH",
+    "transactionCodes": ["A10"]
+  },
+  {
+    "url": "/approvals/request-approvals/OtherIssuesRequest/EXH/:_id",
+    "transactionCodes": ["A10"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/BinRequest",
+    "transactionCodes": ["A6", "A7"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/IbtRequest",
+    "transactionCodes": ["A4", "A5"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/IbtRequest/:_id",
+    "transactionCodes": ["A4", "A5"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/IbtCancellationRequest/:_id",
+    "transactionCodes": ["A4", "A5"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/ADJ",
+    "transactionCodes": ["A14", "A15"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/ADJ/:_id",
+    "transactionCodes": ["A14", "A15"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/LOAN",
+    "transactionCodes": ["A16", "A17"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/LOAN/:_id",
+    "transactionCodes": ["A16", "A17"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/FOC",
+    "transactionCodes": ["A10", "A11"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/FOC/:_id",
+    "transactionCodes": ["A10", "A11"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/LOSS",
+    "transactionCodes": ["A20", "A21"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/LOSS/:_id",
+    "transactionCodes": ["A20", "A21"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/PSV",
+    "transactionCodes": ["A12", "A13"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/PSV/:_id",
+    "transactionCodes": ["A12", "A13"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/EXH",
+    "transactionCodes": ["A18", "A19"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/OtherIssuesRequest/EXH/:_id",
+    "transactionCodes": ["A18", "A19"]
+  },
+  {
+    "url": "/approvals/cm-requests/list",
+    "transactionCodes": ["A40", "A41"]
+  },
+  {
+    "url": "/approvals/cm-requests/details/:_taskId/:_processId",
+    "transactionCodes": ["A40", "A41"]
+  },
+  {
+    "url": "/approvals/uam/role-limit-requests",
+    "transactionCodes": ["A0", "A1"]
+  },
+  {
+    "url": "/approvals/uam/role-limit-requests/:_requestId",
+    "transactionCodes": ["A0"]
+  },
+  {
+    "url": "/approvals/bill-cancellation-requests/requests-approvals",
+    "transactionCodes": ["A47", "A48"]
+  },
+  {
+    "url": "/approvals/bill-cancellation-requests/requests-history",
+    "transactionCodes": ["A47", "A48"]
+  },
+  {
+    "url": "/approvals/ro-request/list",
+    "transactionCodes": ["A2", "A3"]
+  },
+  {
+    "url": "/approvals/ro-request/history",
+    "transactionCodes": ["A2", "A3"]
+  },
+  {
+    "url": "/approvals/advance-booking/activation/requests",
+    "transactionCodes": ["A59", "A60", "A61"]
+  },
+  {
+    "url": "/approvals/advance-booking/cancellation/requests",
+    "transactionCodes": ["A56", "A57", "A58"]
+  },
+  {
+    "url": "/approvals/advance-booking/manual/requests",
+    "transactionCodes": ["A53", "A54", "A55"]
+  },
+  {
+    "url": "/approvals/advance-booking/manual/requests/:_taskId/:_processId",
+    "transactionCodes": ["A53", "A54", "A55"]
+  },
+
+  {
+    "url": "/configuration/inventory-configuration/conversion-config/:_configId",
+    "transactionCodes": ["C5"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/product-group-mapping-list",
+    "transactionCodes": ["C119", "C120"]
+  },
+  {
+    "url": "/configuration/banking-revenue/payer-bank-config-list",
+    "transactionCodes": ["C131", "C132"]
+  },
+  {
+    "url": "/configuration/banking-revenue/payer-bank-config/:_configName",
+    "transactionCodes": ["C131", "C132"]
+  },
+
+  {
+    "url": "/configuration/customer-transaction-configuration/customer-transaction-config-list",
+    "transactionCodes": ["C117", "C118"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/customer-transaction-config/:_configName",
+    "transactionCodes": ["C117", "C118"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/airpay-host-config-list",
+    "transactionCodes": ["C14", "C15"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/razorpay-host-config-list",
+    "transactionCodes": ["C14", "C15"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/razorpay-vendor-config-list",
+    "transactionCodes": ["C127", "C128"]
+  },
+  {
+    "url": "/configuration/global-configuration/airpay-config-list",
+    "transactionCodes": ["C83", "C82"]
+  },
+  {
+    "url": "/reports/home",
+    "transactionCodes": ["R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7"]
+  },
+  {
+    "url": "/reports/settings/:_type",
+    "transactionCodes": ["R0", "R1"]
+  },
+  {
+    "url": "/reports/list",
+    "transactionCodes": ["R4"]
+  },
+  {
+    "url": "/reports/inventory",
+    "transactionCodes": ["R2"]
+  },
+  {
+    "url": "/configuration/gep-configuration/geppurity-config-list",
+    "transactionCodes": ["C54", "C55"]
+  },
+  {
+    "url": "/configuration/gep-configuration/geppurity-config/:_configName/:_tabType",
+    "transactionCodes": ["C55"]
+  },
+  {
+    "url": "/configuration/gep-configuration/gep-purity-configuration/:_configName",
+    "transactionCodes": ["C55"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/gst-mapping",
+    "transactionCodes": ["C121", "C122"]
+  },
+  {
+    "url": "/configuration/banking-revenue/gl-boutique-location-list",
+    "transactionCodes": ["M106", "M105"]
+  },
+  {
+    "url": "/configuration/banking-revenue/gl-boutique-location/:_loc/details",
+    "transactionCodes": ["M106", "M105"]
+  },
+  {
+    "url": "/configuration/banking-revenue/gl-location-payment-list",
+    "transactionCodes": ["M108", "M107"]
+  },
+
+  {
+    "url": "/sales/ct-advance/accept-advance/:_id",
+    "transactionCodes": ["S79", "S80", "S81", "S82"]
+  },
+  {
+    "url": "/sales/ct-advance/manual-accept-advance",
+    "transactionCodes": ["S79", "S80", "S81", "S82"]
+  },
+  {
+    "url": "/sales/ct-advance/history",
+    "transactionCodes": ["S79", "S80", "S81", "S82"]
+  },
+  {
+    "url": "/sales/grf/new-grf/:_id",
+    "transactionCodes": ["S83", "S84", "S85", "S86"]
+  },
+  {
+    "url": "/sales/grf/manual-grf/:_id",
+    "transactionCodes": ["S83", "S84", "S85", "S86"]
+  },
+  {
+    "url": "/sales/grf/merge-grf",
+    "transactionCodes": ["S83", "S84", "S85", "S86"]
+  },
+  {
+    "url": "/sales/grf/history",
+    "transactionCodes": ["S83", "S84", "S85", "S86"]
+  },
+  {
+    "url": "/sales/pendingFoc",
+    "transactionCodes": ["S"]
+  },
+
+  {
+    "url": "/home",
+    "transactionCodes": ["M", "A", "C", "U", "S", "I", "R", "F"]
+  },
+  {
+    "url": "/sales/bill-cancellation/requests",
+    "transactionCodes": ["S73", "S74"]
+  },
+  {
+    "url": "/sales/bill-cancellation/history",
+    "transactionCodes": ["S90"]
+  },
+  {
+    "url": "/sales/bill-cancellation/history/:_subTxnType/:_id",
+    "transactionCodes": ["S90"]
+  },
+  {
+    "url": "/sales/bill-cancellation/requests/regular/:_id/:_processId",
+    "transactionCodes": ["S73", "S74"]
+  },
+  {
+    "url": "/sales/bill-cancellation/requests/manual/:_id/:_processId",
+    "transactionCodes": ["S73", "S74"]
+  },
+  {
+    "url": "/sales/advance-booking/request-status",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/airpayRequests/list",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/airpayRequests/history",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/configuration/foc-configuration/foc-blocking-location-level",
+    "transactionCodes": ["C125", "C126"]
+  },
+  {
+    "url": "/configuration/foc-configuration/foc-blocking-customer-level",
+    "transactionCodes": ["C115", "C116"]
+  },
+  {
+    "url": "/configuration/discount-configuration/discount/list",
+    "transactionCodes": ["C50", "C51", "C103"]
+  },
+  {
+    "url": "/configuration/discount-configuration/request/:_configId",
+    "transactionCodes": ["C101", "C102"]
+  },
+  {
+    "url": "/configuration/discount-configuration/approval/:_configId",
+    "transactionCodes": ["C103"]
+  },
+  {
+    "url": "/configuration/discount-configuration/amendment/:_configId",
+    "transactionCodes": ["C101", "C102"]
+  },
+
+  {
+    "url": "/configuration/discount-configuration/discount/request",
+    "transactionCodes": ["C103", "C101", "C102"]
+  },
+  {
+    "url": "/configuration/discount-configuration/discount/:_configId",
+    "transactionCodes": ["C51"]
+  },
+
+  {
+    "url": "/configuration/foc-configuration/foc-config/:_configId",
+    "transactionCodes": ["C53"]
+  },
+  {
+    "url": "/configuration/foc-configuration/foc-config/:_configId/variant-details",
+    "transactionCodes": ["C52", "C53"]
+  },
+  {
+    "url": "/configuration/foc-configuration/foc-config/:_configId/view",
+    "transactionCodes": ["C53"]
+  },
+  {
+    "url": "/configuration/foc-configuration/foc-config-list",
+    "transactionCodes": ["C52", "C53"]
+  },
+
+  {
+    "url": "/sales/bill-cancellation",
+    "transactionCodes": ["S73", "S74"]
+  },
+  {
+    "url": "/sales/bill-cancellation/regular/:_id",
+    "transactionCodes": ["S73", "S74"]
+  },
+  {
+    "url": "/sales/bill-cancellation/manual/:_id",
+    "transactionCodes": ["S73", "S74"]
+  },
+  {
+    "url": "/configuration/global-configuration/ranges",
+    "transactionCodes": ["C135", "C136"]
+  },
+  {
+    "url": "/configuration/global-configuration/employee-loan-config",
+    "transactionCodes": ["C145", "C146"]
+  },
+  {
+    "url": "/configuration/ab-configuration/residual-weight-tolerance-list",
+    "transactionCodes": ["C76", "C77"]
+  },
+  {
+    "url": "/configuration/ab-configuration/residual-weight-tolerance/:_configId",
+    "transactionCodes": ["C76", "C77"]
+  },
+  {
+    "url": "/configuration/ab-configuration/order-payment-config/:_configId",
+    "transactionCodes": ["C78", "C79"]
+  },
+  {
+    "url": "/configuration/ab-configuration/order-payment-config-list",
+    "transactionCodes": ["C78", "C79"]
+  },
+  {
+    "url": "/sales/advance-booking/freeze/:_id",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/advance-booking/view/:_id",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/advance-booking/cancel-request/:_id",
+    "transactionCodes": ["S49", "S50"]
+  },
+  {
+    "url": "/sales/advance-booking/activate-request/:_id",
+    "transactionCodes": ["S51", "S52"]
+  },
+
+  {
+    "url": "/configuration/discount-configuration/clubbing-discount-list",
+    "transactionCodes": ["C143", "C144"]
+  },
+  {
+    "url": "/sales/advance-booking/cancel/:_id",
+    "transactionCodes": ["S49", "S50"]
+  },
+  {
+    "url": "/sales/advance-booking/activate/:_id",
+    "transactionCodes": ["S51", "S52"]
+  },
+
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-master-list",
+    "transactionCodes": ["C113", "C114"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-master/:_cnType",
+    "transactionCodes": ["C113", "C114"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-direct",
+    "transactionCodes": ["C133", "C134"]
+  },
+
+  {
+    "url": "/sales/advance-booking/manual/:_id",
+    "transactionCodes": ["S48"]
+  },
+  {
+    "url": "/configuration/printer-config",
+    "transactionCodes": ["C68", "C69"]
+  },
+  {
+    "url": "/help/home",
+    "transactionCodes": ["M153", "M154"]
+  },
+  {
+    "url": "/help/product-master-update",
+    "transactionCodes": ["M153", "M154"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-validation-list",
+    "transactionCodes": [
+      "C36",
+      "C37",
+      "C38",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C48",
+      "C49"
+    ]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-validation/:_ruleId/:_ruleType",
+    "transactionCodes": ["C36", "C38", "C40", "C42", "C44", "C46", "C48"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/cn-priority-config-list",
+    "transactionCodes": ["C34", "C35"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/cn-priority-config/:_configId",
+    "transactionCodes": ["C34", "C35"]
+  },
+  {
+    "url": "/configuration/ab-configuration/frozen/ab-tolerance-config-list",
+    "transactionCodes": ["C30", "C31"]
+  },
+  {
+    "url": "/configuration/ab-configuration/non-frozen/ab-tolerance-config-list",
+    "transactionCodes": ["C30", "C31"]
+  },
+  {
+    "url": "/configuration/ab-configuration/frozen/ab-tolerance-config/:_configId",
+    "transactionCodes": ["C30", "C31"]
+  },
+  {
+    "url": "/configuration/ab-configuration/non-frozen/ab-tolerance-config/:_configId",
+    "transactionCodes": ["C30", "C31"]
+  },
+  {
+    "url": "/configuration/grn-configuration/grn-approval-access-listing",
+    "transactionCodes": ["C24", "C25", "C20", "C21"]
+  },
+  {
+    "url": "/configuration/grn-configuration/grn-approval-access/:_ruleId/:_ruleType",
+    "transactionCodes": ["C24", "C25", "C20", "C21"]
+  },
+  {
+    "url": "/sales/credit-notes/:_tabType",
+    "transactionCodes": [
+      "S61",
+      "S62",
+      "S63",
+      "S65",
+      "S66",
+      "S67",
+      "S69",
+      "S70",
+      "S71",
+      "S72"
+    ]
+  },
+  {
+    "url": "/sales/credit-note/:_tabType/:_requestType/:_id",
+    "transactionCodes": [
+      "S61",
+      "S62",
+      "S63",
+      "S65",
+      "S66",
+      "S67",
+      "S69",
+      "S70",
+      "S71",
+      "S72"
+    ]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-exchange-config-list",
+    "transactionCodes": ["C58", "C59"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-exchange-config-details/:_id",
+    "transactionCodes": ["C59"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-product-group-config-list",
+    "transactionCodes": ["C64", "C65"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/tep-product-group-config-details/:_id",
+    "transactionCodes": ["C65"]
+  },
+  {
+    "url": "/sales/advance-booking/regularize/:_id",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/advance-booking/:_tab/:_txntype/:_id",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/sales/advance-booking/:_tab/:_txntype/:_id/:_processId",
+    "transactionCodes": ["S41", "S42", "S43", "S44", "S45", "S46", "S47"]
+  },
+  {
+    "url": "/files/home",
+    "transactionCodes": ["F", "F9", "F10", "M"]
+  },
+  {
+    "url": "/files/file-status-list",
+    "transactionCodes": ["F", "M"]
+  },
+  {
+    "url": "/sales/grn/status",
+    "transactionCodes": ["S75", "S76", "S77", "S78"]
+  },
+  {
+    "url": "/sales/grn/status/:_grnId",
+    "transactionCodes": ["S75", "S76", "S77"]
+  },
+  {
+    "url": "/configuration/customer-transaction/ab-tolerance-config/:_configId",
+    "transactionCodes": ["C30", "C31"]
+  },
+  {
+    "url": "/sales/grn/create/:_grnId",
+    "transactionCodes": ["S75", "S76", "S77"]
+  },
+  {
+    "url": "/approvals/grn-requests/history",
+    "transactionCodes": ["A62", "A63", "A64"]
+  },
+  {
+    "url": "/approvals/grn-requests/list",
+    "transactionCodes": ["A62", "A63", "A64"]
+  },
+  {
+    "url": "/configuration/grn-configuration/grn-tolerance-config/list",
+    "transactionCodes": ["C28", "C29"]
+  },
+  {
+    "url": "/configuration/grn-configuration/grn-tolerance-config/:_id",
+    "transactionCodes": ["C28"]
+  },
+  {
+    "url": "/sales/credit-notes/transfer/search",
+    "transactionCodes": ["S64", "S68"]
+  },
+  {
+    "url": "/sales/credit-notes/transfer/sent",
+    "transactionCodes": ["S64", "S68"]
+  },
+  {
+    "url": "/sales/credit-notes/transfer/received",
+    "transactionCodes": ["S64", "S68"]
+  },
+  {
+    "url": "/sales/credit-notes/transfer/search/details/:_locationCode/:_id",
+    "transactionCodes": ["S64", "S68"]
+  },
+  {
+    "url": "/sales/credit-notes/transfer/sent/details/:_id",
+    "transactionCodes": ["S64", "S68"]
+  },
+  {
+    "url": "/sales/credit-notes/transfer/received/details/:_id/:_taskId/:_taskName",
+    "transactionCodes": ["S64", "S68"]
+  },
+  {
+    "url": "/sales/grn/history",
+    "transactionCodes": ["S78"]
+  },
+  {
+    "url": "/configuration/exchange-configuration/max-flat-tep-configuration",
+    "transactionCodes": ["C141", "C142"]
+  },
+  {
+    "url": "/configuration/bgr-configuration/bgr-config-list",
+    "transactionCodes": ["C89", "C90"]
+  },
+  {
+    "url": "/configuration/bgr-configuration/bgr-config/:_configId/:_ruleType",
+    "transactionCodes": ["C89", "C90"]
+  },
+  {
+    "url": "/sales/credit-note/:_tabType/:_requestType/:_docNo/:_fiscalYear/:_ghsDocNo",
+    "transactionCodes": [
+      "S61",
+      "S62",
+      "S63",
+      "S64",
+      "S65",
+      "S66",
+      "S67",
+      "S68",
+      "S69",
+      "S70",
+      "S71",
+      "S72"
+    ]
+  },
+  {
+    "url": "/sales/tep/create-tep/:_id",
+    "transactionCodes": ["S34", "S35", "S36"]
+  },
+  {
+    "url": "/sales/tep-request/refund-status",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/tep-request/request-status",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/tep/cancel-tep",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/tep/tep-history",
+    "transactionCodes": ["S47"]
+  },
+
+  {
+    "url": "/sales/tep-request/view/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/tep-request/view/:_txntype/:_id/:_processId",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/tep/cut-piece-tep/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/tep/manual-tep/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/configuration/bgr-configuration/bgr-tolerance-config-list",
+    "transactionCodes": ["C32", "C33"]
+  },
+  {
+    "url": "/configuration/bgr-configuration/bgr-tolerance-config/:_configId/:_ruleType",
+    "transactionCodes": ["C32", "C33"]
+  },
+  {
+    "url": "/approvals/cn-requests/list",
+    "transactionCodes": ["A37", "A38", "A39"]
+  },
+  {
+    "url": "/approvals/tep-requests/list",
+    "transactionCodes": ["A25", "A26", "A27"]
+  },
+  {
+    "url": "/configuration/customer-transaction-configuration/cut-piece-config",
+    "transactionCodes": ["C56", "C57"]
+  },
+  {
+    "url": "/monitoring-dashboard/scheduler",
+    "transactionCodes": ["S", "U"]
+  },
+  {
+    "url": "/monitoring-dashboard/datasync",
+    "transactionCodes": ["S", "U"]
+  },
+  {
+    "url": "/reports/generate-report",
+    "transactionCodes": ["R2"]
+  },
+  {
+    "url": "/reports/manual-generation",
+    "transactionCodes": ["R2"]
+  },
+  {
+    "url": "/reports/auto-generation",
+    "transactionCodes": ["R3", "R7"]
+  },
+  {
+    "url": "/configuration/customer-transaction/ftep-approval-access-listing",
+    "transactionCodes": ["C97", "C98"]
+  },
+  {
+    "url": "/configuration/customer-transaction/ftep-approval-access/:_ruleId/:_ruleType",
+    "transactionCodes": ["C97", "C98"]
+  },
+  {
+    "url": "/configuration/customer-transaction/ftep-approval-access-view/:_ruleId/:_ruleType",
+    "transactionCodes": ["C97", "C98"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-master-view/:_cnType",
+    "transactionCodes": ["C113", "C114"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/credit-note-validation-view/:_ruleId/:_ruleType",
+    "transactionCodes": ["C37", "C39", "C41", "C43", "C45", "C47", "C49"]
+  },
+  {
+    "url": "/configuration/credit-note-configuration/cn-priority-config-view/:_configId",
+    "transactionCodes": ["C35"]
+  },
+  {
+    "url": "/configuration/grn-configuration/grn-approval-access/view/:_ruleId/:_ruleType",
+    "transactionCodes": ["C25", "C21"]
+  },
+  {
+    "url": "/reports/role-mapping",
+    "transactionCodes": ["R5", "R6"]
+  },
+  {
+    "url": "/sales/ct-advance/history/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/grf/history/MANUAL_FROZEN_RATES/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/grf/history/FROZEN_RATES/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/master/product-pricing/f2-margin-list",
+    "transactionCodes": ["M40", "M41"]
+  },
+  {
+    "url": "/approvals/tep-refund-status/cheque",
+    "transactionCodes": ["A34", "A35", "A36"]
+  },
+  {
+    "url": "/approvals/tep-refund-status/rtgs",
+    "transactionCodes": ["A34", "A35", "A36"]
+  },
+  {
+    "url": "/approvals/full-value-tep-requests/list",
+    "transactionCodes": ["A31", "A32", "A33"]
+  },
+  {
+    "url": "/approvals/tep-exception-requests/list",
+    "transactionCodes": ["A28", "A29", "A30"]
+  },
+  {
+    "url": "/sales/tep-request/:_action/:_txntype/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/cash-memo/history/:_subTxnType/:_id",
+    "transactionCodes": ["S12"]
+  },
+  {
+    "url": "/configuration/banking-revenue/payee-bank-list",
+    "transactionCodes": ["M101", "M102"]
+  },
+  {
+    "url": "/configuration/banking-revenue/payee-bank/:_bankName/bank-details",
+    "transactionCodes": ["M101", "M102"]
+  },
+  {
+    "url": "/configuration/banking-revenue/payee-bank/:_bankName/glCodeDetails",
+    "transactionCodes": ["M101", "M102"]
+  },
+  {
+    "url": "/configuration/discount-configuration/discount/:_configId/view",
+    "transactionCodes": ["C51"]
+  },
+  {
+    "url": "/configuration/gep-configuration/geppurity-config/:_configName/view",
+    "transactionCodes": ["C55"]
+  },
+  {
+    "url": "/sales/razorpayRequests/list",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/razorpayRequests/history",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/home/app-version-dashboard",
+    "transactionCodes": ["U"]
+  },
+  {
+    "url": "/master/product-pricing/ucp-market-code-list",
+    "transactionCodes": ["M139", "M140"]
+  },
+  {
+    "url": "/sales/gep/history/:_subTxntype/:_id",
+    "transactionCodes": ["S8"]
+  },
+  {
+    "url": "/master/product-attributes/vendor-master-list",
+    "transactionCodes": ["M150"]
+  },
+  {
+    "url": "/banking-revenue/home",
+    "transactionCodes": ["B"]
+  },
+  {
+    "url": "/banking-revenue/today",
+    "transactionCodes": ["B1"]
+  },
+  {
+    "url": "/banking-revenue/day-wise",
+    "transactionCodes": ["B2"]
+  },
+  {
+    "url": "/home/banking-revenue/pif-series",
+    "transactionCodes": ["B3", "B4"]
+  },
+  {
+    "url": "/banking-revenue/walk-ins-record",
+    "transactionCodes": ["B5", "B6"]
+  },
+  {
+    "url": "/banking-revenue/view-bank-deposit",
+    "transactionCodes": ["B8"]
+  },
+  {
+    "url": "/home/banking-revenue/bank-deposit",
+    "transactionCodes": ["B7", "B8"]
+  },
+  {
+    "url": "/home/banking-revenue/bod-eod",
+    "transactionCodes": ["B9", "B10"]
+  },
+  {
+    "url": "/banking-revenue/eghs-offline-bod-list",
+    "transactionCodes": ["B9"]
+  },
+  {
+    "url": "/sales/ro-request/list",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/documents/search",
+    "transactionCodes": ["C"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/conversion/open-requests",
+    "transactionCodes": ["A8", "A9"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/conversion/acknowledged-requests",
+    "transactionCodes": ["A8", "A9"]
+  },
+  {
+    "url": "/approvals/inventory-approvals/conversion-details/:_id",
+    "transactionCodes": ["A8", "A9"]
+  },
+  {
+    "url": "/inventory/stockissue/cancel",
+    "transactionCodes": ["I18"]
+  },
+  {
+    "url": "/inventory/stockissue/details/cancel/boutique/:_reqDocNo",
+    "transactionCodes": ["I18"]
+  },
+  {
+    "url": "/inventory/stockissue/factory/tep-gep/btq-cfa",
+    "transactionCodes": ["I39"]
+  },
+  {
+    "url": "/configuration/discount-configuration/rivaah-eligibility/eligibility-criteria",
+    "transactionCodes": ["C99", "C100"]
+  },
+  {
+    "url": "/configuration/discount-configuration/rivaah-eligibility/coupon-configuration",
+    "transactionCodes": ["C99", "C100"]
+  },
+  {
+    "url": "/configuration/discount-configuration/rivaah-eligibility/location-mapping",
+    "transactionCodes": ["C99", "C100"]
+  },
+  {
+    "url": "/update-e-invoice",
+    "transactionCodes": ["S98", "S109"]
+  },
+  {
+    "url": "/upgrade-version",
+    "transactionCodes": ["D1", "D2"]
+  },
+  {
+    "url": "/configuration/discount-configuration/request/:_configId/view",
+    "transactionCodes": ["C101", "C102"]
+  },
+  {
+    "url": "/sales/grf/manual-grf/:_id",
+    "transactionCodes": ["S83", "S84", "S85", "S86"]
+  },
+  {
+    "url": "/sales/grf/history/MANUAL_FROZEN_RATES/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/grf/history/FROZEN_RATES/:_id",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/gift-cards/history/:_id",
+    "transactionCodes": ["S16"]
+  },
+  {
+    "url": "/approvals/grf-request/list",
+    "transactionCodes": ["A22", "A23", "A24"]
+  },
+  {
+    "url": "/approvals/grf-request/details/:_taskId/:_processId",
+    "transactionCodes": ["A22", "A23", "A24"]
+  },
+  {
+    "url": "/sales/grf-status/list",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/sales/grf-status/details/:_taskId/:_processId",
+    "transactionCodes": ["S"]
+  },
+  {
+    "url": "/configuration/co-configuration/residual-weight-tolerance-list",
+    "transactionCodes": ["C109", "C110"]
+  },
+  {
+    "url": "/configuration/co-configuration/residual-weight-tolerance/:_configId",
+    "transactionCodes": ["C109", "C110"]
+  },
+  {
+    "url": "/configuration/co-configuration/order-payment-config/:_configId",
+    "transactionCodes": ["C111", "C112"]
+  },
+  {
+    "url": "/configuration/co-configuration/order-payment-config-list",
+    "transactionCodes": ["C111", "C112"]
+  },
+  {
+    "url": "/configuration/co-configuration/frozen/co-tolerance-config-list",
+    "transactionCodes": ["C107", "C108"]
+  },
+  {
+    "url": "/configuration/co-configuration/non-frozen/co-tolerance-config-list",
+    "transactionCodes": ["C107", "C108"]
+  },
+  {
+    "url": "/configuration/co-configuration/frozen/co-tolerance-config/:_configId",
+    "transactionCodes": ["C107", "C108"]
+  },
+  {
+    "url": "/configuration/co-configuration/non-frozen/co-tolerance-config/:_configId",
+    "transactionCodes": ["C107", "C108"]
+  },
+  {
+    "url": "/find-price",
+    "transactionCodes": ["M3", "M146"]
+  },
+  {
+    "url": "/inventory/stockissue/directtransfer",
+    "transactionCodes": ["I73"]
+  }
+]

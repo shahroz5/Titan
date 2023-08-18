@@ -1,0 +1,442 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="back()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-32 pw-cash-memo-icon-32"></span>
+              <div>
+                <h2>Digital Signature</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [formGroup]="form" class="my-3">
+        <div class="row no-gutters justify-content-center">
+          <div class="col-9 col-lg-6 mb-2">
+            <div class="row no-gutters">
+              <mat-form-field class="flex-fill">
+                <mat-label>Mobile No.</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="mobile"
+                  possWebMaxLengthValidator
+                  (blur)="getCustomerDetailsForDigitalSignature('MOBILE')"
+                  name="mobileField"
+                />
+                <mat-error
+                  *ngIf="
+                    form.get('mobile').errors &&
+                    form.get('mobile').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="form.get('mobile').errors.errorArray"
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="pw-text-center pw-font-weight-bold">OR</div>
+
+            <div class="row no-gutters">
+              <mat-form-field class="flex-fill">
+                <mat-label>ULP ID</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="ulp"
+                  possWebMaxLengthValidator
+                  name="ulpIdField"
+                  (blur)="getCustomerDetailsForDigitalSignature('ULP')"
+                />
+                <mat-error
+                  *ngIf="
+                    form.get('ulp').errors && form.get('ulp').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="form.get('ulp').errors.errorArray"
+                  ></poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="row no-gutters" *ngIf="customerList?.length > 0">
+              <poss-web-select-dropdown
+                [placeholder]="'Select Customer' | translate"
+                [control]="form.get('selectCustomer')"
+                [options]="customerList"
+                [required]="true"
+                (selectionChange)="onCustomerSelectionChange($event)"
+              ></poss-web-select-dropdown>
+            </div>
+
+            <div class="row no-gutters" *ngIf="selectedTransactionTypes">
+              <div class="col-12 pw-font-weight-bold mb-2">
+                Transaction Types :
+              </div>
+              <!-- [checked]="isTransactionChecked(type)" -->
+              <mat-checkbox
+                class="col-6"
+                *ngFor="let type of transactionTypes"
+                [checked]="isTransactionChecked(type)"
+                (change)="onTransactionTypeChanged($event, type)"
+                [disabled]="!customerName"
+              >
+                {{ type }}
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <div class="col-9 col-lg-6 pl-lg-3 mb-2">
+            <div class="pw-font-weight-bold mb-2 pw-header-16">
+              Customer Details
+            </div>
+            <div class="pw-customer-info">
+              <!-- <div class="p-3 row no-gutters">
+                <div class="pw-font-weight-bold col-5">Customer No.</div>
+                <div class="pw-font-weight-bold mx-2">:</div>
+                <div>{{ customerId }}</div>
+              </div> -->
+              <mat-divider></mat-divider>
+              <div class="p-3 row no-gutters">
+                <div class="pw-font-weight-bold col-5">Customer Name</div>
+                <div class="pw-font-weight-bold mx-2">:</div>
+                <div>{{ customerName }}</div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="p-3 row no-gutters">
+                <div class="pw-font-weight-bold col-5">Email</div>
+                <div class="pw-font-weight-bold mx-2">:</div>
+                <mat-form-field class="pw-form-field-border-top-0 mar-top">
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="email"
+                    name="emailField"
+                  />
+                  <mat-error
+                    *ngIf="
+                      form.get('email').errors &&
+                      form.get('email').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [errorMessage]="form.get('email').errors.errorArray"
+                    ></poss-web-error-info-tooltip>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="p-3 row no-gutters">
+                <div class="pw-font-weight-bold col-5">ULP ID</div>
+                <div class="pw-font-weight-bold mx-2">:</div>
+                <div>{{ customerUlpNumber }}</div>
+              </div>
+
+              <mat-divider></mat-divider>
+              <div class="p-3 row no-gutters">
+                <div class="pw-font-weight-bold col-5">Address</div>
+                <div class="pw-font-weight-bold mx-2">:</div>
+                <div class="col-5">
+                  <div class="row">
+                    <div class="col-12">
+                      {{ customerAddressLine1 }}
+                      <!-- <br />
+                  Address Line 2
+                  <br />
+                  Address Line 3 -->
+                    </div>
+                    <div class="col-12">
+                      {{ customerAddressLine2 }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="p-3 row no-gutters">
+                <div class="pw-font-weight-bold col-5">Mobile No.</div>
+                <div class="pw-font-weight-bold mx-2">:</div>
+                <div>{{ customerMobileNumber }}</div>
+
+                <ng-container *ngIf="!isOTPVerified">
+                  <button
+                    *ngIf="!isOTPSent"
+                    (click)="sendOtp()"
+                    class="pw-btn pw-primary-btn ml-auto"
+                    [disabled]="!customerMobileNumber"
+                  >
+                    Send OTP
+                  </button>
+
+                  <button
+                    *ngIf="isOTPSent"
+                    (click)="resendOtp()"
+                    class="pw-btn pw-primary-btn ml-auto"
+                  >
+                    Resend OTP
+                  </button>
+                </ng-container>
+              </div>
+
+              <ng-container *ngIf="isOTPSent && !isOTPVerified">
+                <mat-divider></mat-divider>
+
+                <div class="p-3 row no-gutters">
+                  <mat-form-field>
+                    <mat-label>Enter OTP</mat-label>
+                    <input
+                      matInput
+                      type="password"
+                      [formControl]="otpFormControl"
+                    />
+                    <mat-error
+                      *ngIf="
+                        otpFormControl.errors &&
+                        otpFormControl.errors.errorArray
+                      "
+                    >
+                      <poss-web-error-info-tooltip
+                        [errorMessage]="otpFormControl.errors.errorArray"
+                      ></poss-web-error-info-tooltip>
+                    </mat-error>
+                  </mat-form-field>
+                  <div class="ml-auto">
+                    <button (click)="verifyOTP()" class="pw-btn pw-accent-btn">
+                      Verify OTP
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="isOTPVerified">
+                <mat-divider></mat-divider>
+
+                <div
+                  class="pw-font-weight-bold pw-text-center pw-success-color p-3"
+                >
+                  OTP is verified
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters justify-content-center">
+          <div class="pw-signature-pad col-9 col-lg-6 mb-2">
+            <poss-web-signature-pad
+              formControlName="signatureField"
+              [disableSignaturePad]="disableSignaturePad"
+            ></poss-web-signature-pad>
+            <div class="row no-gutters mt-2">
+              <button
+                (click)="clear()"
+                [disabled]="!form.controls.signatureField.valid"
+                class="pw-btn pw-primary-btn ml-auto"
+              >
+                Clear
+              </button>
+
+              <!-- <button
+          (click)="undo()"
+          [disabled]="!form.controls.signatureField.valid"
+          class="pw-btn pw-primary-btn ml-auto"
+        >
+          Undo
+        </button> -->
+            </div>
+          </div>
+
+          <div class="col-9 col-lg-6 pl-lg-3 mb-2 mt-auto">
+            <div class="mt-4">
+              <h5 *ngIf="customerDigitalSignature">
+                Customer signature is available.
+                <a
+                  (click)="viewAvailableSignature()"
+                  class="pw-text-dcoration-blue"
+                >
+                  View Signature
+                </a>
+              </h5>
+              <p class="m-1">
+                I accept Advance Booking
+                <a
+                  (click)="openTermsAndConditions('Advance Booking')"
+                  class="pw-text-dcoration-blue"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept TEP declaration form
+                <a
+                  (click)="openTermsAndConditions('TEP')"
+                  class="pw-text-dcoration-blue"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept GEP declaration form
+                <a
+                  (click)="openTermsAndConditions('GEP')"
+                  class="pw-text-dcoration-blue"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept GHS declaration form
+                <a
+                  (click)="openTermsAndConditions('GHS')"
+                  [class.disable]="true"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept Cash Memo
+                <a
+                  (click)="openTermsAndConditions('Cash Memo')"
+                  class="pw-text-dcoration-blue"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept Accept Advance
+                <a
+                  (click)="openTermsAndConditions('Accept Advance')"
+                  [class.disable]="true"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept GRF
+                <a
+                  (click)="openTermsAndConditions('GRF')"
+                  [class.disable]="true"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept GRN
+                <a
+                  (click)="openTermsAndConditions('GRN')"
+                  [class.disable]="true"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept Gift Card
+                <a
+                  (click)="openTermsAndConditions('Gift Card')"
+                  [class.disable]="true"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept CN Cancellation
+                <a
+                  (click)="openTermsAndConditions('CN Cancellation')"
+                  [class.disable]="true"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <p class="m-1">
+                I accept Customer Order
+                <a
+                  (click)="openTermsAndConditions('Customer Order')"
+                  class="pw-text-dcoration-blue"
+                  style="color: grey"
+                >
+                  Terms and Conditions
+                </a>
+              </p>
+              <mat-checkbox formControlName="acceptTermsConditions">
+                I have read, understood and agreed with the terms & conditions.
+              </mat-checkbox>
+            </div>
+            <div class="mt-2">
+              <!-- <p
+                class="pw-font-weight-bold pw-error-color"
+                *ngIf="showOtpVerificationError"
+              >
+                Please verify OTP
+              </p>
+
+              <p
+                class="pw-font-weight-bold pw-error-color"
+                *ngIf="showTermAndConditionError"
+              >
+                Please accept terms and conditions
+              </p>
+
+              <p
+                class="pw-font-weight-bold pw-error-color"
+                *ngIf="showSignatureError"
+              >
+                Please insert signature
+              </p> -->
+
+              <!-- <p
+                class="pw-font-weight-bold pw-error-color"
+                *ngIf="
+                  (form.get('mobile').touched || form.get('ulp').touched) &&
+                  form.hasError('required')
+                "
+              >
+                Please enter Mobile No. or ULP ID
+              </p> -->
+              <!-- (this.form.get('mobile').touched || this.form.get('ulp').touched) && -->
+            </div>
+            <div class="row no-gutters mt-2">
+              <button (click)="submit()" class="pw-btn pw-accent-btn flex-fill">
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- <img class="p-3" [src]="customerSignature" /> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmSuccessNotificationTemplate>
+  <div class="pw-text-center">
+    <h3 class="pw-success-color">
+      Customer Digital Signature is successfully updated.
+    </h3>
+    <h5 class="pw-success-color pw-pointer" (click)="print('GEP_DIGITAL_SIGNATURE')" *ngIf="isGEPForm">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>
+      Print GEP Declaration Form
+    </h5>
+    <h5 class="pw-success-color pw-pointer" (click)="print('TEP_DIGITAL_SIGNATURE')" *ngIf="isTEPForm">
+      <span class="pw-i-16 pw-download-icon-16 pw-print"></span>
+      Print TEP Declaration Form
+    </h5>
+  </div>
+</ng-template>
+
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

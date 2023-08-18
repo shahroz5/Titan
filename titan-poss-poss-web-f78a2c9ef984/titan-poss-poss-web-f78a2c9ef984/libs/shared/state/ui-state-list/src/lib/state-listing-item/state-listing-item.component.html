@@ -1,0 +1,106 @@
+<div class="pw-detail-card">
+  <div class="row pw-detail-card__content">
+    <div class="col-lg-3 col-6">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-lg-6 col-4">
+          <p class="pw-fourth-color">{{ 'pw.states.stateID' | translate }}</p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong> {{ stateItem.stateCode }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-lg-6 col-4">
+          <p class="pw-fourth-color">
+            {{ 'pw.states.stateDescription' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ stateItem.description }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row" *ngIf="stateItem.eghsRefStateId">
+        <div class="col-lg-6 col-4">
+          <p class="pw-fourth-color">
+            <!-- {{ 'pw.states.stateDescription' | translate }} -->
+            {{ 'pw.states.eghsStateId' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ stateItem.eghsRefStateId }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-6">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-4">
+          <p class="pw-fourth-color">
+            {{ 'pw.states.countryName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ stateItem.countryCode }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-4">
+          <p class="pw-fourth-color">{{ 'pw.states.type' | translate }}</p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>
+              {{
+                stateItem.isUnionTerritory ? 'UnionTerritory' : 'State'
+              }}</strong
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="onView(stateItem.stateId)">
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.taxClass.view' | translate }}</span
+        >
+      </a>
+      <a *ngIf="stateItem?.isActive" (click)="onEdit(stateItem.stateId)">
+        <span class="pw-detail-card__icon-text"
+          >{{ 'pw.region.edit' | translate }}
+        </span>
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+
+    <div class="col-auto align-self-center">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

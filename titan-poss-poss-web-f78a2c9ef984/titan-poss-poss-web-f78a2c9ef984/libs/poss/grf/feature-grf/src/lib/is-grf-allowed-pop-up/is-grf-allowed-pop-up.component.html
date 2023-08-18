@@ -1,0 +1,31 @@
+<div class="pw-confirmation-box pw-confirmation-box__width-450">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.grf.grfAlert' | translate }}
+    </div>
+  </div>
+
+  <div class="pw-confirmation-box__body">
+    <div
+      class="pw-error-color pw-confirmation-box__body-item pw-confirmation-box__sub-heading"
+    >
+      {{ 'pw.grf.grfNotAllowedAlertMessage' | translate }}
+    </div>
+  </div>
+
+  <div class="pw-confirmation-box__footer">
+    <div class="row pw-confirmation-box__footer-border">
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button class="pw-btn pw-accent-btn" (click)="onOkClicked()">
+          {{ 'pw.grf.ok' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

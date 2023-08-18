@@ -1,0 +1,111 @@
+<div class="pw-detail-card" *ngIf="selectedHistoryItem">
+  <div class="row">
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.advanceNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.docNo ? selectedHistoryItem?.docNo : '-' }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.creditNoteNumber' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.cnDocNo ? selectedHistoryItem?.cnDocNo : '-' }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.date' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.docDate
+            ? (dateFormat(selectedHistoryItem?.docDate) | dateFormatter)
+            : '-'
+        }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.rsoName' | translate }}
+      </div>
+      <div matTooltip= "{{ selectedRsoObj?.value }}" class="pw-font-weight-bold">
+        {{ selectedRsoObj?.description ? selectedRsoObj?.description : '-' }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.paymentMadeForEGHS' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        <mat-checkbox
+          class="col-auto pw-list-card__checkbox"
+          [checked]="
+            selectedHistoryItem?.advanceDetails?.data?.isPaymentForEGHS
+          "
+          [disabled]="true"
+        >
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.status' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.status ? selectedHistoryItem?.status : '-' }}
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-detail-card__label">
+        {{ 'pw.acceptAdvance.remarks' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{ selectedHistoryItem?.remarks ? selectedHistoryItem?.remarks : '-' }}
+      </div>
+    </div>
+
+
+    <!-- <poss-web-ui-rso-name
+      class="col-lg-2 col-3 pw_top"
+      [rsoNamesList]="rsoNamesList"
+      [selectedRso]="selectedRso"
+      [clearSelectedRsoName]="clearSelectedRsoName"
+    >
+    </poss-web-ui-rso-name> -->
+  </div>
+  <div class="row pw-detail-card__row pw-detail-card__secondary-section">
+    <div class="col-auto" *ngIf='selectedHistoryItem?.custTaxNoOld'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.cashMemoHistory.oldPanCardLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.custTaxNoOld
+        }}
+      </div>
+    </div>
+    <div class="col-auto" *ngIf='selectedHistoryItem?.custTaxNo'>
+      <div class="pw-detail-card__label">
+        {{ 'pw.cashMemoHistory.panCardLabel' | translate }}
+      </div>
+      <div class="pw-font-weight-bold">
+        {{
+          selectedHistoryItem?.custTaxNo
+        }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<poss-web-loader
+  *ngIf="
+    (isLoading$ | async) ||
+    (isCommonFacadeLoading$ | async) ||
+    (isCustomerFacadeLoading$ | async) ||
+    (printingService.getPrinterIsLoading() | async)
+  "
+></poss-web-loader>

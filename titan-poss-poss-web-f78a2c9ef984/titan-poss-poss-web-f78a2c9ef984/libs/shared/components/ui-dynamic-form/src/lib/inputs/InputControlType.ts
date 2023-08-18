@@ -1,0 +1,17 @@
+export declare type InputControlType =
+  | 'text'
+  | 'amount'
+  | 'textWeightInput'
+  | 'textarea'
+  | 'select'
+  | 'refreshSelect'
+  | 'multiselect'
+  | 'checkbox'
+  | 'radio'
+  | 'datepicker'
+  | 'datetimepicker'
+  | 'outlineinput'
+  | 'textlabel'
+  | 'toggle'
+  | 'textOutline'
+  | 'selection';

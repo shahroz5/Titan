@@ -1,0 +1,52 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      <span class="pw-font-weight-bold">
+        {{'pw.gep.searchResults' | translate}}<strong>{{ count }}</strong>
+      </span>
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-selection-dialog__list" possWebFocusableList>
+    <ag-grid-angular
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      [rowData]="productGrid"
+      [columnDefs]="colDef"
+      [defaultColDef]="defaultColDef"
+      [domLayout]="domLayout"
+      [animateRows]="'true'"
+      [rowSelection]="'true'"
+      [pagination]="true"
+      [paginationPageSize]="pageSize"
+      (gridReady)="gridReady($event)"
+      (cellClicked)="onCellClicked($event)"
+      (gridSizeChanged)="onGridSizeChanged()"
+      [suppressPaginationPanel]="true"
+    >
+    </ag-grid-angular>
+  </div>
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > minPageSize && productGrid.length > 0"
+    [length]="count"
+    [pageSize]="pageSize"
+    (page)="change($event)"
+  >
+  </mat-paginator>
+</div>

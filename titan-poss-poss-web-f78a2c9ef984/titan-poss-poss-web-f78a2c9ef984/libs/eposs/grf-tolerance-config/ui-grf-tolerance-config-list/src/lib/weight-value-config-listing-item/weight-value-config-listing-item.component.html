@@ -1,0 +1,45 @@
+<div class="pw-detail-card">
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-12">
+      <div class="row no-gutters align-items-baseline">
+        <div class="col-lg-4 col-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.weightValueConfig.configName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col px-1">
+          <p>
+            <strong> {{ weightValueConfigListItem.description }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+ 
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="openViewPage(weightValueConfigListItem.ruleId)">
+        <span class="pw-detail-card__icon-text"> View</span>&nbsp;
+      </a>
+
+      <a
+        *ngIf="weightValueConfigListItem.isActive === true"
+        (click)="getWeightValueConfigRuleId(weightValueConfigListItem.ruleId)"
+      >
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.weightValueConfig.viewEdit' | translate }}</span
+        >
+
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto pw-detail-card__item">
+      <poss-web-toggle-button
+        [isActive]="isActive"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

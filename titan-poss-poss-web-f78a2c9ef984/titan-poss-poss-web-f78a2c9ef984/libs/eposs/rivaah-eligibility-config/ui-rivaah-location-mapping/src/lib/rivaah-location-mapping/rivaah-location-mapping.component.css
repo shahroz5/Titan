@@ -1,0 +1,13 @@
+.pw-btn-remove {
+    cursor: pointer;
+}
+.pw-close-icon-16 {
+    top: 0px;
+    margin-left: 3px;
+}
+.pw-position-bottom-5 {
+    align-self: flex-end;
+    position: relative;
+    bottom: 5px;
+}
+  

@@ -1,0 +1,15 @@
+<div class="pw-discount-total" *ngIf="!isBlank">
+  <div
+    class="pw-font-weight-bold"
+    [class.pw-error-color]="!(discountValue > 0)"
+  >
+    {{ discountValue | currencyFormatter: currencyCode }}
+  </div>
+
+  <!-- <div
+    *ngIf="!isValid && discountValue > maxDiscount"
+    class="pw-font-weight-bold pw-max-discount pw-error-color"
+  >
+    Max : {{ maxDiscount | currencyFormatter: currencyCode }}
+  </div> -->
+</div>

@@ -1,0 +1,24 @@
+<table class="pw-grid-table"  aria-describedby="table" description="Table">
+  <thead>
+    <tr class="pw-grid-table__background-header">
+      <th class="pw-grid-table__header-item" scope="col">Metal Type</th>
+      <th class="pw-grid-table__header-item" scope="col">Item Type</th>
+      <th class="pw-grid-table__header-item" scope="col">Range</th>
+      <th class="pw-grid-table__header-item" scope="col">Deduction%</th>
+      <th class="pw-grid-table__header-item" scope="col">Scheme%</th>
+      <th class="pw-grid-table__header-item" scope="col">Scheme Start Date</th>
+      <th class="pw-grid-table__header-item" scope="col">Scheme End Date</th>
+    </tr>
+  </thead>
+  <tbody class="pw-grid-table__body">
+    <tr *ngFor="let data of rowData" class="pw-grid-table__row">
+      <td class="pw-grid-table__item">{{ data.metalType }}</td>
+      <td class="pw-grid-table__item">{{ data.itemType }}</td>
+      <td class="pw-grid-table__item">{{ data.range }}</td>
+      <td class="pw-grid-table__item">{{ data.deduction }}</td>
+      <td class="pw-grid-table__item">{{ data.scheme }}</td>
+      <td class="pw-grid-table__item">{{ data.startDate }}</td>
+      <td class="pw-grid-table__item">{{ data.endDate }}</td>
+    </tr>
+  </tbody>
+</table>

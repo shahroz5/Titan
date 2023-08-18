@@ -1,0 +1,86 @@
+<h4 class="pb-2" #menuRef>
+  <!-- {{ title }} -->
+</h4>
+
+<div class="pw-form-card pw-form-card__padding-10 pw-form-card__margin-bottom">
+  <div class="row no-gutters align-items-center pw-font-size-14">
+    <div class="col-auto">
+      <span class="pw-i-24 pw-alaram-icon-24"></span>
+    </div>
+    <div class="col pw-info-color">
+      <span>
+        {{ 'pw.possHomeDashboard.menuAlertInfo1' | translate }}
+      </span>
+      <span>
+        {{ 'pw.possHomeDashboard.menuAlertInfo2' | translate }}
+      </span>
+      <span>
+        {{ 'pw.possHomeDashboard.menuAlertInfo3' | translate }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <ng-container *ngFor="let menuItem of menu; let i = index">
+    <div
+      class="col-lg-2 col-3"
+      *possWebPermission="loadPermission(menuItem.elementName)"
+    >
+      <poss-web-focusable-menu-item
+        [data]="menuItem"
+        [index]="i"
+        [isSelected]="i === selectedMenuIndex"
+        (selected)="
+          selectMenu(
+            false,
+            i,
+            menuItem.hasChild,
+            menuItem.path,
+            menuItem.appType,
+            menuItem.menuKey
+          )
+        "
+      >
+        <ng-container>
+          <div>
+            <span [class]="menuItem.iconClass"></span>
+          </div>
+          <h4 class="pw-fourth-color pw-bg-card__header">
+            {{ menuItem.titleTranslationKey | translate }}
+          </h4>
+          <p class="mt-1" *ngIf="menuItem.subTitleTranslationKey">
+            {{ menuItem.subTitleTranslationKey | translate }}
+          </p>
+        </ng-container>
+      </poss-web-focusable-menu-item>
+    </div>
+  </ng-container>
+</div>
+<div #submenu>
+  <div
+    *ngIf="menu && menu[selectedMenuIndex] && menu[selectedMenuIndex].hasChild"
+    class="pw-bordered-list"
+  >
+    <div class="pw-bordered-list__container row no-gutters">
+      <ng-container
+        *ngFor="let subMenu of menu[selectedMenuIndex].child; let i = index"
+      >
+        <poss-web-focusable-sub-menu-item
+          class="col-lg-2 col-3 pw-bordered-list__column"
+          *possWebPermission="loadPermission(subMenu.elementName)"
+          [data]="subMenu"
+          [index]="i"
+          [isSelected]="i === selectedSubMenuIndex"
+          (selected)="
+            selectMenu(true, i, subMenu.hasChild, subMenu.path, subMenu.appType)
+          "
+        >
+          <div class="pw-bordered-list__item">
+            {{ subMenu.titleTranslationKey | translate }}
+          </div>
+        </poss-web-focusable-sub-menu-item>
+      </ng-container>
+    </div>
+  </div>
+</div>

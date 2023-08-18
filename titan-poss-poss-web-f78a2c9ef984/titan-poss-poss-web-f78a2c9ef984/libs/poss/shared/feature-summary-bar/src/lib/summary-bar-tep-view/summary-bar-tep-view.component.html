@@ -1,0 +1,175 @@
+<div class="pw-overlay-notification-band">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 m-auto">
+        <div class="row">
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p>{{ 'pw.tep.totalQty' | translate }}</p>
+            <div>{{ totalQty$ | async }}</div>
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__tablet-border pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.tep.totalGrossWt' | translate }}
+            </p>
+            {{ totalGrossWt$ | async | weightFormatter }}
+          </div>
+          <!-- <div class="col-auto pw-overlay-notification-band__tablet-border">
+            <p class="pw-tooltip-container">
+              {{ 'pw.tep.totalExchangeAmt' | translate }}
+            </p>
+            {{ totalExchangeAmt$ | async | currencyFormatter: currencyCode }}
+          </div> -->
+          <div
+            *ngIf="selectedPaymentMethod === tepPaymentTypesEnum.REFUND"
+            class="col-auto pw-overlay-notification-band__tablet-border pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.tep.totalRefundValue' | translate }}
+            </p>
+
+            {{ totalRefundAmt | currencyFormatter: currencyCode }}
+          </div>
+          <div
+            *ngIf="selectedPaymentMethod === tepPaymentTypesEnum.CN"
+            class="col-auto pw-overlay-notification-band__tablet-border pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.tep.totalExchangeAmt' | translate }}
+            </p>
+            {{ totalExchangeAmt | currencyFormatter: currencyCode }}
+          </div>
+
+          <div
+            *ngIf="data.type === tepTypesEnum.CANCEL"
+            class="col-auto ml-auto pw-overlay-notification-band__input-container"
+          >
+            <mat-form-field
+              class="pw-form-field-padding-bottom-0 pw-white-form-field"
+            >
+              <mat-label>
+                {{ 'pw.tep.remarks' | translate }}
+              </mat-label>
+              <input
+                matInput
+                type="text"
+                [formControl]="remarksFormControl"
+                (focusout)="trimRemarks()"
+              />
+              <!-- <div
+              matPrefix
+              class="mr-2"
+              *ngIf="
+                remarksFormControl?.errors?.errorArray &&
+                remarksFormControl.touched
+              "
+            >
+              <span
+                *ngFor="
+                  let errorMesage of remarksFormControl.errors.errorArray;
+                  let i = index
+                "
+              >
+                <poss-web-error-info-tooltip
+                  *ngIf="remarksFormControl.errors.errorArray.length === 1"
+                  [errorMessage]="[errorMesage]"
+                  (click)="$event.stopPropagation()"
+                ></poss-web-error-info-tooltip>
+                <poss-web-error-info-tooltip
+                  *ngIf="
+                    i > 0 && remarksFormControl.errors.errorArray.length > 1
+                  "
+                  [errorMessage]="errorMesage"
+                  (click)="$event.stopPropagation()"
+                ></poss-web-error-info-tooltip>
+              </span>
+            </div> -->
+            </mat-form-field>
+            <ng-container
+              *ngIf="
+                remarksFormControl?.errors?.errorArray &&
+                remarksFormControl.touched
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="remarksFormControl?.errors?.errorArray"
+                (click)="$event.stopPropagation()"
+              ></poss-web-error-info-tooltip>
+            </ng-container>
+          </div>
+
+          <div
+            *ngIf="data.type === tepTypesEnum.REFUND_STATUS"
+            class="col-auto ml-auto pw-overlay-notification-band__padding-5"
+          >
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="onRequestApprovalClicked()"
+              *ngIf="this.isValid$ | async"
+            >
+              {{ 'pw.tep.sendToRo' | translate }}
+            </button>
+          </div>
+          <div
+            *ngIf="data.type === tepStatusEnum.APPROVED"
+            class="col-auto ml-auto pw-overlay-notification-band__padding-5"
+          >
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="onRequestConfirmClicked()"
+            >
+              {{ 'pw.tep.confirm' | translate }}
+            </button>
+          </div>
+          <div
+            *ngIf="data.type === tepStatusEnum.PENDING"
+            class="col-auto ml-auto pw-overlay-notification-band__padding-5"
+          >
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="onRequestcancelClicked()"
+            >
+              {{ 'pw.tep.cancel' | translate }}
+            </button>
+          </div>
+          <div
+            *ngIf="data.type === tepTypesEnum.CANCEL"
+            class="col-auto pw-overlay-notification-band__padding-5"
+          >
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="onCancelClicked()"
+            >
+              {{ 'pw.tep.cancelTep' | translate }}
+            </button>
+          </div>
+
+          <div
+            *ngIf="data.type === tepTypesEnum.HISTORY"
+            class="col-auto ml-auto pw-overlay-notification-band__padding-5"
+          >
+            <button class="pw-overlay-notification-band__btn" (click)="print()">
+              {{ 'pw.tep.print' | translate }}
+            </button>
+          </div>
+          <div
+            *ngIf="data.type === tepTypesEnum.HISTORY"
+            class="col-auto pw-overlay-notification-band__padding-5"
+          >
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="printAnnexure()"
+            >
+              {{ 'pw.tep.printAnnexure' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

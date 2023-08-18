@@ -1,0 +1,8 @@
+a {
+  cursor: pointer;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+  margin-bottom: 15px;
+}

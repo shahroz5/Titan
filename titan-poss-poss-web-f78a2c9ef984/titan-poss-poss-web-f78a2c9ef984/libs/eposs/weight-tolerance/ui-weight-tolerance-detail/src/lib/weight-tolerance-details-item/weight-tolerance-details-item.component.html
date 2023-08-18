@@ -1,0 +1,126 @@
+<div class="pw-form-card">
+  <div class="row align-items-center">
+    <div class="col-auto">
+      <div class="pw-form-card__item mb-0">
+        <h4>{{ 'pw.weightTolerance.weightToleranceDetails' | translate }}</h4>
+      </div>
+    </div>
+
+    <div class="col-auto ml-auto">
+      <div class="row align-items-center">
+        <mat-form-field
+          [formGroup]="searchForm"
+          class="col-auto pw-search-bar mt-3"
+        >
+          <input
+            type="text"
+            matInput
+            #searchBox
+            formControlName="productCodeField"
+            name="productCodeField"
+            possWebMaxLengthValidator
+            placeholder="{{
+              'pw.weightTolerance.searchProductGroup' | translate
+            }}"
+            class="pw-single-bordered-input"
+          />
+          <mat-icon matSuffix>
+            <span
+              class="pw-i-16 pw-search-icon-16"
+              *ngIf="!searchForm.value.searchValue"
+            ></span>
+          </mat-icon>
+          <mat-icon matSuffix (click)="clearSearch()">
+            <span
+              *ngIf="searchForm.value.searchValue"
+              class="pw-i-10 pw-close-icon-16"
+            ></span
+          ></mat-icon>
+        </mat-form-field>
+
+        <div class="col-auto">
+          <button
+            class="pw-btn pw-primary-btn"
+            (click)="openProductGroupMapping()"
+          >
+            <span class="pw-i-24 pw-add-icon-24"></span>
+            {{ 'pw.weightTolerance.addProdGroupLabel' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+  <ag-grid-angular
+    class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+    [columnDefs]="columnDefs"
+    domLayout="autoHeight"
+    rowSelection="multiple"
+    [rowMultiSelectWithClick]="true"
+    [enableRangeSelection]="true"
+    [suppressRowClickSelection]="true"
+    [frameworkComponents]="getComponents()"
+    [context]="getContext()"
+    (gridReady)="gridReady($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+    (gridSizeChanged)="onGridSizeChanged()"
+    (cellFocused)="onCellFocused($event)"
+	  (focusout)="focusOut($event)"
+  >
+  </ag-grid-angular>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="
+      totalCount > minPageSize && weightTolerance.length > 0 && totalCount != 1
+    "
+    [length]="totalCount"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginator.emit($event)"
+  >
+  </mat-paginator>
+</div>
+
+<div class="row mb-3">
+  <div class="col-auto">
+    <button
+      [disabled]="disableEdit"
+      (click)="onEdit()"
+      class="pw-btn pw-accent-btn"
+    >
+      {{ 'pw.weightTolerance.add/editWtToleranceLabel' | translate }}
+    </button>
+  </div>
+  <div class="col-auto ml-auto">
+    <button
+      (click)="openLocationMapping()"
+      [disabled]="configId === 'new'"
+      class="pw-btn pw-primary-btn"
+    >
+      {{ 'pw.weightTolerance.locationMapping' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      [disabled]="
+        parentForm.value.length ? !(parentForm.valid && formData) : true
+      "
+      (click)="onSave()"
+      class="pw-btn pw-accent-btn"
+    >
+      {{ 'pw.weightTolerance.saveLable' | translate }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div
+  class="row pw-selection-dialog pw-cursor-grab"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="col-auto pw-message">
+    {{ data.title }}
+  </div>
+  <button class="ml-auto" mat-icon-button (click)="close()">
+    <mat-icon>
+      <span class="pw-i-10 pw-close-icon-16"></span>
+    </mat-icon>
+  </button>
+</div>
+<div class="d-flex">
+  <mat-form-field class="flex-fill" [formGroup]="searchForm" floatLabel="never">
+    <input
+      #searchBox
+      matInput
+      [placeholder]="data.placeholder"
+      formControlName="searchValue"
+      autocomplete="off"
+    />
+    <mat-icon matSuffix *ngIf="!searchForm.get('searchValue').value">
+      <span class="pw-i-16 pw-search-icon-16"></span
+    ></mat-icon>
+    <mat-icon
+      matSuffix
+      (click)="clearSearch()"
+      *ngIf="searchForm.get('searchValue').value"
+    >
+      <span class="pw-i-10 pw-close-icon-16"></span
+    ></mat-icon>
+  </mat-form-field>
+</div>
+<ag-grid-angular
+  class="pw-titan-poss-theme pw-ag-grid-table"
+  [rowData]="filteredOptions"
+  [columnDefs]="data.columnDefs"
+  [defaultColDef]="defaultColDef"
+  (gridReady)="gridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged()"
+  (rowClicked)="rowClicked($event)"
+>
+</ag-grid-angular>
+

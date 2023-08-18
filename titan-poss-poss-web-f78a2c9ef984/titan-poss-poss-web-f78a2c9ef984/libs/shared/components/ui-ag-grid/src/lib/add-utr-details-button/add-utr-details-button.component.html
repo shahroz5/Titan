@@ -1,0 +1,12 @@
+<button
+  class="pw-btn pw-accent-btn alignCenter"
+  (click)="showUtrDetailsPopUp()"
+  [disabled]="params.data.utrDetails"
+>
+  {{
+    params && params.data && params.data.utrDetails
+      ? 'EDIT UTR DETAILS'
+      : 'ADD UTR DETAILS'
+  }}
+</button>
+<!-- [disabled]="params.data.status !== refundStatusEnum.REFUNDED" -->

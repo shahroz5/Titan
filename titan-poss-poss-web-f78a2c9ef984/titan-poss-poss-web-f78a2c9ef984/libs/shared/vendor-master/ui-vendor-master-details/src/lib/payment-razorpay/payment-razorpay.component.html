@@ -1,0 +1,92 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.vendorMaster.paymentRazorPay' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="onClose()"
+        class="pw-confirmation-box__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-form-card">
+      <div class="row pw-form-card__margin-bottom">
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.keyId' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.keyId }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.keySecret' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.keySecret }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.expireTimeInMin' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.expireTimeInMin }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 pw-form-card__margin-bottom">
+          <div class="row">
+            <div class="col-4">
+              <span class="pw-fourth-color">
+                {{ 'pw.vendorMaster.name' | translate }}
+              </span>
+            </div>
+            <div class="col-auto pw-form-card__padding-5">
+              <span> : </span>
+            </div>
+            <div class="col-6 pw-form-card__padding-5">
+              {{ dialogData?.vendorDetail?.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

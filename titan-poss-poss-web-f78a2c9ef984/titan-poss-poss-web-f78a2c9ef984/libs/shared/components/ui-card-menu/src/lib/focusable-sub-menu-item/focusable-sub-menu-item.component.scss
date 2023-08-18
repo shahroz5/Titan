@@ -1,0 +1,7 @@
+.pw-bordered-list__card {
+  cursor: pointer;
+
+  &:focus {
+    border: 1px solid var(--fourth-color);
+  }
+}

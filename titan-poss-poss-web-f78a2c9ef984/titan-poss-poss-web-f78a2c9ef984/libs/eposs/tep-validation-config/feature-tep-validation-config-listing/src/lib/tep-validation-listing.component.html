@@ -1,0 +1,76 @@
+<div class="row m-0">
+  <div class="col-12 col-lg-10 m-auto">
+    <div class="pw-top-heading-container">
+      <div class="row pw-top-heading-container__item">
+        <div class="col-auto">
+          <div class="pw-top-heading-container__main-head">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+            <span class="pw-i-36 pw-inv-mangmt-icon-36"></span>
+            <div>
+              <h2>
+                {{
+                  'pw.paymentConfiguration.exchangeConfigurationLabel'
+                    | translate
+                }}
+              </h2>
+              <h5 class="pw-top-heading-container__sub-heading">
+                {{ 'pw.configurations.configuration' | translate }}
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto pw-top-heading-container__right-content">
+          <button
+            class="pw-btn pw-accent-btn"
+            routerLinkActive="router-link-active"
+            (click)="loadDetails('NEW')"
+          >
+            {{ 'pw.tepValidationConfig.addNew' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-flex-end">
+      <div class="col-auto">
+        <div class="pw-mont-semibold-14">
+          {{ 'pw.tepValidationConfig.TEPValidationConfiguration' | translate }}
+        </div>
+      </div>
+      <poss-web-tep-validation-search
+        class="col-3 ml-auto"
+        [resetSearch]="resetSearch"
+        (searchData)="search($event)"
+        (searchReset)="clearSearch()"
+      ></poss-web-tep-validation-search>
+    </div>
+    <poss-web-tep-validation-list-items
+      *ngIf="
+        (tepValidationConfigList$ | async)?.length &&
+        (totalElements$ | async) &&
+        !invalidSearch
+      "
+      [tepValidationConfigList]="tepValidationConfigList$ | async"
+      [count]="totalElements$ | async"
+      [pageEvent]="listingPageEvent"
+      [pageSize]="pageSize"
+      (paginator)="paginate($event)"
+      (tepValidationViewConfigId)="loadViewDetails($event)"
+      (tepValidationConfigId)="loadDetails($event)"
+      (emitToggleValue)="updateIsActive($event)"
+    >
+    </poss-web-tep-validation-list-items>
+    <div
+      *ngIf="
+        (!(tepValidationConfigList$ | async)?.length &&
+          !(isLoading$ | async)) ||
+        invalidSearch
+      "
+      class="pw-message pw-text-center mg-t-100"
+    >
+      {{ noDataFoundMessageNonVerifiedItems }}
+    </div>
+  </div>
+  <poss-web-loader *ngIf="isLoading$ | async"> </poss-web-loader>
+</div>

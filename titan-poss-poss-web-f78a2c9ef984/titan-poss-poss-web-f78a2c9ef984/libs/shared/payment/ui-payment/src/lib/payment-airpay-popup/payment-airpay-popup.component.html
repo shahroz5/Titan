@@ -1,0 +1,169 @@
+<form class="pw-confirmation-box" autocomplete="off">
+  <div
+    class="row pw-confirmation-box__header"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">
+      {{ 'pw.paymentModeAirpay.airpayTitle' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        class="pw-confirmation-box__icon-button"
+        mat-icon-button
+        (click)="close()"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body" [formGroup]="airpayDetailsFormGroup">
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>
+          {{ 'pw.paymentModeAirpay.enterAmount' | translate }} ({{
+            data.currencyCode | currencySymbol
+          }})</mat-label
+        >
+        <input
+          matInput
+          formControlName="amount"
+          required
+          possWebAmountInput
+          [allowDecimal]="false"
+        />
+        <mat-error
+          *ngIf="
+            airpayDetailsFormGroup.get('amount').errors &&
+            airpayDetailsFormGroup.get('amount').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              airpayDetailsFormGroup.get('amount').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label> {{ dateText }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [max]="data.businessDate"
+          (click)="picker.open()"
+          readonly
+          formControlName="date"
+          required
+          disabled
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error
+          *ngIf="
+            airpayDetailsFormGroup.get('date').errors &&
+            airpayDetailsFormGroup.get('date').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              airpayDetailsFormGroup.get('date').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>{{ referenceText1 }}</mat-label>
+        <input
+          matInput
+          formControlName="reference1"
+          [required]="isReference1Mandatory"
+          name="transactionIdField"
+          possWebMaxLengthValidator
+        />
+        <mat-error
+          *ngIf="
+            airpayDetailsFormGroup.get('reference1').errors &&
+            airpayDetailsFormGroup.get('reference1').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              airpayDetailsFormGroup.get('reference1').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>{{ referenceText2 }}</mat-label>
+        <input
+          matInput
+          formControlName="reference2"
+          [required]="isReference2Mandatory"
+          name="transactionIdField"
+          possWebMaxLengthValidator
+        />
+        <mat-error
+          *ngIf="
+            airpayDetailsFormGroup.get('reference2').errors &&
+            airpayDetailsFormGroup.get('reference2').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              airpayDetailsFormGroup.get('reference2').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <mat-label>{{ referenceText3 }}</mat-label>
+        <input
+          matInput
+          formControlName="reference3"
+          [required]="isReference3Mandatory"
+          name="transactionIdField"
+          possWebMaxLengthValidator
+        />
+        <mat-error
+          *ngIf="
+            airpayDetailsFormGroup.get('reference3').errors &&
+            airpayDetailsFormGroup.get('reference3').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              airpayDetailsFormGroup.get('reference3').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__footer mt-0">
+    <div class="row pw-confirmation-box__footer-border no-gutters">
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          mat-flat-button
+          class="pw-btn pw-accent-btn"
+          [disabled]="!airpayDetailsFormGroup.valid"
+          (click)="addPayment()"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

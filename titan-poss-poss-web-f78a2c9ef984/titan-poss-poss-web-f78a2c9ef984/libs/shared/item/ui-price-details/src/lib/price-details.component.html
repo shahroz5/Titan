@@ -1,0 +1,446 @@
+<mat-table [dataSource]="priceList" class="pw-mat-table">
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.chargesLabel' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="pw-mat-table__item col-8">
+      <ng-container *ngIf="element['type'] === priceTypeEnumRef.METAL_PRICE">
+        <ng-container
+          *ngIf="element['metalInfo']['metalType'] === metalTypeEnumRef.GOLD"
+        >
+          {{ 'pw.priceDetailsPopup.goldPriceLabel' | translate }}
+        </ng-container>
+        <ng-container
+          *ngIf="
+            element['metalInfo']['metalType'] === metalTypeEnumRef.PLATINUM
+          "
+        >
+          {{ 'pw.priceDetailsPopup.platinumPriceLabel' | translate }}
+        </ng-container>
+        ({{ element['metalInfo']['weight'] | weightFormatter }}
+        {{ weightUnit }})
+      </ng-container>
+
+      <ng-container
+        class="pw-tooltip-container"
+        *ngIf="element['type'] === priceTypeEnumRef.MAKING_CHARGE"
+      >
+        {{ 'pw.priceDetailsPopup.makingChargeLabel' | translate }}
+        <span
+          class="pw-i-14 pw-info-icon-14"
+          [matMenuTriggerFor]="makingChargesInfoMenu"
+          *ngIf="!element['makingChargeInfo'].isDynamicPricing"
+        ></span>
+        <!-- <ng-container *ngIf="!element['makingChargeInfo'].isDynamicPricing">
+          <ng-container *ngIf="!element['makingChargeInfo'].isPercentage">
+            ({{ element['makingChargeInfo']['value'] | currencyFormatter }} /
+            {{ weightUnit }})
+          </ng-container>
+          <ng-container *ngIf="element['makingChargeInfo'].isPercentage">
+            ({{ element['makingChargeInfo']['value'] | percentageFormatter }})
+          </ng-container>
+        </ng-container> -->
+      </ng-container>
+      <ng-container *ngIf="element['type'] === priceTypeEnumRef.STONE_CHARGE">
+        {{ 'pw.priceDetailsPopup.stoneChargeLabel' | translate }} ({{
+          element['stoneInfo']['weight'] | weightFormatter
+        }}
+        {{ priceBreakup.stonePrice.weightUnit }})
+      </ng-container>
+      <ng-container *ngIf="element['type'] === priceTypeEnumRef.UCP_PRICE">
+        {{ 'pw.priceDetailsPopup.ucpChargeLabel' | translate }} ({{
+          element['weightInfo']['weight'] | weightFormatter
+        }}
+        {{ element['weightInfo']['weightUnit'] }})
+      </ng-container>
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.basePriceLabel' | translate }}
+    </mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell
+      *matHeaderCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      Amount ({{ currencyCode | currencySymbol }})
+    </mat-header-cell>
+    <mat-cell
+      *matCellDef="let element"
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{ element['amount'] | currencyFormatter: currencyCode:false }}
+    </mat-cell>
+    <mat-footer-cell
+      *matFooterCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{ priceBreakup.basePrice | currencyFormatter: currencyCode:false }}
+    </mat-footer-cell>
+  </ng-container>
+
+  <mat-header-row
+    class="pw-mat-table__header pw-mat-table__primary-bg"
+    *matHeaderRowDef="columnDetails; sticky: true"
+  ></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: columnDetails"
+    class="pw-mat-table__body-row"
+  ></mat-row>
+  <mat-footer-row
+    class="pw-mat-table__footer"
+    *matFooterRowDef="columnDetails; sticky: true"
+  ></mat-footer-row>
+</mat-table>
+
+<mat-table [dataSource]="[]" class="pw-mat-table pw-discount-table">
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef class="pw-mat-table__item col-8">
+      Total Discount
+    </mat-header-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell
+      *matHeaderCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{ priceBreakup.totalDiscount | currencyFormatter: currencyCode:false }}
+    </mat-header-cell>
+  </ng-container>
+
+  <mat-header-row
+    class="pw-mat-table__header pw-mat-table__primary-bg"
+    *matHeaderRowDef="columnDetails; sticky: true"
+  ></mat-header-row>
+</mat-table>
+
+<mat-table
+  *ngIf="priceBreakup?.itemHallmarkDetails?.hallmarkingCharges !== null"
+  [dataSource]="[]"
+  class="pw-mat-table pw-discount-table"
+>
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.hallmarkingChargesLabel' | translate }}
+    </mat-header-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell
+      *matHeaderCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{
+        priceBreakup?.itemHallmarkDetails?.hallmarkingCharges
+          | currencyFormatter: currencyCode:false
+      }}
+    </mat-header-cell>
+  </ng-container>
+
+  <mat-header-row
+    class="pw-mat-table__header pw-mat-table__primary-bg"
+    *matHeaderRowDef="columnDetails; sticky: true"
+  ></mat-header-row>
+</mat-table>
+
+<mat-table
+  *ngIf="
+    priceBreakup?.itemHallmarkDetails?.hallmarkingCharges !== null &&
+    priceBreakup?.itemHallmarkDetails?.isFOCForHallmarkingCharges
+  "
+  [dataSource]="[]"
+  class="pw-mat-table pw-discount-table"
+>
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.hallmarkingDiscountLabel' | translate }}
+    </mat-header-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell
+      *matHeaderCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{
+        priceBreakup?.itemHallmarkDetails?.hallmarkingCharges
+          | currencyFormatter: currencyCode:false
+      }}
+    </mat-header-cell>
+  </ng-container>
+
+  <mat-header-row
+    class="pw-mat-table__header pw-mat-table__primary-bg"
+    *matHeaderRowDef="columnDetails; sticky: true"
+  ></mat-header-row>
+</mat-table>
+
+<mat-table [dataSource]="priceBreakup.tax" class="pw-mat-table">
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.taxLabel' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="pw-mat-table__item col-8">
+      {{ element['taxType'] }} ({{
+        element['percentage'] | percentageFormatter
+      }})
+    </mat-cell>
+    <mat-footer-cell *matFooterCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.totalTaxLabel' | translate }}
+    </mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-header-cell
+      *matHeaderCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+    </mat-header-cell>
+    <mat-cell
+      *matCellDef="let element"
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{ element['taxAmount'] | currencyFormatter: currencyCode:false }}
+    </mat-cell>
+    <mat-footer-cell
+      *matFooterCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{ priceBreakup.totalTax | currencyFormatter: currencyCode:false }}
+    </mat-footer-cell>
+  </ng-container>
+
+  <mat-header-row
+    class="pw-mat-table__header pw-mat-table__primary-bg"
+    *matHeaderRowDef="columnDetails; sticky: true"
+  ></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: columnDetails"
+    class="pw-mat-table__body-row"
+  ></mat-row>
+  <mat-footer-row
+    class="pw-mat-table__footer"
+    *matFooterRowDef="columnDetails; sticky: true"
+  ></mat-footer-row>
+</mat-table>
+
+<mat-table [dataSource]="[]" class="pw-mat-table">
+  <ng-container matColumnDef="description">
+    <mat-footer-cell *matFooterCellDef class="pw-mat-table__item col-8">
+      {{ 'pw.priceDetailsPopup.finalpriceLabel' | translate }}
+    </mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <mat-footer-cell
+      *matFooterCellDef
+      class="pw-mat-table__item col-4 justify-content-end"
+    >
+      {{ priceBreakup.totalAfterTax | currencyFormatter: currencyCode:false }}
+    </mat-footer-cell>
+  </ng-container>
+
+  <mat-footer-row
+    class="pw-mat-table__footer"
+    *matFooterRowDef="columnDetails; sticky: true"
+  ></mat-footer-row>
+</mat-table>
+
+<mat-menu
+  #makingChargesInfoMenu="matMenu"
+  class="pw-overlay-notification-band__menu"
+>
+  <div
+    *ngIf="
+      priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct ||
+        priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct ||
+        priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePerGram;
+      else onlyMakingChargeComp
+    "
+    class="d-flex pw-menu-item__margin"
+  >
+    <div class="d-flex flex-column pw-tertiary-color">
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct &&
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct !==
+            0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.priceDetailsPopup.makingChargesPercentageTxt' | translate }}
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct &&
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.priceDetailsPopup.wastagePercentageTxt' | translate }}
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePerGram &&
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePerGram !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.priceDetailsPopup.makingChargesPerGramTxt' | translate }}
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePunit &&
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePunit !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{ 'pw.priceDetailsPopup.makingChargesPerUnitTxt' | translate }}
+      </div>
+    </div>
+    <div class="d-flex flex-column mx-2 pw-tertiary-color">
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct &&
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct !==
+            0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct &&
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePerGram &&
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePerGram !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePunit &&
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePunit !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        :
+      </div>
+    </div>
+    <div class="d-flex flex-column pw-font-weight-bold pw-text-right">
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct &&
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct !==
+            0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePct
+            | percentageFormatter
+        }}
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct &&
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{
+          priceBreakup?.makingCharges?.makingChargesDetails?.wastagePct
+            | percentageFormatter
+        }}
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePerGram &&
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePerGram !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePerGram
+            | currencyFormatter
+        }}
+      </div>
+      <div
+        *ngIf="
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePunit &&
+          priceBreakup?.makingCharges?.makingChargesDetails
+            ?.makingChargePunit !== 0
+        "
+        class="pw-overlay-notification-band__menu-item"
+      >
+        {{
+          priceBreakup?.makingCharges?.makingChargesDetails?.makingChargePunit
+            | currencyFormatter
+        }}
+      </div>
+    </div>
+  </div>
+  <ng-template #onlyMakingChargeComp>
+    <div class="d-flex pw-menu-item__margin">
+      <div class="d-flex flex-column pw-tertiary-color">
+        <div
+          *ngIf="
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage &&
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage !== 0
+          "
+          class="pw-overlay-notification-band__menu-item"
+        >
+          {{ 'pw.priceDetailsPopup.makingChargesPercentageTxt' | translate }}
+        </div>
+      </div>
+      <div class="d-flex flex-column mx-2 pw-tertiary-color">
+        <div
+          *ngIf="
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage &&
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage !== 0
+          "
+          class="pw-overlay-notification-band__menu-item"
+        >
+          :
+        </div>
+      </div>
+      <div class="d-flex flex-column pw-font-weight-bold pw-text-right">
+        <div
+          *ngIf="
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage &&
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage !== 0
+          "
+          class="pw-overlay-notification-band__menu-item"
+        >
+          {{
+            priceBreakup?.makingCharges?.makingChargesDetails
+              ?.makingChargePercentage | percentageFormatter
+          }}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</mat-menu>

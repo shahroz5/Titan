@@ -1,0 +1,241 @@
+<mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.cmRequestApproval.summaryLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="pw-card pw-panel pw-panel__overflow-visible">
+    <div class="row pw-card__header">
+      <div class="col-auto">
+        <div class="pw-tertiary-color pw-tooltip-container">
+          {{ 'pw.summaryBar.totalGrossWeightLabel' | translate }}
+          <span
+            class="pw-tooltip-container__icon"
+            [matMenuTriggerFor]="weightInfoMenu"
+            >i</span
+          >
+        </div>
+        {{ weightAgreed | weightFormatter }} {{ weightUnit }}
+      </div>
+      <div class="col-auto">
+        <div class="pw-tertiary-color pw-tooltip-container">
+          {{ 'pw.summaryBar.totalAmtLabel' | translate }}
+          <span
+            class="pw-tooltip-container__icon"
+            [matMenuTriggerFor]="priceInfoMenu"
+            >i</span
+          >
+        </div>
+        {{ totalAmt | currencyFormatter: currecnyCode }}
+      </div>
+    </div>
+  </div>
+
+  <mat-menu
+    #weightInfoMenu="matMenu"
+    class="pw-overlay-notification-band__menu"
+  >
+    <div class="d-flex pw-menu-item__margin">
+      <div class="d-flex flex-column pw-tertiary-color">
+        <p>{{ 'pw.summaryBar.totalProductWeightLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.totalGoldCoinsWeightLabel' | translate }}</p>
+      </div>
+      <div class="d-flex flex-column mx-2 pw-tertiary-color">
+        <p>:</p>
+        <p>:</p>
+      </div>
+      <div class="d-flex flex-column pw-font-weight-bold">
+        <p>{{ productWeight | weightFormatter }} {{ weightUnit }}</p>
+        <p>{{ coinWeight | weightFormatter }} {{ weightUnit }}</p>
+      </div>
+    </div>
+  </mat-menu>
+
+  <mat-menu
+    #discountInfoMenu="matMenu"
+    class="pw-overlay-notification-band__menu"
+  >
+    <div class="d-flex pw-menu-item__margin">
+      <div class="d-flex flex-column pw-tertiary-color">
+        <p>{{ 'pw.summaryBar.totalProductDiscountLabel' | translate }}</p>
+        <p>
+          {{ 'pw.summaryBar.totalGoldCoinsDiscountLabel' | translate }}
+        </p>
+      </div>
+      <div class="d-flex flex-column mx-2 pw-tertiary-color">
+        <p>:</p>
+        <p>:</p>
+      </div>
+      <div class="d-flex flex-column pw-font-weight-bold">
+        <p>{{ productDisc | currencyFormatter: currecnyCode }}</p>
+        <p>
+          {{ coinDisc | currencyFormatter: currecnyCode }}
+        </p>
+      </div>
+    </div>
+  </mat-menu>
+
+  <mat-menu #priceInfoMenu="matMenu" class="pw-overlay-notification-band__menu">
+    <div class="d-flex pw-menu-item__margin">
+      <div class="d-flex flex-column pw-tertiary-color">
+        <p>{{ 'pw.summaryBar.totalProductPriceLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.totalGoldCoinPriceLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.totalDiscLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.totalTaxLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.hallmarkChargesLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.hallmarkDiscountLabel' | translate }}</p>
+        <p>{{ 'pw.summaryBar.roundOffLabel' | translate }} (+/-)</p>
+      </div>
+      <div class="d-flex flex-column mx-2 pw-tertiary-color">
+        <p>:</p>
+        <p>:</p>
+        <p>:</p>
+        <p>:</p>
+        <p>:</p>
+        <p>:</p>
+        <p>:</p>
+      </div>
+      <div class="d-flex flex-column pw-font-weight-bold">
+        <p>{{ productAmt | currencyFormatter: currecnyCode }}</p>
+        <p>
+          {{ coinAmt | currencyFormatter: currecnyCode }}
+        </p>
+        <p>
+          {{ totalDiscount | currencyFormatter: currecnyCode }}
+        </p>
+        <p>
+          {{ taxAmt | currencyFormatter: currecnyCode }}
+        </p>
+        <p>
+          {{ hallmarkCharges | currencyFormatter: currecnyCode }}
+        </p>
+        <p>
+          {{ hallmarkDiscount | currencyFormatter: currecnyCode }}
+        </p>
+        <p>
+          {{ roundOff | currencyFormatter: currecnyCode:false }}
+        </p>
+      </div>
+    </div>
+  </mat-menu>
+
+  <mat-menu #summaryMenu="matMenu" class="pw-overlay-notification-band__menu">
+    <div class="d-flex pw-menu-item__margin">
+      <div class="d-flex flex-column">
+        <div class="pw-font-weight-bold">
+          <p>{{ 'pw.summaryBar.totalQtyLabel' | translate }}</p>
+          <mat-divider class="pw-divider"></mat-divider>
+        </div>
+
+        <p class="pw-font-weight-bold">
+          {{ 'pw.summaryBar.totalDiscountAmtLabel' | translate }}
+        </p>
+
+        <p class="pw-tertiary-color">
+          {{ 'pw.summaryBar.totalProductDiscountLabel' | translate }}
+        </p>
+
+        <div class="pw-tertiary-color">
+          <p>{{ 'pw.summaryBar.totalGoldCoinsDiscountLabel' | translate }}</p>
+          <mat-divider class="pw-divider"></mat-divider>
+        </div>
+
+        <p class="pw-font-weight-bold">
+          {{ 'pw.summaryBar.totalGrossWeightLabel' | translate }}
+        </p>
+        <p class="pw-tertiary-color">
+          {{ 'pw.summaryBar.totalProductWeightLabel' | translate }}
+        </p>
+        <p class="pw-tertiary-color">
+          {{ 'pw.summaryBar.totalGoldCoinsWeightLabel' | translate }}
+        </p>
+      </div>
+      <div class="d-flex flex-column">
+        <div class="pw-font-weight-bold">
+          <p class="pw-colon-padding">:</p>
+          <mat-divider class="pw-divider"></mat-divider>
+        </div>
+        <p class="pw-font-weight-bold pw-colon-padding">:</p>
+        <p class="pw-tertiary-color pw-colon-padding">:</p>
+        <div class="pw-tertiary-color">
+          <p class="pw-colon-padding">:</p>
+          <mat-divider class="pw-divider"></mat-divider>
+        </div>
+        <p class="pw-font-weight-bold pw-colon-padding">:</p>
+        <p class="pw-tertiary-color pw-colon-padding">:</p>
+        <p class="pw-tertiary-color pw-colon-padding">:</p>
+      </div>
+      <div class="d-flex flex-column">
+        <div class="pw-font-weight-bold">
+          <p>{{ totalQty }}</p>
+          <mat-divider class="pw-divider"></mat-divider>
+        </div>
+        <p class="pw-font-weight-bold">
+          {{ totalDisc | currencyFormatter: currecnyCode }}
+        </p>
+        <p class="pw-tertiary-color">
+          {{ productDisc | currencyFormatter: currecnyCode }}
+        </p>
+
+        <div class="pw-tertiary-color">
+          <p>{{ coinDisc | currencyFormatter: currecnyCode }}</p>
+          <mat-divider class="pw-divider"></mat-divider>
+        </div>
+
+        <p class="pw-font-weight-bold">
+          {{ totalWeight | weightFormatter }} {{ weightUnit }}
+        </p>
+        <p class="pw-tertiary-color">
+          {{ productWeight | weightFormatter }} {{ weightUnit }}
+        </p>
+        <p class="pw-tertiary-color">
+          {{ coinWeight | weightFormatter }} {{ weightUnit }}
+        </p>
+      </div>
+    </div>
+  </mat-menu>
+</mat-expansion-panel>
+<div class="row align-items-baseline">
+  <mat-form-field class="col-lg-4 col ml-auto">
+    <input
+      autocomplete="off"
+      matInput
+      type="text"
+      [formControl]="remarksFormControl"
+      placeholder="{{ 'pw.summaryBar.remarksLabel' | translate }}"
+      class="pw-single-bordered-input"
+      name="remarkField"
+      [required]="true"
+      possWebMaxLengthValidator
+    />
+    <mat-error
+      *ngIf="
+        remarksFormControl.errors &&
+        remarksFormControl.errors.errorArray &&
+        remarksFormControl.touched
+      "
+    >
+      <poss-web-error-info-tooltip
+        [errorMessage]="remarksFormControl.errors.errorArray"
+      ></poss-web-error-info-tooltip>
+    </mat-error>
+  </mat-form-field>
+  <div class="col-auto">
+    <button
+      [disabled]="!remarksFormControl.valid"
+      class="pw-btn pw-primary-btn"
+      (click)="clear()"
+    >
+      {{ 'pw.cmRequestApproval.rejectButtonTxt' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="pw-btn pw-accent-btn" (click)="confirm()">
+      {{ 'pw.cmRequestApproval.approveButtonTxt' | translate }}
+    </button>
+  </div>
+</div>

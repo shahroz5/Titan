@@ -1,0 +1,203 @@
+<form [formGroup]="form">
+  <div class="row align-items-center">
+    <div class="col-auto">{{ form.get('discountBasedOn').value }}</div>
+
+    <mat-radio-group
+      class="col-auto"
+      formControlName="discountBasedOnType"
+      [disabled]="true"
+    >
+      <ng-container
+        *ngIf="
+          form.get('discountBasedOn').value ===
+          DiscountBasedOnEnumRef.WEIGHT_BASED
+        "
+      >
+        <mat-radio-button
+          class="mr-3"
+          value="{{ DiscountBasedOnTypesEnumRef.GROSS_WEIGHT }}"
+        >
+          {{ 'pw.discountSlabConfig.grossWtLabel' | translate }}
+        </mat-radio-button>
+        <mat-radio-button
+          class="mr-3"
+          value="{{ DiscountBasedOnTypesEnumRef.NET_WEIGHT }}"
+        >
+          {{ 'pw.discountSlabConfig.netWtLabel' | translate }}</mat-radio-button
+        >
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          form.get('discountBasedOn').value ===
+          DiscountBasedOnEnumRef.VALUE_BASED
+        "
+      >
+        <mat-radio-button
+          class="mr-3"
+          value="{{ DiscountBasedOnTypesEnumRef.PRE_DISCOUNT_TAX }}"
+          >{{
+            'pw.discountSlabConfig.preDiscountTaxLabel' | translate
+          }}</mat-radio-button
+        >
+        <mat-radio-button
+          class="mr-3"
+          value="{{ DiscountBasedOnTypesEnumRef.PRE_DISCOUNT_WITHOUT_TAX }}"
+        >
+          {{
+            'pw.discountSlabConfig.preDiscountWithoutTaxLabel' | translate
+          }}</mat-radio-button
+        >
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          form.get('discountBasedOn').value ===
+          DiscountBasedOnEnumRef.CARAT_BASED
+        "
+      >
+        <mat-radio-button
+          class="mr-3"
+          value="{{ DiscountBasedOnTypesEnumRef.SINGLE_STONE }}"
+          >{{ 'pw.discountSlabConfig.singleStoneLabel' | translate }}
+        </mat-radio-button>
+        <mat-radio-button
+          class="mr-3"
+          value="{{ DiscountBasedOnTypesEnumRef.CUMULATIVE_STONE }}"
+          >{{ 'pw.discountSlabConfig.cumulativeStonelbel' | translate }}
+        </mat-radio-button>
+      </ng-container>
+    </mat-radio-group>
+
+    <div class="col-auto ml-auto">
+      {{ 'pw.discountSlabConfig.valueGmsLabel' | translate }} :
+    </div>
+    <mat-radio-group
+      class="col-auto"
+      formControlName="valuePerWeightType"
+      [disabled]="true"
+    >
+      <mat-radio-button class="mr-3" value="GrossWt">{{
+        'pw.discountSlabConfig.grossWtLabel' | translate
+      }}</mat-radio-button>
+
+      <mat-radio-button value="NetWt">
+        {{ 'pw.discountSlabConfig.netWtLabel' | translate }}</mat-radio-button
+      >
+    </mat-radio-group>
+    <mat-checkbox class="col-auto" formControlName="isSingle" [disabled]="true">
+      {{ 'pw.discountSlabConfig.singleLabel' | translate }}
+    </mat-checkbox>
+  </div>
+  <ng-container *ngIf="slabConfigsItems.length > 0; else errorMesage">
+    <table class="pw-grid-table"  aria-describedby="table">
+      <thead>
+        <tr class="pw-grid-table__background-header">
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.slabNameHeaderTXt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.minHeaderTxt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.maxHeaderTxt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">Metal Charges</th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.makingChargesHeadeTxt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.stoneChargesHeaderTxt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.ucpHeaderTxt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">
+            {{ 'pw.discountSlabConfig.valuePerGmHeaderTxt' | translate }}
+          </th>
+          <th class="pw-grid-table__header-item" scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody class="pw-grid-table__body">
+        <tr *ngFor="let item of slabConfigsItems" class="pw-grid-table__row">
+          <td class="pw-grid-table__item">{{ item.slabName }}</td>
+          <td class="pw-grid-table__item">{{ item.min }}</td>
+          <td class="pw-grid-table__item">{{ item.max }}</td>
+          <td class="pw-grid-table__item">
+            {{ item.regular.goldCharges.value }}
+            {{ valueSymbol(item, 'goldCharges') }}
+          </td>
+          <td class="pw-grid-table__item">
+            {{ item.regular.mcCharges.value }}
+            {{ valueSymbol(item, 'mcCharges') }}
+          </td>
+          <td class="pw-grid-table__item">
+            {{ item.regular.stoneCharges.value }}
+            {{ valueSymbol(item, 'stoneCharges') }}
+          </td>
+
+          <td class="pw-grid-table__item">
+            {{ item.regular.ucp.value }}
+            {{ valueSymbol(item, 'ucp') }}
+          </td>
+          <td class="pw-grid-table__item">
+            {{ item.regular.rsPerGram.value }}
+            {{ valueSymbol(item, 'rsPerGram') }}
+          </td>
+          <td class="pw-grid-table__item">
+            <poss-web-toggle-button
+              [isActive]="item?.isActive"
+              [isDisabled]="true"
+            >
+            </poss-web-toggle-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <ng-template #errorMesage
+    ><div class="pw-sub-heading pw-message pw-text-center col-auto ml-auto">
+      {{ 'No Records' | translate }}
+    </div>
+  </ng-template>
+  <div class="row mb-3">
+    <div class="col-auto ml-auto" *ngIf="isRivaah">
+      <button class="pw-btn pw-primary-btn" (click)="openRivaahPopup()">
+        {{ 'pw.discountSlabConfig.rivaahLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto" *ngIf="isPreviewApplicable">
+      <button class="pw-btn pw-primary-btn" (click)="openPreviewPopup()">
+        {{ 'pw.discountSlabConfig.previewLable' | translate }}
+      </button>
+    </div>
+    <div class="col-auto" *ngIf="isCOOfferApplicable">
+      <button class="pw-btn pw-primary-btn" (click)="openCoPopup()">
+        {{ 'pw.discountSlabConfig.coLabel' | translate }}
+      </button>
+    </div>
+    <div class="col-auto" *ngIf="isABOfferApplicable">
+      <button class="pw-btn pw-accent-btn" (click)="openAbPopup()">
+        {{ 'pw.discountSlabConfig.abLabel' | translate }}
+      </button>
+    </div>
+
+    <div
+      class="col-auto"
+      (click)="openABCOConfigPopup()"
+      *ngIf="isABOfferApplicable || isCOOfferApplicable"
+    >
+      <button col-auto class="pw-btn pw-primary-btn">
+        <span *ngIf="isABOfferApplicable">
+          {{ 'pw.discountSlabConfig.abLabel' | translate }}
+        </span>
+        <span *ngIf="isABOfferApplicable && isCOOfferApplicable"> / </span>
+        <span *ngIf="isCOOfferApplicable">
+          {{ 'pw.discountSlabConfig.coLabel' | translate }}
+        </span>
+        {{ 'pw.discountSlabConfig.discountLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

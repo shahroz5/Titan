@@ -1,0 +1,121 @@
+<a [matMenuTriggerFor]="menu" class="pw-menu-bar__button">
+  <span class="pw-secondary-color pw-menu-bar__content-2"> 
+    {{ 'pw.gep.onHold' | translate }}
+  </span>
+  <span class="pw-fourth-color pw-menu-bar__content-2">
+    ({{ onHoldGepCount }})</span
+  >
+</a>
+
+<mat-menu #menu="matMenu" class="pw-menu-profile pw-menu-profile__width-500">
+  <div
+    class="pw-menu-profile__middle-section"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="pw-menu-profile__item">
+      <form [formGroup]="onHoldGepForm">
+        <div class="row pw-menu-profile__margin-0">
+          <mat-form-field
+            class="col-12 pw-search-bar pw-form-field-border-top-0"
+            floatLabel="never"
+          >
+            <input
+              #searchBox
+              matInput
+              formControlName="searchValue"
+              placeholder="Search by Customer name or Doc Number"
+              class="pw-single-bordered-input"
+            />
+            <mat-icon matSuffix>
+              <span
+                *ngIf="!onHoldGepForm.get('searchValue').value"
+                class="pw-i-16 pw-search-icon-16"
+              ></span
+            ></mat-icon>
+            <mat-icon matSuffix>
+              <span
+                (click)="clearSearch()"
+                *ngIf="onHoldGepForm.get('searchValue').value"
+                class="pw-i-10 pw-close-icon-16"
+              ></span
+            ></mat-icon>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <table
+      aria-describedby="table"
+      class="pw-table-list"
+      *ngIf="totalElements !== 0"
+    >
+      <thead class="pw-table-list__header">
+        <tr class="pw-table-list__header-item">
+          <th class="pw-table-list__item" scope="col">
+            {{ 'pw.gep.onholdTitle' | translate }}
+          </th>
+          <th class="pw-table-list__item" scope="col">
+            {{ 'pw.gep.onHoldTitle1' | translate }}
+          </th>
+          <th class="pw-table-list__item" scope="col">
+            {{ 'pw.gep.onholdTitle2' | translate }}
+          </th>
+          <th class="pw-table-list__item" scope="col">
+            {{ 'pw.gep.onholdTitle4' | translate }}
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="pw-table-list__body">
+        <tr
+          *ngFor="let element of searchOnHoldGepResponse$"
+          class="pw-table-list__body-item"
+        >
+          <td class="pw-table-list__item">
+            {{ element.customerName }}
+          </td>
+          <td class="pw-table-list__item" (click)="selectedOnHoldGep(element)">
+            <a class="pw-anchor-underline">{{ element.docNo }}</a>
+          </td>
+          <td class="pw-table-list__item">
+            {{ formatTime(element.firstHoldTime) }}
+          </td>
+          <td class="pw-table-list__item">
+            {{ formatTime(element.lastHoldTime) }}
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div
+      *ngIf="totalElements === 0"
+      class="pw-success-color pw-message pw-text-center mg-bottom-30"
+    >
+      {{ 'pw.global.noDataFoundMessage' | translate }}
+    </div>
+  </div>
+
+  <div
+    *ngIf="totalPages !== 1"
+    class="pw-menu-profile__bottom-section row"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="col-auto ml-auto">
+      <div class="pw-menu-list__icon-container">
+        <span
+          class="pw-i-24 pw-left-arrow-icon-24"
+          (click)="decreasePageIndex()"
+        ></span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="pw-menu-list__icon-container">
+        <span
+          class="pw-i-24 pw-right-arrow-icon-24"
+          (click)="increasePageIndex()"
+        ></span>
+      </div>
+    </div>
+  </div>
+</mat-menu>

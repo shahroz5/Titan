@@ -1,0 +1,62 @@
+<div class="pw-bordered-card" [hidden]="!(aclData.length > 0)">
+  <div class="pw-bordered-card__header d-flex align-items-center">
+    <div class="pw-bordered-card__header-content">
+      {{ 'pw.accessControlManagement.aclListHeader' | translate }}
+    </div>
+    <div class="flex-fill"></div>
+    <mat-checkbox
+      [(ngModel)]="isSelectAll"
+      (change)="selectAll($event.checked)"
+      *ngIf="!showEmptyResult && edit"
+      class="pw-bordered-card__checkbox"
+    >
+      {{ 'pw.accessControlManagement.selectAllLable' | translate }}
+    </mat-checkbox>
+    <mat-form-field
+      class="pw-search-bar pw-form-field-padding-bottom-0"
+      floatLabel="never"
+    >
+      <input
+        #searchBox
+        matInput
+        class="pw-input-box"
+        [placeholder]="
+          'pw.accessControlManagement.searchPlaceholder' | translate
+        "
+        [formControl]="searchFormControl"
+      />
+      <mat-icon matSuffix>
+        <span *ngIf="!searchBox.value" class="pw-i-16 pw-search-icon-16"></span
+      ></mat-icon>
+      <mat-icon matSuffix (click)="clearSearch()">
+        <span *ngIf="searchBox.value" class="pw-i-10 pw-close-icon-16"></span
+      ></mat-icon>
+    </mat-form-field>
+  </div>
+  <div class="row pw-bordered-card__fixed-body">
+    <ng-container *ngFor="let acl of aclData">
+      <mat-checkbox
+        [disabled]="!edit"
+        *ngIf="!acl.isHidden"
+        class="col-6"
+        [(ngModel)]="acl.isSelected"
+        (change)="selectionChange($event.checked)"
+        ><span class="pw-font-weight-bold"> {{ acl.code }}</span> -
+        {{ acl.name }}
+      </mat-checkbox>
+    </ng-container>
+  </div>
+  <h3 *ngIf="showEmptyResult" class="pw-text-center">
+    {{ noDataFoundMessage }}
+  </h3>
+  <div class="row">
+    <button
+      *ngIf="edit && searchValue === null"
+      mat-button
+      class="pw-btn pw-accent-btn ml-auto"
+      (click)="update()"
+    >
+      {{ 'pw.accessControlManagement.saveButtonText' | translate }}
+    </button>
+  </div>
+</div>

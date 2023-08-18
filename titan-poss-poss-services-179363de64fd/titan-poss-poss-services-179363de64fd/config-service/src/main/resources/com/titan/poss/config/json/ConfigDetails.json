@@ -1,0 +1,25 @@
+{
+	"type": "CONFIG_DETAILS",
+	"data": {
+		"max_metalCharge": {
+			"value": 3.44,
+			"percent": 5.33
+		},
+		"max_mc": {
+			"value": 3.44,
+			"percent": 5.33
+		},
+		"max_stone_charges": {
+			"value": 3.44,
+			"percent": 5.33
+		},
+		"max_ucp": {
+			"value": 3.44,
+			"percent": 5.33
+		},
+		"max_wastage": {
+			"value": 3.44,
+			"percent": 5.33
+		}
+	}
+}

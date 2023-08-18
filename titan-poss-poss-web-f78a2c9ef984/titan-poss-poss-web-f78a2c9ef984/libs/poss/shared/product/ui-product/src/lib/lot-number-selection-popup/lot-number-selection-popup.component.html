@@ -1,0 +1,48 @@
+<div class="pw-white-overlay-box">
+  <div class="pw-confirmation-box pw-confirmation-box__fixed-width">
+    <div class="row pw-confirmation-box__header">
+      <div class="col-auto">
+        {{ 'pw.productGrid.selectLotNumberHeaderTxt' | translate }}
+      </div>
+
+      <div class="col pw-text-right">
+        <button
+          mat-icon-button
+          (click)="closeDialog()"
+          class="pw-confirmation-box__icon-button"
+        >
+          <mat-icon>
+            <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="pw-confirmation-box__body">
+      <h4 class="pw-fourth-color">
+        {{ itemCode }}
+      </h4>
+      <p class="pw-error-color">
+        {{ 'pw.productGrid.lotNumberSelectMsg' | translate }}
+      </p>
+      <ag-grid-angular
+        class="pw-titan-poss-theme pw-ag-grid-table"
+        [columnDefs]="columnDefs"
+        [rowData]="rowData"
+        [rowSelection]="rowSelection"
+        [animateRows]="animateRows"
+        [domLayout]="domLayout"
+        [rowHeight]="rowHeight"
+        (gridReady)="gridReady($event)"
+        (gridSizeChanged)="onGridSizeChanged()"
+        (cellKeyDown)="onCellKeyPress($event)"
+      ></ag-grid-angular>
+      <div class="row">
+        <div class="col pw-text-right">
+          <button class="pw-btn pw-accent-btn mt-4" (click)="closeDialog()">
+            {{ 'pw.productGrid.okButtonText' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

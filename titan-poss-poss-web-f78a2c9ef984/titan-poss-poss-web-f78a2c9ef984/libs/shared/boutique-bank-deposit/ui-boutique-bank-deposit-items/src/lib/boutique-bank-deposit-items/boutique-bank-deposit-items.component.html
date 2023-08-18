@@ -1,0 +1,566 @@
+<div class="pw-detail-card mb-5">
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table"
+    [columnDefs]="columnDefs"
+    [rowData]="bankDepositDetails"
+    [domLayout]="domLayout"
+    [rowHeight]="rowHeight"
+    [animateRows]="animateRows"
+    [context]="getContext()"
+    [frameworkComponents]="getComponents()"
+    [rowSelection]="rowSelection"
+    (rowSelected)="onRowSelected($event)"
+    (gridReady)="gridReady($event)"
+    (cellValueChanged)="onCellValueChanged($event)"
+    [defaultColDef]="defaultColDef"
+  >
+  </ag-grid-angular>
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="totalCount > minPageSize"
+    [length]="totalCount"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+  <div class="row">
+    <div
+      class="col-auto pw-mat-table__right-container"
+      *ngIf="isChequePrintEnabled === 'true'"
+    >
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="printCheckDeposit()"
+        [disabled]="disablePrintButton"
+      >
+        {{ 'pw.boutiqueBankDeposit.printChequeDepositSlipLabel' | translate }}
+      </button>
+    </div>
+    <div
+      class="col-auto"
+      [ngClass]="
+        this.isChequePrintEnabled !== 'true'
+          ? 'pw-mat-table__right-container'
+          : ' '
+      "
+    >
+      <button
+        class="pw-btn pw-accent-btn"
+        (click)="saveDepositDetails()"
+        [disabled]="disableSaveButton"
+      >
+        {{ 'pw.boutiqueBankDeposit.saveLabel' | translate }}
+      </button>
+    </div>
+  </div>
+  <div>
+    <div class="col-3 pl-0 mt-4 mb-2">
+      <h4 class="pw-text-underline-golden">
+        {{ 'pw.boutiqueBankDeposit.cashDenomitionLabel' | translate }}
+      </h4>
+    </div>
+    <div class="pw-detail-card mb-6" [formGroup]="cashDenomitionFormGroup">
+      <div class="row">
+        <div class="col-6">
+          <div class="pw-grid-table">
+            <div class="pw-grid-table__body-no-scroll">
+              <div class="pw-grid-table__row row">
+                <div class="col-3 pw-text-align-right">
+                  {{
+                    'pw.boutiqueBankDeposit.twoThousandNoteLabel' | translate
+                  }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="twoThousand"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('twoThousand').errors &&
+                      cashDenomitionFormGroup.get('twoThousand').errors
+                        .errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('twoThousand').errors
+                          .errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('twoThousand').value * 2000
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.fiveHundredLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="fiveHundred"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('fiveHundred').errors &&
+                      cashDenomitionFormGroup.get('fiveHundred').errors
+                        .errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('fiveHundred').errors
+                          .errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('fiveHundred').value * 500
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.twoHundredLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="twoHundred"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('twoHundred').errors &&
+                      cashDenomitionFormGroup.get('twoHundred').errors
+                        .errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('twoHundred').errors
+                          .errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('twoHundred').value * 200
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.hundredLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="hundred"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('hundred').errors &&
+                      cashDenomitionFormGroup.get('hundred').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('hundred').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('hundred').value * 100
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="pw-grid-table">
+            <div class="pw-grid-table__body">
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.fiftyLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="fifty"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('fifty').errors &&
+                      cashDenomitionFormGroup.get('fifty').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('fifty').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('fifty').value * 50
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.twentyLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="twenty"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('twenty').errors &&
+                      cashDenomitionFormGroup.get('twenty').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('twenty').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('twenty').value * 20
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.tenLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="ten"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('ten').errors &&
+                      cashDenomitionFormGroup.get('ten').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('ten').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('ten').value * 10
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <div class="pw-grid-table__row row py-2">
+                <div class="col-3 pw-text-align-right">
+                  {{ 'pw.boutiqueBankDeposit.fiveLabel' | translate }}
+                </div>
+                <div class="col-auto">x</div>
+                <mat-form-field
+                  class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+                >
+                  <input
+                    matInput
+                    formControlName="five"
+                    class="pw-single-bordered-input"
+                  />
+                  <matSuffix
+                    class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                    *ngIf="
+                      cashDenomitionFormGroup.get('five').errors &&
+                      cashDenomitionFormGroup.get('five').errors.errorArray
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      [isOnlyTooltip]="true"
+                      [errorMessage]="
+                        cashDenomitionFormGroup.get('five').errors.errorArray
+                      "
+                    ></poss-web-error-info-tooltip>
+                  </matSuffix>
+                </mat-form-field>
+                <div class="col-auto">=</div>
+                <div class="col-5">
+                  {{
+                    cashDenomitionFormGroup.get('five').value * 5
+                      | currencyFormatter
+                  }}
+                </div>
+              </div>
+              <!-- <div class="pw-grid-table__row row py-2">
+              <div class="col-3 pw-text-align-right">
+                {{ 'pw.boutiqueBankDeposit.twoLabel' | translate }}
+              </div>
+              <div class="col-auto">x</div>
+              <mat-form-field
+                class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+              >
+                <input
+                  matInput
+                  formControlName="two"
+                  class="pw-single-bordered-input"
+                />
+                <matSuffix
+                  class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                  *ngIf="
+                    cashDenomitionFormGroup.get('two').errors &&
+                    cashDenomitionFormGroup.get('two').errors.errorArray
+                  "
+                >
+                  <span
+                    *ngFor="
+                      let errorMesage of cashDenomitionFormGroup.get('two')
+                        .errors.errorArray;
+                      let i = index
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      *ngIf="
+                        cashDenomitionFormGroup.get('two').errors.errorArray
+                          .length === 1
+                      "
+                      [errorMessage]="[errorMesage]"
+                    ></poss-web-error-info-tooltip>
+                    <poss-web-error-info-tooltip
+                      *ngIf="
+                        i > 0 &&
+                        cashDenomitionFormGroup.get('two').errors.errorArray
+                          .length > 1
+                      "
+                      [errorMessage]="errorMesage"
+                    ></poss-web-error-info-tooltip>
+                  </span>
+                </matSuffix>
+              </mat-form-field>
+              <div class="col-auto">=</div>
+              <div class="col-5">
+                {{
+                  cashDenomitionFormGroup.get('two').value * 2
+                    | currencyFormatter
+                }}
+              </div>
+            </div>
+            <div class="pw-grid-table__row row py-2">
+              <div class="col-3 pw-text-align-right">
+                {{ 'pw.boutiqueBankDeposit.oneLabel' | translate }}
+              </div>
+              <div class="col-auto">x</div>
+              <mat-form-field
+                class="col-2 pw-form-field-padding-bottom-0 pw-form-field-border-top-0"
+              >
+                <input
+                  matInput
+                  formControlName="one"
+                  class="pw-single-bordered-input"
+                />
+                <matSuffix
+                  class="pw-grid-table__padding-5 pw-mat-error-inline-block"
+                  *ngIf="
+                    cashDenomitionFormGroup.get('one').errors &&
+                    cashDenomitionFormGroup.get('one').errors.errorArray
+                  "
+                >
+                  <span
+                    *ngFor="
+                      let errorMesage of cashDenomitionFormGroup.get('one')
+                        .errors.errorArray;
+                      let i = index
+                    "
+                  >
+                    <poss-web-error-info-tooltip
+                      *ngIf="
+                        cashDenomitionFormGroup.get('one').errors.errorArray
+                          .length === 1
+                      "
+                      [errorMessage]="[errorMesage]"
+                    ></poss-web-error-info-tooltip>
+                    <poss-web-error-info-tooltip
+                      *ngIf="
+                        i > 0 &&
+                        cashDenomitionFormGroup.get('one').errors.errorArray
+                          .length > 1
+                      "
+                      [errorMessage]="errorMesage"
+                    ></poss-web-error-info-tooltip>
+                  </span>
+                </matSuffix>
+              </mat-form-field>
+              <div class="col-auto">=</div>
+              <div class="col-5">
+                {{
+                  cashDenomitionFormGroup.get('one').value * 1
+                    | currencyFormatter
+                }}
+              </div>
+            </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-detail-card__footer">
+        <div class="col-2">
+          <p>{{ 'pw.boutiqueBankDeposit.totalAmtLabel' | translate }}</p>
+          <div>{{ amount | currencyFormatter }}</div>
+        </div>
+        <div class="col-3">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="{{
+                'pw.boutiqueBankDeposit.totalCashAmountCoinsLabel' | translate
+              }}"
+              formControlName="totalCashAmountCoins"
+              class="pw-single-bordered-input"
+            />
+            <mat-error
+              *ngIf="
+                cashDenomitionFormGroup.get('totalCashAmountCoins').errors &&
+                cashDenomitionFormGroup.get('totalCashAmountCoins').errors
+                  .errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  cashDenomitionFormGroup.get('totalCashAmountCoins').errors
+                    .errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <p>
+            {{ 'pw.boutiqueBankDeposit.balanceAmtLabel' | translate }}
+          </p>
+          <div>
+            {{ balanceAmt | currencyFormatter }}
+          </div>
+        </div>
+        <div class="col-2">
+          <p>Total Collected Cash</p>
+          <div>
+            {{ totalCollectedCash | currencyFormatter }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-auto pw-mat-table__right-container"
+          *ngIf="isCashPrintEnabled == 'true'"
+        >
+          <button
+            class="pw-btn pw-primary-btn"
+            [disabled]="!disableCashDenomitionButton && enablePrintButton1"
+            (click)="printCashDeposit()"
+          >
+            {{ 'pw.boutiqueBankDeposit.printCashDepositLabel' | translate }}
+          </button>
+        </div>
+        <div
+          class="col-auto"
+          [ngClass]="
+            this.isCashPrintEnabled !== 'true'
+              ? 'pw-mat-table__right-container'
+              : ' '
+          "
+        >
+          <button
+            class="pw-btn pw-accent-btn"
+            [disabled]="
+              disableCashDenomitionButton ||
+              balanceAmt !== 0 ||
+              cashDenomitionFormGroup.invalid ||
+              totalCollectedCash === 0 ||
+              !cashDenomitionFormGroup.dirty
+            "
+            (click)="saveCashDenomition()"
+          >
+            {{ 'pw.boutiqueBankDeposit.saveLabel' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

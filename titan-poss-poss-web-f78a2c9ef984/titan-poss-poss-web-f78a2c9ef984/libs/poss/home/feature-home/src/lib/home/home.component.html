@@ -1,0 +1,56 @@
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-1"></div>
+    <div class="col-12 col-lg-10 m-auto pw-inv-cta">
+      <div class="row">
+        <div class="col-xl-4 col-lg-6 pw-inv-cta__item">
+          <a (click)="cashMemoUrl()">
+            <span class="pw-i-64 pw-customer-transaction-icon-64"></span>
+            <h1 class="pw-inv-cta__margin-top">
+              {{ 'pw.possHome.customerLabel' | translate }}
+            </h1>
+            <h3 class="pw-inv-cta__sub-heading">
+              {{ 'pw.possHome.transactionsLabel' | translate }}
+            </h3>
+            <h6 class="pw-inv-cta__margin-top">
+              {{ 'pw.possHome.searchMemoLabel' | translate }}
+            </h6>
+            <h6>
+              {{ 'pw.possHome.createMemoLabel' | translate }}
+            </h6>
+          </a>
+        </div>
+        <div class="col-xl-4 col-lg-5 pw-inv-cta__item">
+          <a>
+            <span class="pw-i-64 pw-find-price-icon-64"></span>
+            <h1 class="pw-inv-cta__margin-top">
+              {{ 'pw.possHome.findLabel' | translate }}
+            </h1>
+            <h3 class="pw-inv-cta__sub-heading">
+              {{ 'pw.possHome.priceLabel' | translate }}
+            </h3>
+            <h6 class="pw-inv-cta__margin-top">
+              {{ 'pw.possHome.checkPriceLabel' | translate }}
+            </h6>
+            <h6>
+              {{ 'pw.possHome.checkDiscountLabel' | translate }}
+            </h6>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-1"></div>
+  </div>
+</div> -->
+<div class="container-fluid pt-4">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <poss-web-card-menu-container
+        [menu]="menu"
+        [permissions$]="permissions$"
+        [scrollTop]="scrollService.scrollTop | async"
+      >
+      </poss-web-card-menu-container>
+    </div>
+  </div>
+</div>

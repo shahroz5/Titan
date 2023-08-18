@@ -1,0 +1,91 @@
+<div
+  class="row no-gutters align-items-end justify-content-end"
+  [class.pw-fixed-width]="!isCustomerSelected"
+>
+  <poss-web-customer-search
+    class="pw-shadow-card__fixed-width"
+    [class.col-8]="!isCustomerSelected"
+    [class.col-12]="isCustomerSelected"
+    [isSearching]="isSearchingCustomer$ | async"
+    [hasResult$]="hasCustomerResult$"
+    [selectedCustomer]="selectedCustomer$"
+    [issuePendingFoc]="issuePendingFoc"
+    [enableCustomerDelete]="
+      !(paymentFacade.getHasCustomerSpecificPayments() | async)
+    "
+    [result]="customerResult$"
+    [oneTimeCustomer]="oneTimeCustomer$"
+    [enableClear]="enableClear"
+    [enableEdit]="enableEdit"
+    [enableCreate]="enableCreate"
+    [allowedCustomerTypes]="allowedCustomerTypes"
+    [viewCashMemoDetails]="viewCashMemoDetails"
+    [partailUpdateCashMemoDetails]="partailUpdateCashMemoDetails"
+    [ghsPaymentsAdded]="ghsPaymentsAdded"
+    [isBillLevelDiscountSelected]="
+      (discountFacade.getAppliedBillLevelTransactionLevelDiscounts() | async)
+        .length > 0
+    "
+    [numberOfProductsInGrid]="numberOfProductsInGrid"
+    [tcsToBeCollectedAtCM]="tcsToBeCollectedAtCM"
+    [paymentDetails]="paymentDetails"
+    [transactionType]="transactionType"
+    [mobileNumberStartSeries]="
+      customerDetailsInBrand?.data?.regularMobileNoStartsWith
+    "
+    [hideCustomerSearch]="hideCustomerSearch"
+    (search)="search($event)"
+    (clear)="clear()"
+    (selected)="selectCustomer($event)"
+    (selectedInternationalCustomer)="selectInternationalCustomer($event)"
+    (selectedOneTimeCustomer)="selectedOneTimeCustomer($event)"
+    (create)="createCustomer($event)"
+    (view)="viewCustomer($event)"
+    (edit)="editCustomer($event)"
+    (deleteError)="showDeleteError()"
+    (resetTcsAmount)="resetTcsAmount()"
+  >
+  </poss-web-customer-search>
+
+  <div
+    *ngIf="
+      enableCreate &&
+      !isCustomerSelected &&
+      !issuePendingFoc &&
+      (checkOneTimeCustomer() ||
+        checkInternationalCustomer() ||
+        checkInstituationalCustomer()) &&
+      !hideCustomerSearch
+    "
+    class="col-auto"
+  >
+    <button
+      class="pw-btn pw-primary-btn d-flex align-items-center pw-create-btn"
+      [matMenuTriggerFor]="createMenu"
+      #matMenuTriggerRef="matMenuTrigger"
+    >
+      <span class="pw-i-24 pw-customer-icon-24"></span>
+      <span class="flex-fill"
+        >{{ 'pw.customerSearch.createButtonText' | translate }}
+      </span>
+      <mat-icon>
+        <span
+          [class.pw-gold-up-arrow-icon-14]="matMenuTriggerRef.menuOpen"
+          class="pw-i-14 pw-gold-down-arrow-icon-14"
+        ></span>
+      </mat-icon>
+    </button>
+  </div>
+
+  <mat-menu #createMenu="matMenu" xPosition="before">
+    <ng-container *ngFor="let option of createCustomerOptions">
+      <button
+        *ngIf="checkCustomerType(option.value)"
+        mat-menu-item
+        (click)="createCustomerFromOption(option.value)"
+      >
+        {{ option.translateKey | translate }}
+      </button>
+    </ng-container>
+  </mat-menu>
+</div>

@@ -1,0 +1,59 @@
+<div class="pw-menu-bar">
+  <div class="pw-menu-bar__list">
+    <poss-web-toolbar *ngIf="!isCorpUser"></poss-web-toolbar>
+  </div>
+</div>
+<div class="pw-body-bg-img">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-lg-10 m-auto">
+        <div *ngIf="isCorpUser" class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <div class="col-auto pr-0">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+            </div>
+            <div class="col-auto pl-0">
+              <div class="pw-top-heading-container__main-head">
+                <span class="pw-i-36 pw-location-icon-36"></span>
+                <div>
+                  <h2>
+                    {{
+                      'pw.cmRequestApproval.customerTransactionHeadingTxt'
+                        | translate
+                    }}
+                  </h2>
+                  <h5 class="pw-top-heading-container__sub-heading">
+                    {{
+                      'pw.cmRequestApproval.approvalSubHeadingTxt' | translate
+                    }}
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4 *ngIf="isCorpUser">
+          {{ 'pw.cmRequestApproval.cashMemoManualBillHeader' | translate }}
+        </h4>
+        <div *ngIf="!isCorpUser" class="pw-top-heading-container">
+          <div class="row pw-top-heading-container__item">
+            <poss-web-customer-search-container
+              class="col-auto ml-auto"
+            ></poss-web-customer-search-container>
+          </div>
+        </div>
+
+        <poss-web-cm-request-details>
+          <poss-web-other-charges
+            [viewMode]="true"
+            [showPanelNumber]="false"
+          ></poss-web-other-charges>
+          <poss-web-payment [showPanelNumber]="false"></poss-web-payment>
+        </poss-web-cm-request-details>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mg-t-100"></div>

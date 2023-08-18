@@ -1,0 +1,16 @@
+<div class="row mt-4 pw-min-height">
+  <div class="col-lg-6">
+    <div class="pw-form-card">
+      <poss-web-dynamic-form
+        *ngIf="formFields"
+        [style]="currentStyle"
+        [formFields]="formFields"
+        [disabled]="false"
+        [enableSubmitOnInvalid]="true"
+        [buttonNames]="['Cancel', 'Save']"
+        (onFormSubmit)="addButton($event)"
+      >
+      </poss-web-dynamic-form>
+    </div>
+  </div>
+</div>

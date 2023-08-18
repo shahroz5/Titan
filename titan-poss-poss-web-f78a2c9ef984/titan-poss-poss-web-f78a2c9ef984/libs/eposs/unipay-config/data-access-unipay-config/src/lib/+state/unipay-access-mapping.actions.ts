@@ -1,0 +1,93 @@
+import { Action } from '@ngrx/store';
+import {
+  CustomErrors,
+  UploadResponse,
+ 
+  UnipayConfigurationList,
+  ConfigListingPayload,
+  SortItem
+} from '@poss-web/shared/models';
+
+/**
+ * The interface for Action payload
+ */
+export enum UnipayConfigurationActionTypes {
+  FILE_UPLOAD = '[unipay-access-mapping] File Upload',
+  FILE_UPLOAD_SUCCESS = '[unipay-access-mapping] File Upload Success',
+  FILE_UPLOAD_FAILURE = '[unipay-access-mapping] File Upload Failure',
+
+  GET_ACCESS_LIST = '[unipay-access-mapping] Get Access List',
+  GET_ACCESS_LIST_SUCCESS = '[unipay-access-mapping] Get Access List Success',
+  GET_ACCESS_LIST_FAILURE = '[unipay-access-mapping] Get Access List Failure',
+
+  ERROR_LOG_DOWNLOAD = '[unipay-access-mapping] Download Error Log',
+  ERROR_LOG_DOWNLOAD_SUCCESS = '[unipay-access-mapping] Download Error Log Success',
+  ERROR_LOG_DOWNLOAD_FAILURE = '[unipay-access-mapping] Download Error Log Failure',
+
+  RESET_RESPONSE = '[unipay-access-mapping] Reset Response'
+}
+
+/**
+ * Data upload Actions
+ */
+export class FileUpload implements Action {
+  readonly type = UnipayConfigurationActionTypes.FILE_UPLOAD;
+  constructor(public payload: FormData) {}
+}
+export class FileUploadSuccess implements Action {
+  readonly type = UnipayConfigurationActionTypes.FILE_UPLOAD_SUCCESS;
+  constructor(public payload: UploadResponse) {}
+}
+export class FileUploadFailure implements Action {
+  readonly type = UnipayConfigurationActionTypes.FILE_UPLOAD_FAILURE;
+  constructor(public payload: CustomErrors) {}
+}
+
+export class ErrorLogDownload implements Action {
+  readonly type = UnipayConfigurationActionTypes.ERROR_LOG_DOWNLOAD;
+  constructor(public payload: string) {}
+}
+export class ErrorLogDownloadSuccess implements Action {
+  readonly type = UnipayConfigurationActionTypes.ERROR_LOG_DOWNLOAD_SUCCESS;
+  constructor(public payload: any) {}
+}
+export class ErrorLogDownloadFailure implements Action {
+  readonly type = UnipayConfigurationActionTypes.ERROR_LOG_DOWNLOAD_FAILURE;
+  constructor(public payload: CustomErrors) {}
+}
+
+export class GetAccessList implements Action {
+  readonly type = UnipayConfigurationActionTypes.GET_ACCESS_LIST;
+  constructor(
+    public payload: ConfigListingPayload,
+    public sortField?: SortItem,
+    public locationCode?: string
+  ) {}
+}
+export class GetAccessListSuccess implements Action {
+  readonly type = UnipayConfigurationActionTypes.GET_ACCESS_LIST_SUCCESS;
+  constructor(public payload: UnipayConfigurationList) {}
+}
+export class GetAccessListFailure implements Action {
+  readonly type = UnipayConfigurationActionTypes.GET_ACCESS_LIST_FAILURE;
+  constructor(public payload: CustomErrors) {}
+}
+
+export class ResetResponse implements Action {
+  readonly type = UnipayConfigurationActionTypes.RESET_RESPONSE;
+}
+
+/**
+ *  Data Upload Action types
+ */
+export type UnipayConfigurationActions =
+  | FileUpload
+  | FileUploadSuccess
+  | FileUploadFailure
+  | ResetResponse
+  | GetAccessList
+  | GetAccessListFailure
+  | GetAccessListSuccess
+  | ErrorLogDownload
+  | ErrorLogDownloadSuccess
+  | ErrorLogDownloadFailure;

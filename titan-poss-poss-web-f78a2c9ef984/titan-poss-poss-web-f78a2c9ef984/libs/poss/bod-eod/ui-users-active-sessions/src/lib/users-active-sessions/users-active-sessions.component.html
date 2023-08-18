@@ -1,0 +1,107 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab align-items-center"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="pw-fourth-color col-auto">
+      {{ 'pw.bodEod.usersActiveSessions' | translate }}
+    </div>
+
+    <div class="col pw-text-right">
+      <button
+        class="pw-btn pw-primary-btn"
+        (click)="refreshActiveSessionData()"
+      >
+        {{ 'pw.bodEod.refresh' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body pw-confirmation-box__height-480">
+    <mat-tree
+      [dataSource]="dataSource"
+      [treeControl]="treeControl"
+      class="example-tree"
+    >
+      <!-- This is the tree node template for leaf nodes -->
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+        <button mat-icon-button disabled></button>
+        <table
+          class="pw-grid-table"
+          description="Table"
+          aria-describedby="table"
+        >
+          <thead>
+            <tr class="pw-grid-table__background-header">
+              <th class="pw-grid-table__header-item" scope="col">
+                {{ 'pw.bodEod.sessionId' | translate }}
+              </th>
+
+              <th class="pw-grid-table__header-item" scope="col">
+                {{ 'pw.bodEod.hostName' | translate }}
+              </th>
+            </tr>
+          </thead>
+          <tbody class="pw-grid-table__body">
+            <tr class="pw-grid-table__row">
+              <td class="pw-grid-table__item">{{ node.id }}</td>
+              <td class="pw-grid-table__item">{{ node.hostName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-tree-node>
+
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+        <div class="mat-tree-node row pw-margin-0">
+          <button
+            class="col-auto"
+            mat-icon-button
+            matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.userName"
+          >
+            <span
+              class="pw-i-14"
+              [ngClass]="
+                treeControl.isExpanded(node)
+                  ? 'pw-down-arrow-icon-14'
+                  : 'pw-right-arrow-icon-14'
+              "
+            ></span>
+          </button>
+          <span class="col-lg-4 col-5"
+            ><span class="pw-fourth-color">
+              {{ 'pw.bodEod.userName' | translate }} </span
+            >: {{ node.userName }}</span
+          >
+          <span class="col-lg-4 col-5"
+            ><span class="pw-fourth-color">
+              {{ 'pw.bodEod.mobileNo' | translate }} </span
+            >: {{ node.mobileNo }}</span
+          >
+        </div>
+        <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+      </mat-nested-tree-node>
+    </mat-tree>
+  </div>
+
+  <div class="row pw-confirmation-box__footer-border align-items-center">
+    <div class="col-auto">
+      {{ 'pw.bodEod.doYouWantTOContinueWithEOD' | translate }}
+    </div>
+    <div class="col-auto ml-auto">
+      <button class="pw-btn pw-primary-btn" (click)="closeDialog()">
+        {{ 'pw.bodEod.cancelEOD' | translate }}
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="pw-btn pw-accent-btn" (click)="proceedWithEodProcess()">
+        {{ 'pw.bodEod.proceed' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

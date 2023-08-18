@@ -1,0 +1,163 @@
+<div class="pw-dialog-popup">
+  <div
+    class="row pw-dialog-popup__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto pw-message">
+      {{ 'pw.stockIssue.advanceFilterLabel' | translate }}
+    </div>
+    <div class="col pw-text-right">
+      <button
+        mat-icon-button
+        (click)="close()"
+        class="pw-dialog-popup__icon-button"
+      >
+        <mat-icon>
+          <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+        </mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="pw-dialog-popup__body" [formGroup]="historyFilter">
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <mat-label>{{
+          'pw.stockIssue.invoiceDateRange' | translate
+        }}</mat-label>
+        <mat-date-range-input
+          formGroupName="rangeFormGroup"
+          [rangePicker]="picker"
+          [max]="data?.bussinessDay"
+        >
+          <input
+            matStartDate
+            formControlName="docFromDate"
+            placeholder="{{ 'pw.stockIssue.invoiceFromDate' | translate }}"
+            required
+          />
+          <input
+            matEndDate
+            formControlName="docToDate"
+            placeholder="{{ 'pw.stockIssue.invoiceToDate' | translate }}"
+            required
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>
+            <span class="pw-i-12 pw-calender-icon-12"></span>
+          </mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error
+          *ngIf="
+            historyFilter.get('rangeFormGroup').get('docFromDate').errors &&
+            historyFilter.get('rangeFormGroup').get('docFromDate').errors
+              .errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              historyFilter.get('rangeFormGroup').get('docFromDate').errors
+                .errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            historyFilter.get('rangeFormGroup').get('docToDate').errors &&
+            historyFilter.get('rangeFormGroup').get('docToDate').errors
+              .errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              historyFilter.get('rangeFormGroup').get('docToDate').errors
+                .errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="pw-dialog-popup__item">
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="{{ 'pw.stockIssue.invoiceNumber' | translate }}"
+          class="pw-single-bordered-input"
+          formControlName="invoiceNumber"
+        />
+        <mat-error
+          *ngIf="
+            historyFilter.get('invoiceNumber').errors &&
+            historyFilter.get('invoiceNumber').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="
+              historyFilter.get('invoiceNumber').errors.errorArray
+            "
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="pw-dialog-popup__item">
+      <!-- <poss-web-fiscal-year
+        class="pw-single-bordered-input"
+        [control]="historyFilter.get('fiscalYear')"
+        [required]="
+          historyFilter.get('invoiceNumber').value !== '' ? true : false
+        "
+        [currentFiscalYear]="data.currentFiscalYear"
+        [data]="data?.advanceFilter?.fiscalYear"
+        [placeHolder]="'pw.GHRedemption.fiscalYear' | translate"
+        [disabled]="false"
+      ></poss-web-fiscal-year> -->
+      <mat-form-field class="pw-single-bordered-input">
+        <input
+          matInput
+          placeholder="{{ 'pw.stockIssue.fiscalYearLabel' | translate }}"
+          class="pw-single-bordered-input"
+          formControlName="fiscalYear"
+          [required]="historyFilter.get('fiscalYear').hasError('required')"
+        />
+        <mat-error
+          class="pw-error-color"
+          *ngIf="historyFilter.get('fiscalYear').hasError('required')"
+        >
+          {{ 'pw.stockIssue.mandatoryField' | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            historyFilter.get('fiscalYear').errors &&
+            historyFilter.get('fiscalYear').errors.errorArray
+          "
+        >
+          <poss-web-error-info-tooltip
+            [errorMessage]="historyFilter.get('fiscalYear').errors.errorArray"
+          ></poss-web-error-info-tooltip>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="pw-text-right pw-dialog-popup__footer">
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <button class="pw-btn pw-primary-btn" (click)="clear()">CLEAR</button>
+        </div>
+        <div class="col-auto">
+          <button
+            class="pw-btn pw-accent-btn"
+            (click)="apply()"
+            [disabled]="historyFilter.invalid"
+          >
+            {{ 'pw.stockIssue.apply' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

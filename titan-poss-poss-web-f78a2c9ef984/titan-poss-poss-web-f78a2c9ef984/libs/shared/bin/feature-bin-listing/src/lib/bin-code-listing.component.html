@@ -1,0 +1,258 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item">
+          <div class="col-auto pr-0">
+            <a (click)="backArrow()">
+              <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+            </a>
+          </div>
+          <div class="col-auto pl-0">
+            <div class="pw-top-heading-container__main-head">
+              <span class="pw-i-36 pw-location-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.inventoryMasters.inventory' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.inventoryMasters.configuration' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-auto pw-top-heading-container__right-content"
+            *ngIf="!editClicked"
+          >
+            <div class="row">
+              <div class="col-auto pw-cursor" (click)="addNew()">
+                <button class="pw-btn pw-accent-btn">
+                  {{ 'pw.inventoryConfiguration.addNewBin' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pw-sub-header">
+        <div class="col-auto">
+          <div class="pw-sub-header__heading">
+            {{ 'pw.inventoryConfiguration.binCodeHeading' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="pw-detail-card">
+            <div class="row align-items-center">
+              <poss-web-select-dropdown
+                class="col-lg-3 col-4 pw-selectable-dropdown"
+                disableOptionCentering
+                [placeholder]="
+                  'pw.inventoryConfiguration.binGroupDropdown' | translate
+                "
+                [required]="false"
+                [options]="binGroupSelect"
+                (selectionChange)="selectedDropdown($event)"
+              >
+              </poss-web-select-dropdown>
+              <!-- <mat-form-field class="col-lg-3 col-4 pw-selectable-dropdown">
+                <mat-select
+                  class="pw-single-bordered-input"
+                  disableOptionCentering
+                  (selectionChange)="selectedDropdown($event)"
+                  placeholder="  {{
+                    'pw.inventoryConfiguration.binGroupDropdown' | translate
+                  }}"
+                >
+                  <mat-option
+                    *ngFor="let option of binGroupDropdownPopUp"
+                    [value]="option.binGroupCode"
+                  >
+                    {{ option.binGroupCode }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> -->
+              <mat-form-field
+                class="col-lg-3 col-4 ml-auto pw-search-bar pw-form-field-padding-bottom-0"
+                [formGroup]="searchForm"
+              >
+                <input
+                  #searchBox
+                  matInput
+                  type="text"
+                  placeholder="{{
+                    'pw.inventoryConfiguration.seachBinCode' | translate
+                  }}"
+                  class="single-bordered-input"
+                  formControlName="searchValue"
+                />
+                <mat-icon matSuffix>
+                  <span
+                    class="pw-i-16 pw-search-icon-16"
+                    *ngIf="!searchForm.value.searchValue"
+                  ></span>
+                </mat-icon>
+                <mat-icon matSuffix (click)="clearSearch()">
+                  <span
+                    *ngIf="searchForm.value.searchValue"
+                    class="pw-i-10 pw-close-icon-16"
+                  ></span
+                ></mat-icon>
+              </mat-form-field>
+            </div>
+            <div
+              class="pw-detail-card__list"
+              *ngIf="binCodes !== null && !invalidSearch"
+            >
+              <div
+                class="row pw-detail-card__list__header"
+                *ngIf="binCodes.length > 0"
+              >
+                <div class="col-auto"></div>
+                <div class="col-2">
+                  <p>
+                    {{ 'pw.inventoryConfiguration.binCodeLabel1' | translate }}
+                  </p>
+                </div>
+                <div class="col-8">
+                  <p>
+                    {{ 'pw.inventoryConfiguration.binCodeLabel2' | translate }}
+                  </p>
+                </div>
+              </div>
+              <div class="pw-detail-card__fixed-hight">
+                <div
+                  class="row pw-detail-card__list__body"
+                  *ngFor="let binCode of binCodes"
+                >
+                  <div class="col-auto align-self-end">
+                    <mat-checkbox
+                      (change)="onCheckbox($event.checked, binCode)"
+                      [disabled]="binCode.isActive === false"
+                    ></mat-checkbox>
+                  </div>
+                  <div class="col-2">
+                    <span class="pw-font-weight-bold">{{
+                      binCode.binCode
+                    }}</span>
+                  </div>
+                  <div class="col-lg-5 col-md-5 col-4">
+                    <p>
+                      <span class="pw-font-weight-bold">
+                        {{ binCode.description }}
+                      </span>
+                    </p>
+                  </div>
+                  <div class="col-auto ml-auto align-self-center pw-cursor">
+                    <a (click)="onView(binCode)" class="mr-2">
+                      <span
+                        class="pw-mont-semibold-14 pw-fourth-color pw-position-text"
+                        >{{
+                          'pw.inventoryConfiguration.view' | translate
+                        }}
+                        &nbsp;</span
+                      >
+                    </a>
+                    <a
+                      *ngIf="binCode?.isActive"
+                      (click)="binCode.isActive ? onEdit(binCode) : ''"
+                      class="mr-2"
+                    >
+                      <span
+                        class="pw-mont-semibold-14 pw-fourth-color pw-position-text"
+                        >{{
+                          'pw.inventoryConfiguration.editLabel' | translate
+                        }}
+                        &nbsp;</span
+                      >
+                      <span class="pw-i-24 pw-edit-icon-24"></span>
+                    </a>
+                  </div>
+                  <div class="col-auto align-self-center">
+                    <poss-web-toggle-button
+                      [isActive]="binCode.isActive"
+                      (changeEvent)="onToggleChange($event, binCode)"
+                    >
+                    </poss-web-toggle-button>
+                  </div>
+                </div>
+              </div>
+
+              <mat-paginator
+                class="pw-paginator"
+                *ngIf="
+                  (binCodeCount$ | async) > minPageSize && binCodes.length > 0
+                "
+                [length]="binCodeCount$ | async"
+                [pageSize]="binCodePageEvent.pageSize"
+                [pageIndex]="binCodePageEvent.pageIndex"
+                showFirstLastButtons
+                [pageSizeOptions]="pageSizeOptions"
+                (page)="paginate($event)"
+              >
+              </mat-paginator>
+            </div>
+
+            <div
+              *ngIf="(isSearching$ | async) === false || invalidSearch"
+              class="row"
+            >
+              <h3 class="m-auto">
+                {{ noDataFoundMessage }}
+              </h3>
+            </div>
+            <div
+              *ngIf="
+                (isSearching$ | async) === true &&
+                dropdownSelection !== undefined
+              "
+              class="row"
+            >
+              <h3
+                class="m-auto"
+                *ngIf="binCodes.length === 0 && isToggleChanged === false"
+              >
+                {{ noDataFoundMessage }}
+              </h3>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="binCodes.length !== 0">
+            <div
+              class="col-auto ml-auto"
+              *ngIf="binCodes.length !== 0"
+              (click)="onLocationMapping()"
+            >
+              <button class="pw-btn pw-accent-btn" *ngIf="binCodes.length > 0">
+                {{ 'pw.inventoryConfiguration.locationMapping' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #locationMappingContentTemplate>
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <h6>
+            {{ 'pw.inventoryConfiguration.selectedBinCodesLabel' | translate }}
+          </h6>
+        </div>
+        <mat-chip-list class="col-auto pw-chip-box" selectable="false">
+          <mat-chip
+            *ngFor="let bincode of binCodesForLocationMapping"
+            disableRipple
+            >{{ bincode }}</mat-chip
+          >
+        </mat-chip-list>
+      </div>
+    </ng-template>
+
+    <poss-web-loader
+      *ngIf="(isBinCodeLoading$ | async) || (isLoading$ | async)"
+    >
+    </poss-web-loader>
+  </div>
+</div>

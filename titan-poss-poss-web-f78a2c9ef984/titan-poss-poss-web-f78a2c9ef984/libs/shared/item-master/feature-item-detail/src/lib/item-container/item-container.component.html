@@ -1,0 +1,18 @@
+<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="row pw-slider"></div>
+      <div class="row">
+        <div class="col-12">
+          <poss-web-item-stepone
+            *ngIf="itemByItemCode$ | async"
+            [itemByItemCode$]="itemByItemCode$"
+            [stoneData]="stoneData$ | async"
+          >
+          </poss-web-item-stepone>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

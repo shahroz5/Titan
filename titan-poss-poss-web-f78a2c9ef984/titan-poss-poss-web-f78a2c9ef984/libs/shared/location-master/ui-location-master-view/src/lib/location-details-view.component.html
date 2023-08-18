@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="ml-auto mr-3 mb-3">
+    <button
+      mat-button
+      class="pw-btn pw-primary-btn"
+      type="button"
+      (click)="toggleAccordion()"
+    >
+      {{ expanded ? ('Collapse All' | translate) : ('Expand All' | translate) }}
+    </button>
+  </div>
+</div>
+<mat-accordion multi>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >LOCATION</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-location-view
+      [locationDetails]="locationDetails"
+      [locationStates]="locationStates"
+      [locationTowns]="locationTowns"
+    ></poss-web-location-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >PRINT</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-print-view
+      [locationDetails]="locationDetails"
+    ></poss-web-print-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >TRANSACTION TYPE</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-transaction-type-view
+      [locationDetails]="locationDetails"
+    ></poss-web-transaction-type-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading">GHS</mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-ghs-view [locationDetails]="locationDetails"></poss-web-ghs-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >INVENTORY</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-inventory-view
+      [locationDetails]="locationDetails"
+    ></poss-web-inventory-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >BANKING</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-banking-view
+      [locationDetails]="locationDetails"
+    ></poss-web-banking-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading">OTP</mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-otp-view [locationDetails]="locationDetails"></poss-web-otp-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >CUSTOMER</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-customer-view
+      [locationDetails]="locationDetails"
+    ></poss-web-customer-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >PAYMENTS</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-payments-view
+      [locationDetails]="locationDetails"
+    ></poss-web-payments-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading">FOC</mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-foc-view [locationDetails]="locationDetails"></poss-web-foc-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading"
+        >Digi Gold</mat-panel-title
+      >
+    </mat-expansion-panel-header>
+    <poss-web-digigold-view
+      [locationDetails]="locationDetails"
+    ></poss-web-digigold-view>
+  </mat-expansion-panel>
+  <mat-expansion-panel class="pw-expansion-panel" [expanded]="expanded">
+    <mat-expansion-panel-header class="pw-expansion-panel__header">
+      <mat-panel-title class="pw-expansion-panel__heading">
+        {{ 'pw.locationMaster.ServicePoss' | translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <poss-web-service-poss-view [locationDetails]="locationDetails"></poss-web-service-poss-view>
+  </mat-expansion-panel>
+</mat-accordion>

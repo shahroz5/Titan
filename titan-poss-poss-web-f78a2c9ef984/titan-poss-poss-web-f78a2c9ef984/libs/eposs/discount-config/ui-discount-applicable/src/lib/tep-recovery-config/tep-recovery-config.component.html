@@ -1,0 +1,33 @@
+<div class="row" *ngIf="tepConfig">
+  <div class="col-lg-6 col-8 pw-text-right mb-2">
+
+    <div class="pw-text-right pw-display-float">
+      <button
+        class="pw-btn pw-primary-btn pw-add-button"
+        (click)="addAnother()"
+      >
+        <span class="pw-i-24 pw-add-icon-24"></span>
+        {{ 'pw.discountApplicable.addAnotherLabel' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row ml-1">
+  <div class="col-lg-6 col-8">
+    <ag-grid-angular
+      class="ag-theme-alpine pw-titan-poss-theme pw-ag-grid-table"
+      editType="fullRow"
+      domLayout="autoHeight"
+      animateRows="true"
+      rowSelection="single"
+      [columnDefs]="colDef"
+      [singleClickEdit]="true"
+      [rowData]="rowData"
+      [context]="getContext()"
+      (gridReady)="gridReady($event)"
+      (rowValueChanged)="rowValueChanged()"
+      [frameworkComponents]="getComponents()"
+      (rowEditingStarted)="rowEditingStarted()"
+    ></ag-grid-angular>
+  </div>
+</div>

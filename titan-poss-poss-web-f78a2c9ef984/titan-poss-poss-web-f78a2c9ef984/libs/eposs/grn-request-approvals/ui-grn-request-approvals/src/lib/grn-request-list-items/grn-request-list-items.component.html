@@ -1,0 +1,77 @@
+<poss-web-top-info-panel
+  *ngIf="isFocusing && focusedHeaderName"
+  [isFocusing]="isFocusing"
+  [focusedHeaderName]="focusedHeaderName"
+  [currentRowData]="
+	currentRowInfo
+  "
+>
+</poss-web-top-info-panel>
+<div class="pw-fixed-container">
+  <ag-grid-angular
+    class="pw-titan-poss-theme pw-ag-grid-table pw-revenue-table"
+    [rowHeight]="rowHeight"
+    [rowData]="rowData"
+    [animateRows]="animateRows"
+    [suppressRowClickSelection]="true"
+    [context]="
+      type === grnRequestEnum.HISTORY ? getHistoryContext() : getContext()
+    "
+    [domLayout]="domLayout"
+    [rowSelection]="rowSelection"
+    (gridReady)="gridReady($event)"
+    (selectionChanged)="onSelectionChanged($event)"
+    (cellClicked)="onCellClicked($event)"
+    (cellFocused)="onCellFocused($event)"
+	  (focusout)="focusOut($event)"
+  ></ag-grid-angular>
+</div>
+
+<div class="row mt-3">
+  <div class="col-auto pr-0">
+    <span class="pw-grid-table-col-scroll__defect-square"></span>
+  </div>
+  <div class="col-auto pl-0">
+    <p>{{ 'pw.roRequestApproval.manufacturingDefect' | translate }}</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-auto ml-auto">
+    <div class="pw-menu-list__icon-container">
+      <span
+        class="pw-i-24 pw-left-arrow-icon-24"
+        (click)="decreasePageIndex()"
+      ></span>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="pw-menu-list__icon-container">
+      <span
+        class="pw-i-24 pw-right-arrow-icon-24"
+        (click)="increasePageIndex()"
+      ></span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="type === 'list'" class="row mb-3">
+  <div class="col-auto ml-auto">
+    <button
+      [disabled]="disable"
+      (click)="reject()"
+      class="pw-btn pw-primary-btn"
+    >
+      {{ 'pw.roRequestApproval.rejectButtonLabel' | translate }}
+    </button>
+  </div>
+  <div class="col-auto">
+    <button
+      [disabled]="disable"
+      (click)="accept()"
+      class="pw-btn pw-accent-btn"
+    >
+      {{ 'pw.grnRequestApproval.accecptButtonLabel' | translate }}
+    </button>
+  </div>
+</div>

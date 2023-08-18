@@ -1,0 +1,42 @@
+<form>
+  <div class="pw-grid-table">
+    <ag-grid-angular
+      class="pw-titan-poss-theme pw-ag-grid-table"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowSelection]="rowSelection"
+      [animateRows]="animateRows"
+      [domLayout]="domLayout"
+      [context]="getContext()"
+      [rowHeight]="rowHeight"
+      [pagination]="true"
+      [paginationPageSize]="pageSize"
+      [suppressPaginationPanel]="true"
+      (gridReady)="gridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged()"
+    ></ag-grid-angular>
+  </div>
+</form>
+<mat-paginator
+  class="pw-paginator"
+  *ngIf="count > minPageSize && glCodeData.length > 0"
+  [length]="count"
+  [pageSize]="pageEvent.pageSize"
+  [pageIndex]="pageEvent.pageIndex"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="paginator.emit($event)"
+  showFirstLastButtons
+>
+</mat-paginator>
+<!-- <div class="row mb-3">
+  <div class="col-auto">
+    <button
+      class="pw-btn pw-accent-btn"
+      [disabled]="disableEdit"
+      (click)="applyGlCode()"
+    >
+      Apply GL Code
+    </button>
+  </div>
+</div> -->

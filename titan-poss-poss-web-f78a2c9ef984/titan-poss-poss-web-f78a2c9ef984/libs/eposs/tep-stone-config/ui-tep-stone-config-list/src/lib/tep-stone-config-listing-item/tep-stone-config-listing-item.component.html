@@ -1,0 +1,45 @@
+<div class="pw-detail-card">
+  <div class="row pw-detail-card__content">
+    <div class="col-xl-4 col-lg-4 col-12">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-lg-4 col-2">
+          <p class="pw-fourth-color">
+            {{ 'pw.tepStoneConfig.configName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <span class="pw-font-weight-bold"> {{ listItem.description }}</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-auto pw-detail-card__right-container">
+      <a class="mr-3" (click)="openViewPage()">
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.tepStoneConfig.viewLabel' | translate }}</span
+        >&nbsp;
+      </a>
+
+      <a *ngIf="listItem?.isActive" (click)="emitcode()">
+        <span class="pw-detail-card__icon-text">
+          {{ 'pw.tepStoneConfig.viewEdit' | translate }}</span
+        >
+
+        <span class="pw-i-24 pw-edit-icon-24"></span>
+      </a>
+    </div>
+    <div class="col-auto pw-detail-card__item">
+      <poss-web-toggle-button
+        [isActive]="checked"
+        (changeEvent)="changeEvent($event)"
+      ></poss-web-toggle-button>
+    </div>
+  </div>
+</div>

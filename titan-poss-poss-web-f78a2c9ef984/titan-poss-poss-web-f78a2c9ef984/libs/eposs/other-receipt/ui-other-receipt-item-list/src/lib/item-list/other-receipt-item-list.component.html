@@ -1,0 +1,32 @@
+<ng-container *ngIf="count != 0">
+  <div possWebFocusableList>
+    <poss-web-other-receipt-item
+      *ngFor="let item of itemList; trackBy: trackBy"
+      possWebFocusableListItem
+      class="pw-list-card d-block"
+      [item]="item"
+      [isVerified]="isVerified"
+      [binGroupCode]="binGroupCode"
+      [binCodes]="binCodes"
+      [remarks]="remarks"
+      [parentForm]="parentForm"
+      (verify)="verifyItem($event)"
+      (update)="updateItem($event)"
+      (validate)="validateItem($event)"
+      (loadImageEvent)="loadImageUrl($event)"
+    >
+    </poss-web-other-receipt-item>
+  </div>
+
+  <mat-paginator
+    class="pw-paginator"
+    *ngIf="count > getMinPageSize() && itemList.length > 0"
+    [length]="count"
+    [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="paginate($event)"
+  >
+  </mat-paginator>
+</ng-container>

@@ -1,0 +1,181 @@
+<form>
+  <div class="pw-min-height">
+    <div class="pw-form-card">
+      <div class="row">
+        <div class="col-xl-5 col-lg-6 col-8">
+          <button
+            *ngIf="!locationCode"
+            mat-flat-button
+            class="col-6 pw-btn pw-cta-btn"
+            (click)="emitClickEvent()"
+          >
+            <div class="row">
+              <div class="col-auto">
+                <p>
+                  {{ 'pw.instock.locationBtn' | translate }}
+                </p>
+              </div>
+              <div class="col-auto ml-auto">
+                <span class="pw-i-16 pw-location-icon-16"></span>
+              </div>
+            </div>
+          </button>
+          <button
+            *ngIf="locationCode && isNew"
+            mat-flat-button
+            class="col-6 pw-btn pw-cta-btn"
+          >
+            <div class="row">
+              <div *ngIf="isNew" class="col-auto">
+                <p>
+                  {{ selectedLocation.description }}
+                </p>
+              </div>
+
+              <div *ngIf="isNew" class="col-auto ml-auto">
+                <a>
+                  <span
+                    class="pw-i-10 pw-close-icon-16"
+                    (click)="clear()"
+                  ></span>
+                </a>
+              </div>
+            </div>
+          </button>
+
+          <div class="row pt-2"></div>
+
+          <div [formGroup]="glBoutiqueDetailsForm">
+            <div class="row">
+              <mat-form-field class="col-8" *ngIf="!isNew">
+                <input
+                  type="text"
+                  required
+                  matInput
+                  placeholder="Location Code"
+                  formControlName="locationCode"
+                  class="pw-single-bordered-input"
+                />
+              </mat-form-field>
+              <poss-web-toggle-button
+                [isActive]="glBoutiqueLocations.isActive"
+                (changeEvent)="getActiveStatus($event.checked)"
+                class="col-auto ml-auto align-self-center pw-form-card__right-container"
+              >
+              </poss-web-toggle-button>
+              <mat-form-field class="col-12">
+                <input
+                  type="text"
+                  required
+                  matInput
+                  placeholder="Enter GL Code"
+                  formControlName="glCode"
+                  class="pw-single-bordered-input"
+                />
+                <mat-error
+                  *ngIf="
+                    glBoutiqueDetailsForm.get('glCode').errors &&
+                    glBoutiqueDetailsForm.get('glCode').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      glBoutiqueDetailsForm.get('glCode').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col-12">
+                <input
+                  type="text"
+                  required
+                  matInput
+                  placeholder="Enter Current PIF No"
+                  formControlName="pifSeriesNo"
+                  class="pw-single-bordered-input" 
+                />
+                <mat-error
+                  *ngIf="
+                    glBoutiqueDetailsForm.get('pifSeriesNo').errors &&
+                    glBoutiqueDetailsForm.get('pifSeriesNo').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      glBoutiqueDetailsForm.get('pifSeriesNo').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col-12">
+                <input
+                  type="text"
+                  required
+                  matInput
+                  placeholder="Enter Cost Center"
+                  formControlName="costCenter"
+                  class="pw-single-bordered-input"
+                />
+                <mat-error
+                  *ngIf="
+                    glBoutiqueDetailsForm.get('costCenter').errors &&
+                    glBoutiqueDetailsForm.get('costCenter').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      glBoutiqueDetailsForm.get('costCenter').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col-12">
+                <input
+                  type="text"
+                  required
+                  matInput
+                  placeholder="Enter FIT Code"
+                  formControlName="fitCode"
+                  class="pw-single-bordered-input"
+                />
+                <mat-error
+                  *ngIf="
+                    glBoutiqueDetailsForm.get('fitCode').errors &&
+                    glBoutiqueDetailsForm.get('fitCode').errors.errorArray
+                  "
+                >
+                  <poss-web-error-info-tooltip
+                    [errorMessage]="
+                      glBoutiqueDetailsForm.get('fitCode').errors.errorArray
+                    "
+                  >
+                  </poss-web-error-info-tooltip>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-auto ml-auto">
+      <button
+        (click)="onSubmit()"
+        [disabled]="!glBoutiqueDetailsForm.valid"
+        class="pw-btn pw-accent-btn"
+      >
+        {{ 'pw.glBoutique.save' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

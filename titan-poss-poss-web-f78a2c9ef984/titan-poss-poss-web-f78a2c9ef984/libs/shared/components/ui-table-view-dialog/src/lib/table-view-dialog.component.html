@@ -1,0 +1,47 @@
+<div
+  class="row pw-selection-dialog pw-cursor-grab"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="col-auto pw-message">
+    {{ data.title }}
+  </div>
+  <button class="ml-auto" mat-icon-button (click)="close()">
+    <mat-icon>
+      <span class="pw-i-10 pw-close-icon-16"></span>
+    </mat-icon>
+  </button>
+</div>
+<div class="d-flex">
+  <ng-container *ngIf="data.tableValues.length; else elseTemplate">
+    <mat-dialog-content>
+      <table class="pw-grid-table" description="Table">
+        <thead>
+          <tr class="pw-grid-table__background-header">
+            <th
+              class="pw-grid-table__header-item"
+              scope="col"
+              *ngFor="let item of data.headerLabels"
+            >
+              {{ item }}
+            </th>
+          </tr>
+        </thead>
+        <tbody class="pw-grid-table__body">
+          <tr *ngFor="let items of data.tableValues" class="pw-grid-table__row">
+            <td *ngFor="let item of items" class="pw-grid-table__item">
+              {{ item }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-dialog-content>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <div class="pw-sub-heading pw-text-center">
+      {{ 'No Records' | translate }}
+    </div>
+  </ng-template>
+</div>

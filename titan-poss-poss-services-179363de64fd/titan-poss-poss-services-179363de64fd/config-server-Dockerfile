@@ -1,0 +1,15 @@
+FROM 172.31.48.245:8123/nap-ojdk-2019:11.0.1
+
+ARG JAR_FILE_NAME
+ARG PORT
+ARG HOSTS_FILE
+
+COPY ${JAR_FILE_NAME} app.jar
+
+# The hosts file will resolve placeholder 'config-server-dbhost' to the DB machine IP 
+# of Dev, QA and UAT
+
+COPY ${HOSTS_FILE} C:\\windows\\system32\\drivers\\etc\\hosts
+
+CMD java -jar app.jar
+EXPOSE ${PORT}

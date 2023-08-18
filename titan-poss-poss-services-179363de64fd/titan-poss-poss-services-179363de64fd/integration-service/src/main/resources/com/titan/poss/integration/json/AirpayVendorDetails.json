@@ -1,0 +1,7 @@
+{
+	"type": "AIRPAY",
+	"data": {
+		"CreatePaymentUrl": "https://payments.invoicepay.co.in/api/invoice/create",
+		"VerifyPaymentUrl": "https://payments.airpay.co.in/order/verify.php"
+	}
+}

@@ -1,0 +1,29 @@
+.pw-input-select-group {
+  position: relative;
+
+  &__select {
+    position: absolute;
+    width: 100px;
+    top: -1px;
+    z-index: 9;
+    background: $primary-color;
+  }
+
+  &__input {
+    position: relative;
+    z-index: 1;
+    padding-left: 101px;
+  }
+
+  .pw-search-icon-16 {
+    right: 5px;
+  }
+}
+
+.pw-bordered-menu-button {
+  background: transparent;
+  border: 1px solid $fourth-color;
+  padding: 5px;
+  border-radius: 5px;
+  color: $fourth-color;
+}

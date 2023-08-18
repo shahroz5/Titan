@@ -1,0 +1,205 @@
+<div class="pw-detail-card">
+  <div class="row pw-detail-card__content">
+    <div class="col-lg-3 col-4">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.fileName' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong> {{ fileStatusList.fileName }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.fileGroup' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.fileGroup }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-5 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.failureCount' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.failureCount }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-4">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-6 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.startTime' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.startTime }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-6 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.endTime' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.endTime }}</strong>
+          </p>
+        </div>
+      </div>
+      <!-- <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-6 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.successCount' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.successCount }}</strong>
+          </p>
+        </div>
+      </div> -->
+    </div>
+    <div class="col-lg-3 col-4">
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-7 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.processedDate' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.processedDate | dateFormatter }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-7 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.status' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.status }}</strong>
+          </p>
+        </div>
+      </div>
+      <!-- <div class="row no-gutters pw-detail-card__row">
+        <div class="col-xl-7 col-lg-6 col-6">
+          <p class="pw-fourth-color">
+            {{ 'pw.fileStatus.failureCount' | translate }}
+          </p>
+        </div>
+        <div class="col-auto pw-detail-card__padding-5">
+          <span class="pw-fourth-color">:</span>
+        </div>
+        <div class="col">
+          <p>
+            <strong>{{ fileStatusList.failureCount }}</strong>
+          </p>
+        </div>
+      </div> -->
+    </div>
+    <div
+      class="col-auto pw-list-card__right-container"
+      *ngIf="fileStatusList.status === 'INPROGRESS'"
+    >
+      <p [ngClass]="getStatus(fileStatusList.status)">
+        <span
+          class="pw-i-16"
+          [ngClass]="getStatus(fileStatusList.status)"
+        ></span>
+        {{ status | titlecase }}
+      </p>
+    </div>
+    <div
+      class="col-auto pw-list-card__right-container"
+      *ngIf="
+        fileStatusList.status === 'COMPLETED' &&
+        fileStatusList.failureCount === 0
+      "
+    >
+      <span class="pw-i-16 pw-success-icon-16"></span>
+    </div>
+    <div
+      class="col-auto pw-detail-card__right-container"
+      *ngIf="
+        fileStatusList.failureCount &&
+        fileStatusList.failureCount > 0 &&
+        fileStatusList.status !== 'FAILED'
+      "
+    >
+      <u
+        (click)="getFileId(fileStatusList.fileId, fileStatusList.fileGroup)"
+        class="pw-fourth-color pw-pointer"
+      >
+        <span class="pw-mont-semibold-14 pw-fourth-color pw-position-text a">
+          {{ 'pw.fileStatus.downloadLog' | translate }}
+        </span>
+        <!-- <span class="pw-i-24 pw-edit-icon-24"></span> -->
+      </u>
+    </div>
+    <div
+      class="col-auto pw-detail-card__right-container"
+      *ngIf="fileStatusList.status === 'FAILED'"
+    >
+      <u
+        (click)="failureDetailsPopup(fileStatusList.remarks)"
+        class="pw-fourth-color pw-pointer"
+      >
+        <span class="pw-mont-semibold-14 pw-fourth-color pw-position-text a">
+          {{ 'pw.fileStatus.failureDetails' | translate }}
+        </span>
+        <!-- <span class="pw-i-24 pw-edit-icon-24"></span> -->
+      </u>
+    </div>
+    <!-- <div class="col-auto  align-self-center">
+      <poss-web-toggle-button
+        [isActive]="fileStatusList.isActive"
+        (changeEvent)="changeEvent($event)"
+      >
+      </poss-web-toggle-button>
+    </div> -->
+  </div>
+</div>

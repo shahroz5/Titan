@@ -1,0 +1,175 @@
+<mat-expansion-panel expanded class="pw-expansion-panel">
+  <mat-expansion-panel-header
+    class="pw-expansion-panel__header"
+    [collapsedHeight]="'40px'"
+    [expandedHeight]="'40px'"
+  >
+    <mat-panel-title class="pw-expansion-panel__heading">
+      {{ 'pw.grf.manualCMDetailsLabel' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="pw-card pw-panel">
+    <div class="row pw-card__header">
+      <div
+        *ngIf="(cmRequestDetails$ | async)?.locationCode"
+        class="col-xl-2 col-lg-3 col-3"
+      >
+        <div class="pw-tertiary-color">
+          {{ 'pw.cmRequestApproval.locationCodeLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ (cmRequestDetails$ | async)?.locationCode }}
+        </div>
+      </div>
+      <div *ngIf="headerDetails?.manualBillNo" class="col-xl-2 col-lg-3 col-3">
+        <div class="pw-tertiary-color">
+          {{ 'pw.cmRequestApproval.billNumberLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">{{ headerDetails?.manualBillNo }}</div>
+      </div>
+      <div
+        *ngIf="headerDetails?.manualBillDate"
+        class="col-xl-2 col-lg-3 col-3"
+      >
+        <div class="pw-tertiary-color">
+          {{ 'pw.cmRequestApproval.billDateLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ dateFormat(headerDetails?.manualBillDate) | dateFormatter }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="headerDetails?.frozenRateDate"
+        class="col-xl-2 col-lg-3 col-3"
+      >
+        <div class="pw-tertiary-color">
+          {{ 'pw.cmRequestApproval.abcoDateLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">
+          {{ dateFormat(headerDetails?.frozenRateDate) | dateFormatter }}
+        </div>
+      </div>
+      <div *ngIf="imageUrl" class="col-xl-2 col-lg-3 col-3">
+        <div class="pw-tertiary-color">
+          {{ 'pw.cmRequestApproval.billCopyLabel' | translate }}
+        </div>
+        <div class="pw-fourth-color">
+          <poss-web-file-upload
+            [imageUrl]="imageUrl"
+            [enableClose]="enableClose"
+            [previewHeader]="'pw.manualCashMemo.previewHeaderTxt' | translate"
+            [fileName]="'pw.manualCashMemo.viewBillLabel' | translate"
+          ></poss-web-file-upload>
+          <!-- {{ 'pw.cmRequestApproval.uploadedLabel' | translate }} -->
+        </div>
+      </div>
+      <div *ngIf="headerDetails?.remarks" class="col-xl-2 col-lg-5 col-5">
+        <div class="pw-tertiary-color">
+          {{ 'pw.cmRequestApproval.reasonLabel' | translate }}
+        </div>
+        <div class="pw-font-weight-bold">{{ headerDetails?.remarks }}</div>
+      </div>
+    </div>
+
+    <div class="pw-card__body">
+      <div class="row pw-card__row">
+        <div
+          *ngIf="(cmRequestDetails$ | async)?.headerData?.data?.occasion"
+          class="col-xl-2 col-lg-3 col-3"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.occasionLabel' | translate }}
+          </div>
+          <div class="pw-font-weight-bold">
+            {{ (cmRequestDetails$ | async)?.headerData?.data?.occasion }}
+          </div>
+        </div>
+        <div
+          *ngIf="headerDetails?.metalRates?.J?.totalMetalWeight"
+          class="col-xl-2 col-lg-2 col-2"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.goldWtLabel' | translate }} ({{
+              weightCodeForGms
+            }})
+          </div>
+          <div class="pw-font-weight-bold">
+            {{
+              headerDetails?.metalRates?.J?.totalMetalWeight | weightFormatter
+            }}
+          </div>
+        </div>
+        <div
+          *ngIf="headerDetails?.metalRates?.J?.ratePerUnit"
+          class="col-xl-2 col-lg-3 col-3"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.goldRateLabel' | translate }} ({{
+              defaultCurrencyCode | currencySymbol
+            }}/{{ weightCodeForGm }})
+          </div>
+          <div class="pw-font-weight-bold">
+            {{ headerDetails?.metalRates?.J?.ratePerUnit | currencyFormatter }}
+          </div>
+        </div>
+        <div
+          *ngIf="headerDetails?.metalRates?.L?.totalMetalWeight"
+          class="col-xl-2 col-lg-3 col-3"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.platinumWtLabel' | translate }} ({{
+              weightCodeForGms
+            }})
+          </div>
+          <div class="pw-font-weight-bold">
+            {{
+              headerDetails?.metalRates?.L?.totalMetalWeight | weightFormatter
+            }}
+          </div>
+        </div>
+        <div
+          *ngIf="headerDetails?.metalRates?.L?.ratePerUnit"
+          class="col-xl-4 col-lg-4 col-4"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.platinumRateLabel' | translate }}({{
+              defaultCurrencyCode | currencySymbol
+            }}/{{ weightCodeForGm }})
+          </div>
+          <div class="pw-font-weight-bold">
+            {{ headerDetails?.metalRates?.L?.ratePerUnit | currencyFormatter }}
+          </div>
+        </div>
+        <div
+          *ngIf="headerDetails?.metalRates?.P?.totalMetalWeight"
+          class="col-xl-2 col-lg-3 col-3"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.silverWtLabel' | translate }} ({{
+              weightCodeForGms
+            }})
+          </div>
+          <div class="pw-font-weight-bold">
+            {{
+              headerDetails?.metalRates?.P?.totalMetalWeight | weightFormatter
+            }}
+          </div>
+        </div>
+        <div
+          *ngIf="headerDetails?.metalRates?.P?.ratePerUnit"
+          class="col-xl-4 col-lg-4 col-4"
+        >
+          <div class="pw-tertiary-color">
+            {{ 'pw.cmRequestApproval.silverRateLabel' | translate }}
+            ({{ defaultCurrencyCode | currencySymbol }}/{{ weightCodeForGm }})
+          </div>
+          <div class="pw-font-weight-bold">
+            {{ headerDetails?.metalRates?.P?.ratePerUnit | currencyFormatter }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-expansion-panel>
+

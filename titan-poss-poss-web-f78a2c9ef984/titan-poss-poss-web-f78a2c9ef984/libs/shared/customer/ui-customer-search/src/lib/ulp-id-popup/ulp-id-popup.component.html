@@ -1,0 +1,59 @@
+<div
+  class="pw-confirmation-box pw-confirmation-box__fixed-width"
+  cdkDragBoundary=".cdk-overlay-container"
+  cdkDragRootElement=".cdk-overlay-pane"
+  cdkDrag
+  cdkDragHandle
+>
+  <div class="row pw-confirmation-box__header">
+    <div class="col-auto">ULP Membership Number</div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="onClose()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <form [formGroup]="ulpIdForm">
+    <div class="pw-confirmation-box__body">
+      <div>
+        Please send SMS ; GETULP < CustomerMobileNo > to Encircle(9243248989)
+        and enter the ULP Membership ID
+      </div>
+      <div class="row pw-detail-card__flex-end mt-2">
+        <mat-form-field class="col-12" [floatLabel]="'auto'">
+          <mat-label>ULP Id</mat-label>
+          <input
+            matInput
+            class="pw-single-bordered-input"
+            formControlName="ulpId"
+            type="text"
+            required
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="
+              ulpIdForm.get('ulpId').errors &&
+              ulpIdForm.get('ulpId').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="ulpIdForm.get('ulpId').errors.errorArray"
+            >
+            </poss-web-error-info-tooltip>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div
+      class="pw-detail-card__right-container pw-confirmation-box__footer-item pw-text-right"
+    >
+      <button
+        class="pw-btn pw-accent-btn"
+        [disabled]="!ulpIdForm.valid"
+        (click)="submit()"
+      >
+        OK
+      </button>
+    </div>
+  </form>
+</div>

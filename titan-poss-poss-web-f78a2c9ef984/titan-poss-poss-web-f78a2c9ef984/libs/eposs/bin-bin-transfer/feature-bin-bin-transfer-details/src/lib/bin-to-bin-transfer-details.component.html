@@ -1,0 +1,255 @@
+<div
+  class="container-fluid pw-main-container"
+  [formGroup]="binToBinTransferForm"
+  [class.pw-overlay-notification-gutter]="hasNotification"
+>
+  <div class="row">
+    <div class="col-12 col-lg-10 m-auto">
+      <div class="pw-top-heading-container">
+        <div class="row pw-top-heading-container__item align-items-center">
+          <div class="col-auto">
+            <div class="pw-top-heading-container__main-head">
+              <a (click)="back()">
+                <span class="pw-i-24 pw-back-arrow-icon-24"></span>
+              </a>
+              <span class="pw-i-36 pw-instock-icon-36"></span>
+              <div>
+                <h2>{{ 'pw.binToBinTransfer.title' | translate }}</h2>
+                <h5 class="pw-top-heading-container__sub-heading">
+                  {{ 'pw.binToBinTransfer.subTitle' | translate }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>
+        {{ 'pw.binToBinTransfer.heading' | translate }}
+      </h3>
+      <div class="pw-mont-semibold-14 mt-3 mb-1">
+        {{ selectByKeyMap.get(type) | translate }}
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-6 pw-grid-card">
+          <div class="pw-grid-card__item pw-is-active-bar">
+            <h4>
+              {{ itemGroup?.name }}
+              <ng-container
+                *ngIf="type != binToBinTransferTypeEnumRef.BIN_CODE"
+              >
+                - {{ itemGroup?.description }}
+              </ng-container>
+            </h4>
+            <div>
+              {{ itemGroup?.products }}
+              {{ 'pw.binToBinTransfer.quantityLableText' | translate }}
+            </div>
+            <div class="mt-2">
+              <p>
+                {{
+                  itemGroup?.totalValue
+                    | currencyFormatter: itemGroup?.currencyCode
+                }}
+              </p>
+              <p>
+                {{ itemGroup?.totalWeight | weightFormatter }}
+                {{ itemGroup?.weightUnit }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-6">
+          <div class="row">
+            <div class="col-6">
+              <p>
+                {{
+                  'pw.binToBinTransfer.selectedProductsQuantityLableText'
+                    | translate
+                }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>: {{ selectedQuantity }}</p>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <p>
+                {{
+                  'pw.binToBinTransfer.selectedProductsValueLableText'
+                    | translate
+                }}
+              </p>
+            </div>
+            <div class="col-6">
+              <p>
+                :
+                {{ selectedValue | currencyFormatter: itemGroup?.currencyCode }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-5 ml-auto d-flex">
+          <div class="ml-auto">
+            <p>
+              {{
+                'pw.binToBinTransfer.selectDestinationBinLableText' | translate
+              }}
+            </p>
+            <button
+              mat-flat-button
+              class="pw-btn pw-cta-btn"
+              (click)="openBinSelectionPopup()"
+            >
+              <div class="row">
+                <div class="col-auto">
+                  <p>
+                    <ng-container *ngIf="selectedBin; else showSelectBin">
+                      {{ selectedBin.binCode }} ({{ selectedBin.binGroupCode }})
+                    </ng-container>
+                    <ng-template #showSelectBin>
+                      {{
+                        'pw.binToBinTransfer.selectDestinationBinLableText'
+                          | translate
+                      }}
+                    </ng-template>
+                  </p>
+                </div>
+                <div class="col-auto ml-auto">
+                  <span class="pw-i-16 pw-bin-icon-16"></span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pw-filter-box">
+        <div class="row pw-filter-box__row">
+          <div class="col-lg-7">
+            <div class="row">
+              <mat-radio-group class="col-auto" formControlName="selectItems">
+                <mat-radio-button
+                  class="pw-filter-box__radio-btn"
+                  value="selectAll"
+
+                >
+                  <p>
+                    {{
+                      'pw.binToBinTransfer.selectAllCheckBoxLable' | translate
+                    }}
+                  </p>
+                </mat-radio-button>
+                <mat-radio-button
+                  value="selectCurrentPage"
+                  class="pw-filter-box__radio-btn"
+                >
+                  <p>
+                    {{
+                      'pw.binToBinTransfer.selectCurrentPageProductsCheckBoxLable'
+                        | translate
+                    }}
+                  </p>
+                </mat-radio-button>
+              </mat-radio-group>
+              <div
+                class="col-auto ml-auto ml-lg-0"
+                *ngIf="selectedItems.length > 0"
+              >
+                <a
+                  id="clearAll"
+                  (click)="resetSelection()"
+                  class="pw-clickable"
+                >
+                  <p>
+                    <span class="pw-i-16 pw-clear-icon-16"></span>
+                    {{ 'pw.binToBinTransfer.clearAllLable' | translate }}
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="row pw-filter-box__right-content">
+              <div class="col-auto">
+                <a id="filter" (click)="openFilter()">
+                  <p>
+                    <span
+                      *ngIf="filter.length === 0"
+                      class="pw-i-16 pw-filter-icon-16 pw-filter-box__icon"
+                    ></span>
+                    <span
+                      *ngIf="filter.length !== 0"
+                      class="pw-i-24 pw-filter-icon-color-24 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.binToBinTransfer.filterLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <div class="col-auto">
+                <a id="sort" (click)="openSortDailog()">
+                  <p>
+                    <span
+                      class="pw-i-16 pw-sort-icon-16 pw-filter-box__icon"
+                    ></span>
+                    {{ 'pw.binToBinTransfer.sortLable' | translate }}
+                  </p>
+                </a>
+              </div>
+              <poss-web-item-search
+                class="col-lg-6 col-4 ml-auto ml-lg-0"
+                placeholder="{{
+                  'pw.binToBinTransfer.searchByVariantCodePlaceholderText'
+                    | translate
+                }}"
+                (search)="search($event)"
+                (clear)="onSearchClear()"
+              >
+              </poss-web-item-search>
+            </div>
+          </div>
+        </div>
+      </div>
+      <poss-web-bin-to-bin-transfer-item-list
+        [count]="itemsTotalCount"
+        [itemList]="itemList"
+        [canSelect]="true"
+        [isSelectAll]="isSelectAll"
+        [showSourceBin]="showSourceBin"
+        [selectedBin]="selectedBin?.binGroupCode"
+        [pageEvent]="itemListPageEvent"
+        [pageSizeOptions]="pageSizeOptions"
+        [defectTypeDescriptionList]="defectTypeDescriptionList"
+        [defectCodeDescriptionList]="defectCodeDescriptionList"
+        (updateItem)="onUpdateItem($event)"
+        (paginator)="paginate($event)"
+        (loadImageEvent)="loadImageUrl($event)"
+      ></poss-web-bin-to-bin-transfer-item-list>
+
+      <poss-web-loader
+        *ngIf="
+          (isLoadingBins$ | async) ||
+          (isLoadingItemListGroup$ | async) ||
+          (isLoadingItems$ | async) ||
+          (isLoadingImage$ | async)
+        "
+      >
+      </poss-web-loader>
+
+      <h3
+        class="pw-text-center m-5 pw-success-color"
+        *ngIf="
+          (isLoadingItems$ | async) === false &&
+          (isLoadingItemsSuccess$ | async) &&
+          isItemsLoadedOnce &&
+          itemList.length == 0
+        "
+      >
+        {{ noDataFoundMessageItems }}
+      </h3>
+    </div>
+  </div>
+</div>

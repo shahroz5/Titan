@@ -1,0 +1,437 @@
+<form
+  novalidate
+  (ngSubmit)="validateForm()"
+  [formGroup]="internationalCustomerForm"
+  #internationalFormDirective="ngForm"
+  autocomplete="off"
+>
+  <div class="pw-confirmation-box__body pw-confirmation-box__fixed-body">
+    <div class="row">
+      <div class="col-6">
+        <h4 class="pw-confirmation-box__body-item">
+          {{ 'pw.customerCreation.customerInfoHeading' | translate }}
+        </h4>
+        <div class="row">
+          <poss-web-select-dropdown
+            disableOptionCentering
+            #titleInput
+            class="col-4"
+            [placeholder]="'pw.customerCreation.titleLabel' | translate"
+            [control]="internationalCustomerForm.get('title')"
+            [options]="data.salutations"
+            [required]="true"
+          >
+          </poss-web-select-dropdown>
+
+          <mat-form-field class="col-8">
+            <mat-label>{{
+              'pw.customerCreation.customerNameLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="text"
+              required
+              class="pw-uppercase"
+              autocomplete="off"
+              formControlName="customerName"
+              possWebMaxLengthValidator
+              name="customerNameField"
+            />
+            <mat-error
+              *ngIf="
+                internationalCustomerForm.get('customerName').errors &&
+                internationalCustomerForm.get('customerName').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  internationalCustomerForm.get('customerName').errors
+                    .errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field class="col-12">
+            <mat-label>{{
+              'pw.customerCreation.mobileNoLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="text"
+              [required]="isMobileRequiredForInternational === 'true'"
+              formControlName="mobile"
+              autocomplete="off"
+            />
+            <mat-error
+              *ngIf="
+                internationalCustomerForm.get('mobile').errors &&
+                internationalCustomerForm.get('mobile').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  internationalCustomerForm.get('mobile').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <h4 class="pw-confirmation-box__body-item">
+          {{ 'pw.customerCreation.otherInfoHeading' | translate }}
+        </h4>
+
+        <div class="pw-confirmation-box__item">
+          <mat-checkbox formControlName="isHardCopySubmitted">
+            {{ 'pw.customerCreation.hardcopyLabel' | translate }}</mat-checkbox
+          >
+        </div>
+
+        <div class="pw-confirmation-box__item">
+          <mat-checkbox
+            formControlName="isform60IdProof"
+            (change)="onCheckboxChange($event)"
+          >
+            GST No. Available</mat-checkbox
+          >
+        </div>
+
+        <div
+          class="row"
+          *ngIf="
+            internationalCustomerForm.get('isform60IdProof').value === true
+          "
+        >
+          <mat-form-field class="col-12">
+            <mat-label>GST Number</mat-label>
+            <input
+              matInput
+              type="text"
+              autocomplete="off"
+              possWebMaxLengthValidator
+              formControlName="gstId"
+              (change)="onGstValue($event)"
+              [required]="
+                internationalCustomerForm.get('isform60IdProof').value === true
+              "
+              (blur)="onGstcardValueChange($event)"
+              [readonly]="
+                internationalCustomerForm.get('gstId').valid &&
+                gstVerificationStatus?.status === true
+              "
+            />
+            <mat-icon matSuffix (click)="clearGstNumber()">
+              <a
+                *ngIf="
+                  !data.customer &&
+                  internationalCustomerForm.get('gstId').valid &&
+                  gstVerificationStatus?.status === true
+                "
+                class="pw-i-10 pw-close-icon-16"
+              ></a
+            ></mat-icon>
+            <span
+              *ngIf="
+                (internationalCustomerForm.get('gstId').valid &&
+                  gstVerificationStatus?.status === true) ||
+                (data.customer && data.customer.isInstiTaxNoVerified)
+              "
+              matSuffix
+              class="pw-success-color"
+            >
+              Verified</span
+            >
+            <mat-hint
+              *ngIf="gstVerificationStatus?.status === false"
+              class="pw-error-color pw-font-14"
+            >
+              {{ gstVerificationStatus.errorMessage }}
+            </mat-hint>
+            <mat-error
+              *ngIf="
+                internationalCustomerForm.get('gstId').errors &&
+                internationalCustomerForm.get('gstId').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  internationalCustomerForm.get('gstId').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+            <!-- <mat-error
+              *ngIf="
+                gstVerificationStatus?.status === false &&
+                internationalCustomerForm.get('gstId').errors?.incorrect ===
+                  true
+              "
+            >
+              {{ gstVerificationStatus.errorMessage }}
+            </mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <mat-checkbox
+              (change)="onNRIChangeChange($event)"
+              formControlName="isNRI"
+              >{{ 'pw.customerCreation.nriLabel' | translate }}</mat-checkbox
+            >
+          </div>
+        </div>
+        <div
+          class="row"
+          *ngIf="
+            internationalCustomerForm.get('isNRI').value === true ||
+            internationalCustomerForm.get('gstId').value
+          "
+        >
+          <mat-form-field class="col-12">
+            <mat-label>PAN Card Number</mat-label>
+            <input
+              class="pw-uppercase"
+              matInput
+              type="text"
+              autocomplete="off"
+              [required]="internationalCustomerForm.get('gstId').value"
+              possWebMaxLengthValidator
+              formControlName="panId"
+              (blur)="onPancardValueChange($event)"
+              [readonly]="
+                internationalCustomerForm.get('panId').valid &&
+                panVerificationStatus?.verificationStatus === true
+              "
+            />
+            <mat-icon matSuffix (click)="clearPanNumber()">
+              <a
+                *ngIf="
+                  !data.customer &&
+                  internationalCustomerForm.get('panId').valid &&
+                  panVerificationStatus?.verificationStatus === true
+                "
+                class="pw-i-10 pw-close-icon-16"
+              ></a
+            ></mat-icon>
+            <span
+              *ngIf="
+                (internationalCustomerForm.get('panId').valid &&
+                  panVerificationStatus?.verificationStatus === true) ||
+                (data.customer && data.customer.iscustTaxNoVerified)
+              "
+              matSuffix
+              class="pw-success-color"
+            >
+              Verified</span
+            >
+            <mat-error
+              *ngIf="
+                internationalCustomerForm.get('panId').errors &&
+                internationalCustomerForm.get('panId').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  internationalCustomerForm.get('panId').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+            <mat-hint
+              *ngIf="panVerificationStatus?.verificationStatus === false"
+              class="pw-error-color pw-font-14"
+            >
+              {{ panVerificationStatus.message }}
+            </mat-hint>
+            <mat-hint
+              class="pw-font-14"
+              *ngIf="
+                internationalCustomerForm.get('panId').valid &&
+                panVerificationStatus?.verificationStatus === true &&
+                panVerificationStatus?.ownerName
+              "
+            >
+              <span class="pw-fourth-color"> PAN Holder Name</span> :
+              {{ panVerificationStatus.ownerName }}
+            </mat-hint>
+            <mat-hint
+              class="pw-font-14"
+              *ngIf="
+                data.customer && data.customer.panHolderName
+              "
+            >
+              <span class="pw-fourth-color"> PAN Holder Name</span> :
+              {{data.customer.panHolderName}}
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="pw-confirmation-box__item">
+          <mat-checkbox
+            formControlName="form60AndIdProofSubmitted"
+            (change)="onForm60Change($event)"
+          >
+            Form 60</mat-checkbox
+          >
+        </div>
+
+        <div class="row">
+          <mat-form-field class="col-12">
+            <mat-label>Passport Number</mat-label>
+            <input
+              matInput
+              type="text"
+              autocomplete="off"
+              [required]="
+                internationalCustomerForm.get('form60AndIdProofSubmitted').value
+              "
+              possWebMaxLengthValidator
+              formControlName="passportId"
+              (blur)="
+                internationalCustomerForm.get('passportId').valid ||
+                validPassport === false
+                  ? loadIsUniqueCustomer.emit({
+                      searchType: 'PASSPORT_ID',
+                      value: $event.target.value
+                    })
+                  : ''
+              "
+            />
+            <mat-error
+              *ngIf="
+                internationalCustomerForm.get('passportId').errors &&
+                internationalCustomerForm.get('passportId').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  internationalCustomerForm.get('passportId').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-6">
+        <h4 class="pw-confirmation-box__body-item">Address Info</h4>
+        <poss-web-address-panel
+          [submitted$]="submitted$"
+          [getStateData$]="getStateData$"
+          [resetForm$]="resetForm$"
+          (loadCountryId)="loadCountryId($event)"
+          (loadStateId)="loadStateId($event)"
+          (loadAddressForm)="loadAddressForm($event)"
+          (loadStateData)="loadStateData($event)"
+          (loadPincodes)="loadPincodes($event)"
+          [pincodeSummary]="pincodeSummary"
+          [countryList]="data.countryList"
+          [stateList]="data.states"
+          [townList]="data.towns"
+          [addressDetail]="
+            data.customer ? data.customer.customerDetails.data : ''
+          "
+          [viewMode]="false"
+          [customerType]="
+            data.customer ? data.customer.customerType : data.customerType
+          "
+        ></poss-web-address-panel>
+
+        <div class="row">
+          <mat-form-field class="col-12">
+            <mat-label>{{
+              'pw.customerCreation.emailIdLabel' | translate
+            }}</mat-label>
+            <input
+              matInput
+              type="email"
+              possWebMaxLengthValidator
+              name="emailField"
+              autocomplete="off"
+              formControlName="emailId"
+              [required]="isEmailRequiredForInternational === 'true'"
+              (blur)="onEmailValueChange($event)"
+              [readonly]="
+                internationalCustomerForm.get('emailId').valid &&
+                emailValidationStatus?.validationstatus === true
+              "
+            />
+            <mat-icon matSuffix (click)="clearEmailValue()">
+              <a
+                *ngIf="
+                  !data.customer &&
+                  internationalCustomerForm.get('emailId').valid &&
+                  emailValidationStatus?.validationstatus === true
+                "
+                class="pw-i-10 pw-close-icon-16"
+              ></a
+            ></mat-icon>
+            <span
+              *ngIf="
+                (internationalCustomerForm.get('emailId').valid &&
+                  emailValidationStatus?.validationstatus === true) ||
+                (data.customer && data.customer.isEmailIdValidated)
+              "
+              matSuffix
+              class="pw-success-color"
+            >
+              Validated</span
+            >
+            <mat-error
+              *ngIf="
+                internationalCustomerForm.get('emailId').errors &&
+                internationalCustomerForm.get('emailId').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  internationalCustomerForm.get('emailId').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+            <mat-hint
+              class="pw-font-14"
+              *ngIf="emailValidationStatus?.invalidationreason"
+            >
+              <span class="pw-error-color">
+                {{ emailValidationStatus?.invalidationreason }}
+              </span>
+            </mat-hint>
+            <!-- <mat-error
+              *ngIf="
+                emailValidationStatus?.validationstatus === false &&
+                internationalCustomerForm.get('emailId').errors?.incorrect ===
+                  true
+              "
+            >
+              {{ emailValidationStatus.invalidationreason }}
+            </mat-error> -->
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pw-text-right pw-confirmation-box__footer">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button
+          *ngIf="!data.customer"
+          class="pw-btn pw-primary-btn"
+          type="button"
+          (click)="clearInternationalForm(internationalFormDirective)"
+        >
+          {{ 'pw.customerCreation.clearButton' | translate }}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="pw-btn pw-accent-btn">
+          <span *ngIf="!data.customer">
+            {{ 'pw.customerCreation.createButton' | translate }}</span
+          >
+          <span *ngIf="data.customer">{{
+            'pw.customerCreation.save' | translate
+          }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

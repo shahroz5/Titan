@@ -1,0 +1,27 @@
+<div class="row pw-panel-card">
+  <div class="col-xl-2 col-auto pw-panel-card__box pw-panel-card__padding-5">
+    <div>
+      <span class="pw-i-24 pw-cash-icon-24"></span>
+    </div>
+    {{ 'pw.paymentOthers.header' | translate }}
+  </div>
+
+  <poss-web-select-dropdown
+    class="col-xl-7 col pw-panel-card__item pw-panel-card__padding-5"
+    placeholder="{{ 'pw.paymentOthers.placeholder' | translate }}"
+    [control]="form"
+    [options]="enabledPaymentOptions"
+  >
+  </poss-web-select-dropdown>
+
+  <div class="col-auto ml-auto pw-panel-card__item pw-panel-card__padding-5">
+    <button
+      mat-flat-button
+      class="pw-btn pw-accent-btn"
+      (click)="selectPayment(form.value)"
+      [disabled]="form.disabled"
+    >
+      {{ 'pw.paymentOthers.addButtonLabel' | translate }}
+    </button>
+  </div>
+</div>

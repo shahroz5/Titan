@@ -1,0 +1,207 @@
+<div class="pw-confirmation-box">
+  <div
+    class="row pw-confirmation-box__header pw-cursor-grab"
+    cdkDragBoundary=".cdk-overlay-container"
+    cdkDragRootElement=".cdk-overlay-pane"
+    cdkDrag
+    cdkDragHandle
+  >
+    <div class="col-auto">{{ 'pw.manualFoc.addManualFoc' | translate }}</div>
+    <div class="col pw-text-right">
+      <a class="sub-heading" (click)="closePopup()">
+        <span class="pw-i-24 pw-close-no-border-icon-24"></span>
+      </a>
+    </div>
+  </div>
+  <div class="pw-confirmation-box__body">
+    <div class="pw-manual-foc-height">
+      <form [formGroup]="validateForm" autocomplete="off">
+        <div>
+          <mat-radio-group
+            class="row"
+            formControlName="radioSelection"
+            (change)="radioChange($event)"
+            required
+          >
+            <mat-radio-button value="existingCM" class="col-auto">
+              {{ 'pw.manualFoc.cmDetailsLabel' | translate }}
+            </mat-radio-button>
+            <mat-radio-button
+              value="approvedBy"
+              class="col-auto"
+              [disabled]="data?.manualFocData[0]?.isCMMandatory"
+              >{{ 'pw.manualFoc.approvedByDetailLabel' | translate }}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-error
+            *ngIf="
+              validateForm.get('radioSelection').errors &&
+              validateForm.get('radioSelection').errors.errorArray
+            "
+          >
+            <poss-web-error-info-tooltip
+              [errorMessage]="
+                validateForm.get('radioSelection').errors.errorArray
+              "
+            ></poss-web-error-info-tooltip>
+          </mat-error>
+        </div>
+        <div
+          *ngIf="
+            validateForm.get('radioSelection').value ===
+            manualFocRadioTypeEnumRef.EXISTING_CM
+          "
+        >
+          <div class="row">
+            <mat-form-field class="col-4">
+              <mat-label
+                >{{ 'pw.manualFoc.locationCodeLabel' | translate }}
+              </mat-label>
+              <input
+                matInput
+                [required]="
+                  validateForm.get('radioSelection').value ===
+                  manualFocRadioTypeEnumRef.EXISTING_CM
+                "
+                type="text"
+                formControlName="locationCode"
+                class="pw-single-bordered-input"
+              />
+              <mat-error
+                *ngIf="
+                  validateForm.get('locationCode').errors &&
+                  validateForm.get('locationCode').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="
+                    validateForm.get('locationCode').errors.errorArray
+                  "
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-4">
+              <mat-label
+                >{{ 'pw.manualFoc.cmNumberLabel' | translate }}
+              </mat-label>
+              <input
+                matInput
+                [required]="
+                  validateForm.get('radioSelection').value ===
+                  manualFocRadioTypeEnumRef.EXISTING_CM
+                "
+                type="text"
+                formControlName="cmNumber"
+                class="pw-single-bordered-input"
+              />
+              <mat-error
+                *ngIf="
+                  validateForm.get('cmNumber').errors &&
+                  validateForm.get('cmNumber').errors.errorArray
+                "
+              >
+                <poss-web-error-info-tooltip
+                  [errorMessage]="
+                    validateForm.get('cmNumber').errors.errorArray
+                  "
+                ></poss-web-error-info-tooltip>
+              </mat-error>
+            </mat-form-field>
+            <poss-web-fiscal-year
+              class="col-4"
+              [control]="validateForm.get('fiscalYear')"
+              [required]="
+                validateForm.get('radioSelection').value ===
+                manualFocRadioTypeEnumRef.EXISTING_CM
+              "
+              [currentFiscalYear]="data?.manualFocData[0]?.currentFiscalYear"
+              [placeHolder]="'Fiscal Year'"
+              [disabled]="false"
+            ></poss-web-fiscal-year>
+          </div>
+          <div class="row">
+            <div class="col-auto ml-auto">
+              <button
+                class="pw-btn pw-accent-btn"
+                (click)="validateManualFocItems()"
+              >
+                {{ 'pw.manualFoc.validateBtnLabel' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          *ngIf="
+            validateForm.get('radioSelection').value ===
+            manualFocRadioTypeEnumRef.APPROVED_BY
+          "
+        >
+          <mat-form-field class="col-4">
+            <mat-label
+              >{{ 'pw.manualFoc.approvedByLabel' | translate }}
+            </mat-label>
+            <input
+              matInput
+              [required]="
+                validateForm.get('radioSelection').value ===
+                manualFocRadioTypeEnumRef.APPROVED_BY
+              "
+              type="text"
+              formControlName="approvedBy"
+              class="pw-single-bordered-input"
+            />
+            <mat-error
+              *ngIf="
+                validateForm.get('approvedBy').errors &&
+                validateForm.get('approvedBy').errors.errorArray
+              "
+            >
+              <poss-web-error-info-tooltip
+                [errorMessage]="
+                  validateForm.get('approvedBy').errors.errorArray
+                "
+              ></poss-web-error-info-tooltip>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div
+      *ngFor="let manualFocScheme of data.manualFocData; let rowIndex = index"
+    >
+      <poss-web-add-manual-foc-popup-item
+        [manualFocScheme]="manualFocScheme"
+        [parentForm]="mainForm.controls.parentForm"
+        [resetEvent]="resetForm$.asObservable()"
+        [unitWeight]="data.unitWeight"
+      >
+      </poss-web-add-manual-foc-popup-item>
+    </div>
+  </div>
+
+  <div class="">
+    <div
+      class="row pw-confirmation-box__footer-border no-gutters align-items-center"
+    >
+      <div class="col-4 mr-auto pw-confirmation-box__footer-item">
+        <poss-web-select-dropdown
+          [control]="mainForm.get('rsoName')"
+          [placeholder]="'pw.conversion.selectRsoText' | translate"
+          [options]="rsoNamesArray"
+          [required]="true"
+        >
+        </poss-web-select-dropdown>
+      </div>
+      <div class="col-auto pw-confirmation-box__footer-item">
+        <button
+          class="pw-btn pw-accent-btn"
+          (click)="addManualFoc()"
+          [disabled]="addButtonDisable()"
+        >
+          {{ 'pw.manualFoc.addBtnLabel' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

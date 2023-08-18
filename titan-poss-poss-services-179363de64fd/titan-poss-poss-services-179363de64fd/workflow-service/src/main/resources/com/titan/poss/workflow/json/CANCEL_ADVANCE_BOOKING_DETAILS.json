@@ -1,0 +1,165 @@
+{
+	"type": "CANCEL_ADVANCE_BOOKING_DETAILS",
+	"data": {
+		"itemList": [{
+			"itemCode": "511107CTFMAA00",
+			"lotNumber": "2JA005660",
+			"inventoryWeight": 22.855,
+			"totalWeight": 22.855,
+			"totalQuantity": 1,
+			"inventoryId": "0F1D5C5A-EA89-4BC5-BCFD-D58AA98AE7F8",
+			"unitValue": 55085.12,
+			"totalValue": 55085.12,
+			"totalDiscount": 0.0,
+			"finalValue": 61419.909,
+			"totalTax": 6334.789,
+			"employeeCode": "rso.urb.2",
+			"remarks": "Update item",
+			"itemId": "F4C77E98-9B3E-480E-9B61-7C21A519ECF6",
+			"binCode": "CHAIN",
+			"rowId": 1,
+			"inventoryWeightDetails": {
+				"goldWeight": 5.0,
+				"platinumWeight": null,
+				"silverWeight": null,
+				"stoneWeight": null,
+				"otherMaterialWeight": null,
+				"diamondWeight": null
+			},
+			"measuredWeightDetails": null,
+			"priceDetails": {
+				"metalPriceDetails": {
+					"preDiscountValue": 48964.552,
+					"metalPrices": [{
+						"weightUnit": "gms",
+						"netWeight": 22.855,
+						"metalValue": 48964.552,
+						"type": "Gold",
+						"ratePerUnit": 2142.4,
+						"karat": 22.0,
+						"purity": 92.0,
+						"metalTypeCode": "J"
+					}]
+				},
+				"stonePriceDetails": {
+					"preDiscountValue": 0,
+					"weightUnit": null,
+					"stoneWeight": null,
+					"numberOfStones": null
+				},
+				"makingChargeDetails": {
+					"preDiscountValue": 6120.569,
+					"makingChargePercentage": 12.5
+				}
+			},
+			"taxDetails": {
+				"taxType": "ITEMCHARGES",
+				"taxClass": "TC71",
+				"data": [{
+					"taxCode": "SGST",
+					"taxPercentage": 1.5,
+					"taxValue": 826.277
+				}, {
+					"taxCode": "CGST",
+					"taxPercentage": 10,
+					"taxValue": 5508.512
+				}],
+				"cess": []
+			},
+			"productGroupCode": "71",
+			"productCategoryCode": "C",
+			"discountDetails": null
+		}, {
+			"itemCode": "511107CTFMAA00",
+			"lotNumber": "2JA005660",
+			"unitWeight": 22.855,
+			"totalWeight": 22.855,
+			"totalQuantity": 1,
+			"inventoryId": "0F1D5C5A-EA89-4BC5-BCFD-D58AA98AE7F8",
+			"unitValue": 55085.12,
+			"totalValue": 55085.12,
+			"totalDiscount": 0.0,
+			"finalValue": 61419.909,
+			"totalTax": 6334.789,
+			"employeeCode": "rso.urb.2",
+			"remarks": "Add item",
+			"itemId": "D166D7F4-3D97-4669-A87E-AD86D0F9ED67",
+			"binCode": "CHAIN",
+			"rowId": 2,
+			"inventoryWeightDetails": {
+				"goldWeight": 5.0,
+				"platinumWeight": null,
+				"silverWeight": null,
+				"stoneWeight": null,
+				"otherMaterialWeight": null,
+				"diamondWeight": null
+			},
+			"measuredWeightDetails": null,
+			"priceDetails": {
+				"metalPriceDetails": {
+					"preDiscountValue": 48964.552,
+					"metalPrices": [{
+						"weightUnit": "gms",
+						"netWeight": 22.855,
+						"metalValue": 48964.552,
+						"type": "Gold",
+						"ratePerUnit": 2142.4,
+						"karat": 22.0,
+						"purity": 92.0,
+						"metalTypeCode": "J"
+					}]
+				},
+				"stonePriceDetails": {
+					"preDiscountValue": 0,
+					"weightUnit": null,
+					"stoneWeight": null,
+					"numberOfStones": null
+				},
+				"makingChargeDetails": {
+					"preDiscountValue": 6120.569,
+					"makingChargePercentage": 12.5
+				}
+			},
+			"taxDetails": {
+				"taxType": "ITEMCHARGES",
+				"taxClass": "TC71",
+				"data": [{
+					"taxCode": "SGST",
+					"taxPercentage": 1.5,
+					"taxValue": 826.277
+				}, {
+					"taxCode": "CGST",
+					"taxPercentage": 10,
+					"taxValue": 5508.512
+				}],
+				"cess": []
+			},
+			"productGroupCode": "71",
+			"productCategoryCode": "C",
+			"discountDetails": null
+		}],
+		"paymentList": [{
+			"amount": 122840.0,
+			"payerBankName": "AXIS",
+			"instrumentNo": "123456",
+			"instrumentType": "DD",
+			"instrumentDate": 1602153828377,
+			"reference1": "string",
+			"reference2": "string",
+			"reference3": "string",
+			"remarks": "Paid",
+			"otherDetails": {
+				"type": "string",
+				"data": {}
+			},
+			"payerBankBranch": "CPT",
+			"payeeBankName": "HDFC",
+			"id": "0D617F9E-2223-42B9-B187-4E8578DEA287",
+			"paymentCode": "DD",
+			"paymentGroup": "REGULAR",
+			"rowId": 1,
+			"status": "COMPLETED"
+		}],
+		"discountList": []
+	}
+}

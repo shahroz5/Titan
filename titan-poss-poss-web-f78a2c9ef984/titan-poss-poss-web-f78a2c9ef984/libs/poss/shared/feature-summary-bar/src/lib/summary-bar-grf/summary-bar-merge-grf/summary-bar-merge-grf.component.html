@@ -1,0 +1,92 @@
+<div class="pw-overlay-notification-band">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 m-auto">
+        <div class="row">
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.grf.avgGoldRateLabel' | translate }}
+            </p>
+            {{ avgGoldRate | currencyFormatter }}
+          </div>
+          <div
+            class="col-auto pw-overlay-notification-band__item pw-overlay-notification-band__desktop-view"
+          >
+            <p class="pw-tooltip-container">
+              {{ 'pw.grf.totalGoldWtLabel' | translate }}
+            </p>
+            {{ totalGoldWt | weightFormatter }}
+            {{ 'pw.grf.weightUnitLabel' | translate }}
+          </div>
+          <div class="col-auto pw-overlay-notification-band__tablet-border">
+            <p class="pw-tooltip-container">
+              {{ 'pw.grf.totalAmtLabel' | translate }}
+            </p>
+            {{ totalAmt | currencyFormatter }}
+          </div>
+          <div
+            class="col-auto ml-auto pw-overlay-notification-band__input-container"
+          >
+            <mat-form-field
+              class="pw-form-field-padding-bottom-0 pw-white-form-field"
+            >
+              <mat-label>
+                {{ 'pw.grf.remarksLabel' | translate }}
+              </mat-label>
+              <input
+                matInput
+                type="text"
+                [formControl]="remarksFormControl"
+                (focusout)="trimRemarks()"
+              />
+            </mat-form-field>
+            <ng-container
+              *ngIf="
+                remarksFormControl?.errors?.errorArray &&
+                remarksFormControl.touched
+              "
+            >
+              <poss-web-error-info-tooltip
+                [isOnlyTooltip]="true"
+                [errorMessage]="remarksFormControl?.errors?.errorArray"
+                (click)="$event.stopPropagation()"
+              ></poss-web-error-info-tooltip>
+            </ng-container>
+          </div>
+
+          <div class="col-auto pw-overlay-notification-band__padding-5">
+            <button
+              class="pw-overlay-notification-band__btn"
+              (click)="clearData()"
+            >
+              {{ 'pw.grf.clearLabel' | translate }}
+            </button>
+          </div>
+          <div class="col-auto pw-overlay-notification-band__padding-5">
+            <button
+              class="pw-overlay-notification-band__btn"
+              [disabled]="grfCNs.length === 0"
+              (click)="createMergeGRF()"
+            >
+              {{ 'pw.grf.mergeGRFLabel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-menu #printMenu="matMenu" xPosition="before">
+  <button mat-menu-item>
+    {{ 'pw.giftCards.printLastTransaction' | translate }}
+  </button>
+  <button mat-menu-item>
+    {{ 'pw.giftCards.convertToAdvance' | translate }}
+  </button>
+  <button mat-menu-item>
+    {{ 'pw.giftCards.delete' | translate }}
+  </button>
+</mat-menu>
