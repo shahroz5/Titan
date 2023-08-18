@@ -1,1 +1,0 @@
-export * from './lib/poss-find-price-feature-find-price.module';

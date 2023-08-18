@@ -1,15 +1,0 @@
-spring:
-  application:
-    name: workflow-service
-  profiles:    active: dev
-  cloud:
-    config:
-      #uri: http://ec2-13-232-112-11.ap-south-1.compute.amazonaws.com/config-dev
-      #uri: http://ec2-13-232-112-11.ap-south-1.compute.amazonaws.com/config-qa
-      #uri: http://ec2-13-232-112-11.ap-south-1.compute.amazonaws.com/config-uat
-      uri: http://config-server/config
-      name: workflow-service
-      label: v2
-      username: configadmin
-      password: SrrL28WdGwaXtSRM
-      fallbackLocation: fallback/workflow

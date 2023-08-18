@@ -1,7 +1,0 @@
-{
-	"type": "CLUB_DISCOUNT_TYPE",
-	"data": {
-		"isClubbedOtherDiscounts": true,
-		"isClubbedOtherBillLevelDiscounts": true
-	}
-}

@@ -1,8 +1,0 @@
-{
-	"type": "TSSS_DISCOUNT",
-	"data": {
-		"noOfCoupons": 3,
-		"noOfDigits": 5,
-		"startingDigits": true
-	}
-}

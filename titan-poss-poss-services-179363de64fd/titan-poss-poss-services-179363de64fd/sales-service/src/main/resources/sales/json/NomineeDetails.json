@@ -1,9 +1,0 @@
-{
-	"type": "NOMINEE_DETAILS",
-	"data": {
-		"nomineeName": "nomineeTest",
-		"address": "hyderabad",
-		"mobileNumber": "9849874325",
-		"relationship": "Parent"
-	}
-}

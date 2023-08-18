@@ -1,7 +1,0 @@
-<poss-web-coupon-configuration
-  *ngIf="couponDetails$ | async"
-  [couponConfig]="couponDetails$ | async"
-  (saveCoupon)="saveCouponConfiguration($event)"
->
-</poss-web-coupon-configuration>
-<poss-web-loader *ngIf="isLoading$ | async"></poss-web-loader>

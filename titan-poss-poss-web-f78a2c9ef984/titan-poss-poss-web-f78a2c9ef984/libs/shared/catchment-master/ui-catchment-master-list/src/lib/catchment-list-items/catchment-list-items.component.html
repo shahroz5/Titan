@@ -1,7 +1,0 @@
-<poss-web-catchment-listing-item *ngFor="let catchmentListItem of catchmentList" [catchmentListItem]="catchmentListItem"
-    (taxClassCode)="emitCatchmentCode($event)" (emitToggle)="emitToggle($event)">
-</poss-web-catchment-listing-item>
-<mat-paginator class="pw-paginator" *ngIf="count > minPageSize" [length]="count" [pageSize]="pageEvent.pageSize"
-    [pageIndex]="pageEvent.pageIndex" showFirstLastButtons [pageSizeOptions]="pageSizeOptions"
-    (page)="paginator.emit($event)">
-</mat-paginator>

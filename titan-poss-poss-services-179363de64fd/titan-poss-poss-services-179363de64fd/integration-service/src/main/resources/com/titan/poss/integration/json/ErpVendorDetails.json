@@ -1,9 +1,0 @@
-{
-	"type": "ORACLE",
-	"data": {
-		"Username": "tjdeposs",
-		"Password": "Gzy4W$VKr8",
-		"stn": "EPOSSFetchSTMDetails/stm_v1/{stn}",
-		"inv": "EPOSSFetchL3Invoice/inv/{inv}"
-	}
-}

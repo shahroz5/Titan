@@ -1,8 +1,0 @@
-{
-	"type": "FOC_STORE_DETAILS",
-	"data": {
-		"approvedBy": "admin",
-		"isCMNumber": true,
-		"remarks": "Remarks"
-	}
-}

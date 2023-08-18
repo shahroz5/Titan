@@ -1,6 +1,0 @@
-{
-	"type": "WORKFLOW_REQEXPIRE_GLOBAL_CONFIG",
-	"data": {
-		"timeToExpirePendingRequests": "24"
-	}
-}

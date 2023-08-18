@@ -1,9 +1,0 @@
-{
-	"type": "EMPOWERMENT_DISCOUNT",
-	"data": {
-		"isMakingCharge": true,
-		"isMetalCharge": true,
-		"isStoneCharge": true,
-		"isUCP": true
-	}
-}

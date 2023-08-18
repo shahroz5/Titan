@@ -1,9 +1,0 @@
-{
-	"type": "TEP_DETAILS",
-	"data": {
-		
-		"tepHoldTime": "String",
-		"tepPartialCNCancellation": "true"
-		
-	}
-}

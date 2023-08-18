@@ -1,6 +1,0 @@
-{
-  "workbench.settings.enableNaturalLanguageSearch": false,
-  "prettier.arrowParens": "always",
-  "typescript.tsdk": "node_modules\\typescript\\lib",
-  "angular.enable-strict-mode-prompt": false
-}

@@ -1,2 +1,0 @@
-export * from './lib/poss-gift-cards-ui-gift-cards-cm-payment-details.module';
-export { GiftCardsCmPaymentDetailsComponent } from './lib/gift-cards-cm-payment-details/gift-cards-cm-payment-details.component';

@@ -1,8 +1,0 @@
-{
-	"type": "CM_DETAILS",
-	"data": {
-		"smsUserName": "test1",
-		"smsPassword": "test2",
-		"residualAmountForeGHSTransfer": 23
-	}
-}

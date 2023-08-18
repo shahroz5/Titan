@@ -1,8 +1,0 @@
-{
-	"type": "DIAL_TRIDENT",
-	"data": {
-		"soapAction": "http://dynamicverticals.com",
-		"servicePartnerNo": "1000001391",
-		"password": "st"
-	}
-}

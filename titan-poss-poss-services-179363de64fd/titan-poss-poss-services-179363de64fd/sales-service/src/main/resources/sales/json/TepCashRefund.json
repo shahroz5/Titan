@@ -1,6 +1,0 @@
-{
-	"type": "TEP_CASH_REFUND",
-	"data": {
-		"refundMode": "CASH"
-	}
-}

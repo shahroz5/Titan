@@ -1,17 +1,0 @@
-spring:
-  application:
-    name: engine-service
-  profiles:    active: dev
-  cloud:
-    config:
-      uri: http://config-server/config
-      username: configadmin
-      password: SrrL28WdGwaXtSRM
-      name: engine-service
-      label: v2
-      fallbackLocation: fallback/engine
-      retry:
-        initial-interval: 1000
-        max-attempts: 2
-        max-interval: 2000
-        multiplier: 1
